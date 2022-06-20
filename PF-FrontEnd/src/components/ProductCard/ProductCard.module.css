@@ -112,14 +112,14 @@
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 2fr;
 
-  align-items: flex-end;
+  align-items: center;
   justify-items: center;
 
   box-sizing: border-box;
 }
 
 .containerStar {
-  padding: 0.5rem 0.5rem 0 0.5rem;
+  padding: 0.8rem;
 }
 
 .containerOptions {
