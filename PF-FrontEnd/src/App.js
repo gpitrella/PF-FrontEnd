@@ -10,7 +10,15 @@ function App() {
       <Router>
         <div className="App"></div>
         <Route path="/" component={NavBar} />
-        <ProductCard />
+        <ProductCard 
+          id = {1}
+          name = {'example'}
+          category = {'Prebuild Computer'}
+          price = {50000}
+          discount = {50}
+          description = {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis.'}
+          rating = {9.5}
+       />
       </Router>
     </React.Fragment>
   );
