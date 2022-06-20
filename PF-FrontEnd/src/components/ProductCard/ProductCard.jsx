@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Heart from '../SVG/Heart';
+import Cart from '../SVG/Cart';
+
 import s from './ProductCard.module.css';
 import exampleImage from './example.jpg';
 import exampleBrand from './exampleBrand.png';
@@ -57,11 +60,18 @@ export default function ProductCard({ id, name, category, price, discount, descr
         <div className = {s.containerOptions}>
 
           <div className = {s.containerButtons}>
-            <button className = {s.btn}>Buy</button>
-            <button className = {s.btn}>View More</button>
+            <button className = {s.btn}>BUY</button>
+            <button className = {s.btn}>VIEW MORE</button>
           </div>
 
-          <div className = {s.containerSVG}>
+          <div className = {s.containerButtonsSVG}>
+            <div className = {s.containerSVG}>
+              <Heart />
+            </div>
+
+            <div className = {s.containerSVG}>
+              <Cart />
+            </div>
           </div>
 
         </div>
