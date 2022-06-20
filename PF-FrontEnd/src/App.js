@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
+import ProductCard from './components/ProductCard/ProductCard';
 import './App.css';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
       <Router>
         <div className="App"></div>
         <Route path="/" component={NavBar} />
+        <ProductCard />
       </Router>
     </React.Fragment>
   );

@@ -1,0 +1,54 @@
+.container {
+  height: 20rem;
+  width: 20rem;
+
+  background-color: var(--primaryColor);
+
+  display: grid;
+  grid-template-rows: 60% 40%;
+  grid-auto-columns: 1fr;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: top;
+}
+
+.containerDetails {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-rows: 40% 40% 20%;
+  grid-template-columns: 1fr;
+}
+
+.containerTitle {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 20% 50% 30%;
+}
+
+.containerDescription {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 70% 30%;
+}
+
+.containerOptions {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 70% 30%;
+}
