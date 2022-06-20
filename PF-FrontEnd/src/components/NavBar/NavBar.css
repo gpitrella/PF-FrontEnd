@@ -1,0 +1,40 @@
+.navbar {
+    display: flex;
+    align-items: center;    
+    justify-content: space-between;
+    padding-left: 10em;
+    padding-right: 10em;
+}
+.imageLogo {
+    width: 5.2rem;
+    height: 5.2rem;
+	padding: 0px;
+    top: 2em;
+    left: 20vw;
+}
+
+.search-icon {
+    width: 2rem;
+    height: 2rem;
+	padding: 0px;
+    top: 2em;
+    left: 20vw;
+}
+
+.imgCarrito {
+    width: 5.2rem;
+    height: 5.2rem;
+	padding: 0px;
+    top: 2em;
+    left: 20vw;
+}
+
+.imgMensaje {
+    width: 5.2rem;
+    height: 5.2rem;
+	padding: 0px;
+    top: 2em;
+    left: 20vw;
+}
+
+

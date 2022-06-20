@@ -1,13 +1,16 @@
+import React from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import NavBar from './components/NavBar/NavBar';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry PF</h1>
-      <p>modificación</p>
-      <h3>Subtitulo importante!!</h3>
-      <p>modificación 2</p>
-    </div>
+    <React.Fragment>
+      <Router>
+        <div className="App"></div>
+        <Route path="/" component={NavBar} />
+      </Router>
+    </React.Fragment>
   );
 }
 
