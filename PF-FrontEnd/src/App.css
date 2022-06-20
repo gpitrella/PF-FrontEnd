@@ -45,12 +45,14 @@
   --fontMedium: 1rem;
   --fontSmall: 0.8rem;
   --fontSmallest: 0.7rem;
+
+  --dangerColor: crimson;
 }
 
 .lightTheme {
   --primaryColor: #424242;
   --primaryColorSub: #242424;
-  --secondaryColor: orange;
+  --secondaryColor: rgb(180, 150, 240);
 
   --fontColor: white;
 }

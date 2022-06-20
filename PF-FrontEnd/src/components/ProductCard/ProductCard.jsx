@@ -78,6 +78,13 @@ export default function ProductCard({ id, name, category, price, discount, descr
 
       </div>
 
+      {
+        discount !== 0 &&
+        <div className = {s.containerDiscount}>
+          {discount}% OFF
+        </div>
+      }
+
     </div>
   );
 }
