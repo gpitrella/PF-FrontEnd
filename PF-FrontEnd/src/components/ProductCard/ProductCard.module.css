@@ -1,0 +1,184 @@
+.container {
+  height: 22rem;
+  width: 26rem;
+
+  display: grid;
+  grid-template-rows: 60% 40%;
+  grid-auto-columns: 1fr;
+
+  background-color: white;
+
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.5);
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: top;
+}
+
+.containerDetails {
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-rows: 40% 40% 20%;
+  grid-template-columns: 1fr;
+
+  background-color: var(--primaryColor);
+
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.containerTitle {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 20% 40% 40%;
+}
+
+.containerBrand {
+  padding: 0.5rem;
+}
+
+.containerTitleAndCategory {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.name {
+  font-size: var(--fontMedium);
+  font-weight: 700;
+  color: var(--fontColor);
+}
+
+.discountPrice {
+  text-decoration: line-through;
+}
+
+.price,
+.discountPrice {
+  font-size: var(--fontSmall);
+  color: var(--fontColor);
+}
+
+.price,
+.spanRating {
+  font-weight: 700;
+  font-size: var(--fontMedium);
+  color: var(--fontColor);
+}
+
+.category {
+  font-size: var(--fontSmallest);
+  color: var(--fontColor);
+}
+
+.containerPrice {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px;
+
+  align-items: center;
+  justify-items: center;
+
+  direction: rtl;
+
+  box-sizing: content-box;
+}
+
+.containerDescription {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 8fr 2fr;
+  padding: 0 0.5rem 0 0.5rem;
+
+  align-items: center;
+  justify-items: center;
+
+  box-sizing: border-box;
+}
+
+.description {
+  font-size: var(--fontSmall);
+  font-style: italic;
+  color: var(--fontColor);
+
+  padding-right: 0.5rem;
+}
+
+.rating {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 2fr;
+
+  align-items: center;
+  justify-items: center;
+
+  box-sizing: border-box;
+}
+
+.containerStar {
+  padding: 0.8rem;
+}
+
+.containerOptions {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 8fr 2fr;
+  padding: 0 0.5rem 0 0.5rem;
+
+  box-sizing: border-box;
+}
+
+.btn {
+  padding: 0;
+  margin: 0 1.5rem 0 0;
+  background-color: transparent;
+  color: var(--secondaryColor);
+  font-weight: 700;
+  font-size: var(--fontSmall);
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  color: var(--fontColor);
+}
+
+.containerButtonsSVG {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.containerSVG {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.containerSVG > svg {
+  fill: var(--fontColor);
+}
+
+.containerSVG:hover > svg{
+  fill: var(--secondaryColor);
+  cursor: pointer;
+}
