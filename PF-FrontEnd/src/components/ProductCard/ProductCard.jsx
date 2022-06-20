@@ -1,4 +1,5 @@
 import React from 'react';
+import ImageLoader from '../ImageLoader/ImageLoader';
 
 import Heart from '../SVG/Heart';
 import Cart from '../SVG/Cart';
@@ -8,7 +9,7 @@ import exampleImage from './example.jpg';
 import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
 
-export default function ProductCard({ id, name, category, price, discount, description, rating }) {
+export default function ProductCard({ id, name, image, category, price, discount, description, rating }) {
 
   let discountPrice = Math.round(price - price * (discount / 100));
 
@@ -16,7 +17,7 @@ export default function ProductCard({ id, name, category, price, discount, descr
     <div className = {`globalVariables lightTheme ${s.container}`}>
 
       <div className = {s.containerImage}>
-        <img src = {exampleImage} alt = 'example' className = {s.img}/>
+        <ImageLoader image = {exampleImage} alt = {name} />
       </div>
 
       <div className = {s.containerDetails}>
