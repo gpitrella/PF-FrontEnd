@@ -8,6 +8,10 @@ export default function FilterPanel() {
 
   const dispatch = useDispatch();
   const { filter, categories, brands } = useSelector(state => state.storepage);
+  const [ priceRange, setPriceRange ] = React.useState({
+    min: '',
+    max: ''
+  })
 
   let handleCheck = function(property) {
     handleUpdateFilter(property, !filter[property]);
@@ -42,6 +46,26 @@ export default function FilterPanel() {
     handleUpdateFilter('brand', newBrands);
   }
 
+  let handleInput = function(e) {
+    let { value, name } = e.target;
+
+    if (value === '' || /^[0-9]+$/.test(value)) setPriceRange({
+      ...priceRange,
+      [name]: value !== ''? Number(value) : ''
+    });
+
+    e.preventDefault();
+  }
+
+  let handleResetPriceRange = function(e) {
+    let { name } = e.target;
+
+    setPriceRange({
+      ...priceRange,
+      [name]: ''
+    });
+  }
+
   let handleUpdateFilter = function(property, value) {
     let newFilter = { 
       ...filter,
@@ -68,7 +92,7 @@ export default function FilterPanel() {
       </div>
 
       <div className = {s.select}>
-        <label className = {s.lbl} value>Filter by Category</label>
+        <label className = {s.lbl}>Filter by Category</label>
         <select className = {s.select} value = {filter.category} onChange = {handleChange} name = {'category'}>
           {
             categories && categories.map((category, index) => 
@@ -84,9 +108,9 @@ export default function FilterPanel() {
       </div>
 
       <div className = {s.select}>
-        <label className = {s.lbl} value>Filter by Brand</label>
+        <label className = {s.lbl}>Filter by Brand</label>
         <select className = {s.select} value = {'Pick a Brand'} onChange = {handleChangeBrand} name = {'brand'}>
-          <option hidden selected>Pick a Brand</option>
+          <option hidden defaultValue>Pick a Brand</option>
           {
             brands && brands.map((brand, index) => 
               <option 
@@ -113,6 +137,28 @@ export default function FilterPanel() {
           </button>
         )
       }
+      </div>
+
+      <div className = {s.containerFilterByPrice}>
+        <label className = {s.lbl}>Filter by Price Range:</label>
+        <div className = {s.containerInput}>
+          <label className = {s.lblSub}>Min:</label>
+          <input type = 'text' className = {s.input} value = {priceRange.min} name = 'min' onInput = {handleInput}></input>
+          <button className = {s.btnRemove} name = 'min' onClick = {handleResetPriceRange} disabled = {priceRange.min === ''}>X</button>
+        </div>
+        <div className = {s.containerInput}>
+          <label className = {s.lblSub}>Max:</label>
+          <input type = 'text' className = {s.input} value = {priceRange.max} name = 'max' onInput = {handleInput}></input>
+          <button className = {s.btnRemove} name = 'max' onClick = {handleResetPriceRange} disabled = {priceRange.max === ''}>X</button>
+        </div>
+        <button 
+          className = {s.btnPrice} 
+          disabled = {(priceRange.min === '' && priceRange.max === '' ) || 
+                       (priceRange.min !== '' && priceRange.max !== '' && priceRange.min >= priceRange.max)
+                     }
+        >
+          Search     
+        </button>
       </div>
 
       <button className = {s.btn} onClick = {handleResetFilters}>Reset Filters</button>

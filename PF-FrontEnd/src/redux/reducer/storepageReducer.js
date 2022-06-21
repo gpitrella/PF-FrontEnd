@@ -12,6 +12,8 @@ const initialState = {
     discount: false,
     category: 'None',
     brand: [],
+    minPrice: '',
+    maxPrice: '',
     order: 'asc',
     orderBy: ORDER_BY_NAME
   },
