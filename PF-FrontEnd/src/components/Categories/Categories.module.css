@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -7,90 +7,98 @@ body {
 
 .categoriesContainer {
     width: 100%;
-    height: 50px;
     display: flex;
     flex-direction: row;
-    gap: 20px;
-    margin-top: 9vh;
-    margin-left: 6vw;
-    width: 33vw;
-    height: 30hvpx;
+    justify-content: center;
+    gap: 1vw;
+    margin-bottom: 14vh;
     text-align: center;
     text-decoration: none;
 }
 
-.categoriesContainer h3 {
-    color: whitesmoke;
-    font-size: 16px;
-    font-weight: 600;
-    align-self: center;
+.catTitle {
+    color: rgb(65, 65, 65);
+    font-size: 4.5vh;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    margin-top: 9vh;
 }
 
 .categories {
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-wrap: wrap;
-	    flex-wrap: wrap;
-	-webkit-box-pack: center;
-	    -ms-flex-pack: center;
-	        justify-content: center;
-	-webkit-box-align: center;
-	    -ms-flex-align: center;
-	        align-items: center;
-	-webkit-box-orient: horizontal;
-	-webkit-box-direction: normal;
-	    -ms-flex-direction: row;
-	        flex-direction: row;
-	text-align: center;
-	border-radius: 3px;
-	-webkit-transition: 200ms ease-in-out;
-	-o-transition: 200ms ease-in-out;
-	transition: 200ms ease-in-out;
-	-webkit-box-shadow: 0 0 15px rgba(0,0,0,0.3);
-	        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
 }
-.categories:hover {
-	margin-bottom: -10px;
-	-webkit-box-shadow: 0 0 5px rgba(0,0,0,0.7);
-	        box-shadow: 0 0 5px rgba(0,0,0,0.7);
-}
-
-.catCard{
-  max-width: 45px;
-  max-height: 120px;
-  cursor: pointer;
-  margin: 0;
-  margin-top: 5vh;
-  background-color: rgb(64, 64, 64);
-  border: 2px solid whitesmoke;
-  border-radius: 2px;
-  padding: 8px;
-  box-shadow: 0px 0px 15px 1px rgb(155, 155, 155);
-  position: relative;
-  transition: all 0.5s;
-  }
-  .catCard:hover{
-    background-color: rgba(120, 120, 120);
-  }
-
-  .catName{
-      font-family: 'Monserrat', sans-serif;
-      font: bold 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color:rgb(255, 255, 255);
-      padding: 1px 1px;
-      margin-top: 0px;
-      margin-bottom: 0px;
-      transform-origin: 0 0;
-      transform: rotate(90deg);
+ 
+.catName{
+    max-height: fit-content;
+    align-content: center;
+    font-family: 'Monserrat', sans-serif;
+    font-size: 2vh;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+    margin-bottom: 0vh;
+    margin-left: 3.5vw;
+    transform-origin: 0 0;
+    transform: rotate(90deg);
+    text-overflow: ellipsis;
+    overflow:visible;
+    white-space: pre;
   }
   
-  .catImage{
-      max-width: 100%;
-      height: 100%;
-      object-fit: cover;
+.catImage{
+      max-width: 3.5vw;
+      height: 7vh;
+      display: flex;
+      justify-content: space-between;
+      margin-right: 1px;
       border: 2px solid whitesmoke;
       border-radius: 1px;
   }
+
+  .catButton {
+    width: 4vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color:rgb(255, 255, 255);
+    background: rgb(65, 65, 65);
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+    position: relative;
+    transition: all 0.5s;
+    z-index: 1;
+   }
+   
+   .catButton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    border: 2px solid whitesmoke;
+    background-color: white;
+    z-index: -1;
+    transition: all 0.5s;
+    margin-bottom: 40vh;
+   }
+   
+   .catButton:hover::before {
+    width: 100%;
+   }
+   
+   .catButton:hover {
+    color: rgb(65, 65, 65);
+   }
+   
+   .catButton:active:before {
+    background: #b9b9b9;
+   }

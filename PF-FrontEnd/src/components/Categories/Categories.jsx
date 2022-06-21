@@ -1,7 +1,6 @@
 import React, { useEffect, useState} from 'react';
 //import { useSelector, useDispatch } from 'react-redux';
-import Category from './Category';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import style from"./Categories.module.css";
 
 export const categories = [
@@ -65,23 +64,21 @@ export default function Categories () {
     };
 
     return (
+        <>
+        <div className={style.catTitle}>            
+            <h3>CATEGORIES</h3>
+        </div>
         <div className={style.categoriesContainer}>
-            <h3>Categories</h3>
             {categories.length > 0 ? (
                 categories.map((cat) => {
                     return (
                         <li className={style.categories} key={cat.id}>
-                            {/* <Link to={`/products?filter=${cat.id}`}> */}
-                            <button onClick={(e) => sendMessage(e)} >
-                                <div className = {style.catCard}>
+                            <button className={style.catButton} onClick={(e) => sendMessage(e)} >
                                     <div className={style.catName}>
                                         <h4>{cat.name}</h4>
                                     </div>
                                     <img className={style.catImage} src={cat.image} alt={cat.name} />
-                                </div>
-                                {/* <Category key={cat.id} name={cat.name} image={cat.image} /> */}
                             </button>
-                            {/* </Link> */}
                         </li>
                     )})
             ) : (
@@ -90,5 +87,6 @@ export default function Categories () {
                 </div>
             )}
         </div>
+        </>
     )
 };

@@ -2,11 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
 import ProductCard from './components/ProductCard/ProductCard';
-<<<<<<< HEAD
-import Home from './components/Home/Home';
-=======
+import Categories from './components/Categories/Categories';
 import Footer from './components/Footer/Footer';
->>>>>>> a56af53a983ce3bf304ee15d5ecc59a80b90d164
 import './App.css';
 import Brands from './components/Brands/Brands';
 
@@ -25,12 +22,9 @@ function App() {
           description = {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis.'}
           rating = {9.5}
        />
-<<<<<<< HEAD
-        <Route path="/home" component={Home} />
-=======
+        <Route path="/" component={Categories} />
        <Route path="/" component={Brands} />
         <Route path="/" component={Footer} />
->>>>>>> a56af53a983ce3bf304ee15d5ecc59a80b90d164
       </Router>
     </React.Fragment>
   );
