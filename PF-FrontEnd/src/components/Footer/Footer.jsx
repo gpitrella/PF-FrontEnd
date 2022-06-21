@@ -13,22 +13,22 @@ export default function Footer() {
         <div className='cntfooter'>
             <div className='cnttext'>
                 <h3>Information</h3>
-                <Link className='footerlink'>Contact us</Link>
-                <Link className='footerlink'>Adresses</Link>
-                <Link className='footerlink'>Payment info.</Link>
+                <Link to='' className='footerlink'>Contact us</Link>
+                <Link to='' className='footerlink'>Adresses</Link>
+                <Link to='' className='footerlink'>Payment info.</Link>
             </div>
             <div className='cnttext'>
                 <h3>Make Money with Us</h3>
-                <Link className='footerlink'>Sell products on Amazon</Link>
-                <Link className='footerlink'>Become an Affiliate</Link>
-                <Link className='footerlink'>Advertise Your Products</Link>
+                <Link to='' className='footerlink'>Sell products on Amazon</Link>
+                <Link to='' className='footerlink'>Become an Affiliate</Link>
+                <Link to='' className='footerlink'>Advertise Your Products</Link>
             </div>
             <div className='cnttext'>
                 <h3>Let Us Help You</h3>
-                <Link className='footerlink'>Your Account</Link>
-                <Link className='footerlink'>Your Orders</Link>
-                <Link className='footerlink'>Shipping Rates & Policies</Link>
-                <Link className='footerlink'>Returns & Replacements</Link>
+                <Link to='' className='footerlink'>Your Account</Link>
+                <Link to='' className='footerlink'>Your Orders</Link>
+                <Link to='' className='footerlink'>Shipping Rates & Policies</Link>
+                <Link to='' className='footerlink'>Returns & Replacements</Link>
             </div>
             <div className='cntsocial'>
                 <img className='imgLogo' src={logo} alt="" />
