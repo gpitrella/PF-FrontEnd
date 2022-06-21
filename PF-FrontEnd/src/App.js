@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
 import ProductCard from './components/ProductCard/ProductCard';
 import './App.css';
+import Brands from './components/Brands/Brands';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           description = {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis.'}
           rating = {9.5}
        />
+       <Route path="/" component={Brands} />
       </Router>
     </React.Fragment>
   );
