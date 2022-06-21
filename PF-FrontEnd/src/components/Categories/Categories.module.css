@@ -2,7 +2,15 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
-  text-decoration: none;
+}
+
+h3 {
+    color: rgb(64, 64, 64);
+    font-size: 1.75vw;
+    font-weight: bolder ;
+	display: flex;
+	justify-content: center;
+	margin-top: 8vh;
 }
 
 .categoriesContainer {

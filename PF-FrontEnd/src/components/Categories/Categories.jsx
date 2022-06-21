@@ -1,6 +1,10 @@
 import React, { useEffect, useState} from 'react';
 //import { useSelector, useDispatch } from 'react-redux';
+<<<<<<< Updated upstream
 //import { Link } from 'react-router-dom';
+=======
+import { Link } from 'react-router-dom';
+>>>>>>> Stashed changes
 import style from"./Categories.module.css";
 
 export const categories = [
@@ -65,15 +69,24 @@ export default function Categories () {
 
     return (
         <>
+<<<<<<< Updated upstream
         <div className={style.catTitle}>            
             <h3>CATEGORIES</h3>
         </div>
+=======
+            <h3>CATEGORIES</h3>
+>>>>>>> Stashed changes
         <div className={style.categoriesContainer}>
             {categories.length > 0 ? (
                 categories.map((cat) => {
                     return (
                         <li className={style.categories} key={cat.id}>
+<<<<<<< Updated upstream
                             <button className={style.catButton} onClick={(e) => sendMessage(e)} >
+=======
+                            {/* <Link to={`/products?filter=${cat.id}`}> */}
+                            <button onClick={(e) => sendMessage(e)} >
+>>>>>>> Stashed changes
                                     <div className={style.catName}>
                                         <h4>{cat.name}</h4>
                                     </div>
