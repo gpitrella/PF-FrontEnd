@@ -1,0 +1,10 @@
+.brandscontainer {
+  margin: 5px 5px 5px 5px;
+  width: 99%;
+  height: 60px;
+  background-color: rgb(180, 150, 240);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 5px;
+}
