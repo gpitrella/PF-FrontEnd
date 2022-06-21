@@ -37,16 +37,11 @@ export default function NavBar() {
     }
        
     return (
-        <nav>
-                <span className='navBarLogo'>
-                    <Link to="/"><img className="imageLogo" src={imageLogo} alt='Logo Tech Ecommerce' /></Link>
-                </span>
-                
-
-                
+      <nav>
+            <span className='navBarLogo'>
+                <Link to="/"><img className="imageLogo" src={imageLogo} alt='Logo Tech Ecommerce' /></Link>
+            </span>
           {(toggleMenu || screenWidth > 500) && (
-              
-            
             <ul className='list'>
                 <li className="items">
                   <form>
@@ -57,19 +52,15 @@ export default function NavBar() {
                     </label>
                   </form>
                 </li>
-                
                 <li className="items">
                   <form className="search-container">
-
-                    
                     <input type='text' className="inputSearchBar" id='name' placeholder='Buscar Producto ...' autoComplete='off' onChange={(e) => handleSearch(e)}></input>
                     <img type='submit' className="search-icon" src={searchIcon} alt='icono search' onClick={(e) => handleSubmit(e)}/>
                   </form>
                 </li >
                 <li className="items">
-                <Link to="/"><img className="imgCorazon" src={imgCorazon} alt='carrito de compra' /></Link>
+                  <Link to="/"><img className="imgCorazon" src={imgCorazon} alt='carrito de compra' /></Link>
                 </li>
-                
                 <li className="items">
                     <Link to="/"><img className="imgCarrito" src={imgCarrito} alt='carrito de compra' /></Link>
                 </li>
@@ -79,16 +70,11 @@ export default function NavBar() {
                 <li className="items">
                     <Link className="Login" to="/login">Login/Logout</Link>
                 </li>
-
-                </ul>
-
-                )}
-              
-            
+              </ul>
+            )}
             <>
               <button className='btnNavbar' onClick={toggleNav}>BTN</button>
             </>
-            
-        </nav>
+      </nav>
     )
 };
