@@ -4,12 +4,15 @@ nav {
     width: 100%;
     height: 50px;
     background: white;
+    display: flex;
+    justify-content: center;
 }
 
 .list {
     list-style-type: none;
     background: white;
     height: 100%;
+    width: 70vw;
     display: flex;
     justify-content:space-evenly;
     align-items: center;
@@ -42,6 +45,13 @@ nav {
     left: 20vw;
 }
 
+.imgCorazon {
+    width: 3rem;
+    height: 3rem;
+	padding: 0px;
+    top: 2em;
+}
+
 .search-icon {
     width: 2rem;
     height: 2rem;
@@ -51,16 +61,16 @@ nav {
 }
 
 .imgCarrito {
-    width: 5.2rem;
-    height: 5.2rem;
+    width: 4rem;
+    height: 4rem;
 	padding: 0px;
     top: 2em;
     left: 20vw;
 }
 
 .imgMensaje {
-    width: 5.2rem;
-    height: 5.2rem;
+    width: 3rem;
+    height: 3rem;
 	padding: 0px;
     top: 2em;
     left: 20vw;
@@ -69,7 +79,7 @@ nav {
 /* The switch - the box around the slider */
 .switch {
     --width-of-switch: 3.5em;
-    --height-of-switch: 2em;
+    --height-of-switch: 3em;
     /* size of sliding icon -- sun and moon */
     --size-of-icon: 1.4em;
     /* it is like a inline-padding of switch */
@@ -77,17 +87,17 @@ nav {
     position: relative;
     width: var(--width-of-switch);
     height: var(--height-of-switch);
-  }
+}
   
   /* Hide default HTML checkbox */
-  .switch input {
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
+}
   
   /* The slider */
-  .slider {
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -97,9 +107,9 @@ nav {
     background-color: #f4f4f5;
     transition: .4s;
     border-radius: 30px;
-  }
+}
   
-  .slider:before {
+.slider:before {
     position: absolute;
     content: "";
     height: var(--size-of-icon,1.4em);
@@ -111,24 +121,28 @@ nav {
     background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
     ;
    transition: .4s;
-  }
+}
   
-  input:checked + .slider {
+input:checked + .slider {
     background-color: #303136;
-  }
+}
   
-  input:checked + .slider:before {
+input:checked + .slider:before {
     left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
     background: #303136;
     /* change the value of second inset in box-shadow to change the angle and direction of the moon  */
     box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
-  }
+}
 
 
-  @media screen and (max-width: 500px){
+@media screen and (max-width: 500px){
     .list {
+        position: fixed;
         flex-direction: column;
         height: auto;
+        opacity: 0.8;
+        background-color: #4f4f4f48;
+        visibility: visible;
     }
     .items:nth-child(1){
         border-top: 1px solid rgba(255, 255, 255, 0.555);
@@ -144,6 +158,26 @@ nav {
     .btnNavbar {
         display: block;
     }
+}
+
+/* input Search Bar */
+.inputSearchBar {
+    background-color: #ffffff;
+    width: 20vw;
+    height: 25px;
+    padding: 10px;
+    /* text-align: center; */
+    border: 2px solid rgb(133, 133, 133);
+    border-radius: 25px;
+    /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
+}
+  
+.inputSearchBar:focus {
+    background-color: #ffffff;
+    outline-color: rgb(194, 194, 194);
+    box-shadow: -3px -3px 5px rgb(228, 228, 228);
+    transition: .1s;
+    transition-property: box-shadow;
 }
 
 
