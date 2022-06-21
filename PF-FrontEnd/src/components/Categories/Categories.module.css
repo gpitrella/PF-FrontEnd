@@ -8,9 +8,9 @@ h3 {
     color: rgb(64, 64, 64);
     font-size: 1.75vw;
     font-weight: bolder ;
-	display: flex;
-	justify-content: center;
-	margin-top: 8vh;
+    display: flex;
+    justify-content: center;
+    margin-top: 8vh;
 }
 
 .categoriesContainer {
@@ -34,7 +34,7 @@ h3 {
 }
 
 .categories {
-	display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-content: center;
