@@ -45,14 +45,27 @@
   --fontMedium: 1rem;
   --fontSmall: 0.8rem;
   --fontSmallest: 0.7rem;
+}
 
+.darkTheme {
+  --primaryColor: #424242;
+  --primaryColorSub: #242424;
+  --secondaryColor: #651fff;
+
+  --fontColor: white;
   --dangerColor: crimson;
 }
 
 .lightTheme {
-  --primaryColor: #424242;
-  --primaryColorSub: #242424;
-  --secondaryColor: rgb(180, 150, 240);
+  --primaryColor: white;
+  --primaryColorSub: rgb(240, 240, 240);
+  --secondaryColor: #651fff;
 
-  --fontColor: white;
+  --fontColor: black;
+  --dangerColor: crimson;
+}
+
+.mainContainer {
+  background-color: var(--primaryColorSub);
+  transition: background-color 0.5s;
 }

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { changeTheme } from '../../redux/actions';
+
 import './NavBar.css';
 import searchIcon from './img/searchIcon.png';
 import imageLogo from './img/logoDotTech.gif';
@@ -11,6 +15,9 @@ import imgCorazon from './img/heart-icon.png'
 export default function NavBar() {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+
+  const { theme } = useSelector(state => state.general);
+  const dispatch = useDispatch();
 
     const toggleNav = () => {
       setToggleMenu(!toggleMenu);
@@ -35,6 +42,10 @@ export default function NavBar() {
     function handleSubmit(e) {
         e.preventDefault();
     }
+
+    function handleCheck() {
+      dispatch(changeTheme());
+    }
        
     return (
       <nav>
@@ -47,7 +58,7 @@ export default function NavBar() {
                   <form>
                     <label className="switch">
                        Tema:
-                           <input type="checkbox" name="name" />
+                           <input type="checkbox" name="name" onChange = {handleCheck} checked = {theme === THEME.DARK}/>
                            <span className="slider"></span>
                     </label>
                   </form>
@@ -78,3 +89,8 @@ export default function NavBar() {
       </nav>
     )
 };
+
+const THEME = {
+  LIGHT: 'lightTheme',
+  DARK: 'darkTheme'
+}

@@ -110,6 +110,7 @@
 .btn {
   border-radius: 0;
   background-color: var(--dangerColor);
+  border: 1px solid var(--dangerColor);
 }
 
 .btnRemove:hover,
@@ -126,6 +127,7 @@
 .btnPrice {
   width: 50%;
   border-radius: 0;
+  border: 1px solid var(--secondaryColor);
 }
 
 .btnPrice:disabled,
@@ -133,6 +135,7 @@
   background-color: transparent;
   border: 1px solid var(--fontColor);
   cursor: default;
+  color: var(--fontColor);
 }
 
 .btnPrice:hover {
@@ -145,28 +148,28 @@
   background-color: transparent;
   border: 1px solid var(--fontColor);
   cursor: default;
-  color: white;
+  color: var(--fontColor);
 }
 
 .btnRemove[disabled]:hover {
   background-color: transparent;
   border: 1px solid var(--fontColor);
   cursor: default;
-  color: white;
+  color: var(--fontColor);
 }
 
 .btn {
   margin-top: 20px;
   padding: 10px;
   border-radius: 0;
-  border: 1px solid white;
+  border: 1px solid var(--dangerColor);
   color: white;
   font-weight: 700;
   font-size: var(--fontMedium);
 }
 
 .lblSub {
-  font-size: var(--fontSmallest);
+  font-size: var(--fontSmall);
 }
 
 .containerSearchRange {
