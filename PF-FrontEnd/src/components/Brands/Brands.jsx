@@ -45,7 +45,7 @@ const Brands = ()=> {
       <Carousel responsive = {responsive} infinite = {true}>
         {
           data && data.map((product, index) => 
-            <BrandCard/>
+            <BrandCard />
           )
         }
       </Carousel>

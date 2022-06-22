@@ -14,7 +14,7 @@ export default function ProductCard({ id, name, image, category, price, discount
   let discountPrice = Math.round(price - price * (discount / 100));
 
   return (
-    <div className = {`globalVariables lightTheme ${s.container}`}>
+    <div className = {s.container}>
 
       <div className = {s.containerImage}>
         <ImageLoader image = {exampleImage} alt = {name} />
