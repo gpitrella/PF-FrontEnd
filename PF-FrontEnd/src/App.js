@@ -1,12 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
-import ProductCards from './components/ProductCards/ProductCards';
-import FilterPanel from './components/FilterPanel/FilterPanel';
-import Categories from './components/Categories/Categories';
 import Footer from './components/Footer/Footer';
+import ProductDetails from './components/ProductDetails/ProductDetails';
+import FilterPanel from './components/FilterPanel/FilterPanel';
 import './App.css';
-import Brands from './components/Brands/Brands';
+import Home from './components/Home/Home';
 
 function App() {
   return (
@@ -14,10 +13,9 @@ function App() {
       <Router>
         <div className="App"></div>
         <Route path="/" component={NavBar} />
-        <ProductCards />
+        <Route exact path="/" component={Home} />
         <FilterPanel />
-        <Route path="/" component={Categories} />
-       <Route path="/" component={Brands} />
+        <Route exact path="/productDetails" component={ProductDetails} />
         <Route path="/" component={Footer} />
       </Router>
     </React.Fragment>
