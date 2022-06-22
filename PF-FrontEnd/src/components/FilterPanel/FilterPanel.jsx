@@ -103,7 +103,7 @@ export default function FilterPanel() {
   }
 
   return (
-    <div className = {`globalVariables lightTheme ${s.container}`}>
+    <div className = {s.container}>
 
       <h1 className = {s.title}>Set Filters</h1>
 
