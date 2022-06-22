@@ -8,19 +8,19 @@ export default function ProductCards() {
 
   const responsive = {
     superLargeDesktop: {
-      breakpoint: { max: 4000, min: 2000 },
+      breakpoint: { max: 4000, min: 1680 },
       items: 4
     },
     desktop: {
-      breakpoint: { max: 2000, min: 1300 },
+      breakpoint: { max: 1680, min: 1260 },
       items: 3
     },
     tablet: {
-      breakpoint: { max: 1300, min: 900 },
+      breakpoint: { max: 1260, min: 840 },
       items: 2
     },
     mobile: {
-      breakpoint: { max: 900, min: 0 },
+      breakpoint: { max: 840, min: 0 },
       items: 1
     }
   };
@@ -29,24 +29,26 @@ export default function ProductCards() {
 
   return (
     <div className = {s.container}>
-      <Carousel responsive = {responsive} infinite = {true}>
-        {
-          data && data.map((product, index) => 
+      <div className = {s.containerCarrousel}>
+        <Carousel responsive = {responsive} infinite = {true} itemClass = {s.carouselItem}>
+          {
+            data && data.map((product, index) => 
 
-            <ProductCard 
-              id = {1}
-              name = {`example ${index}`}
-              category = {'Prebuild Computer'}
-              price = {50000}
-              discount = {50}
-              description = {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis.'}
-              rating = {9.5}
-              key = {`product-${index}`}
-           />
+              <ProductCard 
+                id = {1}
+                name = {`example ${index}`}
+                category = {'Prebuild Computer'}
+                price = {50000}
+                discount = {50}
+                description = {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis.'}
+                rating = {9.5}
+                key = {`product-${index}`}
+             />
 
-          )
-        }
-      </Carousel>
+            )
+          }
+        </Carousel>
+      </div>
     </div>
   );
 }
