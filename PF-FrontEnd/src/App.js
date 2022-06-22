@@ -6,7 +6,7 @@ import Categories from './components/Categories/Categories';
 import Footer from './components/Footer/Footer';
 import './App.css';
 import Brands from './components/Brands/Brands';
-import DetailProduct from './components/DetailProduct/DetailProduct';
+import ProductDetails from './components/DetailProduct/ProductDetails';
 
 function App() {
   return (
@@ -19,8 +19,8 @@ function App() {
         <ProductCards path="/" component={ProductCards} />
         <Route path="/" component={Categories} />
         <Route path="/" component={Brands} />
+        <Route exact path="/product" component={ProductDetails} />
         <Route path="/" component={Footer} />
-        <Route path="/product" exact component={DetailProduct} />
       </Router>
     </React.Fragment>
   );
