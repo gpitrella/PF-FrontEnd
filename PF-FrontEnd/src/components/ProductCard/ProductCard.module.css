@@ -1,8 +1,8 @@
 .container {
-  margin-top: 90px;
-  margin-bottom: 50px;
-  height: 22rem;
-  width: 26rem;
+  height: 338px;
+  width: 400px;
+
+  margin: 0 10px 0 10px;
 
   display: grid;
   grid-template-rows: 60% 40%;

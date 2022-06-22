@@ -1,0 +1,181 @@
+.container {
+  width: 300px;
+
+  padding: 30px 30px 30px 30px;
+
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
+
+  font-size: var(--fontSmall);
+  font-weight: 500;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
+
+  box-sizing: border-box;
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.5);
+}
+
+.separator {
+  height: 2px;
+  background-color: var(--primaryColorSub);
+
+  margin: 5px 0 5px 0;
+}
+
+.title {
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+.lbl {
+  font-size: var(--fontSmall);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+}
+
+.check > .lbl {
+  margin-left: 10px;
+}
+
+.largeCheck {
+  height: 20px;
+  width: 20px;
+}
+
+.select {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  grid-gap: 3px;
+}
+
+.containerFilterBrands,
+.containerFilterByPrice {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
+}
+
+.filterBrand,
+.btnRemove,
+.btnPrice,
+.btn {
+  background-color: var(--secondaryColor);
+  color: white;
+  border: 1px solid white;
+  padding: 3px 0 3px 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.5s;
+}
+
+.filterBrand:hover {
+  background-color: var(--dangerColor);
+}
+
+.filterBrand:hover::before{
+  content: 'Remove -';
+}
+
+.filterBrand:hover::after{
+  content: '-';
+}
+
+.selectFilter,
+.input {
+  padding: 3px 3px 3px 3px;
+  color: var(--fontColor);
+  background-color: var(--primaryColorSub);
+  border: 1px solid var(--fontColor);
+}
+
+.containerInput {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
+
+  align-items: center;
+}
+
+.btnRemove,
+.btn {
+  border-radius: 0;
+  background-color: var(--dangerColor);
+  border: 1px solid var(--dangerColor);
+}
+
+.btnRemove:hover,
+.btn:hover {
+  background-color: white;
+  color: var(--dangerColor);
+}
+
+.optionsPriceRange {
+  justify-self: flex-end;
+  width: 50%;
+}
+
+.btnPrice {
+  width: 50%;
+  border-radius: 0;
+  border: 1px solid var(--secondaryColor);
+}
+
+.btnPrice:disabled,
+.btnRemove:disabled {
+  background-color: transparent;
+  border: 1px solid var(--fontColor);
+  cursor: default;
+  color: var(--fontColor);
+}
+
+.btnPrice:hover {
+  background-color: white;
+  border: 1px solid var(--secondaryColor);
+  color: var(--secondaryColor);
+}
+
+.btnPrice[disabled]:hover {
+  background-color: transparent;
+  border: 1px solid var(--fontColor);
+  cursor: default;
+  color: var(--fontColor);
+}
+
+.btnRemove[disabled]:hover {
+  background-color: transparent;
+  border: 1px solid var(--fontColor);
+  cursor: default;
+  color: var(--fontColor);
+}
+
+.btn {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 0;
+  border: 1px solid var(--dangerColor);
+  color: white;
+  font-weight: 700;
+  font-size: var(--fontMedium);
+}
+
+.lblSub {
+  font-size: var(--fontSmall);
+}
+
+.containerSearchRange {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
+  margin: 3px;
+}
