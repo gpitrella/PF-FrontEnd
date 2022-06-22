@@ -1,4 +1,9 @@
-.bodyDetail {
+.bodyDetail{
+    display: flex;
+}
+
+
+/* .bodyDetail {
     padding: 11em 16em 5em 16em;
     color:aliceblue;   
 }
@@ -78,4 +83,4 @@
     width: 400px;
     padding-top: 0;
     margin-top: 0;
-}
+} */
