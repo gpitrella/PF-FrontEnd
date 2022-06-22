@@ -4,9 +4,9 @@
     align-content: center;
     height:45vh;
     margin-top: 14vh;
-    background-image: url(../../assets/background_ads.jpg);
+    background-image: url(../../assets/black_friday.jpg);
     background-position:center;
-    background-size:contain;
+    background-size:cover;
 }
 .ads img{
     height: 45vh;
