@@ -79,21 +79,25 @@ export default function FilterPanel() {
   }
 
   return (
-    <div className = {s.container}>
+    <div className = {`globalVariables lightTheme ${s.container}`}>
+
+      <h1 className = {s.title}>Set Filters</h1>
 
       <div className = {s.check}>
-        <input type = 'checkbox' checked = {filter.favorites} onChange = {() => handleCheck('favorites')} />
+        <input type = 'checkbox' checked = {filter.favorites} className = {s.largeCheck} onChange = {() => handleCheck('favorites')} />
         <label className = {s.lbl}>Show Only Favorites</label>
       </div>
 
       <div className = {s.check}>
-        <input type = 'checkbox' checked = {filter.discount} onChange = {() => handleCheck('discount')} />
+        <input type = 'checkbox' checked = {filter.discount} className = {s.largeCheck} onChange = {() => handleCheck('discount')} />
         <label className = {s.lbl}>Show Only On Discount</label>
       </div>
 
+      <div className = {s.separator}></div>
+
       <div className = {s.select}>
         <label className = {s.lbl}>Filter by Category</label>
-        <select className = {s.select} value = {filter.category} onChange = {handleChange} name = {'category'}>
+        <select className = {s.selectFilter} value = {filter.category} onChange = {handleChange} name = {'category'}>
           {
             categories && categories.map((category, index) => 
               <option 
@@ -107,9 +111,11 @@ export default function FilterPanel() {
         </select>
       </div>
 
+      <div className = {s.separator}></div>
+
       <div className = {s.select}>
         <label className = {s.lbl}>Filter by Brand</label>
-        <select className = {s.select} value = {'Pick a Brand'} onChange = {handleChangeBrand} name = {'brand'}>
+        <select className = {s.selectFilter} value = {'Pick a Brand'} onChange = {handleChangeBrand} name = {'brand'}>
           <option hidden defaultValue>Pick a Brand</option>
           {
             brands && brands.map((brand, index) => 
@@ -139,6 +145,8 @@ export default function FilterPanel() {
       }
       </div>
 
+      <div className = {s.separator}></div>
+
       <div className = {s.containerFilterByPrice}>
         <label className = {s.lbl}>Filter by Price Range:</label>
         <div className = {s.containerInput}>
@@ -160,6 +168,8 @@ export default function FilterPanel() {
           Search     
         </button>
       </div>
+
+      <div className = {s.separator}></div>
 
       <button className = {s.btn} onClick = {handleResetFilters}>Reset Filters</button>
 
