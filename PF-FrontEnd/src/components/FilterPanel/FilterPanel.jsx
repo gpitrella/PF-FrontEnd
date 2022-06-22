@@ -66,6 +66,30 @@ export default function FilterPanel() {
     });
   }
 
+  let handleUpdatePriceRange = function() {
+    let newFilter = {
+      ...filter,
+      minPrice: priceRange.min,
+      maxPrice: priceRange.max
+    }
+
+    dispatch(updateFilter(newFilter));
+  }
+
+  let handleResetFilterPriceRange = function() {
+    let newFilter = {
+      ...filter,
+      minPrice: '',
+      maxPrice: ''
+    }
+
+    dispatch(updateFilter(newFilter));
+    setPriceRange({
+      min: '',
+      max: ''
+    })
+  }
+
   let handleUpdateFilter = function(property, value) {
     let newFilter = { 
       ...filter,
@@ -150,23 +174,51 @@ export default function FilterPanel() {
       <div className = {s.containerFilterByPrice}>
         <label className = {s.lbl}>Filter by Price Range:</label>
         <div className = {s.containerInput}>
-          <label className = {s.lblSub}>Min:</label>
+          <label className = {s.lblSub}>Min $</label>
           <input type = 'text' className = {s.input} value = {priceRange.min} name = 'min' onInput = {handleInput}></input>
           <button className = {s.btnRemove} name = 'min' onClick = {handleResetPriceRange} disabled = {priceRange.min === ''}>X</button>
         </div>
         <div className = {s.containerInput}>
-          <label className = {s.lblSub}>Max:</label>
+          <label className = {s.lblSub}>Max $</label>
           <input type = 'text' className = {s.input} value = {priceRange.max} name = 'max' onInput = {handleInput}></input>
           <button className = {s.btnRemove} name = 'max' onClick = {handleResetPriceRange} disabled = {priceRange.max === ''}>X</button>
         </div>
-        <button 
-          className = {s.btnPrice} 
-          disabled = {(priceRange.min === '' && priceRange.max === '' ) || 
-                       (priceRange.min !== '' && priceRange.max !== '' && priceRange.min >= priceRange.max)
-                     }
-        >
-          Search     
-        </button>
+        <div className = {s.containerSearchRange}>
+          {
+            filter && filter.minPrice === '' && filter.maxPrice === '' &&
+            <span className = {s.lblSub}>- No price range selected</span>
+          }
+          {
+            filter && filter.minPrice !== '' && filter.maxPrice !== '' &&
+            <span className = {s.lblSub}>- Price between ${filter.minPrice} and ${filter.maxPrice}</span>
+          }
+          {
+            filter && filter.minPrice !== '' && filter.maxPrice === '' &&
+            <span className = {s.lblSub}>- Price higher than ${filter.minPrice}</span>
+          }
+          {
+            filter && filter.maxPrice !== '' && filter.minPrice === '' &&
+            <span className = {s.lblSub}>- Price lower than ${filter.maxPrice}</span>
+          }
+          <div className = {s.optionsPriceRange}>
+            <button 
+              className = {s.btnPrice} 
+              disabled = {!filter || (filter.minPrice === '' && filter.maxPrice === '')}
+              onClick = {handleResetFilterPriceRange}
+            >
+              Reset   
+            </button>
+            <button 
+              className = {s.btnPrice} 
+              disabled = {(priceRange.min === '' && priceRange.max === '' ) || 
+                           (priceRange.min !== '' && priceRange.max !== '' && priceRange.min >= priceRange.max)
+                         }
+              onClick = {handleUpdatePriceRange}
+            >
+              Update     
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className = {s.separator}></div>

@@ -52,6 +52,8 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           discount: false,
           category: 'None',
           brand: [],
+          minPrice: '',
+          maxPrice: ''
         }
       }
     default:

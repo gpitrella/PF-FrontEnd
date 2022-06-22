@@ -101,7 +101,7 @@
   width: 100%;
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr;
 
   align-items: center;
 }
@@ -118,9 +118,13 @@
   color: var(--dangerColor);
 }
 
-.btnPrice {
-  width: 25%;
+.optionsPriceRange {
   justify-self: flex-end;
+  width: 50%;
+}
+
+.btnPrice {
+  width: 50%;
   border-radius: 0;
 }
 
@@ -159,4 +163,16 @@
   color: white;
   font-weight: 700;
   font-size: var(--fontMedium);
+}
+
+.lblSub {
+  font-size: var(--fontSmallest);
+}
+
+.containerSearchRange {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: min-content;
+  grid-gap: 5px;
+  margin: 3px;
 }
