@@ -1,11 +1,25 @@
 import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
-// import { getGameDetail, clearGameDetail } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getProductDetails } from "../../redux/actions/homepageActions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
+import ImageLoader from '../ImageLoader/ImageLoader';
 import './ProductDetails.css';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+
+
+
+
+
+
 
 export const product = 
     {
@@ -20,31 +34,35 @@ export const product =
       }
 
 export default function ProductDetails (){
-
-
-    // const dispatch = useDispatch();
-    //const { idProduct } = useParams();
-    // const gameDetail = useSelector((state) => state.gameDetail)
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const productDetails = useSelector((state) => state.homepage.productDetails)
     
-    //React.useEffect(() => {
-        // dispatch(getGameDetail(idVideogame));
+    React.useEffect(() => {
+        dispatch(getProductDetails(id));
       //  return() => {
       //      dispatch(clearGameDetail())
       //  }
-    //}, [dispatch, idProduct]);
-    
-    
+    }, [dispatch, id]);
+
+    // Configuración boton agregar comentario.
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = () => {
+    setOpen(true);
+    };
+    const handleClose = () => {
+    setOpen(false);
+    };
+
         return (
         <div className="mainProduct">
             <div className="mainProductDetail">
                 <div id="product_image">
-                    <img src={product.image} alt={product.name} height="400" width="500"/>
+                    <img id="detail_image" src={productDetails?.image} alt={product.name}/>
                 </div>
-
                 <div>
-                    
                     <p id="product_category">Categoria: {product.category}</p>
-                    <h3 id="title_product">{product.name}</h3>
+                    <h3 id="title_product">{productDetails?.name}</h3>
                     <hr/>
                     <div className="price_rating">
                         <div>
@@ -65,7 +83,7 @@ export default function ProductDetails (){
                     <hr/>
 
                     <Stack spacing={2} direction="row">
-                        <p>Status: <span id="stock_status">In Stock</span></p>
+                        <span>Stock: <span id="stock_status">{productDetails?.stock} unid.</span></span>
                         <Button className='btn_Product_Detail' size="small" variant="contained">Add to Cart</Button>
                         <Button className='btn_Product_Detail' size="small" variant="contained">Buy</Button>
                     </Stack>                    
@@ -87,7 +105,32 @@ export default function ProductDetails (){
                     <span> COMENTARIOS: </span>
                 </div>
                 <div id="review_block">
-                    <Button className='btn_Product_Detail' size="small" variant="outlined">Add Comment</Button>
+                <div>
+                    <Button variant="outlined" onClick={handleClickOpen}>
+                        Escribir Comentario
+                    </Button>
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>Comentario:</DialogTitle>
+                        <DialogContent>
+                        <DialogContentText>
+                            Escribir un comentario del producto que compraste, esto ayudara a futuros compradores a elegir el producto más apropiado.
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Escribe aqui tu comentario ..."
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleClose}>Cancelar</Button>
+                        <Button onClick={handleClose}>Enviar</Button>
+                        </DialogActions>
+                    </Dialog>
+                    </div>
                 </div>
             </div>
         </div>

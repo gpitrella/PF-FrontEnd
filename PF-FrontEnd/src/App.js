@@ -13,7 +13,7 @@ function App() {
         <div className="App"></div>
         <Route path="/" component={NavBar} />
         <Route exact path="/" component={Home} />
-        <Route exact path="/productDetails" component={ProductDetails} />
+        <Route exact path="/productdetails/:id" component={ProductDetails} />
         <Route path="/" component={Footer} />
       </Router>
     </React.Fragment>

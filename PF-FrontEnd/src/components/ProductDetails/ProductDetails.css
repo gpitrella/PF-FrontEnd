@@ -1,7 +1,8 @@
 /* Product Details Page */
 .mainProduct{
-    padding-left: 5vw;
-    padding-right: 5vw;
+    padding: 90px;
+    padding-left: 5rem;
+    padding-right: 5rem;
     padding-bottom: 20px;
 }
 .mainProductDetail{
@@ -12,6 +13,11 @@
     border: 1px solid rgba(134, 134, 134, 0.507);
     padding: 20px;
     /* row f-flex justify-content-around */
+}
+
+#detail_image {
+    height: 20rem;
+    width: 25rem;
 }
 
 #product_category {
