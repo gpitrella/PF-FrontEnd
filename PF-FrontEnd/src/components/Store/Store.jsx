@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import FilterPanel from '../FilterPanel/FilterPanel';
 import OrderPanel from '../OrderPanel/OrderPanel';
+import Pagination from '../Pagination/Pagination';
 
 import s from './Store.module.css';
 
@@ -17,6 +18,9 @@ export default function Store() {
         </div>
         <div className = {s.orderPanel}>
           <OrderPanel />
+        </div>
+        <div className = {s.pagination}>
+          <Pagination />
         </div>
         <div className = {s.producCardsStore}>
         {
