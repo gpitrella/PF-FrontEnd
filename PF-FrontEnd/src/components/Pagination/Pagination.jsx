@@ -30,6 +30,7 @@ export default function Pagination() {
           className = {`${s.btnPageIndex} ${ !displayPage.disabled ? s.enabled : ''} ${displayPage.current ? s.selected : ''}`}
           disabled = {displayPage.disabled}
           onClick = {() => handleUpdateFilter(displayPage.index)}
+          key = {`pagination-${index}`}
         >
         { displayPage.symbol ? displayPage.symbol : displayPage.index }
         </button>

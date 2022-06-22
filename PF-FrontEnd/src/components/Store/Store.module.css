@@ -1,6 +1,6 @@
 .container {
   width: 100vw;
-  min-height: 1000px;
+  min-height: 500px;
 
   margin: 20px 0 20px 0;
 
@@ -14,7 +14,7 @@
 .containerGrid {
   display: grid;
   grid-template-columns: 300px auto;
-  grid-template-rows: 40px 40px 1fr;
+  grid-template-rows: 40px 40px 1fr 40px;
 
   align-items: flex-start;
   justify-items: center;
@@ -38,15 +38,14 @@
   grid-column: 2 / 3;
 }
 
+.paginationBottom {
+  grid-row: 4 / 5;
+  grid-column: 2 / 3;
+}
+
 .producCardsStore {
   grid-row: 3 / 4;
   grid-column: 2 / 3;
-
-  display: grid;
-  grid-template-columns: 420px 420px;
-  grid-auto-rows: 338px;
-  grid-gap: 10px;
-  grid-row-gap: 30px;
 }
 
 .exampleCard {
