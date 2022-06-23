@@ -1,9 +1,11 @@
 import {
+  GET_BRANDS,
   TEST_HOMEPAGE
 } from '../actions/actiontype';
 
 const initialState = {
-  test: false
+  test: false,
+  brandsList: []
 };
 
 const homepageReducer = function(state = initialState, { type, payload }) {
@@ -13,6 +15,13 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         ...state,
         test: !state.test
       }
+
+    case GET_BRANDS:
+      return {
+        ...state,
+        brandsList: payload
+      }
+
     default:
       return state;
   }

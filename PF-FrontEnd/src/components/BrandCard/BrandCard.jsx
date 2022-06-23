@@ -1,12 +1,17 @@
 import './BrandCard.css'
-import AMD from './img/AMD.png'
-const { Link } = require("react-router-dom")
 
+const BrandCard = ({name,image})=> {
 
-const BrandCard = ({name})=> {
+    const handdleClick = (e)=>{
+        e.preventDefault()
+        alert(`Go to ${e.target.name}`)
+    }
+
     return(
         <div className="imagebrandcontainer">
-            <Link to="" > <img className="brandimage" src={AMD} alt="IMG" /> </Link>
+            <button className='brandBtn' name={name} onClick={(e)=>handdleClick(e)}>
+            <img className="brandimage" src={image} alt={name} />
+            </button>
         </div>
     )
 }
