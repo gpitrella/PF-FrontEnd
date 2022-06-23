@@ -38,6 +38,13 @@
 
 #review_block{
     padding-right: 30px;
+    display: flex;
+    flex-direction: row;
+}
+
+#review_comment {
+    display: flex;
+    flex-direction: column;
 }
 
 #review_detail{
@@ -65,13 +72,18 @@
     margin: 0.3rem;
 }
 
+.comment_main{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    border: 1px solid rgba(134, 134, 134, 0.507);
+    padding: 20px;
+}
+
 .comment_add{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 20px;
-    border: 1px solid rgba(134, 134, 134, 0.507);
-    padding: 20px;
 }
 
 #product_seller {
