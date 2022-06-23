@@ -30,7 +30,8 @@ export const product =
         "image": "https://www.mastecnologia.com.ar/images/productos/90411.png",
         "category": "Notebook",
         "discount": 10,
-        "stock": 35
+        "stock": 35,
+        "comment": []
       }
 
 export default function ProductDetails (){
@@ -47,12 +48,23 @@ export default function ProductDetails (){
 
     // Configuración boton agregar comentario.
     const [open, setOpen] = React.useState(false);
+    const [comment, setComment] = React.useState();
+
     const handleClickOpen = () => {
-    setOpen(true);
+        setOpen(true);
     };
     const handleClose = () => {
-    setOpen(false);
+        setOpen(false);
     };
+    const handleComment = (e) => {
+        e.preventDefault();
+        setComment(e.target.value)
+    }
+    const handleSend = () => {
+        product.comment.push(comment);
+        handleClose();
+    }
+    
 
         return (
         <div className="mainProduct">
@@ -99,38 +111,49 @@ export default function ProductDetails (){
                 <span id="no_of_reviews"><strong>TAGS:</strong> - Intel - Nootbook - Procesador AMD </span>
                 <hr/>
             </div>
-            
-            <div className="comment_add">
-                <div>
-                    <span> COMENTARIOS: </span>
-                </div>
-                <div id="review_block">
-                <div>
-                    <Button variant="outlined" onClick={handleClickOpen}>
-                        Escribir Comentario
-                    </Button>
-                    <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>Comentario:</DialogTitle>
-                        <DialogContent>
-                        <DialogContentText>
-                            Escribir un comentario del producto que compraste, esto ayudara a futuros compradores a elegir el producto más apropiado.
-                        </DialogContentText>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="name"
-                            label="Escribe aqui tu comentario ..."
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        </DialogContent>
-                        <DialogActions>
-                        <Button onClick={handleClose}>Cancelar</Button>
-                        <Button onClick={handleClose}>Enviar</Button>
-                        </DialogActions>
-                    </Dialog>
+            <div className="comment_main">
+                <div className="comment_add">
+                    <div>
+                        <span> COMENTARIOS: </span>
                     </div>
+                    <div id="review_comment">
+                        <div>
+                            <div id="review_block">
+                                <Button variant="outlined" onClick={handleClickOpen}>
+                                    Escribir Comentario
+                                </Button>
+                                <Dialog open={open} onClose={handleClose}>
+                                    <DialogTitle>Comentario:</DialogTitle>
+                                    <DialogContent>
+                                    <DialogContentText>
+                                        Escribe un comentario del producto que compraste, esto ayudara a futuros compradores a elegir el producto más apropiado.
+                                    </DialogContentText>
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="comment"
+                                        label="Escribe aqui tu comentario ..."
+                                        type="text"
+                                        fullWidth
+                                        variant="standard"
+                                        onChange={(e)=> handleComment(e)}
+                                    />
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={handleClose}>Cancelar</Button>
+                                        <Button onClick={handleSend}>Enviar</Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {(product.comment.length === 0)
+                        ? <p>Este producto no tiene comentarios</p>
+                        : product.comment.map((element) => {
+                            return(<div><p> - {element}</p></div>)
+                        })}
                 </div>
             </div>
         </div>
