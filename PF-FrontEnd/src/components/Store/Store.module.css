@@ -1,0 +1,57 @@
+.container {
+  width: 100vw;
+  min-height: 500px;
+
+  margin: 20px 0 20px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+.containerGrid {
+  display: grid;
+  grid-template-columns: 300px auto;
+  grid-template-rows: 40px 40px 1fr 40px;
+
+  align-items: flex-start;
+  justify-items: center;
+
+  grid-gap: 20px;
+}
+
+.filterPanel {
+  grid-row: 1 / 4;
+  grid-column: 1 / 2;
+}
+
+.orderPanel {
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  justify-self: flex-end;
+}
+
+.pagination {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+}
+
+.paginationBottom {
+  grid-row: 4 / 5;
+  grid-column: 2 / 3;
+}
+
+.producCardsStore {
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+}
+
+.exampleCard {
+  height: 338px;
+  width: 400px;
+  margin: 0 10px 0 10px;
+
+  background-color: var(--secondaryColor);
+}

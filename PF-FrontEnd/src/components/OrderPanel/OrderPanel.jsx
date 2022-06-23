@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateFilter, resetFilter } from '../../redux/actions';
+import { updateFilter } from '../../redux/actions';
 
 import s from './OrderPanel.module.css';
 
