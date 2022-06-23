@@ -2,15 +2,22 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import FilterPanel from '../FilterPanel/FilterPanel';
 import OrderPanel from '../OrderPanel/OrderPanel';
-import ProducCardsStore from '../ProductCardsStore/ProductCardsStore';
 import Pagination from '../Pagination/Pagination';
-
-import s from './Store.module.css';
 import ProductCardsStore from '../ProductCardsStore/ProductCardsStore';
+import { closeStore } from '../../redux/actions';
+import s from './Store.module.css';
 
 export default function Store() {
 
-  const exampleCards = [1];
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    return () => {
+      dispatch(closeStore());
+    }
+  }, [])
+
+  const exampleCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   return (
     <div className = {s.container}>

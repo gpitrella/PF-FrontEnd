@@ -1,12 +1,21 @@
 import {
   UPDATE_FILTER,
-  RESET_FILTER
+  RESET_FILTER,
+  SHOW_LOADING,
+  SHOW_ERROR,
+  SHOW_STORE,
+  CLOSE_STORE
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
 const ORDER_BY_NAME = "name";
 
 const initialState = {
+
+  showStore: false,
+  showLoading: false,
+  showError: false,
+
   filter: {
     favorites: false,
     discount: false,
@@ -17,9 +26,10 @@ const initialState = {
     order: 'asc',
     orderBy: ORDER_BY_NAME,
     page: 1,
-    pages: 10,
+    pages: 1,
   },
-  categories: [
+
+  categories: [ // Las categorias para el filtro.
     'None',
     'Prebuild-Computers',
     'Notebooks',
@@ -32,7 +42,8 @@ const initialState = {
     'CPU-Processors',
     'Modems-Routers'
   ],
-  brands: [
+
+  brands: [ // Las marcas para el filtro.
     'AMD',
     'INTEL'
   ]
@@ -40,6 +51,22 @@ const initialState = {
 
 const storepageReducer = function(state = initialState, { type, payload }) {
   switch(type) {
+    case SHOW_LOADING:
+      return {
+        ...state,
+        showLoading: true
+      }
+    case SHOW_ERROR:
+      return {
+        ...state,
+        showLoading: false,
+        showError: true
+      }
+    case SHOW_STORE:
+      return {
+        ...state,
+        showStore: true
+      }
     case UPDATE_FILTER:
       return {
         ...state,
@@ -59,6 +86,8 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           page: 1
         }
       }
+    case CLOSE_STORE:
+      return initialState;
     default:
       return state;
   }

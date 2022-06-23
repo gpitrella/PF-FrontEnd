@@ -7,5 +7,9 @@ export const GET_BRANDS = 'GET_BRANDS';
 export const GET_PRODUCT_DETAILS = 'GET_PRODUCT_DETAILS';
 
 // STOREPAGE ACTIONS
+export const SHOW_LOADING = 'SHOW_LOADING';
+export const SHOW_ERROR = 'SHOW_ERROR';
+export const SHOW_STORE = 'SHOW_STORE';
 export const UPDATE_FILTER = 'UPDATE_FILTER';
 export const RESET_FILTER = 'RESET_FILTER';
+export const CLOSE_STORE = 'CLOSE_STORE';
