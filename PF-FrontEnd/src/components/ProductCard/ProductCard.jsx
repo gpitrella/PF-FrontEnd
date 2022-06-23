@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageLoader from '../ImageLoader/ImageLoader';
+import { Link } from 'react-router-dom';
 
 import Heart from '../SVG/Heart';
 import Cart from '../SVG/Cart';
@@ -17,7 +18,9 @@ export default function ProductCard({ id, name, image, category, price, discount
     <div className = {s.container}>
 
       <div className = {s.containerImage}>
-        <ImageLoader image = {exampleImage} alt = {name} />
+        <Link to={`/productdetails/${id}`}>
+          <ImageLoader image = {exampleImage} alt = {name} />
+        </Link>
       </div>
 
       <div className = {s.containerDetails}>
