@@ -1,10 +1,13 @@
 import './BrandCard.css'
+import { useHistory } from 'react-router-dom'
 
 const BrandCard = ({name,image})=> {
 
+    const history = useHistory()
+
     const handdleClick = (e)=>{
         e.preventDefault()
-        alert(`Go to ${e.target.name}`)
+        history.push('/store')
     }
 
     return(
