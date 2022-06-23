@@ -1,9 +1,11 @@
-import Carousel from "react-multi-carousel";
+//import Carousel from "react-multi-carousel";
 import BlackFriday from '../../assets/black_friday.jpg'
 import Back from '../../assets/background_ads.jpg'
 import Logo from '../../assets/logo_cyber_monday.png'
 import 'react-multi-carousel/lib/styles.css'
 import s from './Ads.module.css'
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 
 const Ads = ()=> {
     const responsive = {
@@ -25,17 +27,16 @@ const Ads = ()=> {
         }
       };
     return(
-        <div className='brandscontainer' >
-        <Carousel responsive = {responsive} infinite = {true} autoPlay={true} autoPlaySpeed={5000} removeArrowOnDeviceType={["tablet", "mobile"]} swipeable={true}
-                draggable={true} >
+        <div className={s.container} >
+        <Carousel autoPlay={true} centerMode={true} centerSlidePercentage={100}  >
           <div className={s.items}>
             <img src={BlackFriday} alt="BlackFriday" />
           </div>
           <div className={s.items}>
-            <img src={Back} alt="Back" />
+            <img src={BlackFriday} alt="Back" />
           </div>
           <div className={s.items}>
-            <img src={Logo} alt="Logo" />
+            <img src={BlackFriday} alt="Logo" />
           </div>
         </Carousel>
       </div>
