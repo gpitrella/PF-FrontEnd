@@ -6,10 +6,16 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
-
-import { useSelector } from 'react-redux';
+import { getBrands } from './redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  React.useEffect(()=>{
+    dispatch(getBrands())
+  },[dispatch])
 
   const { theme } = useSelector(state => state.general);
 
@@ -21,6 +27,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/store" component = {Store} />
           <Route exact path="/productDetails" component={ProductDetails} />
+          <Route exact path="/productdetails/:id" component={ProductDetails} />
           <Route path="/" component={Footer} />
         </div>
       </Router>
