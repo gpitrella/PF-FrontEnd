@@ -68,4 +68,5 @@
 .mainContainer {
   background-color: var(--primaryColorSub);
   transition: background-color 0.5s;
+  width: 100%;
 }
