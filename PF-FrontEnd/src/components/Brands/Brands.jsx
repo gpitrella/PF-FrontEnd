@@ -1,11 +1,12 @@
+import React from 'react'
 import './Brands.css'
 import BrandCard from '../BrandCard/BrandCard'
 import Carousel from 'react-multi-carousel'
 const { useSelector } = require("react-redux")
 
-const b = [{name:"intel"},{name:"AMD"},{name:"apple"}]
-
 const Brands = ()=> {
+ 
+  const { brandsList } = useSelector(state => state.homepage);
 
   const responsive = {
     superLargeDesktop: {
@@ -38,14 +39,12 @@ const Brands = ()=> {
     }
   };
 
-  let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
   return(
     <div className='brandscontainer'>
       <Carousel responsive = {responsive} infinite = {true}>
         {
-          data && data.map((product, index) => 
-            <BrandCard />
+          brandsList && brandsList.map((b) => 
+            <BrandCard name={b.name} image={b.image} />
           )
         }
       </Carousel>
@@ -55,10 +54,3 @@ const Brands = ()=> {
 }
 
 export default Brands;
-
-/*
-{
-  b&&b.map( b=>
-    <BrandCard name={b.name} />
-  )
-}*/

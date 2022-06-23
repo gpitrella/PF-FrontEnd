@@ -1,11 +1,13 @@
 import { ActionTypes } from '@mui/base';
 import {
+  GET_BRANDS,
   TEST_HOMEPAGE,
   GET_PRODUCT_DETAILS
 } from '../actions/actiontype';
 
 const initialState = {
   test: false,
+  brandsList: [],
   productDetails: {}
 };
 
@@ -16,6 +18,13 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         ...state,
         test: !state.test
       }
+
+    case GET_BRANDS:
+      return {
+        ...state,
+        brandsList: payload
+      }
+
     case GET_PRODUCT_DETAILS:
       return {
         ...state,
