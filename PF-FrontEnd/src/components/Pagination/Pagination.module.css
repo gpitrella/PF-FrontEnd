@@ -1,0 +1,29 @@
+.container {
+  display: grid;
+  grid-gap: 10px;
+  grid-auto-columns: 40px;
+  grid-auto-rows: 40px;
+  grid-auto-flow: column;
+}
+
+.btnPageIndex {
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  transition: background-color 0.5s;
+  font-size: var(--fontMedium);
+  font-weight: 700;
+  color: var(--fontColor);
+}
+
+.enabled {
+  cursor: pointer;
+}
+
+.enabled:hover {
+  background-color: var(--secondaryColor);
+}
+
+.selected {
+  background-color: var(--dangerColor);
+}

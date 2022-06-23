@@ -70,7 +70,8 @@ export default function FilterPanel() {
     let newFilter = {
       ...filter,
       minPrice: priceRange.min,
-      maxPrice: priceRange.max
+      maxPrice: priceRange.max,
+      page: 1
     }
 
     dispatch(updateFilter(newFilter));
@@ -80,7 +81,8 @@ export default function FilterPanel() {
     let newFilter = {
       ...filter,
       minPrice: '',
-      maxPrice: ''
+      maxPrice: '',
+      page: 1
     }
 
     dispatch(updateFilter(newFilter));
@@ -93,7 +95,8 @@ export default function FilterPanel() {
   let handleUpdateFilter = function(property, value) {
     let newFilter = { 
       ...filter,
-      [property]: value
+      [property]: value,
+      page: 1
     }
     dispatch(updateFilter(newFilter));
   }

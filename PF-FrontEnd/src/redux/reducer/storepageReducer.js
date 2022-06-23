@@ -15,7 +15,9 @@ const initialState = {
     minPrice: '',
     maxPrice: '',
     order: 'asc',
-    orderBy: ORDER_BY_NAME
+    orderBy: ORDER_BY_NAME,
+    page: 1,
+    pages: 10,
   },
   categories: [
     'None',
@@ -53,7 +55,8 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           category: 'None',
           brand: [],
           minPrice: '',
-          maxPrice: ''
+          maxPrice: '',
+          page: 1
         }
       }
     default:
