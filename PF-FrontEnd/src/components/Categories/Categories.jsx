@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
-//import { useSelector, useDispatch } from 'react-redux';
-//import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { getCategories } from '../../redux/actions/homepageActions';
+import { Link } from 'react-router-dom';
 import style from"./Categories.module.css";
 
 export const categories = [
@@ -47,11 +48,11 @@ export const categories = [
 ];
 
 export default function Categories () {
-    // const dispatch = useDispatch();
-    // const allCategories = useSelector((state) => state.categories);
-    // useEffect(()=>{
-    //     dispatch(getCategories());
-    // }, [dispatch])
+    const dispatch = useDispatch();
+    const { allCategories } = useSelector((state) => state.homepage);
+    useEffect(()=>{
+        dispatch(getCategories());
+    }, [dispatch])
     
     // function handleCategoryFilter(e){
     //     e.preventDefault();
@@ -69,15 +70,20 @@ export default function Categories () {
             <h3>CATEGORIES</h3>
         </div>
         <div className={style.categoriesContainer}>
-            {categories.length > 0 ? (
-                categories.map((cat) => {
+            {allCategories.length > 0 ? (
+                allCategories.map((cat) => {
                     return (
                         <li className={style.categories} key={cat.id}>
                             <button className={style.catButton} onClick={(e) => sendMessage(e)} >
                                     <div className={style.catName}>
                                         <h4>{cat.name}</h4>
                                     </div>
-                                    <img className={style.catImage} src={cat.image} alt={cat.name} />
+                                    {cat.image ? ( 
+                                    <img className={style.catImage} src={cat.image} alt={cat.name} /> 
+                                    ) : (
+                                        <img className={style.catImage} src={"http://simpleicon.com/wp-content/uploads/computer-2.png"} alt={cat.name} /> 
+                                    )   
+                                }
                             </button>
                         </li>
                     )})
