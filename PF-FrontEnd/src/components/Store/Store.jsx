@@ -13,7 +13,7 @@ import s from './Store.module.css';
 export default function Store() {
 
   const dispatch = useDispatch();
-  const { showLoading, showError, showStore, products } = useSelector(state => state.storepage);
+  const { showLoading, showError, showStore, products, noProducts } = useSelector(state => state.storepage);
 
   React.useEffect(() => {
 
@@ -46,12 +46,12 @@ export default function Store() {
           <Pagination />
         </div>
         {
-          !showLoading && !showError &&
+          !showLoading && !showError && products && products.length > 0 &&
           <div className = {s.producCardsStore}>
             <ProductCardsStore products = {products}/>
           </div>
         }
-        <LoadingStore loading = {showLoading} error = {showError}/>
+        <LoadingStore loading = {showLoading} error = {showError} noResults = {noProducts}/>
         <div className = {s.paginationBottom}>
           <Pagination />
         </div>

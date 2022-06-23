@@ -9,7 +9,7 @@ import s from './ProductCard.module.css';
 import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
 
-export default function ProductCard({ id, name, image, category, price, discount, description, rating }) {
+export default function ProductCard({ id, name, image, category, price, discount, rating }) {
 
   let discountPrice = Math.round(price - price * (discount / 100));
 

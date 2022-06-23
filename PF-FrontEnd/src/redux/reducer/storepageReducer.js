@@ -53,7 +53,8 @@ const initialState = {
     // 'INTEL'
   ],
 
-  products: []
+  products: [],
+  noProducts: false,
 };
 
 const storepageReducer = function(state = initialState, { type, payload }) {
@@ -67,7 +68,7 @@ const storepageReducer = function(state = initialState, { type, payload }) {
     case GET_CATEGORIES_TO_STORE:
       return { 
         ...state,
-        categories: payload.map(category => category.name),
+        categories: ['None'].concat(payload.map(category => category.name)),
         showStore: state.brands.length > 0
       }
     case GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE:
@@ -78,12 +79,15 @@ const storepageReducer = function(state = initialState, { type, payload }) {
         filter: {
           ...state.filter,
           pages: payload.totalPages
-        }
+        },
+        noProducts: payload.content.length === 0
       }
     case SHOW_LOADING:
       return {
         ...state,
-        showLoading: true
+        showLoading: true,
+        noProducts: false,
+        showError: false
       }
     case SHOW_ERROR:
       return {

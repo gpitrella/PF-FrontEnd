@@ -50,7 +50,7 @@ export const getProductsWithFiltersAndPaginate = function(filterQuery = 'page=1'
     return fetch(`${PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE}${filterQuery}`)
            .then(result => result.json())
            .then(data =>  dispatch({ type: GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE, payload: data }))
-           .catch(error => console.log(error));
+           .catch(error => dispatch({ type: SHOW_ERROR }));
   }
 }
 
