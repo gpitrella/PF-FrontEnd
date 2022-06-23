@@ -1,33 +1,43 @@
 .ads{
-    display: flex;
-    flex-direction: row;
-    align-content: center;
+    text-align: center;
+    padding: 1rem;
+    justify-self: center;
     height:45vh;
-    margin-top: 14vh;
-    
-    background-position:center;
-    background-size:cover;
+    max-width: 90rem;
+    min-width: 10rem;
+    margin-top: 4vh;
 }
+
 .ads img{
     height: 45vh;
-    margin-left: 40vw;
+    object-fit: contain;
+    border-radius: 0.5rem;
 }
 
 .catalogue{
-    margin-top: 6vh;
-    margin-left: 1.1vw;
+    padding: 1rem;
+    margin-top: 10vh;
 }
 
 .catalogue h2{
     color: rgb(65, 65, 65);
     display: inline;
-    margin-inline-start: auto;
     text-transform: uppercase;
-    text-overflow: clip;
     font-size: 3vh;
-    margin: 6vh 1.2vw 0 1.2vw;
-    
+    margin: 9vh 9vw 3vh 2vw;  
 }
+
+.sectionLink {
+    color: rgb(65, 65, 65);
+    display: inline;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 3vh;
+    font-weight: bolder;
+    margin-left: 58rem;
+    cursor: pointer;
+}
+
 
 .brandsTitle{
     color: rgb(65, 65, 65);

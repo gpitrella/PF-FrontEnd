@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   TEST_HOMEPAGE,
+  ALL_CATEGORIES,
   GET_BRANDS,
   GET_PRODUCT_DETAILS
 } from './actiontype';
@@ -10,6 +11,21 @@ export const testHomePage = function() {
     type: TEST_HOMEPAGE
   }
 }
+
+export const getCategories = function () {
+  return async (dispatch) => {
+    try{
+        let totalCategories = await axios.get("http://localhost:3001/api/categories");
+        dispatch({
+            type: ALL_CATEGORIES,
+            payload: totalCategories.data
+        });
+    }catch(e){
+        console.log(e);
+        return e;
+    }
+  }
+};
 
 export const getBrands = function() {
   return async (dispatch)=>{

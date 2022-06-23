@@ -1,7 +1,7 @@
 //import Carousel from "react-multi-carousel";
 import BlackFriday from '../../assets/black_friday.jpg'
-import Back from '../../assets/background_ads.jpg'
-import Logo from '../../assets/logo_cyber_monday.png'
+import Notebook from '../../assets/macbook.png'
+import Monitor from '../../assets/samsung_monitor.jpg'
 import 'react-multi-carousel/lib/styles.css'
 import s from './Ads.module.css'
 import { Carousel } from 'react-responsive-carousel';
@@ -33,10 +33,10 @@ const Ads = ()=> {
             <img src={BlackFriday} alt="BlackFriday" />
           </div>
           <div className={s.items}>
-            <img src={BlackFriday} alt="Back" />
+            <img src={Notebook} alt="Back" />
           </div>
           <div className={s.items}>
-            <img src={BlackFriday} alt="Logo" />
+            <img src={Monitor} alt="Logo" />
           </div>
         </Carousel>
       </div>
