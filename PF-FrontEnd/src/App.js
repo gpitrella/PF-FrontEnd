@@ -28,7 +28,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <FilterPanel />
           <OrderPanel />
-          <Route exact path="/productDetails" component={ProductDetails} />
+          <Route exact path="/productdetails/:id" component={ProductDetails} />
           <Route path="/" component={Footer} />
         </div>
       </Router>
