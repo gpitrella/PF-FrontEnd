@@ -2,7 +2,9 @@ import React from 'react';
 
 import s from './FilterPanel.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateFilter, resetFilter } from '../../redux/actions';
+import { updateFilter, resetFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../redux/actions';
+
+import { buildFilter } from '../../util';
 
 export default function FilterPanel() {
 
@@ -75,6 +77,8 @@ export default function FilterPanel() {
     }
 
     dispatch(updateFilter(newFilter));
+    dispatch(setShowLoading());
+    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
   }
 
   let handleResetFilterPriceRange = function() {
@@ -85,6 +89,8 @@ export default function FilterPanel() {
       page: 1
     }
 
+    dispatch(setShowLoading());
+    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
     dispatch(updateFilter(newFilter));
     setPriceRange({
       min: '',
@@ -99,10 +105,28 @@ export default function FilterPanel() {
       page: 1
     }
     dispatch(updateFilter(newFilter));
+    dispatch(setShowLoading());
+    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
   }
 
   let handleResetFilters = function() {
+    let newFilter = {
+      size: 10,
+      favorites: false,
+      discount: false,
+      category: 'None',
+      brand: [],
+      minPrice: '',
+      maxPrice: '',
+      pages: 1,
+      name: '',
+      page: 1,
+      order: filter.order,
+      orderBy: filter.orderBy
+    }
     dispatch(resetFilter());
+    dispatch(setShowLoading());
+    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
   }
 
   return (

@@ -1,4 +1,7 @@
 import {
+  GET_BRANDS_TO_STORE,
+  GET_CATEGORIES_TO_STORE,
+  GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
   UPDATE_FILTER,
   RESET_FILTER,
   SHOW_LOADING,
@@ -17,6 +20,7 @@ const initialState = {
   showError: false,
 
   filter: {
+    size: 10,
     favorites: false,
     discount: false,
     category: 'None',
@@ -27,30 +31,55 @@ const initialState = {
     orderBy: ORDER_BY_NAME,
     page: 1,
     pages: 1,
+    name: '',
   },
 
   categories: [ // Las categorias para el filtro.
-    'None',
-    'Prebuild-Computers',
-    'Notebooks',
-    'Headphones',
-    'Keyboards',
-    'Mouses',
-    'Monitors',
-    'Hard Disk Drives',
-    'Graphic-Cards',
-    'CPU-Processors',
-    'Modems-Routers'
+    // 'None',
+    // 'Prebuild-Computers',
+    // 'Notebooks',
+    // 'Headphones',
+    // 'Keyboards',
+    // 'Mouses',
+    // 'Monitors',
+    // 'Hard Disk Drives',
+    // 'Graphic-Cards',
+    // 'CPU-Processors',
+    // 'Modems-Routers'
   ],
 
   brands: [ // Las marcas para el filtro.
-    'AMD',
-    'INTEL'
-  ]
+    // 'AMD',
+    // 'INTEL'
+  ],
+
+  products: []
 };
 
 const storepageReducer = function(state = initialState, { type, payload }) {
   switch(type) {
+    case GET_BRANDS_TO_STORE:
+      return {
+        ...state,
+        brands: payload.map(brand => brand.name),
+        showStore: state.categories.length > 0
+      }
+    case GET_CATEGORIES_TO_STORE:
+      return { 
+        ...state,
+        categories: payload.map(category => category.name),
+        showStore: state.brands.length > 0
+      }
+    case GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE:
+      return {
+        ...state,
+        products: payload.content,
+        showLoading: false,
+        filter: {
+          ...state.filter,
+          pages: payload.totalPages
+        }
+      }
     case SHOW_LOADING:
       return {
         ...state,

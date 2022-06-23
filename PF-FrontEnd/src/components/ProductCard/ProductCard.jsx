@@ -6,7 +6,6 @@ import Heart from '../SVG/Heart';
 import Cart from '../SVG/Cart';
 
 import s from './ProductCard.module.css';
-import exampleImage from './example.jpg';
 import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
 
@@ -19,7 +18,7 @@ export default function ProductCard({ id, name, image, category, price, discount
 
       <div className = {s.containerImage}>
         <Link to={`/productdetails/${id}`}>
-          <ImageLoader image = {exampleImage} alt = {name} />
+          <ImageLoader image = {image} alt = {name} />
         </Link>
       </div>
 
@@ -37,10 +36,10 @@ export default function ProductCard({ id, name, image, category, price, discount
           </div>
 
           <div className = {s.containerPrice}>
-            <span className = {s.price}>${price}</span>
+            <span className = {s.price}>${ discount !== 0 ? discountPrice : price}</span>
             {
               discount !== 0 &&
-              <span className = {s.discountPrice}>${discountPrice}</span>
+              <span className = {s.discountPrice}>${price}</span>
             }
           </div>
 

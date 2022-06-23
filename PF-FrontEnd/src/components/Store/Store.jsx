@@ -4,20 +4,34 @@ import FilterPanel from '../FilterPanel/FilterPanel';
 import OrderPanel from '../OrderPanel/OrderPanel';
 import Pagination from '../Pagination/Pagination';
 import ProductCardsStore from '../ProductCardsStore/ProductCardsStore';
-import { closeStore } from '../../redux/actions';
+import LoadingStore from '../LoadingStore/LoadingStore';
+import { closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate,
+          setShowLoading } from '../../redux/actions';
+
 import s from './Store.module.css';
 
 export default function Store() {
 
   const dispatch = useDispatch();
+  const { showLoading, showError, showStore, products } = useSelector(state => state.storepage);
 
   React.useEffect(() => {
+
+    dispatch(getBrandsToStore());
+    dispatch(getCategoriesToStore());
+
     return () => {
       dispatch(closeStore());
     }
   }, [])
 
-  const exampleCards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  React.useEffect(() => {
+    if (!showStore) return;
+    dispatch(getProductsWithFiltersAndPaginate());
+    dispatch(setShowLoading());
+  }, [showStore]);
+
+  if (!showStore) return <span>Loading...</span>;
 
   return (
     <div className = {s.container}>
@@ -31,9 +45,13 @@ export default function Store() {
         <div className = {s.pagination}>
           <Pagination />
         </div>
-        <div className = {s.producCardsStore}>
-          <ProductCardsStore products = {exampleCards}/>
-        </div>
+        {
+          !showLoading && !showError &&
+          <div className = {s.producCardsStore}>
+            <ProductCardsStore products = {products}/>
+          </div>
+        }
+        <LoadingStore loading = {showLoading} error = {showError}/>
         <div className = {s.paginationBottom}>
           <Pagination />
         </div>
