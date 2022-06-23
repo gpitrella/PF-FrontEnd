@@ -1,14 +1,25 @@
 .imagebrandcontainer {
-    padding: 10px;
+    padding: 5px;
     width: 150px;
     height: 150px;
     display: flex;
     border-radius: 5px;
     border: 1px solid black;
     margin-left: 2px;
+    background-color: rgb(65, 65, 65);
+    align-items:center ;
 }
 
 .brandimage {
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
+}
+
+.brandBtn{
+    display:  flex;
     width: 150px;
     height: 150px;
+    cursor: pointer;
+    border: none;
 }

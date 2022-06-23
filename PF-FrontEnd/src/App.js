@@ -7,10 +7,16 @@ import FilterPanel from './components/FilterPanel/FilterPanel';
 import OrderPanel from './components/OrderPanel/OrderPanel';
 import './App.css';
 import Home from './components/Home/Home';
-
-import { useSelector } from 'react-redux';
+import { getBrands } from './redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  React.useEffect(()=>{
+    dispatch(getBrands())
+  },[dispatch])
 
   const { theme } = useSelector(state => state.general);
 
