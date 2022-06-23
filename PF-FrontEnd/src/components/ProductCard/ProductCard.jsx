@@ -34,37 +34,16 @@ export default function ProductCard({ id, name, image, category, price, discount
             <span className = {s.name}>{name}</span>
             <span className = {s.category}>{category}</span>
           </div>
-
-          <div className = {s.containerPrice}>
-            <span className = {s.price}>${ discount !== 0 ? discountPrice : price}</span>
-            {
-              discount !== 0 &&
-              <span className = {s.discountPrice}>${price}</span>
-            }
-          </div>
-
-        </div>
-
-        <div className = {s.containerDescription}>
-
-          <span className = {s.description}>{description}</span>
-
-          <div className = {s.rating}>
-
-            <span className = {s.spanRating}>{rating}</span>
-            <div className = {s.containerStar}>
-              <img src = {star} className = {s.img} alt = 'star' />
-            </div>
-
-          </div>
-
         </div>
 
         <div className = {s.containerOptions}>
 
-          <div className = {s.containerButtons}>
-            <button className = {s.btn}>BUY</button>
-            <button className = {s.btn}>VIEW MORE</button>
+          <div className = {s.containerPrice}>
+            <span className = {s.price}>${ discount !== 0 ? discountPrice : price }</span>
+            {
+              discount !== 0 &&
+              <span className = {s.discountPrice}>${price}</span>
+            }
           </div>
 
           <div className = {s.containerButtonsSVG}>
@@ -78,6 +57,14 @@ export default function ProductCard({ id, name, image, category, price, discount
           </div>
 
         </div>
+
+         <div className = {s.rating}>
+
+            <div className = {s.containerStar}>
+              <img src = {star} className = {s.img} alt = 'star' />
+            </div>
+            <span className = {s.spanRating}>{rating}</span>
+          </div>
 
       </div>
 
