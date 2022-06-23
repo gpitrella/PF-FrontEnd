@@ -1,11 +1,8 @@
 import axios from 'axios';
 import {
-<<<<<<< HEAD
-  TEST_HOMEPAGE, GET_BRANDS
-=======
   TEST_HOMEPAGE,
+  GET_BRANDS,
   GET_PRODUCT_DETAILS
->>>>>>> 69d17867e19ff883bd42ddc88b17237221e177be
 } from './actiontype';
 
 export const testHomePage = function() {
@@ -14,14 +11,12 @@ export const testHomePage = function() {
   }
 }
 
-<<<<<<< HEAD
 export const getBrands = function() {
   return async (dispatch)=>{
     const res = await axios('http://localhost:3001/api/manufacturer');
     return dispatch({ type: GET_BRANDS, payload: res.data });
 }
 }
-=======
 // Get Product Details:
 export function getProductDetails(id){
   return function(dispatch){
@@ -30,4 +25,3 @@ export function getProductDetails(id){
                   .catch(error => console.log(error))
   }
 };
->>>>>>> 69d17867e19ff883bd42ddc88b17237221e177be
