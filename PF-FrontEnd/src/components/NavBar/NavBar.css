@@ -1,6 +1,7 @@
-nav {
-/*    position: fixed;
-    top: 0;*/
+.navbar_main_block {
+    position: sticky;
+    z-index: 100;
+    top: 0;
     width: 100%;
     height: 50px;
     background: white;
