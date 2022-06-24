@@ -1,6 +1,7 @@
 import {
   UPDATE_FILTER,
-  RESET_FILTER
+  RESET_FILTER,
+  GET_PRODUCTS,
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
@@ -35,7 +36,8 @@ const initialState = {
   brands: [
     'AMD',
     'INTEL'
-  ]
+  ],
+  products: []
 };
 
 const storepageReducer = function(state = initialState, { type, payload }) {
@@ -59,6 +61,11 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           page: 1
         }
       }
+      case GET_PRODUCTS:
+        return {
+          ...state,
+          products: payload
+        }
     default:
       return state;
   }

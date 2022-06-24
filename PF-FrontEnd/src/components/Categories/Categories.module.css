@@ -76,6 +76,7 @@ body {
     justify-content: space-between;
     cursor: pointer;
     border: none;
+    text-decoration-line: none;
     outline: none;
     color:rgb(255, 255, 255);
     background: rgb(65, 65, 65);

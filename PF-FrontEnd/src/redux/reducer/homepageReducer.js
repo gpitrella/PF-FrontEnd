@@ -3,6 +3,7 @@ import {
   GET_BRANDS,
   TEST_HOMEPAGE,
   ALL_CATEGORIES,
+  CREATE_CATEGORY,
   GET_PRODUCT_DETAILS
 } from '../actions/actiontype';
 
@@ -25,6 +26,11 @@ const homepageReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         allCategories: payload
+      }
+    
+    case CREATE_CATEGORY:
+      return {
+        ...state
       }
 
     case GET_BRANDS:
