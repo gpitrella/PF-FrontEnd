@@ -15,8 +15,31 @@ export default function FilterPanel() {
     max: ''
   })
 
+  const [ showFilterByName, setShowFilterByName ] = React.useState(false);
+  const [ filterByName, setFilterByName ] = React.useState(false);
+  const [ cacheName, setCacheName ] = React.useState(filter.name);
+
+  React.useEffect(() => {
+    if (filter.name !== '') {
+      setShowFilterByName(true); 
+      setCacheName(filter.name);
+      setFilterByName(true);
+      handleUpdateFilter(filter.name, cacheName);
+    }
+  }, [filter.name])
+
   let handleCheck = function(property) {
     handleUpdateFilter(property, !filter[property]);
+  }
+
+  let handleCheckFilterByName = function() {
+    setFilterByName(!filterByName);
+    if (filterByName) setCacheName(filter.name);
+    handleUpdateFilterByName(!filterByName);
+  }
+
+  let handleUpdateFilterByName = function(enable) {
+    handleUpdateFilter('name', enable ? cacheName : '');
   }
 
   let formatString= function(category) {
@@ -128,6 +151,11 @@ export default function FilterPanel() {
       order: filter.order,
       orderBy: filter.orderBy
     }
+
+    setShowFilterByName(false);
+    setFilterByName(false);
+    setCacheName('');
+
     dispatch(resetFilter());
     dispatch(setShowLoading());
     dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
@@ -147,6 +175,23 @@ export default function FilterPanel() {
         <input type = 'checkbox' checked = {filter.discount} className = {s.largeCheck} onChange = {() => handleCheck('discount')} />
         <label className = {s.lbl}>Show Only On Discount</label>
       </div>
+
+      {
+        showFilterByName &&
+          <div className = {s.check}>
+            <input 
+              type = 'checkbox' 
+              checked = {filterByName}
+              className = {s.largeCheck}
+              onChange = {() => handleCheckFilterByName('favorites')} 
+            />
+            <label 
+              className = {s.lbl}
+            >
+              Search: '<i>{ cacheName.length > 15 ? cacheName.slice(0, 15) : cacheName }</i>'
+            </label>
+          </div>
+      }
 
       <div className = {s.separator}></div>
 
