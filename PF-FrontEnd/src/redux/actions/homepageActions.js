@@ -4,7 +4,8 @@ import {
   ALL_CATEGORIES,
   GET_BRANDS,
   GET_PRODUCT_DETAILS,
-
+  GET_SEARCH_PRODUCTS,
+  CLEAR_SEARCH_PRODUCTS,
   SHOW_LOADING_SECTION_ONE,
   SHOW_LOADING_SECTION_TWO,
   SHOW_LOADING_SECTION_THREE,
@@ -54,6 +55,22 @@ export function getProductDetails(id){
   }
 };
 
+// Get Search Bar Products: 
+export function getSearchProducts(name){
+  return function(dispatch){
+      
+      return axios.get(`http://localhost:3001/api/product/?size=7&name=${name}`)
+                  .then(product => dispatch({ type: GET_SEARCH_PRODUCTS, payload: product.data}))
+                  .catch(error => console.log(error))
+  }
+};
+
+// Clear Search Products:
+export function clearSearchProducts(){
+  return function(dispatch){
+      dispatch({ type: CLEAR_SEARCH_PRODUCTS})
+  }
+};
 
 // Para las secciones:
 export const showLoadingSectionOne = function() {

@@ -2,8 +2,10 @@ import { ActionTypes } from '@mui/base';
 import {
   GET_BRANDS,
   TEST_HOMEPAGE,
-  ALL_CATEGORIES,
   GET_PRODUCT_DETAILS,
+  GET_SEARCH_PRODUCTS,
+  CLEAR_SEARCH_PRODUCTS,
+  ALL_CATEGORIES,
   SHOW_LOADING_SECTION_ONE,
   SHOW_LOADING_SECTION_TWO,
   SHOW_LOADING_SECTION_THREE,
@@ -20,6 +22,7 @@ const initialState = {
   allCategories: [],
   brandsList: [],
   productDetails: {},
+  searchProducts: {},
   section: {
     one: [],
     two: [],
@@ -59,6 +62,17 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         productDetails: payload          
         }
 
+    case GET_SEARCH_PRODUCTS:
+      return {
+        ...state,
+        searchProducts: payload
+      }
+    
+    case CLEAR_SEARCH_PRODUCTS:
+      return {
+        ...state,
+        searchProducts: {}
+      }
     // Para las secciones
     case SHOW_LOADING_SECTION_ONE: {
       return {

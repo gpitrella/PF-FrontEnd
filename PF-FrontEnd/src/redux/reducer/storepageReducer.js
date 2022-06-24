@@ -85,6 +85,7 @@ const storepageReducer = function(state = initialState, { type, payload }) {
     case SHOW_LOADING:
       return {
         ...state,
+        products: [],
         showLoading: true,
         noProducts: false,
         showError: false
