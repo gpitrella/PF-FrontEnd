@@ -1,17 +1,11 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { getSearchProducts, clearSearchProducts } from "../../redux/actions/homepageActions";
+import { useDispatch } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
 import './NavBar.css';
-// import searchIcon from './img/searchIcon.png';
 import gitfLogo from './img/logo_TechMarket.gif';
-
-// import imgCarrito from './img/img_carrito.png';
-// import imgMensaje from './img/img_mensaje.png';
-// import imgCorazon from './img/heart-icon.png'
 
 // Nueva Navbar
 import { styled, alpha } from '@mui/material/styles';
@@ -31,6 +25,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
+
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -43,7 +38,7 @@ const Search = styled('div')(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('sm')]: {
     marginLeft: theme.spacing(3),
-    width: 'auto',
+    width: '380px',
   },
 }));
 
@@ -71,16 +66,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-/////////////////////////////////////////////////
-
-
-
-
-
 export default function NavBar() {
+  const [ name, setName ] = React.useState('');
+  const dispatch = useDispatch();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    dispatch(clearSearchProducts())
+    setName(e.target.value);
+    dispatch(getSearchProducts(name));
+  }
 
 // Nueva NAVBAR
-const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
@@ -177,58 +175,10 @@ const [anchorEl, setAnchorEl] = React.useState(null);
     </Menu>
   );
 
-  //////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // const [toggleMenu, setToggleMenu] = useState(false)
-  // const [screenWidth, setScreenWidth] = useState(window.innerWidth)
-
-  // const { theme } = useSelector(state => state.general);
-  const dispatch = useDispatch();
-
-  //   const toggleNav = () => {
-  //     setToggleMenu(!toggleMenu);
-  //   };
-
-  //   useEffect(() => {
-
-  //     const changeWidth = () => {
-  //       setScreenWidth(window.innerWidth);
-  //     }
-  //     window.addEventListener('resize', changeWidth)
-  //     return () => {
-  //       window.removeEventListener('resize', changeWidth)
-  //   }
-  
-  //   }, [])
-    
-  //   function handleSearch(e) {
-  //       e.preventDefault();
-  //   };
-
-  //   function handleSubmit(e) {
-  //       e.preventDefault();
-  //   }
-
     function handleCheck() {
       dispatch(changeTheme());
     }
-       
+
     return (
       /// Nueva NAVABar
       <nav className='navbar_main_block'>
@@ -244,23 +194,29 @@ const [anchorEl, setAnchorEl] = React.useState(null);
           >
             <MenuIcon />
           </IconButton>
-          <Box
-            alignSelf="center"
-            flex="0 0"
-            component="img"
-            alt="logo"
-            src={gitfLogo}
-            maxHeight={80}
-          />
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
+          <Link to="/">
+            <Box
+              alignSelf="center"
+              flex="0 0"
+              component="img"
+              alt="logo"
+              src={gitfLogo}
+              maxHeight={80}
+            />
+          </Link>
+          <Search >
+            <SearchIconWrapper >
+              <Link to={`/store/name/${name}`}>
+                <SearchIcon style={{ textDecoration: 'none' }}/>
+              </Link>
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder="Search…"
+              placeholder="Search ..."
               inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => handleSearch(e)}
             />
           </Search>
+          
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -306,60 +262,10 @@ const [anchorEl, setAnchorEl] = React.useState(null);
       {renderMobileMenu}
       {renderMenu}
     </Box>
-
-
-
-
-
-
-
-
-
-
-
-
-
-            {/* <span className='navBarLogo'>
-                <Link to="/"><img className="imageLogo" src={imageLogo} alt='Logo Tech Ecommerce' /></Link>
-            </span>
-          {(toggleMenu || screenWidth > 500) && (
-            <ul className='list'>
-                <li className="items">
-                  <form>
-                    <label className="switch">
-                       Tema:
-                           <input type="checkbox" name="name" onChange = {handleCheck} checked = {theme === THEME.DARK}/>
-                           <span className="slider"></span>
-                    </label>
-                  </form>
-                </li>
-                <li className="items">
-                  <form className="search-container">
-                    <input type='text' className="inputSearchBar" id='name' placeholder='Buscar Producto ...' autoComplete='off' onChange={(e) => handleSearch(e)}></input>
-                    <img type='submit' className="search-icon" src={searchIcon} alt='icono search' onClick={(e) => handleSubmit(e)}/>
-                  </form>
-                </li >
-                <li className="items">
-                  <Link to="/"><img className="imgCorazon" src={imgCorazon} alt='carrito de compra' /></Link>
-                </li>
-                <li className="items">
-                    <Link to="/"><img className="imgCarrito" src={imgCarrito} alt='carrito de compra' /></Link>
-                </li>
-                <li className="items">
-                    <Link to="/"><img className="imgMensaje" src={imgMensaje} alt='casilla de mensajes' /></Link>
-                </li>
-                <li className="items">
-                    <Link className="Login" to="/login">Login/Logout</Link>
-                </li>
-              </ul>
-            )}
-            <>
-              <button className='btnNavbar' onClick={toggleNav}>BTN</button>
-            </> */}
+    
       </nav>
     )
 };
-
 const THEME = {
   LIGHT: 'lightTheme',
   DARK: 'darkTheme'

@@ -2,13 +2,16 @@ import { ActionTypes } from '@mui/base';
 import {
   GET_BRANDS,
   TEST_HOMEPAGE,
-  GET_PRODUCT_DETAILS
+  GET_PRODUCT_DETAILS,
+  GET_SEARCH_PRODUCTS,
+  CLEAR_SEARCH_PRODUCTS
 } from '../actions/actiontype';
 
 const initialState = {
   test: false,
   brandsList: [],
-  productDetails: {}
+  productDetails: {},
+  searchProducts: {}
 };
 
 const homepageReducer = function(state = initialState, { type, payload }) {
@@ -30,6 +33,19 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         ...state,
         productDetails: payload          
         }
+
+    case GET_SEARCH_PRODUCTS:
+      return {
+        ...state,
+        searchProducts: payload
+      }
+    
+    case CLEAR_SEARCH_PRODUCTS:
+      return {
+        ...state,
+        searchProducts: {}
+      }
+
     default:
       return state;
   }
