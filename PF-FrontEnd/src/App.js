@@ -25,7 +25,10 @@ function App() {
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
           <Route exact path="/" component={Home} />
-          <Route exact path="/store" component = {Store} />
+          <Route exact path="/store/" component = {Store} />
+          <Route exact path="/store/name/:name" component = {Store} />
+          <Route exact path="/store/category/:category" component = {Store} />
+          <Route exact path="/store/brand/:brand" component = {Store} />
           <Route exact path="/productDetails" component={ProductDetails} />
           <Route exact path="/productdetails/:id" component={ProductDetails} />
           <Route path="/" component={Footer} />
