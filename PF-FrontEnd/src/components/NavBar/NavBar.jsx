@@ -210,16 +210,15 @@ export default function NavBar() {
               maxHeight={80}
             />
           </Link>
-            <Search >
+          <Search >
                 <Link to={`/store/name/${name}`} underline="none">
                         <SearchIcon id='searchIcon'/>
                 </Link>
-            <StyledInputBase
-              placeholder="Search ..."
-              inputProps={{ 'aria-label': 'search' }}
-              onChange={(e) => handleSearch(e)}
-              />
-                
+              <StyledInputBase
+                placeholder="Search ..."
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={(e) => handleSearch(e)}
+                />
           </Search>
           
           <Box sx={{ flexGrow: 1 }} />
