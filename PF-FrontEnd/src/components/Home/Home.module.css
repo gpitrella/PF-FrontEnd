@@ -4,12 +4,12 @@
     justify-self: center;
     height:45vh;
     max-width: 90rem;
-    min-width: 10rem;
     margin-top: 4vh;
 }
 
 .ads img{
     height: 45vh;
+    min-width: max-content;
     object-fit: contain;
     border-radius: 0.5rem;
 }
@@ -24,7 +24,7 @@
     display: inline;
     text-transform: uppercase;
     font-size: 3vh;
-    margin: 9vh 9vw 3vh 2vw;  
+    margin: 9vh 6vw 3vh;  
 }
 
 .sectionLink {
@@ -34,7 +34,7 @@
     text-decoration: none;
     font-size: 3vh;
     font-weight: bolder;
-    margin-left: 58rem;
+    margin-left: 54rem;
     cursor: pointer;
 }
 

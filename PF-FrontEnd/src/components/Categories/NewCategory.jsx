@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { createCategory, getProducts } from '../../redux/actions';
+import { createCategory } from '../../redux/actions';
 import DeleteRounded from '@mui/icons-material/DeleteRounded';
 import style from './CreateCategory.module.css'; 
 
@@ -23,8 +23,7 @@ export default function CreateActivity(){
     };
     
     useEffect(() => {
-        dispatch(getProducts())
-    }, [dispatch])
+    }, [])
 
     const [formError, setFormError] = useState({});
     const [buttonError, setButtonError] = useState(Object.keys(formError).length<1 ? false : true);
