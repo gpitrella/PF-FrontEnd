@@ -50,6 +50,12 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  textDecoration: 'none',
+  zIndex: 200,
+  '&:hover': {
+    cursor:'pointer'
+  },
+  
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -204,17 +210,16 @@ export default function NavBar() {
               maxHeight={80}
             />
           </Link>
-          <Search >
-            <SearchIconWrapper >
-              <Link to={`/store/name/${name}`}>
-                <SearchIcon style={{ textDecoration: 'none' }}/>
-              </Link>
-            </SearchIconWrapper>
+            <Search >
+                <Link to={`/store/name/${name}`} underline="none">
+                        <SearchIcon id='searchIcon'/>
+                </Link>
             <StyledInputBase
               placeholder="Search ..."
               inputProps={{ 'aria-label': 'search' }}
               onChange={(e) => handleSearch(e)}
-            />
+              />
+                
           </Search>
           
           <Box sx={{ flexGrow: 1 }} />

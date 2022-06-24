@@ -1,10 +1,11 @@
 import React from 'react';
 import ProductCard from '../ProductCard/ProductCard';
+import NoResults from '../SVG/NoResults';
 import Carousel from 'react-multi-carousel';
 import s from './ProductCards.module.css';
 import 'react-multi-carousel/lib/styles.css';
 
-export default function ProductCards() {
+export default function ProductCards({ products, section }) {
 
   const responsive = {
     superLargeDesktop: {
@@ -25,29 +26,40 @@ export default function ProductCards() {
     }
   };
 
-  let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
   return (
     <div className = {s.container}>
       <div className = {s.containerCarrousel}>
-        <Carousel responsive = {responsive} infinite = {true} itemClass = {s.carouselItem}>
-          {
-            data && data.map((product, index) => 
+        {
+          products && products.length !== 0 &&
 
-              <ProductCard 
-                id = {1}
-                name = {`example ${index}`}
-                category = {'Prebuild Computer'}
-                price = {50000}
-                discount = {50}
-                description = {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis.'}
-                rating = {9.5}
-                key = {`product-${index}`}
-             />
+          <Carousel responsive = {responsive} infinite = {true} itemClass = {s.carouselItem}>
+            {
+              products && products.map((product, index) => 
 
-            )
-          }
-        </Carousel>
+                <ProductCard 
+                  id = {product.id}
+                  name = {product.name}
+                  category = {'example'}
+                  price = {product.price}
+                  discount = {product.discount}
+                  rating = {9.5}
+                  image = {product.image}
+                  key = {`product-section${section}-${product.id}-${index}`}
+               />
+
+              )
+            }
+          </Carousel>
+        }
+        {
+          products && products.length === 0 &&
+          <div className = {s.noProductsContainer}>
+            <div className = {s.imageContainer}>
+              <NoResults />
+            </div>
+            <span className = {s.span}>No products to show</span>
+          </div>
+        }
       </div>
     </div>
   );

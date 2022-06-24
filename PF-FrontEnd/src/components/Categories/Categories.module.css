@@ -61,12 +61,11 @@ body {
       max-width: 6.5vw;
       height: 14vh;
       display: flex;
-      justify-content: space-between;
-      margin-left: 0.5vw;
+      filter: invert(99%) sepia(0%) saturate(7499%) hue-rotate(183deg) brightness(115%) contrast(96%);      justify-content: space-between;
+      margin-left: 0.6vw;
       margin-bottom: 0.5vh;
-      border: 2px solid whitesmoke;
       border-radius: 10px;
-  }
+    }
 
   .catButton {
     width: 7.5vw;
