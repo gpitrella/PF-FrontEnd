@@ -13,7 +13,7 @@
 
 .containerGrid {
   display: grid;
-  grid-template-columns: 300px auto;
+  grid-template-columns: 300px 870px;
   grid-template-rows: 40px 40px 1fr 40px;
 
   align-items: flex-start;

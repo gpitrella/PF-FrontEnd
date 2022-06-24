@@ -1,0 +1,36 @@
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+
+.errorContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+
+.errorContainer > svg {
+  fill: var(--dangerColor);
+}
+
+.loadingContainer > svg {
+  animation: rotateLoading 2s infinite;
+  animation-timing-function: linear;
+  fill: var(--secondaryColor);
+}
+
+@keyframes rotateLoading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

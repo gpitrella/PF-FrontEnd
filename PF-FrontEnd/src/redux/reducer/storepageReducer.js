@@ -1,14 +1,26 @@
 import {
+  GET_BRANDS_TO_STORE,
+  GET_CATEGORIES_TO_STORE,
+  GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
   UPDATE_FILTER,
   RESET_FILTER,
-  GET_PRODUCTS,
+  SHOW_LOADING,
+  SHOW_ERROR,
+  SHOW_STORE,
+  CLOSE_STORE
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
 const ORDER_BY_NAME = "name";
 
 const initialState = {
+
+  showStore: false,
+  showLoading: false,
+  showError: false,
+
   filter: {
+    size: 10,
     favorites: false,
     discount: false,
     category: 'None',
@@ -18,30 +30,76 @@ const initialState = {
     order: 'asc',
     orderBy: ORDER_BY_NAME,
     page: 1,
-    pages: 10,
+    pages: 1,
+    name: '',
   },
-  categories: [
-    'None',
-    'Prebuild-Computers',
-    'Notebooks',
-    'Headphones',
-    'Keyboards',
-    'Mouses',
-    'Monitors',
-    'Hard Disk Drives',
-    'Graphic-Cards',
-    'CPU-Processors',
-    'Modems-Routers'
+
+  categories: [ // Las categorias para el filtro.
+    // 'None',
+    // 'Prebuild-Computers',
+    // 'Notebooks',
+    // 'Headphones',
+    // 'Keyboards',
+    // 'Mouses',
+    // 'Monitors',
+    // 'Hard Disk Drives',
+    // 'Graphic-Cards',
+    // 'CPU-Processors',
+    // 'Modems-Routers'
   ],
-  brands: [
-    'AMD',
-    'INTEL'
+
+  brands: [ // Las marcas para el filtro.
+    // 'AMD',
+    // 'INTEL'
   ],
-  products: []
+
+  products: [],
+  noProducts: false,
 };
 
 const storepageReducer = function(state = initialState, { type, payload }) {
   switch(type) {
+    case GET_BRANDS_TO_STORE:
+      return {
+        ...state,
+        brands: payload.map(brand => brand.name),
+        showStore: state.categories.length > 0
+      }
+    case GET_CATEGORIES_TO_STORE:
+      return { 
+        ...state,
+        categories: ['None'].concat(payload.map(category => category.name)),
+        showStore: state.brands.length > 0
+      }
+    case GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE:
+      return {
+        ...state,
+        products: payload.content,
+        showLoading: false,
+        filter: {
+          ...state.filter,
+          pages: payload.totalPages
+        },
+        noProducts: payload.content.length === 0
+      }
+    case SHOW_LOADING:
+      return {
+        ...state,
+        showLoading: true,
+        noProducts: false,
+        showError: false
+      }
+    case SHOW_ERROR:
+      return {
+        ...state,
+        showLoading: false,
+        showError: true
+      }
+    case SHOW_STORE:
+      return {
+        ...state,
+        showStore: true
+      }
     case UPDATE_FILTER:
       return {
         ...state,
@@ -61,11 +119,8 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           page: 1
         }
       }
-      case GET_PRODUCTS:
-        return {
-          ...state,
-          products: payload
-        }
+    case CLOSE_STORE:
+      return initialState;
     default:
       return state;
   }
