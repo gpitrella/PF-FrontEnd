@@ -34,6 +34,12 @@ export default function Store() {
   }, [])
 
   React.useEffect(() => {
+    handleUpdateFilter('name', params.name);
+    dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
+    dispatch(setShowLoading());
+  }, [params.name])
+
+  React.useEffect(() => {
     if (!showStore) return;
     dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
     dispatch(setShowLoading());

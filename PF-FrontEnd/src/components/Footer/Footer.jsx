@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import facebook from './img/btn-facebook.png'
 import instagram from './img/btn-instagram.png'
 import twitter from './img/btn-twitter.png'
-import logo from "./img/logo.gif"
+import logo from "./img/logo_TechMarket.gif"
 import './Footer.css'
 
 
