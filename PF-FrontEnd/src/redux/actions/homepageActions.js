@@ -4,8 +4,20 @@ import {
   ALL_CATEGORIES,
   CREATE_CATEGORY,
   GET_BRANDS,
-  GET_PRODUCT_DETAILS
+  GET_PRODUCT_DETAILS,
+
+  SHOW_LOADING_SECTION_ONE,
+  SHOW_LOADING_SECTION_TWO,
+  SHOW_LOADING_SECTION_THREE,
+  GET_PRODUCT_TO_SECTION_ONE,
+  GET_PRODUCT_TO_SECTION_TWO,
+  GET_PRODUCT_TO_SECTION_THREE,
+  SHOW_ERROR_SECTION_ONE,
+  SHOW_ERROR_SECTION_TWO,
+  SHOW_ERROR_SECTION_THREE
 } from './actiontype';
+
+const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = 'http://localhost:3001/api/product/?';
 
 export const testHomePage = function() {
   return {
@@ -58,3 +70,51 @@ export function getProductDetails(id){
                   .catch(error => console.log(error))
   }
 };
+
+
+// Para las secciones:
+export const showLoadingSectionOne = function() {
+  return {
+    type: SHOW_LOADING_SECTION_ONE
+  }
+}
+
+export const showLoadingSectionTwo = function() {
+  return {
+    type: SHOW_LOADING_SECTION_TWO
+  }
+}
+
+export const showLoadingSectionThree = function() {
+  return {
+    type: SHOW_LOADING_SECTION_THREE
+  }
+}
+
+export const getProductsToSectionOne = function(filterQuery = 'page=1') {
+  return function(dispatch) {
+    return fetch(`${PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE}${filterQuery}`)
+           .then(result => result.json())
+           .then(data =>  dispatch({ type: GET_PRODUCT_TO_SECTION_ONE, payload: data }))
+           .catch(error => dispatch({ type: SHOW_ERROR_SECTION_ONE }));
+  }
+}
+
+export const getProductsToSectionTwo = function(filterQuery = 'page=1') {
+  return function(dispatch) {
+    return fetch(`${PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE}${filterQuery}`)
+           .then(result => result.json())
+           .then(data =>  dispatch({ type: GET_PRODUCT_TO_SECTION_TWO, payload: data }))
+           .catch(error => dispatch({ type: SHOW_ERROR_SECTION_TWO }));
+  }
+}
+
+export const getProductsToSectionThree = function(filterQuery = 'page=1') {
+  return function(dispatch) {
+    return fetch(`${PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE}${filterQuery}`)
+           .then(result => result.json())
+           .then(data =>  dispatch({ type: GET_PRODUCT_TO_SECTION_THREE, payload: data }))
+           .catch(error => dispatch({ type: SHOW_ERROR_SECTION_THREE }));
+  }
+}
+// Fin para las secciones.

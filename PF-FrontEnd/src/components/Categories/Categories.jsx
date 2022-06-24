@@ -80,7 +80,8 @@ export default function Categories () {
                 allCategories.map((cat) => {
                     return (
                         <li className={style.categories} key={cat.id}>
-                            <Link type="submit" className={style.catButton} value={cat.name} onSubmit={(e) => handleChange(e)} to='/store/' >
+                            <Link to = {`store/category/${cat.name}`}>
+                            <button className={style.catButton}>
                                     <div className={style.catName}>
                                         <h4>{cat.name}</h4>
                                     </div>
@@ -90,6 +91,7 @@ export default function Categories () {
                                         <img className={style.catImage} src={"http://simpleicon.com/wp-content/uploads/computer-2.png"} alt={cat.name} /> 
                                     )   
                                 }
+                            </button>
                             </Link>
                         </li>
                     )})
