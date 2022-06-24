@@ -12,11 +12,12 @@ export default function ProductCardsStore({ products }){
         <ProductCard 
           id = {product.id}
           name = {product.name}
-          category = {'example'}
+          category = {product.categories[0]}
           price = {product.price}
           discount = {product.discount}
           rating = {9.5}
           image = {product.image}
+          brand = {product.manufacturers[0]}
           key = {`product-${product.id}-${index}`}
        />
 

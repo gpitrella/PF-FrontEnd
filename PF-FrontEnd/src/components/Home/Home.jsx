@@ -26,9 +26,9 @@ export default function Home () {
     dispatch(showLoadingSectionOne());
     dispatch(showLoadingSectionTwo());
     dispatch(showLoadingSectionThree());
-    dispatch(getProductsToSectionOne('?page=1&discount=1&size=10&order=random'));
-    dispatch(getProductsToSectionTwo('?page=1&category=notebooks&size=10&order=random'));
-    dispatch(getProductsToSectionThree('?page=1&category=Keyboards&size=10&order=random'));
+    dispatch(getProductsToSectionOne('page=1&discount=1&size=10&order=random'));
+    dispatch(getProductsToSectionTwo('page=1&category=NOTEBOOKS&size=10&order=random'));
+    dispatch(getProductsToSectionThree('page=1&category=KEYBOARDSs&size=10&order=random'));
   }, []);
 
   return (
