@@ -20,6 +20,7 @@ export default function Store() {
 
   React.useEffect(() => {
 
+    if (params.discount) handleUpdateFilter('discount', true);
     if (params.name) handleUpdateFilter('name', params.name);
     if (params.category) handleUpdateFilter('category', params.category);
     if (params.brand) handleUpdateFilter('brand', [params.brand]);

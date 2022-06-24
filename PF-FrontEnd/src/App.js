@@ -26,6 +26,7 @@ function App() {
           <Route path="/" component={NavBar} />
           <Route exact path="/" component={Home} />
           <Route exact path="/store/" component = {Store} />
+          <Route exact path="/store/discount/:discount" component = {Store} />
           <Route exact path="/store/name/:name" component = {Store} />
           <Route exact path="/store/category/:category" component = {Store} />
           <Route exact path="/store/brand/:brand" component = {Store} />
