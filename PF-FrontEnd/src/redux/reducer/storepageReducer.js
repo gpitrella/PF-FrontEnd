@@ -116,7 +116,8 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           brand: [],
           minPrice: '',
           maxPrice: '',
-          page: 1
+          page: 1,
+          name: ''
         }
       }
     case CLOSE_STORE:
