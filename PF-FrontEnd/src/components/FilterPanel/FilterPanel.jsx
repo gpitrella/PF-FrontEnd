@@ -51,6 +51,10 @@ export default function FilterPanel() {
   let handleInput = function(e) {
     let { value, name } = e.target;
 
+    while (value[0] === '0') {
+      value = value.slice(1, value.length - 1);
+    }
+
     if (value === '' || /^[0-9]+$/.test(value)) setPriceRange({
       ...priceRange,
       [name]: value !== ''? Number(value) : ''

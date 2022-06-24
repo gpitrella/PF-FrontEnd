@@ -9,7 +9,7 @@ import s from './ProductCard.module.css';
 import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
 
-export default function ProductCard({ id, name, image, category, price, discount, rating }) {
+export default function ProductCard({ id, name, image, category, price, discount, rating, brand }) {
 
   let discountPrice = Math.round(price - price * (discount / 100));
 
@@ -27,7 +27,7 @@ export default function ProductCard({ id, name, image, category, price, discount
         <div className = {s.containerTitle}>
 
           <div className = {s.containerBrand}>
-            <img src = {exampleBrand} alt = 'exampleBrand' className = {s.img} />
+            <img src = {brand.image} alt = {brand.name} className = {s.img} />
           </div>
 
           <div className = {s.containerTitleAndCategory}>

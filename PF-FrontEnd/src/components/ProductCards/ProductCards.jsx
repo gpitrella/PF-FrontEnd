@@ -44,6 +44,7 @@ export default function ProductCards({ products, section }) {
                   discount = {product.discount}
                   rating = {9.5}
                   image = {product.image}
+                  brand = {product.manufacturers[0]}
                   key = {`product-section${section}-${product.id}-${index}`}
                />
 
