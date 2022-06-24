@@ -74,7 +74,8 @@ export default function Categories () {
                 allCategories.map((cat) => {
                     return (
                         <li className={style.categories} key={cat.id}>
-                            <button className={style.catButton} onClick={(e) => sendMessage(e)} >
+                            <Link to = {`store/category/${cat.name}`}>
+                            <button className={style.catButton}>
                                     <div className={style.catName}>
                                         <h4>{cat.name}</h4>
                                     </div>
@@ -85,6 +86,7 @@ export default function Categories () {
                                     )   
                                 }
                             </button>
+                            </Link>
                         </li>
                     )})
             ) : (
