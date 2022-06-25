@@ -75,17 +75,20 @@
   cursor: pointer;
   font-weight: 700;
   transition: background-color 0.5s;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .filterBrand:hover {
   background-color: var(--dangerColor);
 }
 
-.filterBrand:hover::before{
+.filterBrand:hover::before {
   content: 'Remove -';
 }
 
-.filterBrand:hover::after{
+.filterBrand:hover::after {
   content: '-';
 }
 
