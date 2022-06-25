@@ -8,7 +8,14 @@
   justify-content: center;
   align-items: center;
 
+  flex-direction: column;
+
   box-sizing: border-box;
+}
+
+.title {
+  color: var(--fontColor);
+  font-weight: 900;
 }
 
 .containerGrid {
@@ -27,10 +34,16 @@
   grid-column: 1 / 2;
 }
 
-.orderPanel {
+.subHeaderZone {
+
+  width: 100%;
+
   grid-row: 1 / 2;
   grid-column: 2 / 3;
-  justify-self: flex-end;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .pagination {

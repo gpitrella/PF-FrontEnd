@@ -24,7 +24,7 @@ export default function FilterPanel() {
       setShowFilterByName(true); 
       setCacheName(filter.name);
       setFilterByName(true);
-      handleUpdateFilter(filter.name, cacheName);
+      handleUpdateFilter('name', cacheName);
     }
   }, [filter.name])
 

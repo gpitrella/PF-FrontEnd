@@ -11,11 +11,12 @@ import { closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFilt
 import { buildFilter } from '../../util';
 
 import s from './Store.module.css';
+import Loading from '../SVG/Loading';
 
 export default function Store() {
 
   const dispatch = useDispatch();
-  const { showLoading, showError, showStore, products, noProducts, filter } = useSelector(state => state.storepage);
+  const { showLoading, showError, showStore, products, noProducts, filter, results } = useSelector(state => state.storepage);
   const params = useParams();
 
   React.useEffect(() => {
@@ -42,7 +43,7 @@ export default function Store() {
       })));
       dispatch(setShowLoading());
     }
-  }, [params.name])
+  }, [params.name]);
 
   React.useEffect(() => {
     if (!showStore) return;
@@ -63,12 +64,44 @@ export default function Store() {
 
   return (
     <div className = {s.container}>
+
+      <div className = {s.containerTitle}>
+        {
+          showLoading && <h1 className = {s.title}>Searching...</h1>
+        }
+        {
+          showError && <h1 className = {s.title}>Results: 0</h1>
+        }
+        {
+          !showLoading && !showError && <h1 className = {s.title}>Results({results})</h1>
+        }
+      </div>
+
       <div className = {s.containerGrid}>
         <div className = {s.filterPanel}>
           <FilterPanel />
         </div>
-        <div className = {s.orderPanel}>
-          <OrderPanel />
+        <div className = {s.subHeaderZone}>
+
+          {
+            showLoading && <span></span>
+          }
+          {
+            results === 0 && !showLoading && <span className = {s.results}>Showing 0-0 of 0 Products</span>
+          }
+          {
+            results !== 0 && !showLoading &&
+            <span className = {s.results}>
+              Showing { (filter.page - 1) * (Math.ceil(results / filter.pages)) + 1 }-{
+              filter.page === filter.pages ? results :  filter.page * ( Math.ceil(results / filter.pages)) } of {
+              results} Products
+            </span>
+          }
+
+          <div className = {s.orderPanel}>
+            <OrderPanel />
+          </div>
+
         </div>
         <div className = {s.pagination}>
           <Pagination />
