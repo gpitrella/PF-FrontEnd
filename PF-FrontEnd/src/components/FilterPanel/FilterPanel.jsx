@@ -31,8 +31,7 @@ export default function FilterPanel() {
 
   let handleCheckFilterByName = function() {
     setShowFilterByName(false);
-    handleUpdateFilter('name', '');
-    history.push('/store');
+    handleResetFilters();
   }
 
   let formatString= function(category) {
@@ -145,12 +144,16 @@ export default function FilterPanel() {
       orderBy: filter.orderBy
     }
 
-    if (location && location.pathname.length > 7) history.push('/store');
-
-    setShowFilterByName(false);
     dispatch(resetFilter());
-    dispatch(setShowLoading());
-    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+    if (location && location.pathname.length > 7) {
+      setShowFilterByName(false);
+      history.replace('/store');
+    }
+    else {
+      setShowFilterByName(false);
+      dispatch(setShowLoading());
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+    }
   }
 
   return (

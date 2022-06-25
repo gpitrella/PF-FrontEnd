@@ -17,12 +17,14 @@ export default function Store() {
 
   const dispatch = useDispatch();
   const { showLoading, showError, showStore, products, noProducts, filter, results } = useSelector(state => state.storepage);
+  const [ dispatching, setDispatching ] = React.useState(false);
+  const [ queryName, setqueryName ] = React.useState('');
   const params = useParams();
 
   React.useEffect(() => {
 
     if (params.discount) handleUpdateFilter('discount', true);
-    if (params.name) handleUpdateFilter('name', params.name);
+    //if (params.name) handleUpdateFilter('name', params.name);
     if (params.category) handleUpdateFilter('category', params.category);
     if (params.brand) handleUpdateFilter('brand', [params.brand]);
 
@@ -30,33 +32,65 @@ export default function Store() {
     dispatch(getCategoriesToStore());
 
     return () => {
+      console.log('cerrando la store...');
       dispatch(closeStore());
+      setqueryName('');
+      setDispatching(false);
     }
   }, [])
 
+  // React.useEffect(() => {
+  //   if (params && params.name) {
+  //     handleUpdateFilter('name', params.name);
+  //     console.log('Actualizo el filtro por nombre.');
+  //   }
+  // }, [params.name]);
+
+  // React.useEffect(() => {
+  //   if (!showStore) return;
+  //   console.log('Empiezo a cargar los productos con el filtro.', filter);
+  //   dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
+  //   dispatch(setShowLoading());
+  // }, [showStore]);
+
   React.useEffect(() => {
-    if (params && params.name && showStore) {
+    if (params.name !== queryName) setqueryName(params.name)
+  }, [params.name])
+
+  React.useEffect(() => {
+    if (!showStore || (dispatching && params.name === queryName)) return;
+
+    console.log('Empiezo a cargar los productos con el filtro.');
+
+    if (params && params.name) {
+      console.log('Actualizo el filtro por nombre.');
       handleUpdateFilter('name', params.name);
       dispatch(getProductsWithFiltersAndPaginate(buildFilter({
         ...filter,
         name: params.name
       })));
-      dispatch(setShowLoading());
     }
-  }, [params.name]);
-
-  React.useEffect(() => {
-    if (!showStore) return;
-    dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
+    else {
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter({
+        ...filter,
+        category: params.category ? params.category : 'None',
+        brand: params.brand ? [params.brand] : [],
+        discount: params.discount ? params.discount : false,
+        name: ''
+      })));
+    }
     dispatch(setShowLoading());
-  }, [showStore]);
+    setDispatching(true);
+  }, [showStore, params.name]);
 
   let handleUpdateFilter = function(property, value) {
+    console.log('Actualizo el filtro');
     let newFilter = { 
       ...filter,
       [property]: value,
       page: 1
     }
+    if (property !== 'name') newFilter.name = '';
     dispatch(updateFilter(newFilter));
   }
 

@@ -127,7 +127,7 @@ const storepageReducer = function(state = initialState, { type, payload }) {
         }
       }
     case CLOSE_STORE:
-      return initialState;
+      return { ...initialState };
     default:
       return state;
   }
