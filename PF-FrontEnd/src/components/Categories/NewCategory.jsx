@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createRef } from 'react';
+import Input from '@mui/material/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { createCategory } from '../../redux/actions';
