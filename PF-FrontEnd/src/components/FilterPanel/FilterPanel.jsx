@@ -145,8 +145,8 @@ export default function FilterPanel() {
       orderBy: filter.orderBy
     }
 
-    if (location && location.pathname.slice(0, 12) === '/store/name/') history.push('/store');
-    
+    if (location && location.pathname.length > 7) history.push('/store');
+
     setShowFilterByName(false);
     dispatch(resetFilter());
     dispatch(setShowLoading());
