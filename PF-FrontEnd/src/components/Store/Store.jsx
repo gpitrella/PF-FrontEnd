@@ -24,7 +24,6 @@ export default function Store() {
   React.useEffect(() => {
 
     if (params.discount) handleUpdateFilter('discount', true);
-    //if (params.name) handleUpdateFilter('name', params.name);
     if (params.category) handleUpdateFilter('category', params.category);
     if (params.brand) handleUpdateFilter('brand', [params.brand]);
 
@@ -32,7 +31,6 @@ export default function Store() {
     dispatch(getCategoriesToStore());
 
     return () => {
-      console.log('cerrando la store...');
       dispatch(closeStore());
       setqueryName('');
       setDispatching(false);
@@ -60,10 +58,7 @@ export default function Store() {
   React.useEffect(() => {
     if (!showStore || (dispatching && params.name === queryName)) return;
 
-    console.log('Empiezo a cargar los productos con el filtro.');
-
     if (params && params.name) {
-      console.log('Actualizo el filtro por nombre.');
       handleUpdateFilter('name', params.name);
       dispatch(getProductsWithFiltersAndPaginate(buildFilter({
         ...filter,
@@ -84,7 +79,6 @@ export default function Store() {
   }, [showStore, params.name]);
 
   let handleUpdateFilter = function(property, value) {
-    console.log('Actualizo el filtro');
     let newFilter = { 
       ...filter,
       [property]: value,
