@@ -14,13 +14,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-
-
-
-
-
-
-
 export const product = 
     {
         "id": 1,
@@ -38,6 +31,7 @@ export default function ProductDetails (){
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.homepage.productDetails)
+    let discountPrice = Math.round(productDetails.price - productDetails.price * (productDetails.discount / 100));
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
@@ -64,23 +58,25 @@ export default function ProductDetails (){
         product.comment.push(comment);
         handleClose();
     }
-    
+    console.log(productDetails)
+  
 
         return (
         <div className="mainProduct">
             <div className="mainProductDetail">
                 <div id="product_image">
+                    <span id="porcentual_descount" > -{`${productDetails?.discount ? productDetails?.discount : ''} % OFF`} </span>
                     <img id="detail_image" src={productDetails?.image} alt={product.name}/>
                 </div>
                 <div>
-                    <p id="product_category">Categoria: {product.category}</p>
+                    <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
                     <h3 id="title_product">{productDetails?.name}</h3>
                     <hr/>
                     <div className="price_rating">
                         <div>
-                            <span id="product_price_discount"> $100.00 </span>
-                            <span id="product_price" > $108.00 </span>
-                            <p id="product_seller">Marca: <strong>Intel</strong></p>
+                            <span id="product_price_discount"> ${productDetails?.price} </span>
+                            <span id="product_price" > ${productDetails.discount !== 0 ? discountPrice : productDetails.price} </span>
+                            <p id="product_seller">Brand: <strong>{productDetails?.manufacturers ? productDetails.manufacturers[0]?.name : 'WithOut Brand'}</strong></p>
                         </div>
                         <div id="review_block">
                             <p id="review_detail">Reviews:</p>
@@ -114,7 +110,7 @@ export default function ProductDetails (){
             <div className="comment_main">
                 <div className="comment_add">
                     <div>
-                        <span> COMENTARIOS: </span>
+                        <span><strong> COMENTARIOS: </strong></span>
                     </div>
                     <div id="review_comment">
                         <div>
