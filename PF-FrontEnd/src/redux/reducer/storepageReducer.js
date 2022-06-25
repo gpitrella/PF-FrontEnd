@@ -53,6 +53,7 @@ const initialState = {
     // 'INTEL'
   ],
 
+  results: 0,
   products: [],
   noProducts: false,
 };
@@ -80,7 +81,8 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           ...state.filter,
           pages: payload.totalPages
         },
-        noProducts: payload.content.length === 0
+        noProducts: payload.content.length === 0,
+        results: payload.results
       }
     case SHOW_LOADING:
       return {
@@ -94,7 +96,10 @@ const storepageReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         showLoading: false,
-        showError: true
+        showError: true,
+        pages: 1,
+        page: 1,
+        results: 0
       }
     case SHOW_STORE:
       return {
@@ -122,7 +127,7 @@ const storepageReducer = function(state = initialState, { type, payload }) {
         }
       }
     case CLOSE_STORE:
-      return initialState;
+      return { ...initialState };
     default:
       return state;
   }

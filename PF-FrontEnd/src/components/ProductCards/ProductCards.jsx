@@ -39,12 +39,13 @@ export default function ProductCards({ products, section }) {
                 <ProductCard 
                   id = {product.id}
                   name = {product.name}
-                  category = {'example'}
+                  category = {product.categories[0]}
                   price = {product.price}
                   discount = {product.discount}
                   rating = {9.5}
                   image = {product.image}
-                  key = {`product-section${section}-${product.id}-${index}`}
+                  brand = {product.manufacturers[0]}
+                  key = {`product-${section}-${product.id}-${index}`}
                />
 
               )

@@ -8,20 +8,23 @@ import ProductCardsStore from '../ProductCardsStore/ProductCardsStore';
 import LoadingStore from '../LoadingStore/LoadingStore';
 import { closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate,
           setShowLoading, updateFilter } from '../../redux/actions';
-import { buildFilter } from '../../util';
+import { buildFilter, buildPathWithFilter } from '../../util';
 
 import s from './Store.module.css';
+import Loading from '../SVG/Loading';
 
 export default function Store() {
 
   const dispatch = useDispatch();
-  const { showLoading, showError, showStore, products, noProducts, filter } = useSelector(state => state.storepage);
+  const { showLoading, showError, showStore, products, noProducts, filter, results } = useSelector(state => state.storepage);
+  const [ dispatching, setDispatching ] = React.useState(false);
+  const [ queryName, setqueryName ] = React.useState('');
   const params = useParams();
 
   React.useEffect(() => {
 
     if (params.discount) handleUpdateFilter('discount', true);
-    if (params.name) handleUpdateFilter('name', params.name);
+    //if (params.name) handleUpdateFilter('name', params.name);
     if (params.category) handleUpdateFilter('category', params.category);
     if (params.brand) handleUpdateFilter('brand', [params.brand]);
 
@@ -29,28 +32,65 @@ export default function Store() {
     dispatch(getCategoriesToStore());
 
     return () => {
+      console.log('cerrando la store...');
       dispatch(closeStore());
+      setqueryName('');
+      setDispatching(false);
     }
   }, [])
 
-  React.useEffect(() => {
-    handleUpdateFilter('name', params.name);  
-    dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
-    dispatch(setShowLoading())  
-  }, [params])
+  // React.useEffect(() => {
+  //   if (params && params.name) {
+  //     handleUpdateFilter('name', params.name);
+  //     console.log('Actualizo el filtro por nombre.');
+  //   }
+  // }, [params.name]);
+
+  // React.useEffect(() => {
+  //   if (!showStore) return;
+  //   console.log('Empiezo a cargar los productos con el filtro.', filter);
+  //   dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
+  //   dispatch(setShowLoading());
+  // }, [showStore]);
+
+  React.useEffect(() => {   
+    if (params.name !== queryName) setqueryName(params.name)
+  }, [params.name])
 
   React.useEffect(() => {
-    if (!showStore) return;
-    dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
+    if (!showStore || (dispatching && params.name === queryName)) return;
+
+    console.log('Empiezo a cargar los productos con el filtro.');
+
+    if (params && params.name) {
+      console.log('Actualizo el filtro por nombre.');
+      handleUpdateFilter('name', params.name);
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter({
+        ...filter,
+        name: params.name
+      })));
+    }
+    else {
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter({
+        ...filter,
+        category: params.category ? params.category : 'None',
+        brand: params.brand ? [params.brand] : [],
+        discount: params.discount ? params.discount : false,
+        name: ''
+      })));
+    }
     dispatch(setShowLoading());
-  }, [showStore]);
+    setDispatching(true);
+  }, [showStore, params.name]);
 
   let handleUpdateFilter = function(property, value) {
+    console.log('Actualizo el filtro');
     let newFilter = { 
       ...filter,
       [property]: value,
       page: 1
     }
+    if (property !== 'name') newFilter.name = '';
     dispatch(updateFilter(newFilter));
   }
 
@@ -58,12 +98,39 @@ export default function Store() {
 
   return (
     <div className = {s.container}>
+
       <div className = {s.containerGrid}>
+        <div className = {s.containerTitle}>
+        {
+          filter && buildPathWithFilter(filter).map((element, index) => 
+            <><span className = {s.arrow}>{'/'}</span><span className = {s.path}> {element} </span></>       
+          )
+        }
+        </div>
         <div className = {s.filterPanel}>
           <FilterPanel />
         </div>
-        <div className = {s.orderPanel}>
-          <OrderPanel />
+        <div className = {s.subHeaderZone}>
+
+          {
+            showLoading && <span></span>
+          }
+          {
+            results === 0 && !showLoading && <span className = {s.results}>Showing 0-0 of 0 Products</span>
+          }
+          {
+            results !== 0 && !showLoading &&
+            <span className = {s.results}>
+              Showing { (filter.page - 1) * (Math.ceil(results / filter.pages)) + 1 }-{
+              filter.page === filter.pages ? results :  filter.page * ( Math.ceil(results / filter.pages)) } of {
+              results} Products
+            </span>
+          }
+
+          <div className = {s.orderPanel}>
+            <OrderPanel />
+          </div>
+
         </div>
         <div className = {s.pagination}>
           <Pagination />

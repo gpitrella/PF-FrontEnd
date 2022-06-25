@@ -65,8 +65,14 @@ export default function ProductDetails (){
         <div className="mainProduct">
             <div className="mainProductDetail">
                 <div id="product_image">
-                    <span id="porcentual_descount" > -{`${productDetails?.discount ? productDetails?.discount : ''} % OFF`} </span>
+                    {
+                        productDetails.discount !== 0 &&
+                        <div className = 'containerDiscount'>
+                        {productDetails.discount}% OFF
+                        </div>
+                    }
                     <img id="detail_image" src={productDetails?.image} alt={product.name}/>
+                    
                 </div>
                 <div>
                     <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>

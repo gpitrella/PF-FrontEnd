@@ -109,7 +109,7 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         ...state,
         section: {
           ...state.section,
-          one: payload,
+          one: payload.content,
           showLoadingOne: false,
         }
       }
@@ -118,7 +118,7 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         ...state,
         section: {
           ...state.section,
-          two: payload,
+          two: payload.content,
           showLoadingTwo: false,
         }
       }
@@ -127,7 +127,7 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         ...state,
         section: {
           ...state.section,
-          three: payload,
+          three: payload.content,
           showLoadingThree: false,
         }
       }
