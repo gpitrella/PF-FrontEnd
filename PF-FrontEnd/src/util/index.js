@@ -10,4 +10,16 @@ export let buildFilter = function({ page, size, discount, name, category, brand,
   query += `&order=${orderBy},${order}`;
   console.log(query);
   return query;
-} 
+}
+
+export const buildPathWithFilter = function({ discount, name, category, brand, minPrice, maxPrice }) {
+  let path = ['All'];
+  if (discount) path.push('On Discount');
+  if (name !== '') path.push(`'${name}'`);
+  if (category !== 'None') path.push(category);
+  if (brand.length > 0) path.push(brand.join(', '));
+  if (minPrice !== '' && maxPrice !== '') path.push(`Price Between $${minPrice} and $${maxPrice}`);
+  else if (minPrice !== '') path.push(`Price Higher than $${minPrice}`);
+  else if (maxPrice !== '') path.push(`Price Lower than $${maxPrice}`);
+  return path;
+}

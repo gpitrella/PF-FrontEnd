@@ -8,7 +8,7 @@ import ProductCardsStore from '../ProductCardsStore/ProductCardsStore';
 import LoadingStore from '../LoadingStore/LoadingStore';
 import { closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate,
           setShowLoading, updateFilter } from '../../redux/actions';
-import { buildFilter } from '../../util';
+import { buildFilter, buildPathWithFilter } from '../../util';
 
 import s from './Store.module.css';
 import Loading from '../SVG/Loading';
@@ -65,19 +65,14 @@ export default function Store() {
   return (
     <div className = {s.container}>
 
-      <div className = {s.containerTitle}>
-        {
-          showLoading && <h1 className = {s.title}>Searching...</h1>
-        }
-        {
-          showError && <h1 className = {s.title}>Results: 0</h1>
-        }
-        {
-          !showLoading && !showError && <h1 className = {s.title}>Results({results})</h1>
-        }
-      </div>
-
       <div className = {s.containerGrid}>
+        <div className = {s.containerTitle}>
+        {
+          filter && buildPathWithFilter(filter).map((element, index) => 
+            <><span className = {s.arrow}>{'/'}</span><span className = {s.path}> {element} </span></>       
+          )
+        }
+        </div>
         <div className = {s.filterPanel}>
           <FilterPanel />
         </div>
