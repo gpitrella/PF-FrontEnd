@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useHistory, useLocation } from 'react-router-dom';
 import s from './FilterPanel.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateFilter, resetFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../redux/actions';
@@ -9,6 +9,8 @@ import { buildFilter } from '../../util';
 export default function FilterPanel() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
   const { filter, categories, brands } = useSelector(state => state.storepage);
   const [ priceRange, setPriceRange ] = React.useState({
     min: '',
@@ -16,15 +18,10 @@ export default function FilterPanel() {
   })
 
   const [ showFilterByName, setShowFilterByName ] = React.useState(false);
-  const [ filterByName, setFilterByName ] = React.useState(false);
-  const [ cacheName, setCacheName ] = React.useState(filter.name);
 
   React.useEffect(() => {
     if (filter.name !== '') {
-      setShowFilterByName(true); 
-      setCacheName(filter.name);
-      setFilterByName(true);
-      handleUpdateFilter('name', cacheName);
+      setShowFilterByName(true);
     }
   }, [filter.name])
 
@@ -33,13 +30,9 @@ export default function FilterPanel() {
   }
 
   let handleCheckFilterByName = function() {
-    setFilterByName(!filterByName);
-    if (filterByName) setCacheName(filter.name);
-    handleUpdateFilterByName(!filterByName);
-  }
-
-  let handleUpdateFilterByName = function(enable) {
-    handleUpdateFilter('name', enable ? cacheName : '');
+    setShowFilterByName(false);
+    handleUpdateFilter('name', '');
+    history.push('/store');
   }
 
   let formatString= function(category) {
@@ -152,10 +145,9 @@ export default function FilterPanel() {
       orderBy: filter.orderBy
     }
 
+    if (location && location.pathname.slice(0, 12) === '/store/name/') history.push('/store');
+    
     setShowFilterByName(false);
-    setFilterByName(false);
-    setCacheName('');
-
     dispatch(resetFilter());
     dispatch(setShowLoading());
     dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
@@ -181,14 +173,14 @@ export default function FilterPanel() {
           <div className = {s.check}>
             <input 
               type = 'checkbox' 
-              checked = {filterByName}
+              checked = {showFilterByName}
               className = {s.largeCheck}
-              onChange = {() => handleCheckFilterByName('favorites')} 
+              onChange = {handleCheckFilterByName} 
             />
             <label 
               className = {s.lbl}
             >
-              Search: '<i>{ cacheName.length > 15 ? cacheName.slice(0, 15) : cacheName }</i>'
+              Search: '<i>{ filter.name.length > 15 ? filter.name.slice(0, 15) : filter.name }</i>'
             </label>
           </div>
       }

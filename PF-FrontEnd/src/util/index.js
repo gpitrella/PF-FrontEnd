@@ -23,3 +23,7 @@ export const buildPathWithFilter = function({ discount, name, category, brand, m
   else if (maxPrice !== '') path.push(`Price Lower than $${maxPrice}`);
   return path;
 }
+
+export const chooseRandom = function(content) {
+  return content[Math.floor( Math.random() * content.length )].name;
+}
