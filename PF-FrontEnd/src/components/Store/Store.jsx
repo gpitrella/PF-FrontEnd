@@ -34,10 +34,10 @@ export default function Store() {
   }, [])
 
   React.useEffect(() => {
-    handleUpdateFilter('name', params.name);
+    handleUpdateFilter('name', params.name);  
     dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
-    dispatch(setShowLoading());
-  }, [params.name])
+    dispatch(setShowLoading())  
+  }, [params])
 
   React.useEffect(() => {
     if (!showStore) return;
