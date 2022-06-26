@@ -9,6 +9,7 @@ import {
   GET_CATEGORIES_TO_STORE,
   GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE
 } from './actiontype';
+import axios from 'axios';
 
 const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
 const PATH_GET_CATEGORIES = 'http://localhost:3001/api/categories';
