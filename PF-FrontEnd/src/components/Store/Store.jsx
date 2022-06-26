@@ -23,17 +23,22 @@ export default function Store() {
 
   React.useEffect(() => {
 
-    if (params.discount) handleUpdateFilter('discount', true);
-    if (params.category) handleUpdateFilter('category', params.category);
-    if (params.brand) handleUpdateFilter('brand', [params.brand]);
+    let idTimeOut = setTimeout(() => {
 
-    dispatch(getBrandsToStore());
-    dispatch(getCategoriesToStore());
+      if (params.discount) handleUpdateFilter('discount', true);
+      if (params.category) handleUpdateFilter('category', params.category);
+      if (params.brand) handleUpdateFilter('brand', [params.brand]);
+
+      dispatch(getBrandsToStore());
+      dispatch(getCategoriesToStore());
+
+    }, Math.random() * 400 + 1000);
 
     return () => {
       dispatch(closeStore());
       setqueryName('');
       setDispatching(false);
+      clearTimeout(idTimeOut);
     }
   }, [])
 
@@ -62,7 +67,8 @@ export default function Store() {
       handleUpdateFilter('name', params.name);
       dispatch(getProductsWithFiltersAndPaginate(buildFilter({
         ...filter,
-        name: params.name
+        name: params.name,
+        page: 1,
       })));
     }
     else {
@@ -71,6 +77,7 @@ export default function Store() {
         category: params.category ? params.category : 'None',
         brand: params.brand ? [params.brand] : [],
         discount: params.discount ? params.discount : false,
+        page: 1,
         name: ''
       })));
     }
@@ -88,7 +95,18 @@ export default function Store() {
     dispatch(updateFilter(newFilter));
   }
 
-  if (!showStore) return <span>Loading...</span>;
+  if (!showStore) {
+    return (
+      <div className = {s.container}>
+        <div className = {s.imageContainer}>
+          <div className = {s.loadingContainer}>
+            <Loading />
+          </div>
+        </div>
+        <span className = {s.spanLoading}>Loading Store</span>
+      </div>
+    )
+  }
 
   return (
     <div className = {s.container}>
