@@ -1,5 +1,6 @@
 import {
-  CHANGE_THEME
+  CHANGE_THEME,
+  ADD_TO_CART
 } from '../actions/actiontype';
 
 const THEME = {
@@ -8,7 +9,8 @@ const THEME = {
 }
 
 const initialState = {
-  theme: 'lightTheme'
+  theme: 'lightTheme',
+  productsCart: []
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -18,6 +20,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         theme: state.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT
       }
+    
+    case ADD_TO_CART:
+      return {
+        ...state,
+        productsCart: state.productsCart.concat(payload)
+      }
+
     default:
       return state;
   }

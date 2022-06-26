@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProductDetails } from "../../redux/actions/homepageActions";
+import { getProductDetails, getProductDetailsAddtoCard } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
@@ -35,9 +35,6 @@ export default function ProductDetails (){
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
-      //  return() => {
-      //      dispatch(clearGameDetail())
-      //  }
     }, [dispatch, id]);
 
     // Configuración boton agregar comentario.
@@ -58,8 +55,9 @@ export default function ProductDetails (){
         product.comment.push(comment);
         handleClose();
     }
-    console.log(productDetails)
-  
+    const addtoCard = () => {
+        dispatch(getProductDetailsAddtoCard(productDetails.id))
+    }
 
         return (
         <div className="mainProduct">
@@ -98,7 +96,7 @@ export default function ProductDetails (){
 
                     <Stack spacing={2} direction="row">
                         <span>Stock: <span id="stock_status">{productDetails?.stock} unid.</span></span>
-                        <Button className='btn_Product_Detail' size="small" variant="contained">Add to Cart</Button>
+                        <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCard}>Add to Cart</Button>
                         <Button className='btn_Product_Detail' size="small" variant="contained">Buy</Button>
                     </Stack>                    
                     <hr/>

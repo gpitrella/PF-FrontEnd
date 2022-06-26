@@ -1,0 +1,35 @@
+.container_addtocard {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  font-family: Arial, Helvetica, sans-serif;
+  border-bottom: 1px solid lightblue;
+  padding-top: 100px;
+  padding-bottom: 20px;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+.container_secundary {
+  flex: 1;
+}
+
+.information_addtocard,
+.buttons_addtocard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.img_addtocard {
+  max-width: 80px;
+  object-fit: cover;
+  margin-left: 40px;
+}

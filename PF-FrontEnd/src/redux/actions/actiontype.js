@@ -1,5 +1,6 @@
 // GENERAL ACTIONS
 export const CHANGE_THEME = 'CHANGE_THEME';
+export const ADD_TO_CART = 'ADD_TO_CART';
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';
