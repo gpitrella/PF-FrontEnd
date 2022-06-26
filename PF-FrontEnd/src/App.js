@@ -6,6 +6,7 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
+import PurchaseDetails from './components/PurchaseDetails/PurchaseDetails';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -32,6 +33,7 @@ function App() {
           <Route exact path="/store/brand/:brand" component = {Store} />
           <Route exact path="/productDetails" component={ProductDetails} />
           <Route exact path="/productdetails/:id" component={ProductDetails} />
+          <Route exact path='/purchase/:id' component = {PurchaseDetails} />
           <Route path="/" component={Footer} />
         </div>
       </Router>
