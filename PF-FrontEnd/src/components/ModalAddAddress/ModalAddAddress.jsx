@@ -1,7 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { showLoadingParam, getProvincias, getMunicipios, getLocalidades } from '../../redux/actions';
+import { 
+  showLoadingParam, getProvincias, getMunicipios, getLocalidades,
+  validatingAddress, normalizeAddress
+} from '../../redux/actions';
 import Loading from '../SVG/Loading';
+import Help from '../SVG/Help';
 
 import s from './ModalAddAddress.module.css';
 
@@ -9,13 +13,38 @@ export default function ModalAddAddress() {
 
   const dispatch = useDispatch();
   const { 
-    provincias, municipios, localidades, loadingprovincias, loadingmunicipios, loadinglocalidades 
+    provincias, municipios, localidades, loadingprovincias, loadingmunicipios, loadinglocalidades, validating, address 
   } = useSelector(state => state.modalAddAddress);
+
+  React.useEffect(() => {
+    if (!validating && address.length !== 0) { 
+      setInputAddress({
+        ...inputAddress,
+        valid: true
+      });
+      setResultValidation('La dirreccion ingresada es valida.');
+    }
+    else if (!validating && address.length === 0) {
+      setInputAddress({
+        ...inputAddress,
+        valid: false
+      });
+      setResultValidation('La dirreccion ingresada NO es valida.');
+    }
+  }, [validating, address]);
+
   const [ selection, setSelection ] = React.useState({
     provincia: '',
     municipio: '',
     localidad: '',
-  })
+  });
+
+  const [ inputAddress, setInputAddress ] = React.useState({
+    name: '',
+    valid: false
+  });
+
+  const [ resultValidation, setResultValidation ] = React.useState('');
 
   React.useEffect(() => {
     dispatch(showLoadingParam('provincias'));
@@ -46,6 +75,29 @@ export default function ModalAddAddress() {
     }
 
     setSelection({ ...newSelection });
+
+    if (resultValidation !== '') setResultValidation('');
+  }
+
+  let handleInput = function(e) {
+    let { value } = e.target;
+
+    setInputAddress({
+      valid: false,
+      name: value
+    });
+
+    if (resultValidation !== '') setResultValidation('');
+  }
+
+  let handleValidateAddress = function() {
+    dispatch(validatingAddress());
+    dispatch(normalizeAddress(
+      inputAddress.name,
+      localidades[selection.localidad].id,
+      municipios[selection.municipio].id,
+      provincias[selection.provincia].id
+    ));
   }
 
   return (
@@ -71,7 +123,7 @@ export default function ModalAddAddress() {
               value = {selection.provincia}
               onChange = {handleChange}
               name = {'provincia'}
-              
+              disabled = {provincias.length === 0}
             >
               <option value={''} hidden defaultValue>
                 Choose an Option
@@ -88,8 +140,9 @@ export default function ModalAddAddress() {
               }
             </select>
           </div>
+
           <div className = {s.select}>
-            <label className = {s.lbl}>Municipe</label>
+            <label className = {s.lbl}>Municipe/Department</label>
             <div className = {`${s.imageContainer} ${!loadingmunicipios ? s.disabled : ''}`}>
               <div className = {s.loadingContainer}>
                 <Loading />
@@ -117,6 +170,7 @@ export default function ModalAddAddress() {
               }
             </select>
           </div>
+
           <div className = {s.select}>
             <label className = {s.lbl}>Locality</label>
             <div className = {`${s.imageContainer} ${!loadinglocalidades ? s.disabled : ''}`}>
@@ -146,6 +200,46 @@ export default function ModalAddAddress() {
               }
             </select>
           </div>
+
+          <div className = {s.select}>
+            <label className = {s.lbl}>Address</label>
+            <div className = {s.imageContainer}>
+              <div className = {s.helpContainer}>
+                <div className = {s.tag}>
+                  <ul>
+                    <li>calle [altura]</li>
+                    <li>calle 1 [altura] esquina/y calle 2</li>
+                    <li>calle 1 esquina/y calle 2 [altura]</li>
+                    <li>calle 1 [altura] entre calle 2 y calle 3</li>
+                    <li>calle 1 entre calle 2 y calle 3 [altura]</li>
+                  </ul>
+                </div>
+                <Help />
+              </div>
+            </div>
+            <input 
+              type = 'text'
+              className = {s.inputAddress}
+              placeholder = {'Insert an Address to Validate...'}
+              disabled = {selection.localidad.length === 0}
+              onInput = {handleInput}
+              value = {inputAddress.name}
+            />
+          </div>
+
+          <div className = {s.options}>
+            <label className = {s.lblResult}>{resultValidation}</label>
+            <button className = {s.btnOption}>Cancel</button>
+            <button
+              className = {s.btnOption}
+              disabled = {inputAddress.name.length === 0 || validating}
+              onClick = {handleValidateAddress}
+            >
+              Validate
+            </button>
+            <button className = {s.btnOption} disabled = {!inputAddress.valid}>Add</button>
+          </div>
+
         </div>
       </div>
     </div>

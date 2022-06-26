@@ -2,7 +2,9 @@ import {
   SHOW_LOADING_PARAM,
   GET_PROVINCIAS,
   GET_MUNICIPIOS,
-  GET_LOCALIDADES
+  GET_LOCALIDADES,
+  VALIDATING_ADDRESS,
+  NORMALIZE_ADDRESS
 } from '../actions/actiontype';
 
 const initialState = {
@@ -12,6 +14,8 @@ const initialState = {
   loadingprovincias: false,
   loadingmunicipios: false,
   loadinglocalidades: false,
+  validating: false,
+  address: []
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -38,6 +42,17 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         localidades: payload.map(localidad => { return { id: localidad.id, name: localidad.nombre } }),
         loadinglocalidades: false
+      }
+    case VALIDATING_ADDRESS:
+      return {
+        ...state,
+        validating: true
+      }
+    case NORMALIZE_ADDRESS:
+      return {
+        ...state,
+        validating: false,
+        address: payload
       }
     default:
       return state;
