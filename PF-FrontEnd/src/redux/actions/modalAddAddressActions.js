@@ -6,8 +6,8 @@ import {
 } from './actiontype';
 
 const PATH_GET_PROVINCES = 'https://apis.datos.gob.ar/georef/api/provincias?orden=nombre';
-const PATH_GET_MUNICIPIOS = 'https://apis.datos.gob.ar/georef/api/municipios?max=300&orden=nombre&provincia=';
-const PATH_GET_LOCALIDADES = 'https://apis.datos.gob.ar/georef/api/localidades?max=300&orden=nombre&municipio=';
+const PATH_GET_MUNICIPIOS = 'https://apis.datos.gob.ar/georef/api/departamentos?max=300&orden=nombre&provincia=';
+const PATH_GET_LOCALIDADES = 'https://apis.datos.gob.ar/georef/api/localidades?max=300&orden=nombre&departamento=';
 
 export const showLoadingParam = function(param) {
   return {
@@ -29,7 +29,7 @@ export const getMunicipios = function(idProvincia) {
   return function(dispatch) {
     return fetch(`${PATH_GET_MUNICIPIOS}${idProvincia}`)
            .then(result => result.json())
-           .then(data => dispatch({ type: GET_MUNICIPIOS, payload: data.municipios }))
+           .then(data => dispatch({ type: GET_MUNICIPIOS, payload: data.departamentos }))
            .catch(error => console.log(error));
   }
 }
