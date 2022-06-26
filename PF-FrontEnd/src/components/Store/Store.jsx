@@ -51,7 +51,7 @@ export default function Store() {
   //   dispatch(setShowLoading());
   // }, [showStore]);
 
-  React.useEffect(() => {
+  React.useEffect(() => {   
     if (params.name !== queryName) setqueryName(params.name)
   }, [params.name])
 
