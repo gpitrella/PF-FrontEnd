@@ -27,7 +27,7 @@ export default function ProductCard({ id, name, image, category, price, discount
         <div className = {s.containerTitle}>
 
           <div className = {s.containerBrand}>
-            <img src = {brand.image} alt = {brand.name} className = {s.img} />
+            <img src = {brand?.image} alt = {brand?.name} className = {s.img} />
           </div>
 
           <div className = {s.containerTitleAndCategory}>

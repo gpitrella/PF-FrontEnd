@@ -9,6 +9,11 @@
     display: flex;
     justify-content: center;
 }
+
+#scroollTop{
+    border-radius: 22px;
+}
+
 #searchIcon {
     z-index: 100;
     height: '100%';
