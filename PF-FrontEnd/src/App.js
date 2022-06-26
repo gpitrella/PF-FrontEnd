@@ -6,6 +6,7 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
+import ModalAddAddress from './components/ModalAddAddress/ModalAddAddress';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -24,6 +25,7 @@ function App() {
       <Router>
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
+          <Route exact path="/test" component={ModalAddAddress} />
           <Route exact path="/" component={Home} />
           <Route exact path="/store/" component = {Store} />
           <Route exact path="/store/discount/:discount" component = {Store} />
