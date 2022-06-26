@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useHistory, useLocation } from 'react-router-dom';
 import s from './FilterPanel.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateFilter, resetFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../redux/actions';
@@ -9,14 +9,29 @@ import { buildFilter } from '../../util';
 export default function FilterPanel() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
   const { filter, categories, brands } = useSelector(state => state.storepage);
   const [ priceRange, setPriceRange ] = React.useState({
     min: '',
     max: ''
   })
 
+  const [ showFilterByName, setShowFilterByName ] = React.useState(false);
+
+  React.useEffect(() => {
+    if (filter.name !== '') {
+      setShowFilterByName(true);
+    }
+  }, [filter.name])
+
   let handleCheck = function(property) {
     handleUpdateFilter(property, !filter[property]);
+  }
+
+  let handleCheckFilterByName = function() {
+    setShowFilterByName(false);
+    handleResetFilters();
   }
 
   let formatString= function(category) {
@@ -50,6 +65,10 @@ export default function FilterPanel() {
 
   let handleInput = function(e) {
     let { value, name } = e.target;
+
+    while (value[0] === '0') {
+      value = value.slice(1, value.length - 1);
+    }
 
     if (value === '' || /^[0-9]+$/.test(value)) setPriceRange({
       ...priceRange,
@@ -124,9 +143,17 @@ export default function FilterPanel() {
       order: filter.order,
       orderBy: filter.orderBy
     }
+
     dispatch(resetFilter());
-    dispatch(setShowLoading());
-    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+    if (location && location.pathname.length > 7) {
+      setShowFilterByName(false);
+      history.replace('/store');
+    }
+    else {
+      setShowFilterByName(false);
+      dispatch(setShowLoading());
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+    }
   }
 
   return (
@@ -143,6 +170,23 @@ export default function FilterPanel() {
         <input type = 'checkbox' checked = {filter.discount} className = {s.largeCheck} onChange = {() => handleCheck('discount')} />
         <label className = {s.lbl}>Show Only On Discount</label>
       </div>
+
+      {
+        showFilterByName &&
+          <div className = {s.check}>
+            <input 
+              type = 'checkbox' 
+              checked = {showFilterByName}
+              className = {s.largeCheck}
+              onChange = {handleCheckFilterByName} 
+            />
+            <label 
+              className = {s.lbl}
+            >
+              Search: '<i>{ filter.name.length > 15 ? filter.name.slice(0, 15) : filter.name }</i>'
+            </label>
+          </div>
+      }
 
       <div className = {s.separator}></div>
 

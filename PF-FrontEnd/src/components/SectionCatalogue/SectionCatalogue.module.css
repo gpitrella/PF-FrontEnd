@@ -1,46 +1,30 @@
-.ads{
-    text-align: center;
-    padding: 1rem;
-    justify-self: center;
-    height:45vh;
-    max-width: 90rem;
-    margin-top: 4vh;
+.container {
+  margin: 20px 0 20px 0;
+  display: grid;
+  grid-gap: 20px;
 }
 
-.ads img{
-    height: 45vh;
-    max-width: 1100px;
-    min-width: max-content;
-    object-fit: contain;
-    border-radius: 0.5rem;
-    text-align: center;
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5vw 0 5vw;
 }
 
-.catalogue{
-    padding: 1rem;
-    margin-top: 10vh;
+.titleOfSection {
+  font-size: var(--fontTitle);
+  font-weight: 700;
+  color: var(--fontColor);
+  margin: 0;
+  padding: 0;
 }
-
 
 .sectionLink {
-    color: rgb(65, 65, 65);
-    display: inline;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-size: 3vh;
-    font-weight: bolder;
-    margin-left: 54rem;
-    cursor: pointer;
-}
-
-
-.brandsTitle{
-    color: rgb(65, 65, 65);
-    font-size: 4.5vh;
-    font-weight: 900;
-    display: flex;
-    justify-content: center;
-    margin-top: 6vh;
+  color: var(--secondaryColor);
+  text-decoration: none;
+  font-size: var(--fontTitle);
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .noProductsContainer {

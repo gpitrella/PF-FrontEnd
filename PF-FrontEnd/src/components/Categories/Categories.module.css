@@ -6,111 +6,11 @@ body {
 
 .catTitle {
     color: rgb(64, 64, 64);
-    font-size: 1.75vw;
+    font-size: 2vw;
     font-weight: bolder ;
     display: flex;
     justify-content: center;
     margin-top: 8vh;
 }
 
-.categoriesContainer {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 2vw;
-    margin-bottom: 9vh;
-    text-align: center;
-    text-decoration: none;
-}
 
-.catTitle {
-    color: rgb(65, 65, 65);
-    font-size: 4.5vh;
-    font-weight: 900;
-    display: flex;
-    justify-content: center;
-    margin-top: 9vh;
-}
-
-.categories {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-content: center;
-}
- 
-.catName{
-    max-height: fit-content;
-    align-content: center;
-    font-family: 'Monserrat', sans-serif;
-    font-size: 3vh;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 2vh;
-    margin-bottom: 0vh;
-    margin-left: 6.5vw;
-    transform-origin: 0 0;
-    transform: rotate(90deg);
-    text-overflow: ellipsis;
-    overflow:visible;
-    white-space: pre;
-  }
-  
-.catImage{
-      max-width: 6.5vw;
-      height: 14vh;
-      display: flex;
-      filter: invert(99%) sepia(0%) saturate(7499%) hue-rotate(183deg) brightness(115%) contrast(96%);      justify-content: space-between;
-      margin-left: 0.6vw;
-      margin-bottom: 0.5vh;
-      border-radius: 10px;
-    }
-
-  .catButton {
-    width: 7.5vw;
-    height: 60vh;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: space-between;
-    cursor: pointer;
-    border: none;
-    text-decoration-line: none;
-    outline: none;
-    color:rgb(255, 255, 255);
-    background: rgb(65, 65, 65);
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 10px;
-    padding: 1px 1px;
-    position: relative;
-    transition: all 0.5s;
-    z-index: 1;
-   }
-   
-   .catButton::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0.3px;
-    height: 100%;
-    border: 2px solid whitesmoke;
-    border-radius: 10px;
-    background-color: white;
-    z-index: -1;
-    transition: all 0.5s;
-    margin-bottom: 40vh;
-   }
-   
-   .catButton:hover::before {
-    width: 100%;
-   }
-   
-   .catButton:hover {
-    color: rgb(65, 65, 65);
-   }
-   
-   .catButton:active:before {
-    background: #b9b9b9;
-   }
