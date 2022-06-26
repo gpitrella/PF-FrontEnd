@@ -24,6 +24,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ScrollToTop from "react-scroll-to-top";
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -266,7 +268,7 @@ export default function NavBar() {
       {renderMobileMenu}
       {renderMenu}
     </Box>
-    
+    <ScrollToTop smooth component={<ExpandLessIcon />} />
       </nav>
     )
 };
