@@ -213,10 +213,13 @@ export default function NavBar() {
             />
           </Link>
           <Search >
-                <Link to={(name?.length > 0) ? `/store/name/${name}` : '/store'} underline="none">
+                {/* <Link to={(name !== '') ? `/store/name/${name}` : '/store'} underline="none"> */}
+              {
+                name && name.length > 0 && 
+                <Link to={`/store/name/${name}`} underline="none">
                         <SearchIcon id='searchIcon'/>
                 </Link>
-              
+              }
               <StyledInputBase
                 placeholder="Search ..."
                 inputProps={{ 'aria-label': 'search' }}
