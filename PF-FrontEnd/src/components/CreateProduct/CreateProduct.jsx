@@ -82,7 +82,6 @@ export default function CreateProduct() {
   // }
   }
 
-  const [value, setValue] = useState(input);
 
 
   return (
