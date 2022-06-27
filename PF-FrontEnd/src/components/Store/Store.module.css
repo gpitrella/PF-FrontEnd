@@ -88,3 +88,36 @@
   font-weight: 500;
   color: var(--fontColor);
 }
+
+.imageContainer {
+  height: 20rem;
+  width: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+.loadingContainer > svg {
+  animation: rotateLoading 2s infinite;
+  animation-timing-function: linear;
+  fill: var(--secondaryColor);
+}
+
+@keyframes rotateLoading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spanLoading {
+  font-size: var(--fontTitle);
+  font-weight: 700;
+  color: var(--secondaryColor);
+}
