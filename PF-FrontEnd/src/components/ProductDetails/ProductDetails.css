@@ -6,6 +6,7 @@
     padding-bottom: 20px;
 }
 .mainProductDetail{
+    overflow: hidden;
     background-color: white;
     display: flex;
     flex-direction: row;
@@ -65,9 +66,9 @@
 .containerDiscount {
     position: relative;
     top: 1.5REM;
-    left: -5REM;
+    left: -10REM;
     background-color: var(--dangerColor);
-    width: 10REM;
+    width: 20REM;
     padding: 0.2rem;
     display: flex;
     justify-content: center;
