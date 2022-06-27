@@ -238,7 +238,7 @@ export default function CreateProduct() {
         <div className="form__group form__group-btn-create">
             <button type='submit' className='form__btn'>CREATE</button>
             <p className='form__msn-exito' id='form__msn-exito'
-            >Product created!
+            >Product created!!
             </p>
         </div>
         {/* {errors.name || errors.price || errors.stock || errors.discount || errors.manufacturer || errors.description || errors.image
