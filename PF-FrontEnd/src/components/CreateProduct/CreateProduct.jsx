@@ -103,7 +103,6 @@ export default function CreateProduct() {
                 value = {input.name}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.name}</p>
         </div>
@@ -120,7 +119,6 @@ export default function CreateProduct() {
                 value = {input.price}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.price}</p>
         </div>
@@ -137,7 +135,6 @@ export default function CreateProduct() {
                 value = {input.image}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.image}</p>
         </div>
@@ -154,7 +151,6 @@ export default function CreateProduct() {
                 value = {input.discount}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.discount}</p>
         </div>
@@ -171,7 +167,6 @@ export default function CreateProduct() {
                 value = {input.stock}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.stock}</p>
         </div>
@@ -224,7 +219,6 @@ export default function CreateProduct() {
                 value = {input.description}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.description}</p>
         </div>
