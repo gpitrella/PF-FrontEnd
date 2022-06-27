@@ -14,7 +14,8 @@ import {
   GET_PRODUCT_TO_SECTION_THREE,
   SHOW_ERROR_SECTION_ONE,
   SHOW_ERROR_SECTION_TWO,
-  SHOW_ERROR_SECTION_THREE
+  SHOW_ERROR_SECTION_THREE,
+  PRODUCTS_TO_FORMS
 } from '../actions/actiontype';
 
 const initialState = {
@@ -33,7 +34,8 @@ const initialState = {
     errorOne: false,
     errorTwo: false,
     errorThree: false,
-  }
+  },
+  allProducts: []
 };
 
 const homepageReducer = function(state = initialState, { type, payload }) {
@@ -155,6 +157,11 @@ const homepageReducer = function(state = initialState, { type, payload }) {
           errorThree: true
         }
       }
+      case PRODUCTS_TO_FORMS:
+        return {
+          ...state,
+          allProducts: payload
+        }
     // Fin para las secciones.
 
     default:

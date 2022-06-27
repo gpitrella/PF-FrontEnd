@@ -1,137 +1,156 @@
-import React, { useState, useEffect, createRef } from 'react';
-import Input from '@mui/material/Input';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { createCategory } from '../../redux/actions';
-import DeleteRounded from '@mui/icons-material/DeleteRounded';
+import { useData } from './DataContext';
+import { createCategory, getProductsToForms } from '../../redux/actions';
 import style from './CreateCategory.module.css'; 
+import Typography from '@material-ui/core/Typography';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { PrimaryButton } from './formComponents/PrimaryButton';
+import { MainContainer } from './formComponents/MainContainer';
+import { Form } from './formComponents/Form';
+import { Input } from './formComponents/Input';
+import { FileInput } from './formComponents/FileInput';
+import * as yup from 'yup';
 
+
+const schema = yup.object().shape({
+    name: yup
+    .string()
+    .matches(/^([^0-9]*)$/, "Category name should not contain numbers.")
+    .required("Category name is a required field."),
+    icon: yup
+    .string()
+    .matches()
+    .required("Icon is a required field."),
+    product: yup
+    .array()
+    .required("You must select at least one product.")
+});
 
 export default function CreateActivity(){
     const dispatch = useDispatch();
+    const { setValues, data } = useData();
     const history = useHistory();
-    const { products } = useSelector((state) => state.storepage);
-
-    function validate(data){
-        var errors = {};
-        if(!(/^[a-zA-Z]+$/.test(data.name)) || data.name.length < 3) errors.name = "Enter a name with more than 3 characters."
-        else if((/^[a-zA-Z]+$/.test(data.name)) && data.name.length >= 3) errors.name = '';
-        if(!data.image || typeof data.image !== "string") errors.image = "Add a proper icon for the category."
-        if(data.season) errors.image = ""
-        if(!data.products) errors.products = "Select at least one product."
-        if(data.products) errors.products = ""
-        return errors;
-    };
-    
-    useEffect(() => {
-    }, [])
-
-    const [formError, setFormError] = useState({});
-    const [buttonError, setButtonError] = useState(Object.keys(formError).length<1 ? false : true);
-    const [category, setCategory] = useState({
-        name: "",
-        image: null,
-        products: []
+    const { allProducts } = useSelector((state) => state.homepage);
+    const { register, control, handleSubmit, watch, formState: { errors } } = useForm({
+        defaultValues: {name: data.name, icon: data.icon, products: data.products},
+        mode: "onBlur",
+        resolver: yupResolver(schema),
     });
 
-    function handleChange(e){
-        setCategory({
-            ...category,
-            [e.target.name]:e.target.value,
-        });
-        setFormError(validate({
-            ...category,
-            [e.target.name]: e.target.value
-        }))
+    const onSubmit = (data) => {
+        history.push("./");
+        setValues(data);
     };
 
-    function handleProducts(e){
-        setCategory({
-            ...category,
-            products: category.products.includes(e.target.value) ? [...category.products] : [...category.products, e.target.value]        
-        })
-        setFormError(validate({
-            ...category,
-            products: [category.products, e.target.value]
-        }))        
-    };
+    useEffect(()=>{
+        dispatch(getProductsToForms())
+    }, [dispatch])
+    // function validate(data){
+    //     var errors = {};
+    //     if(!(/^[a-zA-Z]+$/.test(data.name)) || data.name.length < 3) errors.name = "Enter a name with more than 3 characters."
+    //     else if((/^[a-zA-Z]+$/.test(data.name)) && data.name.length >= 3) errors.name = '';
+    //     if(!data.image || typeof data.image !== "string") errors.image = "Add a proper icon for the category."
+    //     if(data.season) errors.image = ""
+    //     if(!data.products) errors.products = "Select at least one product."
+    //     if(data.products) errors.products = ""
+    //     return errors;
+    // };
+    
+    // useEffect(() => {
+    // }, [])
 
-    function handleDelete(p){
-        setCategory({
-            ...category,
-            products: category.products.filter( product => product !== p)
-        })
-    };  
+    // const [formError, setFormError] = useState({});
+    // const [buttonError, setButtonError] = useState(Object.keys(formError).length<1 ? false : true);
+    // const [category, setCategory] = useState({
+    //     name: "",
+    //     image: null,
+    //     products: []
+    // });
 
-    function handleSubmit(e){
-        e.preventDefault();
-        if(!category.name || !(/^[a-zA-Z]+$/.test(category.name)) || category.name.length<3) {
-            setFormError(validate({
-                ...category,
-                [e.target.name]: e.target.value
-            }));
-        }else if(!category.image.length || typeof category.image !== "string"){
-            setFormError(validate({
-                ...category,
-                [e.target.name]: e.target.value
-            }))
-        }else if(!category.products.length){
-            e.preventDefault();
-            setFormError(validate({
-                ...category,
-                [e.target.name]: e.target.value
-            }))
-        } else {
-            e.preventDefault();
-            dispatch(createCategory(category))
-            setCategory({
-                name: "",
-                image: null,
-                products: []
-            });
-            alert("Category successfully created");
-        history.push('/');
-        };
-    };
+    // function handleChange(e){
+    //     setCategory({
+    //         ...category,
+    //         [e.target.name]:e.target.value,
+    //     });
+    //     setFormError(validate({
+    //         ...category,
+    //         [e.target.name]: e.target.value
+    //     }))
+    // };
 
+    // function handleProducts(e){
+    //     setCategory({
+    //         ...category,
+    //         products: category.products.includes(e.target.value) ? [...category.products] : [...category.products, e.target.value]        
+    //     })
+    //     setFormError(validate({
+    //         ...category,
+    //         products: [category.products, e.target.value]
+    //     }))        
+    // };
+
+    // function handleDelete(p){
+    //     setCategory({
+    //         ...category,
+    //         products: category.products.filter( product => product !== p)
+    //     })
+    // };  
+
+    // function handleSubmit(e){
+    //     e.preventDefault();
+    //     if(!category.name || !(/^[a-zA-Z]+$/.test(category.name)) || category.name.length<3) {
+    //         setFormError(validate({
+    //             ...category,
+    //             [e.target.name]: e.target.value
+    //         }));
+    //     }else if(!category.image.length || typeof category.image !== "string"){
+    //         setFormError(validate({
+    //             ...category,
+    //             [e.target.name]: e.target.value
+    //         }))
+    //     }else if(!category.products.length){
+    //         e.preventDefault();
+    //         setFormError(validate({
+    //             ...category,
+    //             [e.target.name]: e.target.value
+    //         }))
+    //     } else {
+    //         e.preventDefault();
+    //         dispatch(createCategory(category))
+    //         setCategory({
+    //             name: "",
+    //             image: null,
+    //             products: []
+    //         });
+    //         alert("Category successfully created");
+    //     history.push('/');
+    //     };
+    // };
+console.log(allProducts)
     
     return (
-        <>
-            <Link to="/"><button className={style.butt} >Home</button></Link>
-        <div className={style.categContainer}>
-            <h1>New Category</h1>
-            <form className={style.formContainer} onSubmit={(e) => handleSubmit(e)}>
-                <div>
-                    <label htmlFor="name">Name: </label>
-                    <input key="name" onChange={(e) => handleChange(e)} type="text" value={category.name} name="name" placeholder="name" />
-                    {formError.name && <span>{formError.name}</span>}
-                </div>
-                <div>
-                    <label htmlFor="image">Icon: </label>
-                    <input key="iconImg" onChange={(e) => handleChange(e)} type="file" value={category.image} name="icon" placeholder="icon" />
-                    {formError.image && <span><strong>{formError.image}</strong></span>}
-                </div>
-                <div>
-                    <label htmlFor="text">Products: </label>
-                    <select onChange={(e) => handleProducts(e)} name="products">
-                        {products.map((product, index) => {
-                            return <option key={index} value={product.name}>{product.name}</option>
-                        })}
-                        {formError.products && <span>{formError.products}</span>}
-                    </select>
-                </div>
-                <div>
-                    <button className={style.subm} type="submit" disabled={buttonError}>SAVE CATEGORY</button>
-                </div>
-            </form>
-            {category.products.map(p => {
-                return <div className="divCount">
-                    <p>{p}</p>
-                    <button className={style.xButton} onClick={() => handleDelete(p)}><DeleteRounded /></button>
-                    </div>
-                }
-            )}
-        </div>
-        </>
-    )
-}
+        <MainContainer>
+            <Typography component="h2" variant="h5">
+                New
+            </Typography>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                {...register('parentName')}
+                id="name"
+                type="text"
+                label="Category Name"
+                name="categoryname"
+                error={!!errors.name}
+                helperText={errors?.name?.message}
+                />
+                <FileInput name="files" control={control} />
+            
+
+                <PrimaryButton>Submit</PrimaryButton>
+            </Form>
+        </MainContainer>
+    );
+};

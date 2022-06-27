@@ -46,8 +46,6 @@ export default function Categories () {
                     responsiveLayout={responsive}
                     mobileBreakpoint={670}
                     gap={1}
-                    arrowRight= {<arrowRight />}
-                    arrowLeft={<arrowLeft />}
                     showDots={true}
                     dotColorActive={'#1976d2'}
                     dotColorInactive={'#dddddd'}
