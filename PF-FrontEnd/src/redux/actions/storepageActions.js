@@ -75,9 +75,9 @@ export const getCategoriesToStore = function() {
 
 export const postProduct = function(body) {
   return function(dispatch) {
-    return fetch(PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE, body)
+    return fetch("http://localhost:3001/api/product", body)
            .then(result => result.json())
-           .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
+           .then(data => console.log(data))
            .catch(error => console.log(error));
   }
 }

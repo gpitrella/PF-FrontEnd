@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCircleXmark, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons'
-import { postProduct,getCategoriesToStore, getBrandsToStore } from '../../redux/actions/storepageActions'
+import { postProduct } from '../../redux/actions/storepageActions'
+import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
 
 import validate from './validate'
@@ -22,7 +23,7 @@ export default function CreateProduct() {
     manufacturer:''
   })
   const [errors, setErrors] = useState({})
-  const {categories, brands} = useSelector((state) => state.storepage)
+  const {allCategories, brandsList} = useSelector((state) => state.homepage)
 
 
   const dispatch = useDispatch()
@@ -42,8 +43,8 @@ export default function CreateProduct() {
 
   useEffect(() => {
     dispatch(postProduct())
-    dispatch(getCategoriesToStore())
-    dispatch(getBrandsToStore())
+    dispatch(getCategories())
+    dispatch(getBrands())
   }, [dispatch])
 
   const handleSubmit = (e) => {
@@ -66,6 +67,7 @@ export default function CreateProduct() {
     
     
     dispatch(postProduct(input));
+    console.log(input)
     // alert('Product loaded!')
     setInput({
       name: '',
@@ -184,7 +186,7 @@ export default function CreateProduct() {
             onChange={(e) => handleChange(e)}
             >
                 <option key={'Category'}>Category</option>
-                {categories?.map((category) => (
+                {allCategories?.map((category) => (
                 <option value={category.name} key={category.name}>{category.name}</option>
             ))}
             </select>
@@ -202,7 +204,7 @@ export default function CreateProduct() {
         onChange={(e) => handleChange(e)}
         >
             <option key={'Manufacturer'}>Manufacturer</option>
-            {brands?.map((brand) => (
+            {brandsList?.map((brand) => (
             <option value={brand.name} key={brand.name}>{brand.name}</option>
           ))}
         </select>
