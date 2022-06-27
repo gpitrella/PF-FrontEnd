@@ -7,8 +7,10 @@ import AddToCard from './components/AddToCard/AddToCard';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
+import CreateProduct from './components/CreateProduct/CreateProduct'
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import CreateActivity from './components/Categories/NewCategory';
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
           <Route exact path="/productDetails" component={ProductDetails} />
           <Route exact path="/productdetails/:id" component={ProductDetails} />
           <Route component={AddToCard} />
+          <Route exact path="/createproduct" component={CreateProduct} />
+          <Route exact path="/categories" component={CreateActivity} />
           <Route path="/" component={Footer} />
         </div>
       </Router>

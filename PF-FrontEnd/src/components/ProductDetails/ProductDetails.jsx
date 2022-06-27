@@ -69,8 +69,8 @@ export default function ProductDetails (){
                         {productDetails.discount}% OFF
                         </div>
                     }
-                    <img id="detail_image" src={productDetails?.image} alt={product.name}/>
-                    
+                    <ImageLoader image = {productDetails?.image} alt = {productDetails?.name} />
+                   
                 </div>
                 <div>
                     <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
@@ -91,7 +91,7 @@ export default function ProductDetails (){
                     <hr/>
 
                     <h4 className="mt-2">Descripción:</h4>
-                    <p>{product.description}</p>
+                    <p>{productDetails?.description}</p>
                     <hr/>
 
                     <Stack spacing={2} direction="row">

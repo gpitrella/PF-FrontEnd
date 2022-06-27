@@ -28,7 +28,12 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
+<<<<<<< HEAD
 import { useEffect } from 'react';
+=======
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+>>>>>>> 532ce15817f2f8e3d51034931cd01548fbabb527
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -220,9 +225,13 @@ export default function NavBar() {
             />
           </Link>
           <Search >
+                {/* <Link to={(name !== '') ? `/store/name/${name}` : '/store'} underline="none"> */}
+              {
+                name && name.length > 0 && 
                 <Link to={`/store/name/${name}`} underline="none">
                         <SearchIcon id='searchIcon'/>
                 </Link>
+              }
               <StyledInputBase
                 placeholder="Search ..."
                 inputProps={{ 'aria-label': 'search' }}
@@ -232,6 +241,7 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            
             <Link to={'/'} >
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={productsCart?.length} color="error">
@@ -239,6 +249,22 @@ export default function NavBar() {
                 </Badge>
               </IconButton>
             </Link>
+
+            <IconButton size="large" aria-label="store" color="inherit">
+              <Badge badgeContent={0} color="error">
+                <Link to={'/store'} underline="none">
+                  <StorefrontIcon />
+                </Link>
+              </Badge>
+            </IconButton>
+
+            <IconButton size="large" aria-label="create_product" color="inherit">
+              <Badge badgeContent={0} color="error">
+                <Link to={'/createproduct'} underline="none">
+                  <AddBoxIcon />
+                </Link>
+              </Badge>
+            </IconButton>
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
