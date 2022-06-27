@@ -7,9 +7,11 @@ import {
   CLOSE_STORE,
   GET_BRANDS_TO_STORE,
   GET_CATEGORIES_TO_STORE,
-  GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE
+  GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
+  POST_PRODUCT
 } from './actiontype';
-import axios from 'axios';
+
+import axios from 'axios'
 
 const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
 const PATH_GET_CATEGORIES = 'http://localhost:3001/api/categories';
@@ -69,6 +71,14 @@ export const getCategoriesToStore = function() {
     return fetch(PATH_GET_CATEGORIES)
            .then(result => result.json())
            .then(data => dispatch({ type: GET_CATEGORIES_TO_STORE, payload: data }))
+           .catch(error => console.log(error));
+  }
+}
+
+export const postProduct = function(body) {
+  return function(dispatch) {
+    return axios.post("http://localhost:3001/api/product", body)
+           .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
            .catch(error => console.log(error));
   }
 }
