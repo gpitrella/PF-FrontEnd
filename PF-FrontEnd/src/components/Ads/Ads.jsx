@@ -25,7 +25,7 @@ const Ads = ()=> {
         }
       };
     return(
-        <div className='brandscontainer' >
+        <div className={s.ads} >
         <Carousel responsive = {responsive} infinite = {true} autoPlay={true} autoPlaySpeed={5000} removeArrowOnDeviceType={["tablet", "mobile"]} swipeable={true}
                 draggable={true} >
           <div className={s.items}>
