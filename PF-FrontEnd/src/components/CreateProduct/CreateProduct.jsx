@@ -2,8 +2,8 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCircleXmark, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons'
+//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+//import {faCircleXmark, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons'
 import { postProduct } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
@@ -83,12 +83,11 @@ export default function CreateProduct() {
   // }
   }
 
-  const [value, setValue] = useState(input);
 
 
   return (
     <div className='main'>
-        <Link to={'/'}><button>BACK HOME</button></Link>
+        {/* <Link to={'/'}><button>BACK HOME</button></Link> */}
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
         
         <div className='form__group' id='name'>
@@ -103,7 +102,6 @@ export default function CreateProduct() {
                 value = {input.name}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.name}</p>
         </div>
@@ -120,7 +118,6 @@ export default function CreateProduct() {
                 value = {input.price}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.price}</p>
         </div>
@@ -137,7 +134,6 @@ export default function CreateProduct() {
                 value = {input.image}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.image}</p>
         </div>
@@ -154,7 +150,6 @@ export default function CreateProduct() {
                 value = {input.discount}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.discount}</p>
         </div>
@@ -171,7 +166,6 @@ export default function CreateProduct() {
                 value = {input.stock}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.stock}</p>
         </div>
@@ -224,17 +218,15 @@ export default function CreateProduct() {
                 value = {input.description}
                 onChange={(e) => handleChange(e)}
                 />
-                {/* <FontAwesomeIcon className='form__validation-input' icon={faCircleXmark}/> */}
           </div> 
           <p className='form__input-error'>{errors.description}</p>
         </div>
 
-        <div className='form__msn' id='form__msn'>
+        {/* <div className='form__msn' id='form__msn'>
             <p>
-            <FontAwesomeIcon className='form__validation-input' icon={faTriangleExclamation}/>
             <b>Error:</b> please check the boxes with errors.
-            </p>
-        </div>
+            </p> 
+        </div> */}
         <div className="form__group form__group-btn-create">
             <button type='submit' className='form__btn'>CREATE</button>
             <p className='form__msn-exito' id='form__msn-exito'
