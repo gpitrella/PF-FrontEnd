@@ -26,6 +26,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import StorefrontIcon from '@mui/icons-material/Storefront';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -213,6 +215,7 @@ export default function NavBar() {
             />
           </Link>
           <Search >
+                {/* <Link to={(name !== '') ? `/store/name/${name}` : '/store'} underline="none"> */}
               {
                 name && name.length > 0 && 
                 <Link to={`/store/name/${name}`} underline="none">
@@ -228,11 +231,29 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+            <IconButton size="large" aria-label="store" color="inherit">
+              <Badge badgeContent={0} color="error">
+                <Link to={'/store'} underline="none">
+                  <StorefrontIcon />
+                </Link>
+              </Badge>
+            </IconButton>
+
+            <IconButton size="large" aria-label="create_product" color="inherit">
+              <Badge badgeContent={0} color="error">
+                <Link to={'/createproduct'} underline="none">
+                  <AddBoxIcon />
+                </Link>
+              </Badge>
+            </IconButton>
+
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
               </Badge>
             </IconButton>
+
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
