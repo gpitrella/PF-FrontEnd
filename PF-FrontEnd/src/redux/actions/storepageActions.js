@@ -7,7 +7,8 @@ import {
   CLOSE_STORE,
   GET_BRANDS_TO_STORE,
   GET_CATEGORIES_TO_STORE,
-  GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE
+  GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
+  POST_PRODUCT
 } from './actiontype';
 
 const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
@@ -68,6 +69,15 @@ export const getCategoriesToStore = function() {
     return fetch(PATH_GET_CATEGORIES)
            .then(result => result.json())
            .then(data => dispatch({ type: GET_CATEGORIES_TO_STORE, payload: data }))
+           .catch(error => console.log(error));
+  }
+}
+
+export const postProduct = function(body) {
+  return function(dispatch) {
+    return fetch(PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE, body)
+           .then(result => result.json())
+           .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
            .catch(error => console.log(error));
   }
 }

@@ -7,7 +7,8 @@ import {
   SHOW_LOADING,
   SHOW_ERROR,
   SHOW_STORE,
-  CLOSE_STORE
+  CLOSE_STORE,
+  POST_PRODUCT,
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
@@ -123,6 +124,11 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           name: ''
         }
       }
+    case POST_PRODUCT:
+          return {
+          ...state,
+          products: [...state.products, payload]
+          }
     case CLOSE_STORE:
       return initialState;
     default:
