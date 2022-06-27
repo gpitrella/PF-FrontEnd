@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Ads from '../Ads/Ads';
 import Brands from '../Brands/Brands';
 import Categories from '../Categories/Categories';
-import ProductCards from '../ProductCards/ProductCards';
-import { Link } from 'react-router-dom';
 import style from './Home.module.css';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,21 +13,44 @@ import {
           getProductsToSectionTwo,
           getProductsToSectionThree
         } from '../../redux/actions';
+import SectionCatalogue from '../SectionCatalogue/SectionCatalogue';
 import Loading from '../SVG/Loading';
+import { chooseRandom } from '../../util';
 
 export default function Home () {
 
   const dispatch = useDispatch();
-  const { section } = useSelector(state => state.homepage);
+  const { section, allCategories, brandsList } = useSelector(state => state.homepage);
+  const [ chooseSection, setChooseSection ] = useState({
+    two: '',
+    three: '',
+    show: false
+  });
 
   React.useEffect(() => {
     dispatch(showLoadingSectionOne());
     dispatch(showLoadingSectionTwo());
     dispatch(showLoadingSectionThree());
-    dispatch(getProductsToSectionOne('page=1&discount=1&size=10&order=random'));
-    dispatch(getProductsToSectionTwo('page=1&category=NOTEBOOKS&size=10&order=random'));
-    dispatch(getProductsToSectionThree('page=1&category=KEYBOARDSs&size=10&order=random'));
   }, []);
+
+  React.useEffect(() => {
+    if (allCategories.length > 0 && brandsList.length > 0) getRandomLists();
+  }, [allCategories, brandsList]);
+
+  let getRandomLists = function() {
+    let sectionTwo = chooseRandom(allCategories);
+    let sectionThree = chooseRandom(brandsList);
+
+    dispatch(getProductsToSectionOne('page=1&discount=1&size=10&order=random'));
+    dispatch(getProductsToSectionTwo(`page=1&category=${sectionTwo}&size=10&order=random`));
+    dispatch(getProductsToSectionThree(`page=1&manufacturer=${sectionThree}&size=10&order=random`));
+
+    setChooseSection({
+      two: sectionTwo,
+      three: sectionThree,
+      show: true
+    });
+  }
 
   return (
     <div>
@@ -37,50 +58,40 @@ export default function Home () {
         <Ads/>
       </div>
       <div className={style.catalogue}>
-        <h2>SECTION 1</h2>
-        <Link className={style.sectionLink} to="/store/discount/show" >View More</Link>
         {
-          section && !section.showLoadingOne && !section.errorOne && 
-          <ProductCards products = {section.one.content} section = {1}/>
-        }
-        {
-          section && section.showLoadingOne && 
+          !chooseSection.show &&
           <div className = {style.noProductsContainer}>
             <div className = {style.imageContainer}>
               <Loading />
             </div>
-            <span className = {style.span}>Loading Products</span>
+            <span className = {style.span}>Loading Sections...</span>
           </div>
         }
-        <h2>SECTION 2</h2>
-        <Link className={style.sectionLink} to="/store/category/Notebooks" >View More</Link>
         {
-          section && !section.showLoadingTwo && !section.errorTwo &&
-          <ProductCards products = {section.two.content} section = {2}/>
-        }
-        {
-          section && section.showLoadingTwo && 
-          <div className = {style.noProductsContainer}>
-            <div className = {style.imageContainer}>
-              <Loading />
-            </div>
-            <span className = {style.span}>Loading Products</span>
-          </div>
-        }
-        <h2>SECTION 3</h2>
-        <Link className={style.sectionLink} to="/store/category/Keyboards" >View More</Link>
-        {
-          section && !section.showLoadingThree && !section.errorThree &&
-          <ProductCards products = {section.three.content} section = {3}/>
-        }
-        {
-          section && section.showLoadingThree && 
-          <div className = {style.noProductsContainer}>
-            <div className = {style.imageContainer}>
-              <Loading />
-            </div>
-            <span className = {style.span}>Loading Products</span>
-          </div>
+          chooseSection.show && 
+          <>
+            <SectionCatalogue 
+              sectionPath = { '/store/discount/show' }
+              sectionName = { 'Products On Discount' }
+              products = { section.one }
+              loading = { section.showLoadingOne }
+              error = { section.errorOne }
+            />
+            <SectionCatalogue 
+              sectionPath = { `/store/category/${chooseSection.two}` }
+              sectionName = { chooseSection.two }
+              products = { section.two }
+              loading = { section.showLoadingTwo }
+              error = { section.errorTwo }
+            />
+            <SectionCatalogue 
+              sectionPath = { `/store/brand/${chooseSection.three}` }
+              sectionName = { chooseSection.three }
+              products = { section.three }
+              loading = { section.showLoadingThree }
+              error = { section.errorTwo }
+            />
+          </>
         }
       </div>
       <Categories />

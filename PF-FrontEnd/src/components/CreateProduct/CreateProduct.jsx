@@ -185,7 +185,7 @@ export default function CreateProduct() {
             name = {'category'}
             onChange={(e) => handleChange(e)}
             >
-                <option key={'Category'}>Category</option>
+                <option value={''} key={'Category'}>Category</option>
                 {allCategories?.map((category) => (
                 <option value={category.name} key={category.name}>{category.name}</option>
             ))}

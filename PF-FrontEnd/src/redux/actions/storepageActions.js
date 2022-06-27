@@ -11,6 +11,8 @@ import {
   POST_PRODUCT
 } from './actiontype';
 
+import axios from 'axios'
+
 const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
 const PATH_GET_CATEGORIES = 'http://localhost:3001/api/categories';
 const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = "http://localhost:3001/api/product/?";
@@ -75,9 +77,8 @@ export const getCategoriesToStore = function() {
 
 export const postProduct = function(body) {
   return function(dispatch) {
-    return fetch("http://localhost:3001/api/product", body)
-           .then(result => result.json())
-           .then(data => console.log(data))
+    return axios.post("http://localhost:3001/api/product", body)
+           .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
            .catch(error => console.log(error));
   }
 }

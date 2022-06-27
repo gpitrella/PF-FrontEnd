@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { useHistory, useLocation } from 'react-router-dom';
 import s from './FilterPanel.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateFilter, resetFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../redux/actions';
@@ -9,14 +9,29 @@ import { buildFilter } from '../../util';
 export default function FilterPanel() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
   const { filter, categories, brands } = useSelector(state => state.storepage);
   const [ priceRange, setPriceRange ] = React.useState({
     min: '',
     max: ''
   })
 
+  const [ showFilterByName, setShowFilterByName ] = React.useState(false);
+
+  React.useEffect(() => {
+    if (filter.name !== '') {
+      setShowFilterByName(true);
+    }
+  }, [filter.name])
+
   let handleCheck = function(property) {
     handleUpdateFilter(property, !filter[property]);
+  }
+
+  let handleCheckFilterByName = function() {
+    setShowFilterByName(false);
+    handleResetFilters();
   }
 
   let formatString= function(category) {
@@ -128,15 +143,32 @@ export default function FilterPanel() {
       order: filter.order,
       orderBy: filter.orderBy
     }
+
     dispatch(resetFilter());
-    dispatch(setShowLoading());
-    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+    if (location && location.pathname.length > 7) {
+      setShowFilterByName(false);
+      history.replace('/store');
+    }
+    else {
+      setShowFilterByName(false);
+      dispatch(setShowLoading());
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+    }
   }
 
   return (
     <div className = {s.container}>
 
       <h1 className = {s.title}>Set Filters</h1>
+
+      {
+        showFilterByName &&
+        <div className = {s.btnName} onClick = {handleCheckFilterByName}>
+          <span className = {s.symbol}>{'<'}</span>
+          <span className = {s.spanName}>Searching: <i>{filter.name.length > 15 ? `${filter.name.slice(0, 15)}...` : filter.name }</i></span>
+          <span className = {s.spanName}>Go Back to Default Filter</span>
+        </div>
+      }
 
       <div className = {s.check}>
         <input type = 'checkbox' checked = {filter.favorites} className = {s.largeCheck} onChange = {() => handleCheck('favorites')} />
