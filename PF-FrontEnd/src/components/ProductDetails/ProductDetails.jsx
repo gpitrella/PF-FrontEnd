@@ -71,7 +71,8 @@ export default function ProductDetails (){
                         {productDetails.discount}% OFF
                         </div>
                     }
-                    <img id="detail_image" src={productDetails?.image} alt={product.name}/>
+                    <ImageLoader image = {productDetails?.image} alt = {productDetails?.name} />
+                    {/* <img id="detail_image" src={productDetails?.image} alt={product.name}/> */}
                     
                 </div>
                 <div>

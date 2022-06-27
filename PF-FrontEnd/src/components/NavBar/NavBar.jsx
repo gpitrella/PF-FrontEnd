@@ -213,7 +213,7 @@ export default function NavBar() {
             />
           </Link>
           <Search >
-                <Link to={`/store/name/${name}`} underline="none">
+                <Link to={(name !== '') ? `/store/name/${name}` : '/store'} underline="none">
                         <SearchIcon id='searchIcon'/>
                 </Link>
               <StyledInputBase

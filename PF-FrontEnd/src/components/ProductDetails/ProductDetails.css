@@ -16,12 +16,6 @@
     padding: 20px;
 }
 
-#detail_image {
-    height: 17rem;
-    width: 22rem;
-    padding: 2rem;
-}
-
 #product_category {
     color: grey;
     font-size: 0.8rem;
@@ -71,7 +65,7 @@
 .containerDiscount {
     position: relative;
     top: 1.5REM;
-    left: -2.5REM;
+    left: -5REM;
     background-color: var(--dangerColor);
     width: 10REM;
     padding: 0.2rem;
@@ -128,7 +122,9 @@ font-size: 1.1rem;
 #product_image {
     text-align: center;
     padding: 10px;
-    padding-right: 30px;
+    padding-right: 70px;
+    padding-left: 50px;
+    height: 20rem;    
 }
 
 @media screen and (max-width: 800px){
