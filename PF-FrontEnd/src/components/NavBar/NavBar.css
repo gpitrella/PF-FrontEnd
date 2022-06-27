@@ -1,6 +1,5 @@
 .navbar_main_block {
-    
-    position: sticky;
+    position: inherit;
     z-index: 100;
     top: 0;
     width: 100%;
