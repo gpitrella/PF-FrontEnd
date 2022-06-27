@@ -28,12 +28,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
-<<<<<<< HEAD
-import { useEffect } from 'react';
-=======
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StorefrontIcon from '@mui/icons-material/Storefront';
->>>>>>> 532ce15817f2f8e3d51034931cd01548fbabb527
 
 
 const Search = styled('div')(({ theme }) => ({
