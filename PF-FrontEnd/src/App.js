@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from './components/NavBar/NavBar';
 import Footer from './components/Footer/Footer';
 import ProductDetails from './components/ProductDetails/ProductDetails';
-import AddToCard from './components/AddToCard/AddToCard';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
@@ -35,7 +34,6 @@ function App() {
           <Route exact path="/store/brand/:brand" component = {Store} />
           <Route exact path="/productDetails" component={ProductDetails} />
           <Route exact path="/productdetails/:id" component={ProductDetails} />
-          <Route component={AddToCard} />
           <Route exact path="/createproduct" component={CreateProduct} />
           <Route exact path="/categories" component={CreateActivity} />
           <Route path="/" component={Footer} />

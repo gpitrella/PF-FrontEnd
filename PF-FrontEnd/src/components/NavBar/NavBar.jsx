@@ -30,6 +30,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import AddToCard from '../AddToCard/AddToCard';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -80,7 +82,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function NavBar() {
   const [ name, setName ] = React.useState('');
-  const productsCart = useSelector((state) => state.general.productsCart)
+  const productsCart = useSelector((state) => state.general.productsCart);
 
   const dispatch = useDispatch();
 
@@ -238,7 +240,7 @@ export default function NavBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
-            <Link to={'/'} >
+            <Link to={'/addtocard'} >
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={productsCart?.length} color="error">
                   <ShoppingCartIcon />
@@ -265,6 +267,7 @@ export default function NavBar() {
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
+
               </Badge>
             </IconButton>
 
