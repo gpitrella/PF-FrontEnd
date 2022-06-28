@@ -1,0 +1,11 @@
+.notfoundpage{
+    padding-top: 1rem;
+    size: 20rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.imgNotFound{
+    width: 30rem;
+}
