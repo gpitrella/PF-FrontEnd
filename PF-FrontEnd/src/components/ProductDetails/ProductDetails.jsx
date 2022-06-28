@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProductDetails } from "../../redux/actions/homepageActions";
+import { getProductDetails, postCommentProduct } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
@@ -13,6 +13,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export const product = 
     {
@@ -28,20 +34,23 @@ export const product =
       }
 
 export default function ProductDetails (){
+    const [open, setOpen] = React.useState(false);
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.homepage.productDetails)
+    const commentCreated = useSelector((state) => state.general.commentCreated)
     let discountPrice = Math.round(productDetails.price - productDetails.price * (productDetails.discount / 100));
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
+
       //  return() => {
       //      dispatch(clearGameDetail())
       //  }
-    }, [dispatch, id]);
+    }, [commentCreated]);
 
     // Configuración boton agregar comentario.
-    const [open, setOpen] = React.useState(false);
+    const [openComment, setOpenComment] = React.useState(false);
     const [comment, setComment] = React.useState();
 
     const handleClickOpen = () => {
@@ -52,13 +61,27 @@ export default function ProductDetails (){
     };
     const handleComment = (e) => {
         e.preventDefault();
-        setComment(e.target.value)
-    }
+        setComment(e.target.value);
+    };
     const handleSend = () => {
-        product.comment.push(comment);
+        // product.comment.push(comment);
+        dispatch(postCommentProduct(comment, productDetails.id));
+        handleClickComment()
         handleClose();
-    }
-    console.log(productDetails)
+    };
+
+    const handleClickComment = () => {
+        setOpenComment(true);
+      };
+
+    const handleCloseSuccessComment = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpenComment(false);
+    };
+    
   
 
         return (
@@ -68,11 +91,10 @@ export default function ProductDetails (){
                     {
                         productDetails.discount !== 0 &&
                         <div className = 'containerDiscount'>
-                        {productDetails.discount}% OFF
+                            {productDetails.discount}% OFF
                         </div>
                     }
-                    <img id="detail_image" src={productDetails?.image} alt={product.name}/>
-                    
+                    <ImageLoader image = {productDetails?.image} alt = {productDetails?.name} />
                 </div>
                 <div>
                     <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
@@ -80,8 +102,8 @@ export default function ProductDetails (){
                     <hr/>
                     <div className="price_rating">
                         <div>
-                            <span id="product_price_discount"> ${productDetails?.price} </span>
-                            <span id="product_price" > ${productDetails.discount !== 0 ? discountPrice : productDetails.price} </span>
+                            <span id="product_price_discount" > ${productDetails.discount !== 0 ? discountPrice : productDetails.price} </span>
+                            <span id="product_price"> ${productDetails?.price} </span>
                             <p id="product_seller">Brand: <strong>{productDetails?.manufacturers ? productDetails.manufacturers[0]?.name : 'WithOut Brand'}</strong></p>
                         </div>
                         <div id="review_block">
@@ -92,8 +114,8 @@ export default function ProductDetails (){
                     
                     <hr/>
 
-                    <h4 className="mt-2">Descripción:</h4>
-                    <p>{product.description}</p>
+                    <h4 className="mt-2">Description:</h4>
+                    <p>{productDetails?.description}</p>
                     <hr/>
 
                     <Stack spacing={2} direction="row">
@@ -116,25 +138,25 @@ export default function ProductDetails (){
             <div className="comment_main">
                 <div className="comment_add">
                     <div>
-                        <span><strong> COMENTARIOS: </strong></span>
+                        <span><strong> COMMENTS: </strong></span>
                     </div>
                     <div id="review_comment">
                         <div>
                             <div id="review_block">
                                 <Button variant="outlined" onClick={handleClickOpen}>
-                                    Escribir Comentario
+                                    Write a Comment
                                 </Button>
                                 <Dialog open={open} onClose={handleClose}>
-                                    <DialogTitle>Comentario:</DialogTitle>
+                                    <DialogTitle>Comment:</DialogTitle>
                                     <DialogContent>
                                     <DialogContentText>
-                                        Escribe un comentario del producto que compraste, esto ayudara a futuros compradores a elegir el producto más apropiado.
+                                        Write a comment about the product you bought, this will help future buyers to choose the most appropriate product.
                                     </DialogContentText>
                                     <TextField
                                         autoFocus
                                         margin="dense"
                                         id="comment"
-                                        label="Escribe aqui tu comentario ..."
+                                        label="Write here your comment ..."
                                         type="text"
                                         fullWidth
                                         variant="standard"
@@ -151,12 +173,17 @@ export default function ProductDetails (){
                     </div>
                 </div>
                 <div>
-                    {(product.comment.length === 0)
+                    {(productDetails.comments?.length === 0)
                         ? <p>Este producto no tiene comentarios</p>
-                        : product.comment.map((element) => {
-                            return(<div><p> - {element}</p></div>)
+                        : productDetails.comments?.map((element) => {
+                            return(<div key={parseInt(Math.random() * 10000 / Math.random())}><p> - {element.comment.charAt(0) + element.comment.slice(1, element.comment.length).toLowerCase()}</p></div>)
                         })}
                 </div>
+                <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
+                        Success comment created!
+                    </Alert>
+                </Snackbar>
             </div>
         </div>
         )

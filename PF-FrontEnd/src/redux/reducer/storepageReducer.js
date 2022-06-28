@@ -7,7 +7,8 @@ import {
   SHOW_LOADING,
   SHOW_ERROR,
   SHOW_STORE,
-  CLOSE_STORE
+  CLOSE_STORE,
+  POST_PRODUCT,
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
@@ -52,6 +53,8 @@ const initialState = {
     // 'AMD',
     // 'INTEL'
   ],
+
+  msn: [],
 
   results: 0,
   products: [],
@@ -126,6 +129,11 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           name: ''
         }
       }
+    case POST_PRODUCT:
+          return {
+          ...state,
+          msn: ['Product created!']
+          }
     case CLOSE_STORE:
       return { ...initialState };
     default:
