@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { getSearchProducts, clearSearchProducts } from "../../redux/actions/homepageActions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
-import CartItem from '../AddToCard/AddToCard';
+//import CartItem from '../AddToCard/AddToCard';
 
 import './NavBar.css';
 import gitfLogo from './img/logo_TechMarket.gif';
@@ -30,7 +30,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StorefrontIcon from '@mui/icons-material/Storefront';
-import AddToCard from '../AddToCard/AddToCard';
+import AddToCart from '../AddToCart/AddToCart';
 
 
 
@@ -240,7 +240,7 @@ export default function NavBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
-            <Link to={'/addtocard'} >
+            <Link to={'/addtocart'} >
               <IconButton size="large" aria-label="show 4 new mails" color="inherit">
                 <Badge badgeContent={productsCart?.length} color="error">
                   <ShoppingCartIcon />

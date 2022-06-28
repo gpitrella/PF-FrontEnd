@@ -11,6 +11,7 @@ import notFoundPage from './components/404/NotFoundPage404';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
+import AddToCart from './components/AddToCart/AddToCart';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       <Router>
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
+          <Route path="/addtocart" component={AddToCart} />
           <Route exact path="/" component={Home} />
           <Route exact path="/store/" component = {Store} />
           <Route exact path="/store/discount/:discount" component = {Store} />

@@ -2,7 +2,7 @@ import React from "react";
 // import { Button } from "@material-ui/core";
 // import { CartItemType } from "../App"; -- importa los productos agregados al carrito
 import { useSelector } from 'react-redux';
-import './AddToCard.css';
+import './AddToCart.css';
 
 
 import Button from '@mui/material/Button';
@@ -36,7 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 
-export default function AddToCard(){
+export default function AddToCart(){
 const productsCart = useSelector((state) => state.general.productsCart)
 ///////////////////////////////
 const [openAddtoCart, setOpenAddtoCart] = React.useState(false);
@@ -76,13 +76,13 @@ console.log(productsCart)
                  : productsCart?.map((e) => {
                      return (
                      <div>
-                         <img className="img_addtocard" src={e.image} alt={e.title} />
+                         <img className="img_addtocart" src={e.image} alt={e.title} />
                          <h3>{e.name}</h3>
-                         <div className="information_addtocard">
+                         <div className="information_addtocart">
                              <p>Price: ${e.price}</p>
                              <p>Total: ${(1 * e.price)}</p>
                          </div>
-                         <div className="buttons_addtocard">
+                         <div className="buttons_addtocart">
                              <Button
                                  size="small"
                                  disableElevation
@@ -116,20 +116,20 @@ console.log(productsCart)
       </Dialog>
     </div>
     </div>
-    // <div className="container_addtocard">
+    // <div className="container_addtocart">
     //     <div className="container_secundary">
     //     {productsCart?.length === 0 
     //             ? <p>Sin productos agregados al carrito</p>
     //             : productsCart?.map((e) => {
     //                 return (
     //                 <div>
-    //                     <img className="img_addtocard" src={e.image} alt={e.title} />
+    //                     <img className="img_addtocart" src={e.image} alt={e.title} />
     //                     <h3>{e.name}</h3>
-    //                     <div className="information_addtocard">
+    //                     <div className="information_addtocart">
     //                         <p>Price: ${e.price}</p>
     //                         <p>Total: ${(1 * e.price)}</p>
     //                     </div>
-    //                     <div className="buttons_addtocard">
+    //                     <div className="buttons_addtocart">
     //                         <Button
     //                             size="small"
     //                             disableElevation
