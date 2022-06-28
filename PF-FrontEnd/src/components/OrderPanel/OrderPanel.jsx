@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateFilter } from '../../redux/actions';
+import { updateFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../redux/actions';
+
+import { buildFilter } from '../../util';
 
 import s from './OrderPanel.module.css';
 
@@ -11,7 +13,13 @@ export default function OrderPanel() {
 
   let handleChange = function(e) {
     let { value, name } = e.target;
-    dispatch(updateFilter({ ...filter, [name]: value }));
+    let newFilter = {
+      ...filter,
+      [name]: value
+    };
+    dispatch(updateFilter(newFilter));
+    dispatch(setShowLoading());
+    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
   };
 
   return (

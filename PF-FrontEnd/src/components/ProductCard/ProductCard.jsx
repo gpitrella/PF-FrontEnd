@@ -6,11 +6,10 @@ import Heart from '../SVG/Heart';
 import Cart from '../SVG/Cart';
 
 import s from './ProductCard.module.css';
-import exampleImage from './example.jpg';
 import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
 
-export default function ProductCard({ id, name, image, category, price, discount, description, rating }) {
+export default function ProductCard({ id, name, image, category, price, discount, rating, brand }) {
 
   let discountPrice = Math.round(price - price * (discount / 100));
 
@@ -19,7 +18,7 @@ export default function ProductCard({ id, name, image, category, price, discount
 
       <div className = {s.containerImage}>
         <Link to={`/productdetails/${id}`}>
-          <ImageLoader image = {exampleImage} alt = {name} />
+          <ImageLoader image = {image} alt = {name} />
         </Link>
       </div>
 
@@ -28,44 +27,23 @@ export default function ProductCard({ id, name, image, category, price, discount
         <div className = {s.containerTitle}>
 
           <div className = {s.containerBrand}>
-            <img src = {exampleBrand} alt = 'exampleBrand' className = {s.img} />
+            <img src = {brand?.image} alt = {brand?.name} className = {s.img} />
           </div>
 
           <div className = {s.containerTitleAndCategory}>
             <span className = {s.name}>{name}</span>
             <span className = {s.category}>{category}</span>
           </div>
-
-          <div className = {s.containerPrice}>
-            <span className = {s.price}>${price}</span>
-            {
-              discount !== 0 &&
-              <span className = {s.discountPrice}>${discountPrice}</span>
-            }
-          </div>
-
-        </div>
-
-        <div className = {s.containerDescription}>
-
-          <span className = {s.description}>{description}</span>
-
-          <div className = {s.rating}>
-
-            <span className = {s.spanRating}>{rating}</span>
-            <div className = {s.containerStar}>
-              <img src = {star} className = {s.img} alt = 'star' />
-            </div>
-
-          </div>
-
         </div>
 
         <div className = {s.containerOptions}>
 
-          <div className = {s.containerButtons}>
-            <button className = {s.btn}>BUY</button>
-            <button className = {s.btn}>VIEW MORE</button>
+          <div className = {s.containerPrice}>
+            <span className = {s.price}>${ discount !== 0 ? discountPrice : price }</span>
+            {
+              discount !== 0 &&
+              <span className = {s.discountPrice}>${price}</span>
+            }
           </div>
 
           <div className = {s.containerButtonsSVG}>
@@ -79,6 +57,14 @@ export default function ProductCard({ id, name, image, category, price, discount
           </div>
 
         </div>
+
+         <div className = {s.rating}>
+
+            <div className = {s.containerStar}>
+              <img src = {star} className = {s.img} alt = 'star' />
+            </div>
+            <span className = {s.spanRating}>{rating}</span>
+          </div>
 
       </div>
 

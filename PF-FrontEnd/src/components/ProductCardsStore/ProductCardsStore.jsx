@@ -10,14 +10,15 @@ export default function ProductCardsStore({ products }){
       products && products.length > 0 && products.map((product, index) => 
 
         <ProductCard 
-          id = {1}
-          name = {`example ${index}`}
-          category = {'Prebuild Computer'}
-          price = {50000}
-          discount = {50}
-          description = {'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis.'}
+          id = {product.id}
+          name = {product.name}
+          category = {product.categories[0]}
+          price = {product.price}
+          discount = {product.discount}
           rating = {9.5}
-          key = {`product-${index}`}
+          image = {product.image}
+          brand = {product.manufacturers[0]}
+          key = {`product-${product.id}-${index}`}
        />
 
       )

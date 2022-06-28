@@ -1,8 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateFilter } from '../../redux/actions';
+import { updateFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../redux/actions';
 
 import s from './Pagination.module.css';
+
+import { buildFilter } from '../../util';
 
 export default function Pagination() {
 
@@ -15,10 +17,13 @@ export default function Pagination() {
   }, [filter]);
 
   let handleUpdateFilter = function(pageToChange) {
-    dispatch(updateFilter({
+    let newFilter = {
       ...filter,
       page: pageToChange
-    }));
+    };
+    dispatch(updateFilter(newFilter));
+    dispatch(setShowLoading());
+    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
   }
 
   return (

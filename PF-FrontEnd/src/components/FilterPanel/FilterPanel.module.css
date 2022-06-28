@@ -75,17 +75,20 @@
   cursor: pointer;
   font-weight: 700;
   transition: background-color 0.5s;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 .filterBrand:hover {
   background-color: var(--dangerColor);
 }
 
-.filterBrand:hover::before{
+.filterBrand:hover::before {
   content: 'Remove -';
 }
 
-.filterBrand:hover::after{
+.filterBrand:hover::after {
   content: '-';
 }
 
@@ -114,7 +117,8 @@
 }
 
 .btnRemove:hover,
-.btn:hover {
+.btn:hover,
+.btnName:hover {
   background-color: white;
   color: var(--dangerColor);
 }
@@ -158,7 +162,8 @@
   color: var(--fontColor);
 }
 
-.btn {
+.btn,
+.btnName {
   margin-top: 20px;
   padding: 10px;
   border-radius: 0;
@@ -178,4 +183,31 @@
   grid-auto-rows: min-content;
   grid-gap: 5px;
   margin: 3px;
+}
+
+.btnName {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 1fr;
+  background-color: var(--dangerColor);
+  color: white;
+
+  grid-row-gap: 5px;
+
+  align-content: center;
+  align-items: center;
+
+  margin: 10px 0 10px 0;
+
+  cursor: pointer;
+}
+
+.symbol {
+  font-size: var(--fontTitle);
+  grid-row: 1 / 3;
+  grid-column: 1 / 2;
+}
+
+.spanName {
+  font-size: var(--fontSmall);
 }

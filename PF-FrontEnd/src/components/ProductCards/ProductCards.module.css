@@ -25,3 +25,35 @@
     width: 1680px;
   }
 }
+
+.noProductsContainer {
+  display: grid;
+  grid-template-columns: 400px;
+  grid-template-rows: 300px 138px;
+
+  align-content: center;
+  justify-content: center;
+
+  align-items: center;
+  justify-items: center;
+}
+
+.imageContainer {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  height: 150px;
+  aspect-ratio: 1/1;
+}
+
+.imageContainer > svg {
+  fill: var(--dangerColor);
+}
+
+.span {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+  color: var(--dangerColor);
+  font-size: var(--fontSubTitle);
+  font-weight: 700;
+  align-self: flex-start;
+}
