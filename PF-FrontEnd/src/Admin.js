@@ -18,9 +18,9 @@ const Admin = () => {
   return (
     <>
       <div className={darkMode ? "app dark" : "app"}>
-            <Link to="/">
+            
               <Home />
-            </Link>
+            
       </div>
     </>
     );

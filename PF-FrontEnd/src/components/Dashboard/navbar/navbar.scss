@@ -16,7 +16,7 @@
     .search {
       display: flex;
       align-items: center;
-      border: 0.5px solid lightgray;
+      // border: 0.5px solid lightgray;
       padding: 3px;
 
       input {
@@ -33,15 +33,19 @@
     .items {
       display: flex;
       align-items: center;
+      justify-content: right;
+      
 
       .item {
         display: flex;
         align-items: center;
+        justify-items: flex-end;
         margin-right: 20px;
         position: relative;
 
         .icon {
           font-size: 20px;
+          color: black;
         }
 
         .avatar {
