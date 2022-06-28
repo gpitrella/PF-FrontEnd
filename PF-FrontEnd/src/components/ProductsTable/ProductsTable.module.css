@@ -7,12 +7,22 @@
   align-items: center;
 
   flex-direction: column;
+
+  border: 1px solid var(--fontColorWithLessOpacity);
+  background-color: var(--primaryColor);
+  border-radius: 5px;
+
+  margin: 5rem;
+
+  overflow: hidden;
 }
 
 .table {
   width: fit-content;
   table-layout: fixed;
   border-collapse: collapse;
+
+  overflow: hidden;
 }
 
 .pagination {

@@ -12,6 +12,14 @@ export default function ProductsTableRow({ product }) {
     setViewMoreDetails(!viewMoreDetails);
   }
 
+  if (product.isDummy) return (
+    <tr className = {s.row}>
+      <td>
+        <div className = {s.rowParam}></div>
+      </td>
+    </tr>
+  );
+
   return (
     <tr className = {s.row}>
       {

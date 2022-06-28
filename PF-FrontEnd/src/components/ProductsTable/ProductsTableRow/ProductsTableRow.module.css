@@ -1,5 +1,5 @@
 .row {
-  border-bottom: 1px solid var(--fontColor);
+  border-bottom: 1px solid var(--fontColorWithLessOpacity);
 }
 
 .rowParam {

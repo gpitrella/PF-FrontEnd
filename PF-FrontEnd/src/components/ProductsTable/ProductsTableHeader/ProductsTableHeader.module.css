@@ -1,5 +1,5 @@
 .header {
-  height: 2rem;
+  height: 3rem;
   background-color: var(--secondaryColor);
 }
 
@@ -8,6 +8,9 @@
   color: white;
 
   text-transform: capitalize;
+
+  border-right: 1px solid var(--fontColorWithLessOpacity);
+  border-left: 1px solid var(--fontColorWithLessOpacity);
 }
 
 .widthSmall {
