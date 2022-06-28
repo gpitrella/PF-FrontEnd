@@ -1,5 +1,8 @@
 import {
-  CHANGE_THEME
+  CHANGE_THEME,
+  POST_COMMENT_PRODUCT,
+  SIGN_UP,
+  LOG_IN
 } from '../actions/actiontype';
 
 const THEME = {
@@ -8,7 +11,9 @@ const THEME = {
 }
 
 const initialState = {
-  theme: 'lightTheme'
+  theme: 'lightTheme',
+  commentCreated: {},
+  user: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -18,6 +23,22 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         theme: state.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT
       }
+    
+    case POST_COMMENT_PRODUCT:
+      return {
+        ...state,
+        commentCreated: payload
+      }
+    case SIGN_UP:
+      return {
+        ...state,
+        user: payload
+      }
+    case LOG_IN:
+      return {
+        ...state,
+        user: payload
+    }
     default:
       return state;
   }
