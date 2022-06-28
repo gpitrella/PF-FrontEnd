@@ -10,6 +10,7 @@ import CreateProduct from './components/CreateProduct/CreateProduct'
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
+import ProductsTable from './components/ProductsTable/ProductsTable';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/productdetails/:id" component={ProductDetails} />
           <Route exact path="/createproduct" component={CreateProduct} />
           <Route exact path="/categories" component={CreateActivity} />
+          <Route exact path = '/table' component={ProductsTable} />
           <Route path="/" component={Footer} />
         </div>
       </Router>
