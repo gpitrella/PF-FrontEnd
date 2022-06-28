@@ -2,7 +2,8 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+//import {faCircleXmark, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons'
 import { postProduct } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
@@ -88,7 +89,7 @@ export default function CreateProduct() {
 
   return (
     <div className='main'>
-        <Link to={'/'}><button>BACK HOME</button></Link>
+        {/* <Link to={'/'}><button>BACK HOME</button></Link> */}
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
         
         <div className='form__group' id='name'>
@@ -223,11 +224,11 @@ export default function CreateProduct() {
           <p className='form__input-error'>{errors.description}</p>
         </div>
 
-        <div className='form__msn' id='form__msn'>
+        {/* <div className='form__msn' id='form__msn'>
             <p>
             <b>Error:</b> please check the boxes with errors.
-            </p>
-        </div>
+            </p> 
+        </div> */}
         <div className="form__group form__group-btn-create">
             <button type='submit' className='form__btn'>CREATE</button>
             <p className='form__msn-exito' id='form__msn-exito'

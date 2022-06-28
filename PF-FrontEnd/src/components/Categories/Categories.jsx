@@ -10,6 +10,7 @@ import style from"./Categories.module.css";
 export default function Categories () {
     const dispatch = useDispatch();
     const { allCategories } = useSelector((state) => state.homepage);
+    console.log(allCategories)
 
     useEffect(()=>{
         dispatch(getCategories());
@@ -38,7 +39,7 @@ export default function Categories () {
         <div className={style.categoriesContainer}>
             <div className={style.containerCarousel}>
                 {
-                allCategories.length > 0 ? (
+                allCategories?.length > 0 ? (
                     <Carousel
                     cols={6}
                     rows={2}
@@ -54,10 +55,10 @@ export default function Categories () {
                     autoplay={1000}
                     >
                         {
-                        allCategories.map((category) =>
-                        <Carousel.Item>
-                            <CategCard key={category.id} name={category.name} image={category.image} />
-                        </Carousel.Item>
+                        allCategories?.map((category) =>
+                            <Carousel.Item>
+                                <CategCard key={category.id} name={category.name} image={category.image} />
+                            </Carousel.Item>
                         )}
                     </Carousel>
                 ) : (
