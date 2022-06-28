@@ -9,7 +9,7 @@ import Store from './components/Store/Store';
 import CreateProduct from './components/CreateProduct/CreateProduct'
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
-import CreateActivity from './components/Categories/NewCategory';
+import CreateCategory from './components/Categories/NewCategory';
 
 function App() {
 
@@ -35,7 +35,7 @@ function App() {
           <Route exact path="/productDetails" component={ProductDetails} />
           <Route exact path="/productdetails/:id" component={ProductDetails} />
           <Route exact path="/createproduct" component={CreateProduct} />
-          <Route exact path="/categories" component={CreateActivity} />
+          <Route exact path="/categories" component={CreateCategory} />
           <Route path="/" component={Footer} />
         </div>
       </Router>

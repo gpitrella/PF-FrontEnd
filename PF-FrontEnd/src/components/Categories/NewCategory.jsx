@@ -29,9 +29,9 @@ const schema = yup.object().shape({
     .required("You must select at least one product.")
 });
 
-export default function CreateActivity(){
+export default function CreateCategory(){
     const dispatch = useDispatch();
-    const { setValues, data } = useData();
+    const [ setValues, data ] = useData();
     const history = useHistory();
     const { allProducts } = useSelector((state) => state.homepage);
     const { register, control, handleSubmit, watch, formState: { errors } } = useForm({
