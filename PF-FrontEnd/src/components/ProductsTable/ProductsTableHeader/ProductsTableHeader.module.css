@@ -6,6 +6,8 @@
 .headerParam {
   font-size: var(--fontSmall);
   color: white;
+
+  text-transform: capitalize;
 }
 
 .widthSmall {

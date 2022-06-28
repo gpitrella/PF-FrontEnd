@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import FilterPanel from '../FilterPanel/FilterPanel';
 import OrderPanel from '../OrderPanel/OrderPanel';
 import Pagination from '../Pagination/Pagination';
+import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import ProductCardsStore from '../ProductCardsStore/ProductCardsStore';
 import LoadingStore from '../LoadingStore/LoadingStore';
 import { closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate,
@@ -124,20 +125,7 @@ export default function Store() {
         </div>
         <div className = {s.subHeaderZone}>
 
-          {
-            showLoading && <span></span>
-          }
-          {
-            results === 0 && !showLoading && <span className = {s.results}>Showing 0-0 of 0 Products</span>
-          }
-          {
-            results !== 0 && !showLoading &&
-            <span className = {s.results}>
-              Showing { (filter.page - 1) * (Math.ceil(results / filter.pages)) + 1 }-{
-              filter.page === filter.pages ? results :  filter.page * ( Math.ceil(results / filter.pages)) } of {
-              results} Products
-            </span>
-          }
+          <ShowResultCount loading = {showLoading} results = {results} page = {filter.page} pages = {filter.pages} />
 
           <div className = {s.orderPanel}>
             <OrderPanel />

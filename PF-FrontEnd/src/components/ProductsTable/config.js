@@ -4,13 +4,13 @@ export const headerData = [
     className: 'widthSmall'
   },
   {
+    name: 'image',
+    className: 'widthMedium'
+  },
+  {
     name: 'name',
     className: 'widthLarge',
     sort: true,
-  },
-  {
-    name: 'description',
-    className: 'widthLarge'
   },
   {
     name: 'category',
@@ -42,28 +42,27 @@ export const headerData = [
     className: 'widthSmall'
   },
   {
-    name: 'options',
+    name: 'action',
     className: 'widthLarge'
   }
 ];
+
+const MAX_LENGTH = 35;
 
 export const rowData = [
   {
     name: 'id',
   },
   {
-    name: 'name',
-    isComplex: true,
-    getValue: (product) => {
-      return product.name.length > 50 ? product.name.slice(0, 50) + '...' : product.name;
-    },
-    addViewMore: true
+    name: 'image',
+    isImage: true
   },
   {
-    name: 'description',
+    name: 'name',
     isComplex: true,
+    limit: MAX_LENGTH,
     getValue: (product) => {
-      return product.description.length > 50 ? product.description.slice(0, 50) + '...' : product.description;
+      return product.name.length > MAX_LENGTH ? product.name.slice(0, MAX_LENGTH) + '...' : product.name;
     },
     addViewMore: true
   },
@@ -105,6 +104,6 @@ export const rowData = [
     name: 'hidden',
   },
   {
-    name: 'options',
+    name: 'action',
   }
 ];
