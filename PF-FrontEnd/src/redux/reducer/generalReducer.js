@@ -9,7 +9,7 @@ const THEME = {
 }
 
 const initialState = {
-  theme: 'lightTheme',
+  theme: 'darkTheme',
   commentCreated: {}
 };
 
@@ -18,7 +18,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
     case CHANGE_THEME:
       return {
         ...state,
-        theme: state.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT
+        theme: THEME[payload]
       }
     
     case POST_COMMENT_PRODUCT:
