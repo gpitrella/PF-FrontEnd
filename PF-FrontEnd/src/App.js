@@ -12,6 +12,8 @@ import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import ProductsTable from './components/ProductsTable/ProductsTable';
+import Admin from './Admin';
+import List from './pages/list/List';
 
 function App() {
 
@@ -38,6 +40,8 @@ function App() {
               <Route exact path="/productdetails/:id" component={ProductDetails} />
               <Route exact path="/createproduct" component={CreateProduct} />
               <Route exact path="/categories" component={CreateActivity} />
+              <Route exact path="/admin/dashboard" component={Admin} />
+              <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
