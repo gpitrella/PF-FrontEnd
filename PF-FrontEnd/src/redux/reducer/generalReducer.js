@@ -1,6 +1,7 @@
 import {
   CHANGE_THEME,
-  ADD_TO_CART
+  ADD_TO_CART,
+  POST_COMMENT_PRODUCT
 } from '../actions/actiontype';
 
 const THEME = {
@@ -10,7 +11,8 @@ const THEME = {
 
 const initialState = {
   theme: 'lightTheme',
-  productsCart: []
+  productsCart: [],
+  commentCreated: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -27,6 +29,12 @@ const generalReducer = function(state = initialState, { type, payload }) {
         productsCart: state.productsCart.concat(payload)
       }
 
+    case POST_COMMENT_PRODUCT:
+      return {
+        ...state,
+        commentCreated: payload
+      }
+      
     default:
       return state;
   }
