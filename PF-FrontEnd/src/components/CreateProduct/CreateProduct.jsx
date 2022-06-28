@@ -7,6 +7,8 @@ import { postProduct } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
 
+import {validateName} from './validate'
+
 import validate from './validate'
 
 export default function CreateProduct() {
@@ -178,7 +180,7 @@ export default function CreateProduct() {
             name = {'category'}
             onChange={(e) => handleChange(e)}
             >
-                <option value={''} key={'Category'}>Category</option>
+                <option value={''} >Category</option>
                 {allCategories?.map((category) => (
                 <option value={category.name} key={category.name}>{category.name}</option>
             ))}
@@ -196,7 +198,7 @@ export default function CreateProduct() {
         name = {'manufacturer'}
         onChange={(e) => handleChange(e)}
         >
-            <option key={'Manufacturer'}>Manufacturer</option>
+            <option value={''} key={'Manufacturer'}>Manufacturer</option>
             {brandsList?.map((brand) => (
             <option value={brand.name} key={brand.name}>{brand.name}</option>
           ))}
