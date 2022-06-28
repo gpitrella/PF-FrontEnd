@@ -66,7 +66,17 @@ export default function CreateProduct() {
       [e.target.name]: e.target.value
     }))
 
-    
+    if(errors.name || errors.price ||errors.image || errors.stock || errors.discount || errors.category || errors.manufacturer || errors.description){
+        document.getElementById('form__msn').classList.add('form__msn-activo')
+      } else {
+        document.getElementById('form__msn-exito').classList.add('form__msn-exito-activo')
+        document.getElementById('form__msn-activo').classList.remove('form__msn-activo')
+        setTimeout(()=>{
+          document.getElementById('form__msn-exito').classList.remove('form__msn-exito-activo')
+        }, 4000)
+        document.querySelectorAll('.form__group-correcto').forEach((green) =>{
+          green.classList.remove('.form__group-correcto')
+        })
     
     dispatch(postProduct(input));
     console.log(input)
@@ -82,7 +92,7 @@ export default function CreateProduct() {
       manufacturer:''
     })
     // history.push('/')
-  // }
+  }
   }
 
 
@@ -224,11 +234,11 @@ export default function CreateProduct() {
           <p className='form__input-error'>{errors.description}</p>
         </div>
 
-        {/* <div className='form__msn' id='form__msn'>
+        <div className='form__msn' id='form__msn'>
             <p>
             <b>Error:</b> please check the boxes with errors.
             </p> 
-        </div> */}
+        </div>
         <div className="form__group form__group-btn-create">
             <button type='submit' className='form__btn'>CREATE</button>
             <p className='form__msn-exito' id='form__msn-exito'

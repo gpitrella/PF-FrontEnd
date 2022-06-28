@@ -11,6 +11,7 @@ import notFoundPage from './components/404/NotFoundPage404';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
+import LogIn from './components/LogIn/LogIn';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={LogIn} />
           <Route exact path="/store/" component = {Store} />
           <Route exact path="/store/discount/:discount" component = {Store} />
           <Route exact path="/store/name/:name" component = {Store} />

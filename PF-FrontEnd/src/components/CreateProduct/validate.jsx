@@ -30,16 +30,6 @@ const validation = {
 
 export default function validate(input){
     let errors = {};
-    const filds = {
-      name: false,
-      price: false,
-      image: false,
-      discount: false,
-      stock: false,
-      description: false,
-      category: false,
-      manufacturer:false
-    }
 
     if(input.name === '') {
       errors.name = "Add a product name"
@@ -50,14 +40,12 @@ export default function validate(input){
       document.getElementById('name').classList.add('form__group-correcto')
       document.getElementById('name').classList.remove('form__group-incorrecto')
       document.querySelector('#name .form__input-error').classList.remove('form__input-error-activo')
-      filds['name'] = true
     };
 
     if (validator.isCurrency(input.price, {allow_negatives: false, allow_decimal: true})){
       document.getElementById('price').classList.add('form__group-correcto')
       document.getElementById('price').classList.remove('form__group-incorrecto')
       document.querySelector('#image .form__input-error').classList.remove('form__input-error-activo')
-      filds['price'] = true
     } else {
       errors.price = "Add a valid currency amount"
       document.getElementById('price').classList.add('form__group-incorrecto')
@@ -69,7 +57,6 @@ export default function validate(input){
       document.getElementById('image').classList.add('form__group-correcto')
       document.getElementById('image').classList.remove('form__group-incorrecto')
       document.querySelector('#image .form__input-error').classList.remove('form__input-error-activo')
-      filds['image'] = true
     } else {
       errors.image = "Add a link to an image for your product"
       document.getElementById('image').classList.add('form__group-incorrecto')
@@ -81,7 +68,6 @@ export default function validate(input){
       document.getElementById('discount').classList.add('form__group-correcto')
       document.getElementById('discount').classList.remove('form__group-incorrecto')
       document.querySelector('#discount .form__input-error').classList.remove('form__input-error-activo')
-      filds['discount'] = true
     } else {
       errors.discount = "Add the product discount"
       document.getElementById('discount').classList.add('form__group-incorrecto')
@@ -93,7 +79,6 @@ export default function validate(input){
       document.getElementById('stock').classList.add('form__group-correcto')
       document.getElementById('stock').classList.remove('form__group-incorrecto')
       document.querySelector('#stock .form__input-error').classList.remove('form__input-error-activo')
-      filds['stock'] = true
     } else {
       errors.stock = "Add the product stock"
       document.getElementById('stock').classList.add('form__group-incorrecto')
@@ -110,7 +95,6 @@ export default function validate(input){
       document.getElementById('category').classList.add('form__group-correcto')
       document.getElementById('category').classList.remove('form__group-incorrecto')
       // document.querySelector('#category .form__input-error').classList.remove('form__input-error-activo')
-      filds['category'] = true
     };
 
     if(input.manufacturer==='') {
@@ -122,7 +106,6 @@ export default function validate(input){
       document.getElementById('manufacturer').classList.add('form__group-correcto')
       document.getElementById('manufacturer').classList.remove('form__group-incorrecto')
       // document.querySelector('#manufacturer .form__input-error').classList.remove('form__input-error-activo')
-      filds['manufacturer'] = true
     };
 
     if(validator.isEmpty(input.description)) {
@@ -134,26 +117,27 @@ export default function validate(input){
       document.getElementById('description').classList.add('form__group-correcto')
       document.getElementById('description').classList.remove('form__group-incorrecto')
       document.querySelector('#description .form__input-error').classList.remove('form__input-error-activo')
-      filds['description'] = true      
     };
 
-    if(
-      errors.name &&
-      errors.price &&
-      errors.image &&
-      errors.stock &&
-      errors.discount &&
-      errors.category &&
-      errors.manufacturer &&
-      errors.description
-      ){
-        document.getElementById('form__msn').classList.add('form__msn-activo')
-      } else {
-        document.getElementById('form__msn-exito').classList.add('form__msn-exito-activo')
-        setTimeout(()=>{
-          document.getElementById('form__msn-exito').classList.remove('form__msn-exito-activo')
-        }, 4000)
-      }
-
+    // if(
+    //   errors.name ||
+    //   errors.price ||
+    //   errors.image ||
+    //   errors.stock ||
+    //   errors.discount ||
+    //   errors.category ||
+    //   errors.manufacturer ||
+    //   errors.description
+    //   ){
+    //     document.getElementById('form__msn').classList.add('form__msn-activo')
+    //   } else {
+    //     document.getElementById('form__msn-exito').classList.add('form__msn-exito-activo')
+    //     setTimeout(()=>{
+    //       document.getElementById('form__msn-exito').classList.remove('form__msn-exito-activo')
+    //     }, 4000)
+    //     document.querySelectorAll('.form__group-correcto').forEach((green) =>{
+    //       green.classList.remove('.form__group-correcto')
+    //     })
+    //   }
     return errors
   }
