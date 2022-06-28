@@ -75,13 +75,13 @@ console.log(productsCart)
                  ? <p>Sin productos agregados al carrito</p>
                  : productsCart?.map((e) => {
                      return (
-                     <div>
-                         <img className="img_addtocart" src={e.image} alt={e.title} />
-                         <h3>{e.name}</h3>
-                         <div className="information_addtocart">
-                             <p>Price: ${e.price}</p>
-                             <p>Total: ${(1 * e.price)}</p>
+                     <div className="addtocart_mainblock">
+                        <img className="img_addtocart" src={e.image} alt={e.title} />
+                        <div className="addtocart_name">
+                            <h5>{e.name}</h5>
+                            <h5>Price: ${e.price}</h5>
                          </div>
+                         
                          <div className="buttons_addtocart">
                              <Button
                                  size="small"
@@ -96,10 +96,12 @@ console.log(productsCart)
                                  size="small"
                                  disableElevation
                                  variant="contained"
-                                
                              >
                                  +
                              </Button>
+                         </div>
+                         <div className="information_addtocart">
+                             <p>Total: ${(1 * e.price)}</p>
                          </div>
                         
                      </div>

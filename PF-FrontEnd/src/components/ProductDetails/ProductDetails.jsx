@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProductDetails, getProductDetailsAddtoCard, postCommentProduct } from "../../redux/actions";
+import { getProductDetails, getProductDetailsAddtoCart, postCommentProduct } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
@@ -68,8 +68,8 @@ export default function ProductDetails (){
         handleClickComment()
         handleClose();
     };
-    const addtoCard = () => {
-        dispatch(getProductDetailsAddtoCard(productDetails.id))
+    const addtoCart = () => {
+        dispatch(getProductDetailsAddtoCart(productDetails.id))
     };
     
     const handleClickComment = () => {
@@ -122,7 +122,7 @@ export default function ProductDetails (){
 
                     <Stack spacing={2} direction="row">
                         <span>Stock: <span id="stock_status">{productDetails?.stock} unid.</span></span>
-                        <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCard}>Add to Cart</Button>
+                        <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCart}>Add to Cart</Button>
                         <Button className='btn_Product_Detail' size="small" variant="contained">Buy</Button>
                     </Stack>                    
                     <hr/>
@@ -140,25 +140,25 @@ export default function ProductDetails (){
             <div className="comment_main">
                 <div className="comment_add">
                     <div>
-                        <span><strong> COMMENTS: </strong></span>
+                        <span><strong> QUESTIONS TO SELLER: </strong></span>
                     </div>
                     <div id="review_comment">
                         <div>
                             <div id="review_block">
                                 <Button variant="outlined" onClick={handleClickOpen}>
-                                    Write a Comment
+                                    Write a Question
                                 </Button>
                                 <Dialog open={open} onClose={handleClose}>
-                                    <DialogTitle>Comment:</DialogTitle>
+                                    <DialogTitle>Question:</DialogTitle>
                                     <DialogContent>
                                     <DialogContentText>
-                                        Write a comment about the product you bought, this will help future buyers to choose the most appropriate product.
+                                        Write a query about this product, we will answer you shortly.
                                     </DialogContentText>
                                     <TextField
                                         autoFocus
                                         margin="dense"
                                         id="comment"
-                                        label="Write here your comment ..."
+                                        label="Write here your question ..."
                                         type="text"
                                         fullWidth
                                         variant="standard"
@@ -176,7 +176,7 @@ export default function ProductDetails (){
                 </div>
                 <div>
                     {(productDetails.comments?.length === 0)
-                        ? <p>Este producto no tiene comentarios</p>
+                        ? <p>This product has no comments.</p>
                         : productDetails.comments?.map((element) => {
                             return(<div key={parseInt(Math.random() * 10000 / Math.random())}><p> - {element.comment.charAt(0) + element.comment.slice(1, element.comment.length).toLowerCase()}</p></div>)
                         })}
