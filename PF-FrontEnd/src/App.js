@@ -12,6 +12,8 @@ import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
+import Admin from './Admin';
+import List from './pages/list/List';
 
 function App() {
 
@@ -73,6 +75,8 @@ function App() {
               <Route exact path="/productdetails/:id" component={ProductDetails} />
               <Route exact path="/createproduct" component={CreateProduct} />
               <Route exact path="/categories" component={CreateActivity} />
+              {/* <Route exact path="/admin/dashboard" component={ users ? Admin : LogIn} /> */}
+              <Route exact path="/users/list" component={List} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
