@@ -31,7 +31,7 @@ const Ads = ()=> {
     return(
         <div className='brandscontainer' >
         <Carousel responsive = {responsive} infinite = {true} autoPlay={true} autoPlaySpeed={5000} removeArrowOnDeviceType={["tablet", "mobile"]} swipeable={true}
-                draggable={true} >
+                draggable={true} showStatus={false}>
           <div className={s.items}>
             <img src={BlackFriday} alt="BlackFriday" />
           </div>
