@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 import ImageLoader from '../../ImageLoader/ImageLoader';
 
 import s from './ProductsTableCell.module.css';
@@ -17,7 +18,9 @@ export default function ProductsTableCell({ product, param, viewMore, handleView
 
   if (param.isOption) return (
     <div className = {s.options}>
-      <button className = {`${s.btn} ${s.blue}`}>View</button>
+      <Link to = {`productdetails/${product.id}`}>
+        <button className = {`${s.btn} ${s.blue}`}>View</button>
+      </Link>
       <button className = {`${s.btn} ${s.orange}`} onClick = { () => handleEnableEdit(product) }>Edit</button>
       <button className = {`${s.btn} ${s.red}`}>Delete</button>
     </div>

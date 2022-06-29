@@ -13,20 +13,27 @@ export default function ProductsTableRow({ product }) {
   const [ invalid, setInvalid ] = React.useState({});
 
   React.useEffect(() => {
-    return () => {
-      setViewMoreDetails(false);
-      setNewProductDetails({});
-      setEnableEdit(false);
-    }
+    return () => closeEdit();
   }, []);
 
   React.useEffect(() => {
-    if (enableEdit && newProductDetails.id !== product.id) {
-      setNewProductDetails({});
-      setEnableEdit(false);
-      setInvalid({});
-    }
+    if (enableEdit && newProductDetails.id !== product.id) closeEdit();
   }, [product]);
+
+  let closeEdit = function() {
+    setNewProductDetails({});
+    setEnableEdit(false);
+    setInvalid({});
+  }
+
+  let resetEdit = function() {
+    setNewProductDetails({
+      ...product,
+      brand: product.manufacturers[0].name,
+      category: product.categories[0],
+    });
+    setInvalid({});
+  }
 
   let handleEnableEdit = function(product) {
     setNewProductDetails({
@@ -48,6 +55,19 @@ export default function ProductsTableRow({ product }) {
       ...newProductDetails,
       [name]: value
     });
+  }
+
+  let handleOptions = function(option) {
+    switch (option) {
+      case 'CANCEL':
+        closeEdit();
+        return;
+      case 'RELOAD':
+        resetEdit();
+        return;
+      default:
+        return;
+    }
   }
 
   if (product.isDummy) return (
@@ -87,6 +107,7 @@ export default function ProductsTableRow({ product }) {
                 handleChange = {handleChange}
                 invalid = {invalid}
                 handleInvalid = { (newInvalid) => { setInvalid({ ...newInvalid }) } }
+                handleOptions = {handleOptions}
               />
             </div>
           }

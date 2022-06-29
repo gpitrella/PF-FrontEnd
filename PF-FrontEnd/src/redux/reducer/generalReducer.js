@@ -9,7 +9,7 @@ const THEME = {
 }
 
 const initialState = {
-  theme: 'lightTheme',
+  theme: 'darkTheme',
   commentCreated: {}
 };
 

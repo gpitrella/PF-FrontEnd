@@ -21,6 +21,10 @@ export default function ProductsTable({}) {
   React.useEffect(() => {
     dispatch(getBrandsToStore());
     dispatch(getCategoriesToStore());
+
+    return () => {
+      dispatch(closeStore());
+    }
   }, []);
 
   React.useEffect(() => {

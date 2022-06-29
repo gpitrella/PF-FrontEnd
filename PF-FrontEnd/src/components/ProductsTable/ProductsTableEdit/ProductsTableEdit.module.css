@@ -3,14 +3,20 @@
   width: 95%;
   resize: none;
   overflow-y: scroll;
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
 }
 
 .select {
   width: 95%;
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
 }
 
 .input {
   width: 95%;
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
 }
 
 .activeSwitch {
@@ -49,4 +55,47 @@
 
 .valid:focus {
   outline: none;
+}
+
+.options {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.svgButton {
+  height: 2rem;
+  width: 2rem;
+
+  border-radius: 5px;
+
+  border: 0 solid transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.svgButton > svg {
+  fill: white;
+}
+
+.red {
+  background-color: var(--dangerColor);
+}
+
+.orange {
+  background-color: orange;
+}
+
+.green {
+  background-color: green;
+}
+
+.svgButton[disabled] {
+  background-color: gray;
+  cursor: default;
 }

@@ -135,6 +135,8 @@ export const rowData = [
   },
   {
     name: 'action',
-    isOption: true
+    isOption: true,
+    editable: true,
+    showOptions: true
   }
 ];

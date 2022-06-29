@@ -1,9 +1,12 @@
 import React from "react";
 import validator from 'validator';
 import { useSelector } from "react-redux";
+import Accept from '../../SVG/Accept';
+import Reload from '../../SVG/Reload';
+import Cancel from '../../SVG/Cancel';
 import s from './ProductsTableEdit.module.css';
 
-export default function ProductsTableEdit({ param, newProductDetails, handleChange, invalid, handleInvalid }) {
+export default function ProductsTableEdit({ param, newProductDetails, handleChange, invalid, handleInvalid, handleOptions }) {
 
   const store = useSelector(state => state.storepage);
 
@@ -67,14 +70,30 @@ export default function ProductsTableEdit({ param, newProductDetails, handleChan
     </span>
   )
 
+  if (param.editWith === 'NUMERIC-INPUT') return (
+    <input
+      type = 'number'
+      className = {`${s.input} ${ invalid[param.name] ? s.invalid : s.valid}`}
+      value = {newProductDetails[param.name]}
+      onInput = {handleValidation}
+      name = {param.name}
+    />
+  );
+
   return (
-    <>
-      <input
-        type = 'number'
-        className = {`${s.input} ${ invalid[param.name] ? s.invalid : s.valid}`}
-        value = {newProductDetails[param.name]}
-        onInput = {handleValidation}
-        name = {param.name}/>
-    </>
+    <div className = {s.options}>
+      <button className = {`${s.svgButton} ${s.red}`} onClick = {() => handleOptions('CANCEL')}>
+        <Cancel />
+      </button>
+      <button className = {`${s.svgButton} ${s.orange}`} onClick = {() => handleOptions('RELOAD')}>
+        <Reload />
+      </button>
+      <button 
+        className = {`${s.svgButton} ${s.green}`}
+        disabled = { Object.keys(invalid).some(param => invalid[param]) }
+        onClick = {() => handleOptions('ACCEPT')}>
+        <Accept />
+      </button>
+    </div>
   );
 }
