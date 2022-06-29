@@ -13,6 +13,18 @@
   border-left: 1px solid var(--fontColorWithLessOpacity);
 }
 
+.containerParam {
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  font-size: var(--fontSmall);
+  color: white;
+
+  text-transform: capitalize;
+}
+
 .widthSmall {
   width: 4rem;
 }
@@ -23,4 +35,25 @@
 
 .widthLarge {
   width: 10rem;
+}
+
+.containerOrder {
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.btnOrder {
+  font-size: var(--fontMedium);
+  cursor: pointer;
+}
+
+.btnOrder:hover {
+  filter: drop-shadow(1px 1px 0 white)
+  drop-shadow(-1px -1px 0 white)
+  drop-shadow(1px -1px 0 white)
+  drop-shadow(-1px 1px 0 white)
+  drop-shadow(1px 0px 0 white) 
+  drop-shadow(-1px 0px 0 white)  
+  drop-shadow(0px 1px 0 white) 
+  drop-shadow(0px -1px 0 white);
 }

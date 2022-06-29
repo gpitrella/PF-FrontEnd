@@ -10,7 +10,7 @@ export const headerData = [
   {
     name: 'name',
     className: 'widthLarge',
-    sort: true,
+    enableSort: true,
   },
   {
     name: 'category',
@@ -23,7 +23,7 @@ export const headerData = [
   {
     name: 'price',
     className: 'widthMedium',
-    sort: true,
+    enableSort: true,
   },
   {
     name: 'discount',

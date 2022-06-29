@@ -40,7 +40,7 @@ export default function ProductsTable({}) {
     <div className = {s.container}>
       <table className = {s.table}>
         <thead>
-          <ProductsTableHeader />
+          <ProductsTableHeader loading = {showLoading} order = {filter.order} orderBy = {filter.orderBy}/>
         </thead>
         <tbody>
           <ProductsTableRows products = {products} />
