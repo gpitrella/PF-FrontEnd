@@ -2,7 +2,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import ProductsTableCell from '../ProductsTableCell/ProductsTableCell';
 import ProductsTableEdit from '../ProductsTableEdit/ProductsTableEdit';
+import GeneralModal from '../../GeneralModal/GeneralModal';
 import { putProduct } from '../../../redux/actions';
+import ArrowDown from '../../SVG/ArrowDown';
 import { rowData } from '../config';
 
 import s from './ProductsTableRow.module.css';
@@ -14,6 +16,10 @@ export default function ProductsTableRow({ product }) {
   const [ enableEdit, setEnableEdit ] = React.useState(false);
   const [ newProductDetails, setNewProductDetails ] = React.useState({});
   const [ invalid, setInvalid ] = React.useState({});
+
+  const [ modal, setModal ] = React.useState({
+    show: false
+  })
 
   React.useEffect(() => {
     return () => closeEdit();
@@ -69,16 +75,69 @@ export default function ProductsTableRow({ product }) {
         resetEdit();
         return;
       default:
-        dispatch(putProduct(product.id, {
-          name: newProductDetails.name,
-          price: Number(newProductDetails.price),
-          discount: Number(newProductDetails.discount),
-          stock: Number(newProductDetails.stock),
-          description: newProductDetails.description,
-          image: newProductDetails.image
-        }));
+        // dispatch(putProduct(product.id, {
+        //   name: newProductDetails.name,
+        //   price: Number(newProductDetails.price),
+        //   discount: Number(newProductDetails.discount),
+        //   stock: Number(newProductDetails.stock),
+        //   description: newProductDetails.description,
+        //   image: newProductDetails.image
+        // }));
+        setModal({
+          show: true,
+          confirm: true,
+          cancel: true,
+          title: 'Confirm Edit',
+          content: setModalViewEdit(normalizeProduct(product), normalizeProduct(newProductDetails))
+        })
         return;
     }
+  }
+
+  let normalizeProduct = function(product) {
+    return {
+      name: product.name,
+      price: Number(product.price),
+      discount: Number(product.discount),
+      stock: Number(product.stock),
+      image: product.image
+    }
+  }
+
+  let setModalViewEdit = function(product, newProduct) {
+    return (
+      <div className = {s.containerComparation}>
+        <div className = {s.listContainer}>
+          <ul className = {s.list}>
+          {
+            product && Object.keys(product).map((param, index) => 
+
+              <li className={`${s.item} ${ product[param] !== newProduct[param] ? s.pastValue : ''}`}>
+                <i className = {s.paramName}>{param}:</i> {product[param]}
+              </li>
+
+            )
+          }
+          </ul>
+        </div>
+        <div className = {s.arrowContainer}>
+          <ArrowDown />
+        </div>
+        <div className = {s.listContainer}>
+          <ul className = {s.list}>
+          {
+            newProduct && Object.keys(newProduct).map((param, index) => 
+
+              <li className={`${s.item} ${ newProduct[param] !== product[param] ? s.newValue : ''}`}>
+                <i className = {s.paramName}>{param}:</i> {newProduct[param]}
+              </li>
+
+            )
+          }
+          </ul>
+        </div>
+      </div>
+    )
   }
 
   if (product.isDummy) return (
@@ -121,6 +180,17 @@ export default function ProductsTableRow({ product }) {
                 handleOptions = {handleOptions}
               />
             </div>
+          }
+          {
+            modal.show && 
+            <GeneralModal 
+              confirm = {modal.confirm}
+              handleConfirm = {modal.handleConfirm}
+              cancel = {modal.cancel}
+              handleCancel = {modal.handleCancel}
+              title = {modal.title}
+              content = {modal.content}
+            />
           }
 
           </td>

@@ -21,3 +21,63 @@
 .rowAdjust {
   height: 5rem;
 }
+
+.containerComparation {
+  display: grid;
+  grid-template-rows: 8rem 2rem 8rem;
+  grid-template-columns: 1fr;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  height: 21rem;
+  width: 35rem;
+  grid-gap: 0.5rem;
+}
+
+.listContainer {
+  width: 100%;
+  overflow-y: scroll;
+  background-color: var(--primaryColorSub);
+  border-radius: 16px;
+}
+
+.list {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.item {
+  font-size: var(--fontSmallest);
+  color: var(--fontColor);
+
+  padding: 3px;
+}
+
+.pastValue {
+  color: var(--dangerColor);
+  font-weight: 700;
+}
+
+.arrowContainer {
+  height: 2rem;
+  width: 2rem;
+
+  padding: 0.2rem;
+}
+
+.arrowContainer > svg {
+  fill: var(--secondaryColor);
+}
+
+.newValue {
+  color: var(--successColor);
+  font-weight: 700;
+}
+
+.paramName {
+  font-weight: 700;
+  color: var(--secondaryColor);
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}

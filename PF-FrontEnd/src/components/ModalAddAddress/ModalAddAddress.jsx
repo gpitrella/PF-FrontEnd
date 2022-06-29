@@ -24,7 +24,7 @@ export default function ModalAddAddress() {
       });
       setResultValidation('La dirreccion ingresada es valida.');
     }
-    else if (!validating && address.length === 0) {
+    else if (!validating && address.length === 0 && inputAddress.name !== '') {
       setInputAddress({
         ...inputAddress,
         valid: false
