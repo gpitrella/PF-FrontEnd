@@ -38,12 +38,12 @@ export const headerData = [
     className: 'widthSmall'
   },
   {
-    name: 'hidden',
+    name: 'status',
     className: 'widthSmall'
   },
   {
     name: 'action',
-    className: 'widthLarge'
+    className: 'widthExtraLarge'
   }
 ];
 
@@ -64,46 +64,59 @@ export const rowData = [
     getValue: (product) => {
       return product.name.length > MAX_LENGTH ? product.name.slice(0, MAX_LENGTH) + '...' : product.name;
     },
-    addViewMore: true
+    addViewMore: true,
+    editable: true
   },
   {
     name: 'category',
     isComplex: true,
     getValue: (product) => {
       return product.categories[0];
-    }
+    },
+    editable: true
   },
   {
     name: 'brand',
     isComplex: true,
     getValue: (product) => {
       return product.manufacturers[0].name;
-    }
+    },
+    editable: true
   },
   {
     name: 'price',
     isComplex: true,
     getValue: (product) => {
       return '$' + product.price;
-    }
+    },
+    editable: true
   },
   {
     name: 'discount',
     isComplex: true,
     getValue: (product) => {
       return product.discount + '%';
-    }
+    },
+    editable: true
   },
   {
     name: 'stock',
+    editable: true
   },
   {
     name: 'rating',
   },
   {
-    name: 'hidden',
+    name: 'status',
+    isComplex: true,
+    getValue: (product) => {
+      return product.inactive ? 'inactive' : 'active';
+    },
+    isSwitch: true,
+    editable: true
   },
   {
     name: 'action',
+    isOption: true
   }
 ];

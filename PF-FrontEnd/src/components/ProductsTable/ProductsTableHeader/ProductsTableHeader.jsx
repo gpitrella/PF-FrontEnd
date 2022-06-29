@@ -17,7 +17,7 @@ export default function ProductsTableHeader({ loading, orderBy, order }) {
     let newFilter = {
       ...filter,
       orderBy: newOrderBy,
-      order: order === 'ASC' ? 'DESC' : 'ASC'
+      order: order === 'asc' ? 'desc' : 'asc'
     };
 
     dispatch(updateFilter(newFilter));
@@ -36,7 +36,7 @@ export default function ProductsTableHeader({ loading, orderBy, order }) {
               { param.tableName ? param.tableName : param.name }
               {
                 param.enableSort && <span className = {s.btnOrder} onClick = { () => handleChangeOrder(param.name) }>
-                { orderBy !== param.name ? '🔹' : (  order === 'ASC' ?  '🔺' : '🔻' )}
+                { orderBy !== param.name ? '🔹' : (  order === 'asc' ?  '🔺' : '🔻' )}
                 </span>
               }
             </div>

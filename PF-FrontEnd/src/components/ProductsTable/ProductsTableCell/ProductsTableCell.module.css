@@ -22,3 +22,57 @@
 
   border: 1px solid var(--fontColor);
 }
+
+.activeSwitch {
+  padding: 0.3rem;
+  border-radius: 5px;
+  font-size: var(--fontSmall);
+  width: 4rem;
+
+  letter-spacing: 1px;
+}
+
+.active {
+  border: 1px solid green;
+  background-color: rgba(0, 128, 0, 0.1);
+  color: green;
+}
+
+.inactive {
+  border: 1px solid crimson;
+  color: crimson;
+  background-color: rgba(220, 20, 60, 0.1);
+}
+
+.options {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.btn {
+  padding: 0.3rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: var(--fontSmall);
+  background-color: transparent;
+  color: white;
+  font-weight: 700;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.blue {
+  background-color: rgba(0, 0, 255, 1);
+}
+
+.orange {
+  background-color: rgba(255, 166, 0, 1);
+}
+
+.red {
+  background-color: rgba(220, 20, 60, 1);
+}

@@ -1,11 +1,12 @@
 .header {
   height: 3rem;
-  background-color: var(--secondaryColor);
+  background-color: var(--primaryColor);
+  border-bottom: 1px solid var(--fontColorWithLessOpacity);
 }
 
 .headerParam {
   font-size: var(--fontSmall);
-  color: white;
+  color: var(--fontColor);
 
   text-transform: capitalize;
 
@@ -20,9 +21,11 @@
   align-items: center;
 
   font-size: var(--fontSmall);
-  color: white;
+  color: var(--fontColor);
 
   text-transform: capitalize;
+
+  font-weight: 500;
 }
 
 .widthSmall {
@@ -35,6 +38,10 @@
 
 .widthLarge {
   width: 10rem;
+}
+
+.widthExtraLarge {
+  width: 12rem;
 }
 
 .containerOrder {
