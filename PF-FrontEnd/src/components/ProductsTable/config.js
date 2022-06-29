@@ -95,7 +95,11 @@ export const rowData = [
       return '$' + product.price;
     },
     editable: true,
-    editWith: 'NUMERIC-INPUT'
+    editWith :'NUMERIC-INPUT',
+    validWithCurrency: true,
+    limits: true,
+    min: 1,
+    max: Infinity,
   },
   {
     name: 'discount',
@@ -104,12 +108,17 @@ export const rowData = [
       return product.discount + '%';
     },
     editable: true,
-    editWith: 'NUMERIC-INPUT'
+    editWith: 'NUMERIC-INPUT',
+    validWithInt: true,
+    limits: true,
+    min: 0,
+    max: 99,
   },
   {
     name: 'stock',
     editable: true,
-    editWith: 'NUMERIC-INPUT'
+    editWith: 'NUMERIC-INPUT',
+    validWithInt: true
   },
   {
     name: 'rating',

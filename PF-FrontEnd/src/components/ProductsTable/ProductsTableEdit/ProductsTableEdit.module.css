@@ -34,3 +34,19 @@
   background-color: crimson;
   color: white;
 }
+
+.invalid {
+  border: 2px solid crimson;
+}
+
+.valid {
+  border: 2px solid green;
+}
+
+.invalid:focus {
+  outline: none;
+}
+
+.valid:focus {
+  outline: none;
+}

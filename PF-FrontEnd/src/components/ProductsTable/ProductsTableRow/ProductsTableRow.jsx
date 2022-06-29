@@ -10,6 +10,7 @@ export default function ProductsTableRow({ product }) {
   const [ viewMoreDetails, setViewMoreDetails ] = React.useState(false);
   const [ enableEdit, setEnableEdit ] = React.useState(false);
   const [ newProductDetails, setNewProductDetails ] = React.useState({});
+  const [ invalid, setInvalid ] = React.useState({});
 
   React.useEffect(() => {
     return () => {
@@ -23,6 +24,7 @@ export default function ProductsTableRow({ product }) {
     if (enableEdit && newProductDetails.id !== product.id) {
       setNewProductDetails({});
       setEnableEdit(false);
+      setInvalid({});
     }
   }, [product]);
 
@@ -83,6 +85,8 @@ export default function ProductsTableRow({ product }) {
                 newProductDetails = {newProductDetails}
                 param = {param}
                 handleChange = {handleChange}
+                invalid = {invalid}
+                handleInvalid = { (newInvalid) => { setInvalid({ ...newInvalid }) } }
               />
             </div>
           }
