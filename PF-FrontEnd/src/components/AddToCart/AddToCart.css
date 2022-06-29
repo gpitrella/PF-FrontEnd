@@ -38,6 +38,13 @@ h5 {
 .buttons_addtocart {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+#button_less{
+  margin: 20px 10px;
+  min-width: 45px;
+  max-height: 30px;
 }
 
 .img_addtocart {

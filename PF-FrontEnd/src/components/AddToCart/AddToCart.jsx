@@ -4,7 +4,6 @@ import React from "react";
 import { useSelector } from 'react-redux';
 import './AddToCart.css';
 
-
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -64,9 +63,9 @@ console.log(productsCart)
         onClose={handleCloseAddtoCart}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Products Cart"}</DialogTitle>
-        <hr/>
+        <DialogTitle>{"Products Cart:"}</DialogTitle>
         <DialogContent>
+        <hr/>
           <DialogContentText id="alert-dialog-slide-description">
             
             
@@ -79,26 +78,36 @@ console.log(productsCart)
                         <img className="img_addtocart" src={e.image} alt={e.title} />
                         <div className="addtocart_name">
                             <h5>{e.name}</h5>
-                            <h5>Price: ${e.price}</h5>
+                            <h5><strong>Price: </strong> ${e.discount ? Math.round(e.price - e.price * (e.discount / 100)) : e.price} {`${e.discount ? `- ${e.discount}% incl.` : ''}`}</h5>
                          </div>
                          
                          <div className="buttons_addtocart">
-                             <Button
-                                 size="small"
-                                 disableElevation
-                                 variant="contained"
-                                
-                             >
-                                 -
-                             </Button>
-                            <p>{1}</p>
-                             <Button
-                                 size="small"
-                                 disableElevation
-                                 variant="contained"
-                             >
-                                 +
-                             </Button>
+                            <Button id="button_less" variant="outlined" size="small">-</Button>
+                                           <p>{1}</p>
+                            <Button id="button_less" variant="outlined" size="small">+</Button>
+                         </div>
+                         <div className="information_addtocart">
+                             <p>Total: ${(1 * e.price)}</p>
+                         </div>
+                        
+                     </div>
+                 )})}
+                 <div>
+                 {productsCart?.length === 0 
+                 ? <span></span>
+                 : productsCart?.map((e) => {
+                     return (
+                     <div className="addtocart_mainblock">
+                        <img className="img_addtocart" src={e.image} alt={e.title} />
+                        <div className="addtocart_name">
+                            <h5>{e.name}</h5>
+                            <h5><strong>Price: </strong> ${e.discount ? Math.round(e.price - e.price * (e.discount / 100)) : e.price} {`${e.discount ? `- ${e.discount}% incl.` : ''}`}</h5>
+                         </div>
+                         
+                         <div className="buttons_addtocart">
+                            <Button id="button_less" variant="outlined" size="small">-</Button>
+                                           <p>{1}</p>
+                            <Button id="button_less" variant="outlined" size="small">+</Button>
                          </div>
                          <div className="information_addtocart">
                              <p>Total: ${(1 * e.price)}</p>
@@ -107,13 +116,14 @@ console.log(productsCart)
                      </div>
                  )})}
                  </div>
+                 </div>
 
 
                  </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseAddtoCart}>Disagree</Button>
-          <Button onClick={handleCloseAddtoCart}>Agree</Button>
+          <Button onClick={handleCloseAddtoCart}>View More ...</Button>
+          <Button onClick={handleCloseAddtoCart}>Check Out</Button>
         </DialogActions>
       </Dialog>
     </div>
