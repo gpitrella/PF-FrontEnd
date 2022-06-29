@@ -9,6 +9,7 @@ import {
   SHOW_STORE,
   CLOSE_STORE,
   POST_PRODUCT,
+  PUT_PRODUCT,
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
@@ -59,6 +60,8 @@ const initialState = {
   results: 0,
   products: [],
   noProducts: false,
+
+  resultPut: {},
 };
 
 const storepageReducer = function(state = initialState, { type, payload }) {
@@ -134,6 +137,13 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           ...state,
           msn: ['Product created!']
           }
+    case PUT_PRODUCT:
+      return {
+        ...state,
+        resultPut: {
+          status: true
+        }
+      }
     case CLOSE_STORE:
       return { ...initialState };
     default:

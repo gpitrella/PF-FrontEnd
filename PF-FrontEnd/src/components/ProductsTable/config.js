@@ -74,7 +74,7 @@ export const rowData = [
     getValue: (product) => {
       return product.categories[0];
     },
-    editable: true,
+    editable: false,
     editWith: 'SELECT',
     selectSource: 'categories' 
   },
@@ -84,7 +84,7 @@ export const rowData = [
     getValue: (product) => {
       return product.manufacturers[0].name;
     },
-    editable: true,
+    editable: false,
     editWith: 'SELECT',
     selectSource: 'brands' 
   },

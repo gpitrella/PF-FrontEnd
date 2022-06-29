@@ -8,7 +8,8 @@ import {
   GET_BRANDS_TO_STORE,
   GET_CATEGORIES_TO_STORE,
   GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
-  POST_PRODUCT
+  POST_PRODUCT,
+  PUT_PRODUCT
 } from './actiontype';
 
 import axios from 'axios'
@@ -16,6 +17,7 @@ import axios from 'axios'
 const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
 const PATH_GET_CATEGORIES = 'http://localhost:3001/api/categories';
 const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = "http://localhost:3001/api/product/?";
+const PATH_PUT_PRODUCT = 'http://localhost:3001/api/product/';
 
 export const updateFilter = function(newFilter) {
   return {
@@ -79,6 +81,14 @@ export const postProduct = function(body) {
   return function(dispatch) {
     return axios.post("http://localhost:3001/api/product", body)
            .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
+           .catch(error => console.log(error));
+  }
+}
+
+export const putProduct = function(id, body) {
+  return function(dispatch) {
+    return axios.put(`${PATH_PUT_PRODUCT}${id}`, body)
+           .then(data => dispatch({ type: PUT_PRODUCT, payload: data }))
            .catch(error => console.log(error));
   }
 }

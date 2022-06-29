@@ -1,12 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import ProductsTableCell from '../ProductsTableCell/ProductsTableCell';
 import ProductsTableEdit from '../ProductsTableEdit/ProductsTableEdit';
+import { putProduct } from '../../../redux/actions';
 import { rowData } from '../config';
 
 import s from './ProductsTableRow.module.css';
 
 export default function ProductsTableRow({ product }) {
 
+  const dispatch = useDispatch();
   const [ viewMoreDetails, setViewMoreDetails ] = React.useState(false);
   const [ enableEdit, setEnableEdit ] = React.useState(false);
   const [ newProductDetails, setNewProductDetails ] = React.useState({});
@@ -66,6 +69,14 @@ export default function ProductsTableRow({ product }) {
         resetEdit();
         return;
       default:
+        dispatch(putProduct(product.id, {
+          name: newProductDetails.name,
+          price: Number(newProductDetails.price),
+          discount: Number(newProductDetails.discount),
+          stock: Number(newProductDetails.stock),
+          description: newProductDetails.description,
+          image: newProductDetails.image
+        }));
         return;
     }
   }
