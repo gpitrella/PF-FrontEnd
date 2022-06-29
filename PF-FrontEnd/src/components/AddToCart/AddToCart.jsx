@@ -80,7 +80,7 @@ React.useEffect(() => {
             
           <div className="container_secundary">
          {productsCart?.length === 0 
-                 ? <p>Sin productos agregados al carrito</p>
+                 ? <p>No products added to cart.</p>
                  : productsCart?.map((e) => {
                      return (
                      <div className="addtocart_mainblock">
@@ -89,14 +89,15 @@ React.useEffect(() => {
                             <h5>{e?.name}</h5>
                             <h5><strong>Price: </strong> ${e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price} {`${e?.discount ? `- ${e?.discount}% incl.` : ''}`}</h5>
                          </div>
-                         
-                         <div className="buttons_addtocart">
-                            <Button id="button_less" variant="outlined" size="small" onClick={() => reduceAmountToCart(e?.id)}>-</Button>
-                                           <p>{e?.quantity}</p>
-                            <Button id="button_less" variant="outlined" size="small" onClick={() => increaseAmountToCart(e?.id)}>+</Button>
-                         </div>
-                         <div className="information_addtocart">
-                             <p>Total: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
+                         <div className="quantity_price">
+                            <div>
+                                <p className="information_addtocart">Total: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
+                            </div>
+                            <div className="buttons_addtocart">
+                                <Button id="button_less" variant="outlined" size="small" onClick={() => reduceAmountToCart(e?.id)}>-</Button>
+                                              <p>{e?.quantity}</p>
+                                <Button id="button_less" variant="outlined" size="small" onClick={() => increaseAmountToCart(e?.id)}>+</Button>
+                            </div>
                          </div>
                          <div>
                             <DeleteForeverIcon onClick={() => handleRemoveFromCart(e?.id)}/>
@@ -107,7 +108,7 @@ React.useEffect(() => {
                  {productsCart?.length === 0 
                         ? <span></span>
                         : (<div className="information_addtocart">
-                                <p>Total Value: ${resultTotalValue}</p>
+                                <p className="total_value_cart">Total Value: ${resultTotalValue}</p>
                             </div>
                  )}
                  </div>

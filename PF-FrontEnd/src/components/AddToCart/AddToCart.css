@@ -36,7 +36,10 @@ h5 {
   flex: 1;
 }
 
-.information_addtocart,
+.information_addtocart{
+  margin-bottom: -10px;
+}
+
 .buttons_addtocart {
   display: flex;
   justify-content: space-between;
@@ -54,4 +57,15 @@ h5 {
   /* max-width: 80px; */
   object-fit: cover;
   /* margin-left: 40px; */
+}
+
+.quantity_price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.total_value_cart {
+  text-align: end;
+  padding-right: 30px;
 }
