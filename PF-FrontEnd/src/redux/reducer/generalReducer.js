@@ -10,8 +10,12 @@ const THEME = {
 }
 
 const initialState = {
+<<<<<<< HEAD
   theme: 'lightTheme',
   productsCart: [],
+=======
+  theme: 'darkTheme',
+>>>>>>> 03d2dd141d6d3cca82656ade0d0d77b02f7f037d
   commentCreated: {}
 };
 
@@ -20,7 +24,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
     case CHANGE_THEME:
       return {
         ...state,
-        theme: state.theme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT
+        theme: THEME[payload]
       }
     
     case ADD_TO_CART:
