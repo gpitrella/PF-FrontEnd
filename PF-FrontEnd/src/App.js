@@ -15,6 +15,7 @@ import AddToCart from './components/AddToCart/AddToCart';
 import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
+import ContacUsForm from './components/ContactUs/ContacUsForm';
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
               <Route exact path="/admin/dashboard" component={Admin} />
               <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />
+              <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
