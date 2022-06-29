@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
 import { send, init } from "emailjs-com";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -19,7 +19,7 @@ const style = {
 };
 const ContacUsForm = () => {
 
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const [input, setInput] = React.useState({
     name: "",
@@ -33,7 +33,7 @@ const ContacUsForm = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    return setOpen(false), navigate("/");
+    return setOpen(false), history.push("/");
   };
 
   const handleInput = (e) => {
@@ -47,7 +47,7 @@ const ContacUsForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, lastName, subject, email, phone, msg } = input;
-    init("NPC49Hu7bfisw1Zjw");
+    init(`${KEY}`);
     send(
       "service_h4stj4s",
       "template_c38r8ts",
@@ -74,9 +74,10 @@ const ContacUsForm = () => {
   return (
     <div>
       <div className="App">
-        <Typography gutterBottom variant="h3" align="center">
-          React-App
-        </Typography>
+       <br />
+       <br />
+       <br />
+       <br />
         <Grid>
           <Card
             style={{ maxWidth: 450, padding: "20px 5px", margin: "0 auto" }}
@@ -186,6 +187,8 @@ const ContacUsForm = () => {
             </CardContent>
           </Card>
         </Grid>
+        <br />
+       <br />
       </div>
       <Modal
         open={open}
@@ -205,3 +208,7 @@ const ContacUsForm = () => {
 };
 
 export default ContacUsForm;
+
+{/*`${SERVICE}`,
+      `${TEMPLATE}`
+    ${KEY} */}

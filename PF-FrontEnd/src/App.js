@@ -44,8 +44,8 @@ function App() {
               <Route exact path="/admin/dashboard" component={Admin} />
               <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />
-              <Route exact path='*' component={notFoundPage} />
               <Route exact path='/contactus' component={ContacUsForm} />
+              <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
         </div>
