@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
   TEST_HOMEPAGE,
   ALL_CATEGORIES,
-  CREATE_CATEGORY,
   GET_BRANDS,
   GET_PRODUCT_DETAILS,
   GET_SEARCH_PRODUCTS,
@@ -16,7 +15,6 @@ import {
   SHOW_ERROR_SECTION_ONE,
   SHOW_ERROR_SECTION_TWO,
   SHOW_ERROR_SECTION_THREE,
-  PRODUCTS_TO_FORMS
 } from './actiontype';
 
 const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = 'http://localhost:3001/api/product/?';
@@ -41,22 +39,6 @@ export const getCategories = function () {
     }
   }
 };
-
-export const createCategory = ({ name, image, products }) => {
-  return async (dispatch) => {
-      try{
-          let categCreated = await axios.post("http://localhost:3001/categories", { name, image, products });
-          dispatch({
-              type: CREATE_CATEGORY,
-              payload: categCreated
-          });
-      }catch(error){
-          console.log(error);
-          return error;
-      }
-  }
-};
-
 
 export const getBrands = function() {
   return async (dispatch)=>{
@@ -136,22 +118,4 @@ export const getProductsToSectionThree = function(filterQuery = 'page=1') {
   }
 }
 
-export const getProductsToForms = function(){
-  return async (dispatch)=>{
-    try{
-      var filenames = [1, 2, 3].map(function (n) {
-        return `http://localhost:3001/api/product/?page=${n}`;
-    });
-    async function axiosGet (file) {
-        return axios.get(file)
-    };
-    const promises = filenames.map(file => axiosGet(file));
-    const productsToForms = await Promise.all(promises);
-    return dispatch({ type: PRODUCTS_TO_FORMS, payload: productsToForms.data });
-    }catch(e){
-      console.log(e);
-      return e;
-    }
-  }
-};
 // Fin para las secciones.
