@@ -65,7 +65,8 @@ export const rowData = [
       return product.name.length > MAX_LENGTH ? product.name.slice(0, MAX_LENGTH) + '...' : product.name;
     },
     addViewMore: true,
-    editable: true
+    editable: true,
+    editWith: 'TEXTAREA'
   },
   {
     name: 'category',
@@ -73,7 +74,9 @@ export const rowData = [
     getValue: (product) => {
       return product.categories[0];
     },
-    editable: true
+    editable: true,
+    editWith: 'SELECT',
+    selectSource: 'categories' 
   },
   {
     name: 'brand',
@@ -81,7 +84,9 @@ export const rowData = [
     getValue: (product) => {
       return product.manufacturers[0].name;
     },
-    editable: true
+    editable: true,
+    editWith: 'SELECT',
+    selectSource: 'brands' 
   },
   {
     name: 'price',
@@ -89,7 +94,8 @@ export const rowData = [
     getValue: (product) => {
       return '$' + product.price;
     },
-    editable: true
+    editable: true,
+    editWith: 'NUMERIC-INPUT'
   },
   {
     name: 'discount',
@@ -97,11 +103,13 @@ export const rowData = [
     getValue: (product) => {
       return product.discount + '%';
     },
-    editable: true
+    editable: true,
+    editWith: 'NUMERIC-INPUT'
   },
   {
     name: 'stock',
-    editable: true
+    editable: true,
+    editWith: 'NUMERIC-INPUT'
   },
   {
     name: 'rating',
@@ -113,7 +121,8 @@ export const rowData = [
       return product.inactive ? 'inactive' : 'active';
     },
     isSwitch: true,
-    editable: true
+    editable: true,
+    editWith: 'TOGGLE'
   },
   {
     name: 'action',

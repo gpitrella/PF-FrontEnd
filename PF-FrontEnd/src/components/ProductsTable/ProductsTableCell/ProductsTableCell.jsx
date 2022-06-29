@@ -3,9 +3,7 @@ import ImageLoader from '../../ImageLoader/ImageLoader';
 
 import s from './ProductsTableCell.module.css';
 
-export default function ProductsTableCell({ product, param, viewMore, handleViewMore, handleEnableEdit, enableEdit, newProductDetails }) {
-
-  if (enableEdit && param.editable) return <span>Editar</span>
+export default function ProductsTableCell({ product, param, viewMore, handleViewMore, handleEnableEdit }) {
 
   if (param.isImage) return (
     <div className = {s.image}>

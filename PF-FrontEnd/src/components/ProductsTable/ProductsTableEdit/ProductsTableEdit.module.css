@@ -1,0 +1,36 @@
+.textarea {
+  height: 95%;
+  width: 95%;
+  resize: none;
+  overflow-y: scroll;
+}
+
+.select {
+  width: 95%;
+}
+
+.input {
+  width: 95%;
+}
+
+.activeSwitch {
+  padding: 0.3rem;
+  border-radius: 5px;
+  font-size: var(--fontSmall);
+  width: 4rem;
+  user-select: none;
+
+  cursor: pointer;
+}
+
+.active {
+  border: 1px solid green;
+  background-color: green;
+  color: white;
+}
+
+.inactive {
+  border: 1px solid crimson;
+  background-color: crimson;
+  color: white;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductsTableCell from '../ProductsTableCell/ProductsTableCell';
+import ProductsTableEdit from '../ProductsTableEdit/ProductsTableEdit';
 import { rowData } from '../config';
 
 import s from './ProductsTableRow.module.css';
@@ -27,13 +28,24 @@ export default function ProductsTableRow({ product }) {
 
   let handleEnableEdit = function(product) {
     setNewProductDetails({
-      ...product
+      ...product,
+      brand: product.manufacturers[0].name,
+      category: product.categories[0],
     });
     setEnableEdit(true);
   }
 
   let handleViewMore = function() {
     setViewMoreDetails(!viewMoreDetails);
+  }
+
+  let handleChange = function(e) {
+    let { value, name } = e.target;
+
+    setNewProductDetails({
+      ...newProductDetails,
+      [name]: value
+    });
   }
 
   if (product.isDummy) return (
@@ -52,6 +64,8 @@ export default function ProductsTableRow({ product }) {
           <td
             key = {`row-${param.id}-${index}`}
           >
+          {
+            (!enableEdit || !param.editable) &&
             <div className = {`${s.rowParam} ${ !viewMoreDetails ? s.rowAdjust : ''}`} key = {`div-row-${param.id}-${index}`}>
               <ProductsTableCell 
                 product = {product}
@@ -59,10 +73,19 @@ export default function ProductsTableRow({ product }) {
                 viewMore = {viewMoreDetails}
                 handleViewMore = {handleViewMore}
                 handleEnableEdit = {handleEnableEdit}
-                enableEdit = {enableEdit}
-                newProductsDetails = {newProductDetails}
               />
             </div>
+          }
+          {
+            enableEdit && param.editable && 
+            <div className = {`${s.rowParam} ${s.rowAdjust}`} key = {`div-row-edit-${param.id}-${index}`}>
+              <ProductsTableEdit 
+                newProductDetails = {newProductDetails}
+                param = {param}
+                handleChange = {handleChange}
+              />
+            </div>
+          }
 
           </td>
 
