@@ -20,6 +20,8 @@
 
 .addtocart_mainblock {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .addtocart_name {

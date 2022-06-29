@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProductDetails, getProductDetailsAddtoCart, postCommentProduct } from "../../redux/actions";
+import { getProductDetails, addProductToCart, postCommentProduct } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
@@ -38,6 +38,7 @@ export default function ProductDetails (){
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.homepage.productDetails)
+    const productsCart = useSelector((state) => state.general.productsCart)
     const commentCreated = useSelector((state) => state.general.commentCreated)
     let discountPrice = Math.round(productDetails.price - productDetails.price * (productDetails.discount / 100));
     
@@ -50,6 +51,9 @@ export default function ProductDetails (){
 
     // Configuración boton agregar comentario.
     const [openComment, setOpenComment] = React.useState(false);
+    const [openSuccessAddToCart, setOpenSuccessAddToCart] = React.useState(false);
+    const [openProductInCart, setProductInCart] = React.useState(false);
+    
     const [comment, setComment] = React.useState();
 
     const handleClickOpen = () => {
@@ -69,19 +73,32 @@ export default function ProductDetails (){
         handleClose();
     };
     const addtoCart = () => {
-        dispatch(getProductDetailsAddtoCart(productDetails.id))
+        console.log(productsCart)
+        const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
+        if(productInCart?.length === 0){
+            dispatch(addProductToCart(productDetails.id));
+            setOpenSuccessAddToCart(true)
+            console.log('producto agregado al carrito')        
+        } else {
+            handleOpenProductInCart();
+        }
     };
     
     const handleClickComment = () => {
         setOpenComment(true);
-      };
+    };
+
+    const handleOpenProductInCart = () => {
+        setProductInCart(true);
+    };
 
     const handleCloseSuccessComment = (event, reason) => {
         if (reason === 'clickaway') {
           return;
         }
-    
         setOpenComment(false);
+        setOpenSuccessAddToCart(false);
+        setProductInCart(false);
     };
     
   
@@ -184,6 +201,16 @@ export default function ProductDetails (){
                 <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
                     <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
                         Success comment created!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={openSuccessAddToCart} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
+                        Product Added to Cart!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={openProductInCart} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
+                        The product has already been added to the cart!
                     </Alert>
                 </Snackbar>
             </div>

@@ -24,13 +24,15 @@ function App() {
     dispatch(getBrands())
   },[dispatch])
 
-  const { theme } = useSelector(state => state.general);
+  const { theme, showCart } = useSelector(state => state.general);
+  
 
   return (
     <React.Fragment>
       <Router>
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
+          <AddToCart showCart={showCart}/> 
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/store/" component = {Store} />
@@ -41,7 +43,6 @@ function App() {
               <Route exact path="/productdetails/:id" component={ProductDetails} />
               <Route exact path="/createproduct" component={CreateProduct} />
               <Route exact path="/categories" component={CreateActivity} />
-              <Route exact path="/addtocart" component={AddToCart} />
               <Route exact path="/admin/dashboard" component={Admin} />
               <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />

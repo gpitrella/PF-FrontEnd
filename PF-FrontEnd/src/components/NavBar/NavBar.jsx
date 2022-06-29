@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getSearchProducts, clearSearchProducts } from "../../redux/actions/homepageActions";
+import { getSearchProducts, clearSearchProducts, showCart } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 //import CartItem from '../AddToCard/AddToCard';
@@ -115,6 +115,11 @@ export default function NavBar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const showCartNavBar = (e) => {
+    e.preventDefault();
+    dispatch(showCart())
   };
 
   const menuId = 'primary-search-account-menu';
@@ -240,13 +245,13 @@ export default function NavBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
-            <Link to={'/addtocart'} >
-              <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            {/* <Link to={'/addtocart'} > */}
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
                 <Badge badgeContent={productsCart?.length} color="error">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
-            </Link>
+            {/* </Link> */}
 
             <IconButton size="large" aria-label="store" color="inherit">
               <Badge badgeContent={0} color="error">
