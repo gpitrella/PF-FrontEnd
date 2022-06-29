@@ -8,6 +8,7 @@ import Home from './components/Home/Home';
 import Store from './components/Store/Store';
 import CreateProduct from './components/CreateProduct/CreateProduct'
 import notFoundPage from './components/404/NotFoundPage404';
+import ModalAddAddress from './components/ModalAddAddress/ModalAddAddress';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
@@ -43,6 +44,7 @@ function App() {
               <Route exact path="/admin/dashboard" component={Admin} />
               <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />
+              <Route exact path="/test" component={ModalAddAddress} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
