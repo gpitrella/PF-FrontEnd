@@ -76,22 +76,21 @@ export default function CreateProduct() {
         }, 4000)
         document.querySelectorAll('.form__group-correcto').forEach((green) =>{
           green.classList.remove('.form__group-correcto')
+          dispatch(postProduct(input));
+          console.log(input)
+          // alert('Product loaded!')
+          setInput({
+            name: '',
+            price: '',
+            image: '',
+            discount: '',
+            stock: '',
+            description:'',
+            category: '',
+            manufacturer:''
+          })
         })
     
-    dispatch(postProduct(input));
-    console.log(input)
-    // alert('Product loaded!')
-    setInput({
-      name: '',
-      price: '',
-      image: '',
-      discount: '',
-      stock: '',
-      description:'',
-      category: '',
-      manufacturer:''
-    })
-    // history.push('/')
   }
   }
 

@@ -12,8 +12,11 @@ import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
+import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
+import SignUp from './components/SignUp/SignUp';
+import { useGridState } from '@mui/x-data-grid';
 
 function App() {
 
@@ -23,11 +26,13 @@ function App() {
 
   // const [localUser, setLocalUser] = React.useState(null);
 
-  const users = React.useSelector((state) => state.general.user)
+  // const {user} = useSelector((state) => state.general)
+
+  console.log(user)
 
   React.useEffect(() => {
     const getUser = () => {
-      fetch("http://localhost:3001/api/auth/login/success", {
+      fetch("http://localhost:3001/auth/login/success", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -68,6 +73,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/store/" component = {Store} />
               <Route exact path="/login" component = {LogIn} />
+              <Route exact path="/signup" component = {SignUp} />
               <Route exact path="/store/discount/:discount" component = {Store} />
               <Route exact path="/store/name/:name" component = {Store} />
               <Route exact path="/store/category/:category" component = {Store} />
@@ -75,8 +81,9 @@ function App() {
               <Route exact path="/productdetails/:id" component={ProductDetails} />
               <Route exact path="/createproduct" component={CreateProduct} />
               <Route exact path="/categories" component={CreateActivity} />
-              {/* <Route exact path="/admin/dashboard" component={ users ? Admin : LogIn} /> */}
+              <Route exact path="/admin/dashboard" component={ user ? Admin : LogIn} />
               <Route exact path="/users/list" component={List} />
+              <Route exact path = '/table' component={ProductsTable} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

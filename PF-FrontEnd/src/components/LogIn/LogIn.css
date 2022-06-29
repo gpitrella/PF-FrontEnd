@@ -190,7 +190,7 @@
   
   .submit{
     width: 200px;
-    background-color: rgba(128, 0, 128, 0.671);
+    background-color: rgba(0, 117, 255, 0.671);
     color: white;
     font-weight: bold;
     border: none;
@@ -207,6 +207,15 @@
   .link{
     color: inherit;
     text-decoration: none;
+    color: rgb(0, 117, 255);
+    font-weight: bold;
+  }
+
+  .text{
+    color: lightgray;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 20px;
   }
   
   @media screen and (max-width: 992px) {

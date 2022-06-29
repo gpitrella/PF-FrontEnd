@@ -39,7 +39,7 @@
 }
 
 .form__input:focus{
-    border: 3px solid #0075ff;
+    border: 3px solid rgb(0, 117, 255);
     outline: none;
     box-shadow: 3px 0 3px rgba(163, 163, 163, 0.4);
 }

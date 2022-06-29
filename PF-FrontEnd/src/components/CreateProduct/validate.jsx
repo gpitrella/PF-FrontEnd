@@ -6,10 +6,6 @@ const validation = {
   currency: validator.isCurrency,
   link: validator.isURL,
   integer: validator.isInt,
-
-
-
-
 }
 
 
@@ -31,7 +27,7 @@ const validation = {
 export default function validate(input){
     let errors = {};
 
-    if(input.name === '') {
+    if(validator.isEmpty(input.name)) {
       errors.name = "Add a product name"
       document.getElementById('name').classList.add('form__group-incorrecto')
       document.getElementById('name').classList.remove('form__group-correcto')
