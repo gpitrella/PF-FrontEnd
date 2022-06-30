@@ -111,7 +111,6 @@ export const rowData = [
     editWith: 'NUMERIC-INPUT',
     validWithInt: true,
     limits: true,
-    min: 0,
     max: 99,
   },
   {

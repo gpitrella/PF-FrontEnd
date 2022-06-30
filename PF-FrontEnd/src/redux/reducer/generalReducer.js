@@ -1,6 +1,7 @@
 import {
   CHANGE_THEME,
-  POST_COMMENT_PRODUCT
+  POST_COMMENT_PRODUCT,
+  SHOW_MINI_MODAL,
 } from '../actions/actiontype';
 
 const THEME = {
@@ -10,7 +11,13 @@ const THEME = {
 
 const initialState = {
   theme: 'darkTheme',
-  commentCreated: {}
+  commentCreated: {},
+  miniModal: {
+    show: false,
+    msg: '',
+    success: false,
+    error: false,
+  },
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -25,6 +32,16 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         commentCreated: payload
+      }
+    case SHOW_MINI_MODAL:
+      return {
+        ...state,
+        miniModal: {
+          show: payload.show,
+          msg: payload.msg ? payload.msg : '',
+          success: payload.success ? payload.success : false,
+          error: payload.error ? payload.error : false,
+        }
       }
     default:
       return state;

@@ -10,6 +10,7 @@ import {
   CLOSE_STORE,
   POST_PRODUCT,
   PUT_PRODUCT,
+  ERROR_PUT_PRODUCT,
   WAITING_RESPONSE,
 } from '../actions/actiontype';
 
@@ -158,6 +159,14 @@ const storepageReducer = function(state = initialState, { type, payload }) {
         resultPut: {
           ...state.resultPut,
           status: true
+        }
+      }
+    case ERROR_PUT_PRODUCT:
+      return {
+        ...state,
+        resultPut: {
+          ...state.resultPut,
+          error: true
         }
       }
     case CLOSE_STORE:

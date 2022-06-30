@@ -4,8 +4,10 @@ import ProductsTableHeader from './ProductsTableHeader/ProductsTableHeader';
 import ProductsTableRows from './ProductsTableRows/ProductsTableRows';
 import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import Pagination from '../Pagination/Pagination';
+import MiniModal from '../MiniModal/MiniModal';
 import { 
-  closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate, updateFilter, setShowLoading, waitingResponse 
+  closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate, updateFilter, setShowLoading, waitingResponse,
+  showMiniModal 
 } from '../../redux/actions';
 import { buildFilter } from '../../util';
 
@@ -15,8 +17,7 @@ export default function ProductsTable({}) {
 
   const dispatch = useDispatch();
   const { products, showStore, showLoading, showError, filter, results, resultPut} = useSelector(state => state.storepage);
-
-  const index = 10;
+  const { miniModal } = useSelector(state => state.general);
 
   React.useEffect(() => {
     dispatch(getBrandsToStore());
@@ -40,11 +41,13 @@ export default function ProductsTable({}) {
 
   React.useEffect(() => {
     if (resultPut.waitingResponse && resultPut.status) {
+      dispatch(showMiniModal(true, 'Success on Editing Product!!!', true, false));
       dispatch(waitingResponse(false));
       dispatch(setShowLoading());
       dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
     }
     else if (resultPut.waitingResponse && resultPut.error) {
+      dispatch(showMiniModal(true, 'Server Error: Try Again Later...', false, true));
       dispatch(waitingResponse(false));
     }
   }, [resultPut])
@@ -65,6 +68,9 @@ export default function ProductsTable({}) {
         <ShowResultCount loading = {showLoading} results = {results} page = {filter.page} pages = {filter.pages} simple = {true} />
         <Pagination simple = {true}/>
       </div>
+      {
+        miniModal && miniModal.show && <MiniModal />
+      }
     </div>
   );
 }

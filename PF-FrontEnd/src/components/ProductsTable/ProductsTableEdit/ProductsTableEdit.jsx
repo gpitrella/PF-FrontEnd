@@ -23,7 +23,7 @@ export default function ProductsTableEdit({ param, newProductDetails, handleChan
     else if (param.validWithCurrency && !validator.isCurrency(value, {allow_negatives: false})) newInvalid = { ...newInvalid, [name]: true };
     else if (param.validWithInt && !validator.isInt(value)) newInvalid = { ...newInvalid, [name]: true };
     else if (param.validWithInt && Number(value) < 0 ) newInvalid = { ...newInvalid, [name]: true };
-    else if (param.limits &&  ( !Number(value) || Number(value) < param.min || Number(value) > param.max )) 
+    else if (param.limits && Number(value) > param.max) 
       newInvalid = { ...newInvalid, [name]: true };
 
     handleInvalid(newInvalid);

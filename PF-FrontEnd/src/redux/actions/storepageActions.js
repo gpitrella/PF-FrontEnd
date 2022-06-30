@@ -10,7 +10,8 @@ import {
   GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
   POST_PRODUCT,
   WAITING_RESPONSE,
-  PUT_PRODUCT
+  PUT_PRODUCT,
+  ERROR_PUT_PRODUCT
 } from './actiontype';
 
 import axios from 'axios'
@@ -90,7 +91,7 @@ export const putProduct = function(id, body) {
   return function(dispatch) {
     return axios.put(`${PATH_PUT_PRODUCT}${id}`, body)
            .then(data => dispatch({ type: PUT_PRODUCT, payload: data }))
-           .catch(error => console.log(error));
+           .catch(error => dispatch({ type: ERROR_PUT_PRODUCT }));
   }
 }
 
