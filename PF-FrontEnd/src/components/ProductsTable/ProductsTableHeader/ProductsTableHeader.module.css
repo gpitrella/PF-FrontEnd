@@ -1,0 +1,21 @@
+.header {
+  height: 2rem;
+  background-color: var(--secondaryColor);
+}
+
+.headerParam {
+  font-size: var(--fontSmall);
+  color: white;
+}
+
+.widthSmall {
+  width: 4rem;
+}
+
+.widthMedium {
+  width: 7rem;
+}
+
+.widthLarge {
+  width: 10rem;
+}

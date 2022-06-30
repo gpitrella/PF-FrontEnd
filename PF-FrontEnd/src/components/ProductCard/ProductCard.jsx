@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageLoader from '../ImageLoader/ImageLoader';
+
 import { Link } from 'react-router-dom';
 
 import Heart from '../SVG/Heart';
@@ -10,7 +11,6 @@ import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
 
 export default function ProductCard({ id, name, image, category, price, discount, rating, brand }) {
-
   let discountPrice = Math.round(price - price * (discount / 100));
 
   return (
@@ -52,7 +52,7 @@ export default function ProductCard({ id, name, image, category, price, discount
             </div>
 
             <div className = {s.containerSVG}>
-              <Cart />
+              <Cart id={id}/>
             </div>
           </div>
 

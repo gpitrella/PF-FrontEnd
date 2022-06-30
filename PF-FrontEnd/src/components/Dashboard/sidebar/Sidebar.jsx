@@ -15,8 +15,12 @@ import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../../context/darkModeContext";
 import { useContext } from "react";
 
+import { useDispatch } from 'react-redux';
+import { changeTheme } from '../../../redux/actions';
+
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
+  //const { dispatch } = useContext(DarkModeContext);
+  const dispatch = useDispatch();
   
   return (
     <div className="sidebar">
@@ -94,11 +98,11 @@ const Sidebar = () => {
       <div className="bottom">
         <div
           className="colorOption"
-          onClick={() => dispatch({ type: "LIGHT" })}
+          onClick={ () => dispatch(changeTheme('LIGHT')) }
         ></div>
         <div
           className="colorOption"
-          onClick={() => dispatch({ type: "DARK" })}
+          onClick={ () => dispatch(changeTheme("DARK")) }
         ></div>
       </div>
     </div>

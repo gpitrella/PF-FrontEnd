@@ -8,19 +8,20 @@ import { Link } from "react-router-dom";
 import { productInputs, userInputs } from "./formSource";
 import "./style/dark.scss";
 import React, { useContext } from "react";
-import { DarkModeContext } from "./context/darkModeContext";
+//import { DarkModeContext } from "./context/darkModeContext";
+import { useSelector } from 'react-redux';
 
 
 const Admin = () => {
 
-  const { darkMode } = useContext(DarkModeContext);
+  //const { darkMode } = useContext(DarkModeContext);
+
+  const { theme } = useSelector(state => state.general);
 
   return (
     <>
-      <div className={darkMode ? "app dark" : "app"}>
-            
-              <Home />
-            
+      <div className = {`app ${theme === 'darkTheme' ? 'dark' : ''}`} >
+        <Home />    
       </div>
     </>
     );
