@@ -2,6 +2,7 @@ import React from "react";
 // import { Button } from "@material-ui/core";
 // import { CartItemType } from "../App"; -- importa los productos agregados al carrito
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 import { removeProductFromCart, increaseQuantityToProductCart, reduceQuantityToProductCart, closeCart } from "../../redux/actions";
 import './AddToCart.css';
 
@@ -119,7 +120,9 @@ React.useEffect(() => {
         </DialogContent>
         <DialogActions>
           <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
-          <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>Check Out</Button>
+          <Link to={'/checkout'} underline="none">
+            <Button className='button_add_to_cart'>Check Out</Button>
+          </Link>
         </DialogActions>
       </Dialog>
     </div>
