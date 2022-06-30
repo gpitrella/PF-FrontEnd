@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProductDetails, postCommentProduct } from "../../redux/actions";
+import { getProductDetails, addProductToCart, postCommentProduct } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
@@ -38,12 +38,12 @@ export default function ProductDetails (){
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.homepage.productDetails)
+    const productsCart = useSelector((state) => state.general.productsCart)
     const commentCreated = useSelector((state) => state.general.commentCreated)
     let discountPrice = Math.round(productDetails.price - productDetails.price * (productDetails.discount / 100));
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
-
       //  return() => {
       //      dispatch(clearGameDetail())
       //  }
@@ -51,6 +51,9 @@ export default function ProductDetails (){
 
     // Configuración boton agregar comentario.
     const [openComment, setOpenComment] = React.useState(false);
+    const [openSuccessAddToCart, setOpenSuccessAddToCart] = React.useState(false);
+    const [openProductInCart, setProductInCart] = React.useState(false);
+    
     const [comment, setComment] = React.useState();
 
     const handleClickOpen = () => {
@@ -69,17 +72,33 @@ export default function ProductDetails (){
         handleClickComment()
         handleClose();
     };
-
+    const addtoCart = () => {
+        console.log(productsCart)
+        const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
+        if(productInCart?.length === 0){
+            dispatch(addProductToCart(productDetails.id));
+            setOpenSuccessAddToCart(true)
+            console.log('producto agregado al carrito')        
+        } else {
+            handleOpenProductInCart();
+        }
+    };
+    
     const handleClickComment = () => {
         setOpenComment(true);
-      };
+    };
+
+    const handleOpenProductInCart = () => {
+        setProductInCart(true);
+    };
 
     const handleCloseSuccessComment = (event, reason) => {
         if (reason === 'clickaway') {
           return;
         }
-    
         setOpenComment(false);
+        setOpenSuccessAddToCart(false);
+        setProductInCart(false);
     };
     
   
@@ -120,7 +139,7 @@ export default function ProductDetails (){
 
                     <Stack spacing={2} direction="row">
                         <span>Stock: <span id="stock_status">{productDetails?.stock} unid.</span></span>
-                        <Button className='btn_Product_Detail' size="small" variant="contained">Add to Cart</Button>
+                        <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCart}>Add to Cart</Button>
                         <Button className='btn_Product_Detail' size="small" variant="contained">Buy</Button>
                     </Stack>                    
                     <hr/>
@@ -138,25 +157,25 @@ export default function ProductDetails (){
             <div className="comment_main">
                 <div className="comment_add">
                     <div>
-                        <span><strong> COMMENTS: </strong></span>
+                        <span><strong> QUESTIONS TO SELLER: </strong></span>
                     </div>
                     <div id="review_comment">
                         <div>
                             <div id="review_block">
                                 <Button variant="outlined" onClick={handleClickOpen}>
-                                    Write a Comment
+                                    Write a Question
                                 </Button>
                                 <Dialog open={open} onClose={handleClose}>
-                                    <DialogTitle>Comment:</DialogTitle>
+                                    <DialogTitle>Question:</DialogTitle>
                                     <DialogContent>
                                     <DialogContentText>
-                                        Write a comment about the product you bought, this will help future buyers to choose the most appropriate product.
+                                        Write a query about this product, we will answer you shortly.
                                     </DialogContentText>
                                     <TextField
                                         autoFocus
                                         margin="dense"
                                         id="comment"
-                                        label="Write here your comment ..."
+                                        label="Write here your question ..."
                                         type="text"
                                         fullWidth
                                         variant="standard"
@@ -174,7 +193,7 @@ export default function ProductDetails (){
                 </div>
                 <div>
                     {(productDetails.comments?.length === 0)
-                        ? <p>Este producto no tiene comentarios</p>
+                        ? <p>This product has no comments.</p>
                         : productDetails.comments?.map((element) => {
                             return(<div key={parseInt(Math.random() * 10000 / Math.random())}><p> - {element.comment.charAt(0) + element.comment.slice(1, element.comment.length).toLowerCase()}</p></div>)
                         })}
@@ -184,8 +203,17 @@ export default function ProductDetails (){
                         Success comment created!
                     </Alert>
                 </Snackbar>
+                <Snackbar open={openSuccessAddToCart} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
+                        Product Added to Cart!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={openProductInCart} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
+                        Product already added in Cart!      
+                    </Alert>
+                </Snackbar>
             </div>
         </div>
-        )
-    
+        )    
 }

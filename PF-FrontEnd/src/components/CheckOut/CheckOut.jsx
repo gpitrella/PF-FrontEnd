@@ -4,7 +4,10 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
 import { send, init } from "emailjs-com";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { finishOrder } from "../../redux/actions"
+import './CheckOut.css';
 
 const style = {
   position: "absolute",
@@ -17,9 +20,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const ContacUsForm = () => {
+
+const CheckOut = () => {
 
   const history = useHistory();
+  const productsCart = useSelector((state) => state.general.productsCart)
 
   const [input, setInput] = React.useState({
     name: "",
@@ -80,11 +85,11 @@ const ContacUsForm = () => {
        <br />
         <Grid>
           <Card
-            style={{ maxWidth: 450, padding: "20px 5px", margin: "0 auto" }}
+            style={{ maxWidth: "45rem", padding: "20px 5px", margin: "0 auto" }}
           >
             <CardContent>
               <Typography gutterBottom variant="h5">
-                Contact Us
+                CHECK OUT
               </Typography>
               <Typography
                 variant="body2"
@@ -92,7 +97,7 @@ const ContacUsForm = () => {
                 component="p"
                 gutterBottom
               >
-                Fill up the form and we will get back to you within 24 hours.
+                Fill in all the fields to complete your order.
               </Typography>
               <form onSubmit={handleSubmit}>
                 <Grid container spacing={1}>
@@ -126,7 +131,7 @@ const ContacUsForm = () => {
                       name="email"
                       value={input.email}
                       type="email"
-                      placeholder="Enter email"
+                      placeholder="Enter your email"
                       label="Email"
                       variant="outlined"
                       fullWidth
@@ -136,10 +141,10 @@ const ContacUsForm = () => {
                   </Grid>
                   <Grid item xs={12} >
                     <TextField
-                      name="subject"
+                      name="address"
                       value={input.subject}
-                      placeholder="Enter subject"
-                      label="subject"
+                      placeholder="Enter your Address"
+                      label="Address"
                       variant="outlined"
                       fullWidth
                       required
@@ -160,15 +165,14 @@ const ContacUsForm = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
-                      name="msg"
-                      label="Message"
+                      name="info"
+                      label="Additional Information"
                       value={input.msg}
                       multiline
                       rows={4}
-                      placeholder="Type your message here"
+                      placeholder="Additional notes on your order, clarifications for delivery."
                       variant="outlined"
                       fullWidth
-                      required
                       onChange={handleInput}
                     />
                   </Grid>
@@ -179,7 +183,7 @@ const ContacUsForm = () => {
                       color="primary"
                       fullWidth
                     >
-                      Submit
+                      Finish Order
                     </Button>
                   </Grid>
                 </Grid>
@@ -196,7 +200,7 @@ const ContacUsForm = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box className="style">
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Email has been sent successfully
           </Typography>
@@ -207,7 +211,7 @@ const ContacUsForm = () => {
   );
 };
 
-export default ContacUsForm;
+export default CheckOut;
 
 {/*`${SERVICE}`,
       `${TEMPLATE}`
