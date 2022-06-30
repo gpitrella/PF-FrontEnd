@@ -27,6 +27,9 @@
   grid-gap: 1rem;
   overflow: hidden;
   border-radius: 16px;
+
+  animation: showModal 0.5s;
+  animation-fill-mode: both;
 }
 
 .banner {
@@ -72,4 +75,15 @@
   border: 1px solid var(--secondaryColor);
 
   letter-spacing: 1px;
+}
+
+@keyframes showModal {
+  from {
+    transform: translateY(5rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
