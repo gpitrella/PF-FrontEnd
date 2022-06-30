@@ -27,11 +27,11 @@ export const headerData = [
   },
   {
     name: 'discount',
-    className: 'widthMedium'
+    className: 'widthSmall'
   },
   {
     name: 'stock',
-    className: 'widthMedium'
+    className: 'widthSmall'
   },
   {
     name: 'rating',

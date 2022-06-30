@@ -1,0 +1,16 @@
+.list {
+  min-height: 1000px;
+  height: fit-content;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.listContainer {
+  flex: 6;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0 !important;
+}

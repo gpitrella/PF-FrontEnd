@@ -13,9 +13,9 @@ import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import AddToCart from './components/AddToCart/AddToCart';
-import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
+import ListProducts from './pages/listproduct/Listproduct';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
 
@@ -47,7 +47,7 @@ function App() {
               <Route exact path="/categories" component={CreateActivity} />
               <Route exact path="/admin/dashboard" component={Admin} />
               <Route exact path="/users/list" component={List} />
-              <Route exact path = '/table' component={ProductsTable} />
+              <Route exact path = '/admin/products' component={ListProducts} />
               <Route exact path="/test" component={ModalAddAddress} />
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/checkout' component={CheckOut} />
