@@ -32,7 +32,8 @@ export default function ProductsTable({}) {
     if (!showStore) return;
     let newFilter = {
       ...filter,
-      size: 10
+      size: 10,
+      hidden: true
     };
     dispatch(updateFilter(newFilter));
     dispatch(setShowLoading());

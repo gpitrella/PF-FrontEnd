@@ -39,6 +39,7 @@ const initialState = {
     page: 1,
     pages: 1,
     name: '',
+    hidden: false
   },
 
   categories: [ // Las categorias para el filtro.

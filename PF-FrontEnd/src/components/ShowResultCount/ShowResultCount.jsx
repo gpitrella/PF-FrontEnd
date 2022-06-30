@@ -11,7 +11,7 @@ export default function ShowResultCount({ loading, results, page, pages, simple 
   return (
     <span className = {s.results}>
       { !simple ? 'Showing ' : ''} { (page - 1) * (Math.ceil(results / pages)) + 1 }-{
-      page === pages ? results : page * ( Math.ceil(results / pages)) } of {
+      page === pages ? results : page * 10 } of {
       results} { !simple ? ' Products' : '' }
     </span>
   )
