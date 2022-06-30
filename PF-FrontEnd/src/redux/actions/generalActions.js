@@ -9,7 +9,8 @@ import {
   REDUCE_QUANTITY_PRODUCT,
   POST_COMMENT_PRODUCT,
   SHOW_CART,
-  CLOSE_CART
+  CLOSE_CART,
+  FINISH_ORDER
 } from './actiontype';
 
 
@@ -73,5 +74,14 @@ export function showCart(){
 export function closeCart(){
   return {
     type: CLOSE_CART,
+  }
+};
+
+// Finish Order:
+export const finishOrder = function(order) {
+  return function(dispatch){
+    return axios.post(`http://localhost:3001/api/payment`, {order})
+                .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
+                .catch(error => console.log(error))
   }
 };

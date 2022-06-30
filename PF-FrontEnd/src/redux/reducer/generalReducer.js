@@ -8,7 +8,8 @@ import {
   REDUCE_QUANTITY_PRODUCT,
   POST_COMMENT_PRODUCT,
   SHOW_CART,
-  CLOSE_CART
+  CLOSE_CART,
+  FINISH_ORDER
 } from '../actions/actiontype';
 
 const THEME = {
@@ -21,7 +22,8 @@ const initialState = {
   productsCart: [],
   theme: 'darkTheme',
   commentCreated: {},
-  showCart: false
+  showCart: false,
+  finishOrder: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -42,6 +44,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
           image: payload.image,
           discount: payload.discount,
           stock: payload.stock,
+          categories: payload.categories,
           quantity: 1
         })
       }
@@ -90,6 +93,11 @@ const generalReducer = function(state = initialState, { type, payload }) {
         showCart: false
       }
 
+    case FINISH_ORDER:
+      return {
+        ...state,
+        finishOrder: payload
+      }
       
     default:
       return state;
