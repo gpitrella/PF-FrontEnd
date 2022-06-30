@@ -15,6 +15,12 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import Divider from '@mui/material/Divider';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
@@ -22,6 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function AddToCart({showCart}){
+const [openComment, setOpenComment] = React.useState(false);
 const [redirect, setRedirect] = useState({value: false})
 const productsCart = useSelector((state) => state.general.productsCart)
 const dispatch = useDispatch();
@@ -33,8 +40,12 @@ const handleCloseAddtoCart = (e) => {
 
 const handleCloseCartToCheckOut = (e) => {
   e.preventDefault();
-  setRedirect({value: true})
-  dispatch(closeCart());
+  if(productsCart.length > 0){
+    setRedirect({value: true})
+    dispatch(closeCart());
+  } else {
+    setOpenComment(true)
+  }
 };
 
 const increaseAmountToCart = (id) => {
@@ -66,6 +77,13 @@ const totalValue = () => {
   })
 };
 totalValue();
+
+const handleCloseSuccessComment = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+  setOpenComment(false);
+};
 
 React.useEffect(() => {
   totalValue();
@@ -129,9 +147,13 @@ React.useEffect(() => {
           <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
           {redirect.value ? <Redirect push to={'/checkout'} underline="none" /> : null}
           <Button className='button_add_to_cart' onClick={handleCloseCartToCheckOut}>Check Out</Button>
-          
         </DialogActions>
       </Dialog>
+      <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+          <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
+              No products in Cart!
+          </Alert>
+      </Snackbar>
     </div>
     </div>
   );

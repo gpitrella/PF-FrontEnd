@@ -7,6 +7,7 @@ import { send, init } from "emailjs-com";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { finishOrder } from "../../redux/actions"
+import paymentMetod from './img/paymentMetod.webp';
 import './CheckOut.css';
 
 const style = {
@@ -219,6 +220,12 @@ const CheckOut = () => {
           <Button onClick={handleClose}>X</Button>
         </Box>
       </Modal>
+      <div className="">
+            <img 
+              alt="Payment Metod"
+              src={paymentMetod}
+            />
+      </div>
     </div>
   );
 };
