@@ -193,4 +193,13 @@ input:checked + .slider:before {
     transition-property: box-shadow;
 }
 
+.links_general {
+    text-decoration: none; 
+    color: white;
+} 
+
+.links_general:hover {
+    color: rgb(142, 142, 142);
+}
+
 
