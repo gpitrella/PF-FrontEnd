@@ -22,6 +22,14 @@
   height: 5rem;
 }
 
+.containerView {
+  height: 10rem;
+  width: 35rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .containerComparation {
   display: grid;
   grid-template-rows: 8rem 2rem 8rem;

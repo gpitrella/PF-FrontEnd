@@ -9,9 +9,12 @@ import {
   GET_CATEGORIES_TO_STORE,
   GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
   POST_PRODUCT,
-  WAITING_RESPONSE,
+  WAITING_RESPONSE_PUT,
   PUT_PRODUCT,
-  ERROR_PUT_PRODUCT
+  ERROR_PUT_PRODUCT,
+  WAITING_RESPONSE_DELETE,
+  DELETE_PRODUCT,
+  ERROR_DELETE_PRODUCT
 } from './actiontype';
 
 import axios from 'axios'
@@ -20,6 +23,7 @@ const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
 const PATH_GET_CATEGORIES = 'http://localhost:3001/api/categories';
 const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = "http://localhost:3001/api/product/?";
 const PATH_PUT_PRODUCT = 'http://localhost:3001/api/product/';
+const PATH_DELETE_PRODUCT = 'http://localhost:3001/api/product/';
 
 export const updateFilter = function(newFilter) {
   return {
@@ -95,9 +99,24 @@ export const putProduct = function(id, body) {
   }
 }
 
-export const waitingResponse = function(status = false) {
+export const waitingResponsePut = function(status = false) {
   return {
-    type: WAITING_RESPONSE,
+    type: WAITING_RESPONSE_PUT,
+    payload: status
+  }
+}
+
+export const deleteProduct = function(id) {
+  return function(dispatch) {
+    return axios.delete(`${PATH_DELETE_PRODUCT}${id}`)
+           .then(data => dispatch({ type: DELETE_PRODUCT, payload: data }))
+           .catch(error => dispatch({ type: ERROR_DELETE_PRODUCT }));
+  }
+}
+
+export const waitingResponseDelete = function(status = false) {
+  return {
+    type: WAITING_RESPONSE_DELETE,
     payload: status
   }
 }

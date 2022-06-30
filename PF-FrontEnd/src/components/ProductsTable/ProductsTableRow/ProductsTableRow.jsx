@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import ProductsTableCell from '../ProductsTableCell/ProductsTableCell';
 import ProductsTableEdit from '../ProductsTableEdit/ProductsTableEdit';
 import GeneralModal from '../../GeneralModal/GeneralModal';
-import { putProduct, waitingResponse } from '../../../redux/actions';
+import { deleteProduct, putProduct, waitingResponseDelete, waitingResponsePut } from '../../../redux/actions';
 import ArrowDown from '../../SVG/ArrowDown';
 import { rowData } from '../config';
 
@@ -66,6 +66,22 @@ export default function ProductsTableRow({ product }) {
     });
   }
 
+  let handleDelete = function(product) {
+    setModal({
+      show: true,
+      confirm: true,
+      cancel: true,
+      handleCancel: () => setModal({ ...modal, show: false}),
+      handleConfirm: () => {
+        dispatch(deleteProduct(product.id));
+        setModal({ ...modal, show: false });
+        dispatch(waitingResponseDelete(true));
+      },
+      title: 'Confirm Delete',
+      content: setModalViewDelete(normalizeProductDelete(product))
+    })
+  }
+
   let handleOptions = function(option) {
     switch (option) {
       case 'CANCEL':
@@ -91,7 +107,7 @@ export default function ProductsTableRow({ product }) {
               isVisible: newProductDetails.isVisible
             }));
             setModal({ ...modal, show: false });
-            dispatch(waitingResponse(true));
+            dispatch(waitingResponsePut(true));
           },
           title: 'Confirm Edit',
           content: setModalViewEdit(normalizeProduct(product), normalizeProduct(newProductDetails))
@@ -107,6 +123,14 @@ export default function ProductsTableRow({ product }) {
       discount: Number(product.discount),
       stock: Number(product.stock),
       status: product.isVisible ? 'active' : 'inactive'
+    }
+  }
+
+  let normalizeProductDelete = function(product) {
+    return {
+      ...normalizeProduct(product),
+      brand: product.manufacturers[0].name,
+      category: product.categories[0]
     }
   }
 
@@ -146,6 +170,26 @@ export default function ProductsTableRow({ product }) {
     )
   }
 
+  let setModalViewDelete = function(product) {
+    return (
+      <div className = {s.containerView}>
+        <div className = {s.listContainer}>
+          <ul className = {s.list}>
+          {
+            product && Object.keys(product).map((param, index) => 
+
+              <li className={`${s.item}`}>
+                <i className = {s.paramName}>{param}:</i> {product[param]}
+              </li>
+
+            )
+          }
+          </ul>
+        </div>
+      </div>
+    )
+  }
+
   if (product.isDummy) return (
     <tr className = {s.row}>
       <td>
@@ -171,6 +215,7 @@ export default function ProductsTableRow({ product }) {
                 viewMore = {viewMoreDetails}
                 handleViewMore = {handleViewMore}
                 handleEnableEdit = {handleEnableEdit}
+                handleDelete = {handleDelete}
               />
             </div>
           }

@@ -4,7 +4,7 @@ import ImageLoader from '../../ImageLoader/ImageLoader';
 
 import s from './ProductsTableCell.module.css';
 
-export default function ProductsTableCell({ product, param, viewMore, handleViewMore, handleEnableEdit }) {
+export default function ProductsTableCell({ product, param, viewMore, handleViewMore, handleEnableEdit, handleDelete }) {
 
   if (param.isImage) return (
     <div className = {s.image}>
@@ -22,7 +22,7 @@ export default function ProductsTableCell({ product, param, viewMore, handleView
         <button className = {`${s.btn} ${s.blue}`}>View</button>
       </Link>
       <button className = {`${s.btn} ${s.orange}`} onClick = { () => handleEnableEdit(product) }>Edit</button>
-      <button className = {`${s.btn} ${s.red}`}>Delete</button>
+      <button className = {`${s.btn} ${s.red}`} onClick = { () => handleDelete(product) }>Delete</button>
     </div>
   )
 
