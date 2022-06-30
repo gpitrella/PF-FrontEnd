@@ -10,6 +10,7 @@ import {
   CLOSE_STORE,
   POST_PRODUCT,
   PUT_PRODUCT,
+  WAITING_RESPONSE,
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
@@ -61,7 +62,11 @@ const initialState = {
   products: [],
   noProducts: false,
 
-  resultPut: {},
+  resultPut: {
+    waitingResponse: false,
+    status: false,
+    error: false
+  },
 };
 
 const storepageReducer = function(state = initialState, { type, payload }) {
@@ -137,10 +142,21 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           ...state,
           msn: ['Product created!']
           }
+    case WAITING_RESPONSE:
+      return {
+        ...state,
+        resultPut: {
+          ...state.resultPut,
+          waitingResponse: payload,
+          status: false,
+          error: false
+        }
+      }
     case PUT_PRODUCT:
       return {
         ...state,
         resultPut: {
+          ...state.resultPut,
           status: true
         }
       }

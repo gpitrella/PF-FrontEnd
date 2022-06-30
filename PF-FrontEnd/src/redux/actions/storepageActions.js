@@ -9,6 +9,7 @@ import {
   GET_CATEGORIES_TO_STORE,
   GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE,
   POST_PRODUCT,
+  WAITING_RESPONSE,
   PUT_PRODUCT
 } from './actiontype';
 
@@ -90,5 +91,12 @@ export const putProduct = function(id, body) {
     return axios.put(`${PATH_PUT_PRODUCT}${id}`, body)
            .then(data => dispatch({ type: PUT_PRODUCT, payload: data }))
            .catch(error => console.log(error));
+  }
+}
+
+export const waitingResponse = function(status = false) {
+  return {
+    type: WAITING_RESPONSE,
+    payload: status
   }
 }

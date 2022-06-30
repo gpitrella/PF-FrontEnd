@@ -5,7 +5,7 @@ import ProductsTableRows from './ProductsTableRows/ProductsTableRows';
 import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import Pagination from '../Pagination/Pagination';
 import { 
-  closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate, updateFilter, setShowLoading 
+  closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate, updateFilter, setShowLoading, waitingResponse 
 } from '../../redux/actions';
 import { buildFilter } from '../../util';
 
@@ -14,7 +14,7 @@ import s from './ProductsTable.module.css';
 export default function ProductsTable({}) {
 
   const dispatch = useDispatch();
-  const { products, showStore, showLoading, showError, filter, results } = useSelector(state => state.storepage);
+  const { products, showStore, showLoading, showError, filter, results, resultPut} = useSelector(state => state.storepage);
 
   const index = 10;
 
@@ -37,6 +37,17 @@ export default function ProductsTable({}) {
     dispatch(setShowLoading());
     dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
   }, [showStore]);
+
+  React.useEffect(() => {
+    if (resultPut.waitingResponse && resultPut.status) {
+      dispatch(waitingResponse(false));
+      dispatch(setShowLoading());
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
+    }
+    else if (resultPut.waitingResponse && resultPut.error) {
+      dispatch(waitingResponse(false));
+    }
+  }, [resultPut])
 
   if (!showStore) return <span>Loading</span>;
 

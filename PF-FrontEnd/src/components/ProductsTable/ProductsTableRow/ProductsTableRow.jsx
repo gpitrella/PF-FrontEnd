@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import ProductsTableCell from '../ProductsTableCell/ProductsTableCell';
 import ProductsTableEdit from '../ProductsTableEdit/ProductsTableEdit';
 import GeneralModal from '../../GeneralModal/GeneralModal';
-import { putProduct } from '../../../redux/actions';
+import { putProduct, waitingResponse } from '../../../redux/actions';
 import ArrowDown from '../../SVG/ArrowDown';
 import { rowData } from '../config';
 
@@ -75,18 +75,23 @@ export default function ProductsTableRow({ product }) {
         resetEdit();
         return;
       default:
-        // dispatch(putProduct(product.id, {
-        //   name: newProductDetails.name,
-        //   price: Number(newProductDetails.price),
-        //   discount: Number(newProductDetails.discount),
-        //   stock: Number(newProductDetails.stock),
-        //   description: newProductDetails.description,
-        //   image: newProductDetails.image
-        // }));
         setModal({
           show: true,
           confirm: true,
           cancel: true,
+          handleCancel: () => setModal({ ...modal, show: false }),
+          handleConfirm: () => {
+            dispatch(putProduct(product.id, {
+              name: newProductDetails.name,
+              price: Number(newProductDetails.price),
+              discount: Number(newProductDetails.discount),
+              stock: Number(newProductDetails.stock),
+              description: newProductDetails.description,
+              image: newProductDetails.image
+            }));
+            setModal({ ...modal, show: false });
+            dispatch(waitingResponse(true));
+          },
           title: 'Confirm Edit',
           content: setModalViewEdit(normalizeProduct(product), normalizeProduct(newProductDetails))
         })
@@ -100,7 +105,6 @@ export default function ProductsTableRow({ product }) {
       price: Number(product.price),
       discount: Number(product.discount),
       stock: Number(product.stock),
-      image: product.image
     }
   }
 
