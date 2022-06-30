@@ -87,7 +87,8 @@ export default function ProductsTableRow({ product }) {
               discount: Number(newProductDetails.discount),
               stock: Number(newProductDetails.stock),
               description: newProductDetails.description,
-              image: newProductDetails.image
+              image: newProductDetails.image,
+              isVisible: newProductDetails.isVisible
             }));
             setModal({ ...modal, show: false });
             dispatch(waitingResponse(true));
@@ -105,6 +106,7 @@ export default function ProductsTableRow({ product }) {
       price: Number(product.price),
       discount: Number(product.discount),
       stock: Number(product.stock),
+      status: product.isVisible ? 'active' : 'inactive'
     }
   }
 

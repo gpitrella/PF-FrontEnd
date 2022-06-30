@@ -61,8 +61,8 @@ export default function ProductsTableEdit({ param, newProductDetails, handleChan
       className = {`${s.activeSwitch} ${param.getValue(newProductDetails) === 'active' ? s.active : s.inactive }`}
       onClick = {() => handleValidation({ 
           target: { 
-            value: param.getValue(newProductDetails) === 'active' ? true : false,
-            name: 'inactive'
+            value: param.getValue(newProductDetails) === 'active' ? false : true,
+            name: 'isVisible'
           }
         })}
     >

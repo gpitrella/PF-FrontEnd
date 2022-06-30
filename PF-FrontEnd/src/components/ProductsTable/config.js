@@ -126,7 +126,7 @@ export const rowData = [
     name: 'status',
     isComplex: true,
     getValue: (product) => {
-      return product.inactive ? 'inactive' : 'active';
+      return !product.isVisible ? 'inactive' : 'active';
     },
     isSwitch: true,
     editable: true,
