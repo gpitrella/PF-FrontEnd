@@ -5,8 +5,9 @@ import Modal from "@mui/material/Modal";
 import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
 import { send, init } from "emailjs-com";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { finishOrder } from "../../redux/actions"
+import paymentMetod from './img/paymentMetod.webp';
 import './CheckOut.css';
 
 const style = {
@@ -25,16 +26,32 @@ const CheckOut = () => {
 
   const history = useHistory();
   const productsCart = useSelector((state) => state.general.productsCart)
-
+  const stateFinishOrder = useSelector((state) => state.general.finishOrder)
+  const dispatch = useDispatch();
   const [input, setInput] = React.useState({
     name: "",
     lastName: "",
     email: "",
-    subject: "",
+    address: "",
     phone: "",
-    msg: "",
+    info: "",
   });
 
+  const [items, setItems] = React.useState({});
+  // const [redirect, setRedirect] = React.useState({redirect: false});
+
+  const preOrder = () => {
+    const formMercadoPAgo = productsCart?.map((product) => ({
+      title: product.name,
+      description: product.description ? product.description : 'Product of Tech, seller TechTegnology',
+      picture_url: product.image,
+      category_id: product.categories[0] ? product.categories[0] : 'Tech',
+      quantity: product.quantity,
+      unit_price: product.discount !== 0 ? Math.round(product.price - product.price * (product.discount / 100)) : product.price
+    }))
+    setItems(formMercadoPAgo)
+  }
+  
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -49,31 +66,25 @@ const CheckOut = () => {
     });
   };
 
+  const handleInputEmail = (e) => {
+    e.preventDefault();
+    setInput({
+      ...input,
+      [e.target.name]: e.target.value,
+    });
+    preOrder()
+  };
+
+  React.useEffect(()=>{
+        if(stateFinishOrder?.data){
+          window.location.href = stateFinishOrder?.data;          
+        }
+  },[stateFinishOrder])
+  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { name, lastName, subject, email, phone, msg } = input;
-    // init(`${KEY}`);
-    send(
-      "service_h4stj4s",
-      "template_c38r8ts",
-      { name, lastName, subject, email, phone, msg },
-      "NPC49Hu7bfisw1Zjw"
-    )
-      .then((response) => {
-        console.log(response.status, response.text);
-        setOpen(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setInput({
-      name: "",
-      lastName: "",
-      email: "",
-      subject: "",
-      phone: "",
-      msg: "",
-    });
+    dispatch(finishOrder(input.email, items))    
   };
   
   return (
@@ -104,7 +115,7 @@ const CheckOut = () => {
                   <Grid xs={12} sm={6} item>
                     <TextField
                       name="name"
-                      inputRef=""
+                      // inputRef=""
                       value={input.name}
                       placeholder="Enter first name"
                       label="First Name"
@@ -136,7 +147,7 @@ const CheckOut = () => {
                       variant="outlined"
                       fullWidth
                       required
-                      onChange={handleInput}
+                      onChange={handleInputEmail}
                     />
                   </Grid>
                   <Grid item xs={12} >
@@ -177,14 +188,16 @@ const CheckOut = () => {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                    >
-                      Finish Order
-                    </Button>
+                    <a href={stateFinishOrder?.data ? stateFinishOrder.data : null}>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                      >
+                        Finish Order
+                      </Button>
+                    </a>
                   </Grid>
                 </Grid>
               </form>
@@ -207,6 +220,12 @@ const CheckOut = () => {
           <Button onClick={handleClose}>X</Button>
         </Box>
       </Modal>
+      <div className="">
+            <img 
+              alt="Payment Metod"
+              src={paymentMetod}
+            />
+      </div>
     </div>
   );
 };
