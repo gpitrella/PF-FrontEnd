@@ -1,6 +1,6 @@
-import { ActionTypes } from '@mui/base';
 import {
     PRODUCTS_TO_FORMS,
+    CATEGORIES_TO_DASHBOARD,
     CREATE_CATEGORY, 
     CREATE_BRAND,
     UPDATE_BRAND,
@@ -10,7 +10,8 @@ import {
 } from '../actions/actiontype';
 
 const initialState = {
-    allProducts: []
+    allProducts: [],
+    categoriesToDashboard: [],
 };
 
 const dashboardReducer = function(state = initialState, { type, payload }) {
@@ -20,7 +21,11 @@ const dashboardReducer = function(state = initialState, { type, payload }) {
                 ...state,
                 allProducts: payload
             }
-
+        case CATEGORIES_TO_DASHBOARD:
+            return {
+                ...state,
+                categoriesToDashboard: payload
+            }
         case CREATE_CATEGORY:
             return {
                 ...state,
@@ -34,7 +39,7 @@ const dashboardReducer = function(state = initialState, { type, payload }) {
         case DELETE_CATEGORY:
             return {
                 ...state,
-                allCategories: payload
+                payload
             }
         case CREATE_BRAND:
             return {
@@ -49,7 +54,12 @@ const dashboardReducer = function(state = initialState, { type, payload }) {
         case DELETE_BRAND:
             return {
                 ...state,
-                brandsList: payload
+                payload
+            }
+        //DEFAULT CASE:
+        default:
+            return {
+                ...state,
             }
     }
 }

@@ -1,25 +1,36 @@
 .ads{
-    text-align: center;
-    height:45vh;
-    width: 1100px;;
-    object-position: center;
-    object-fit: scale-down;
-    margin-top: 4vh;    
+  width: 100%;
+  position: relative;
+  margin: 7vh auto;
 }
 .items{
-    height: 45vh;
-    text-align: center;   
-    width: 100%;
-    min-width:50rem;
-    border-radius: 0.5rem;
-    text-align: center;
-    object-position: center;
-    object-fit: scale-down;
-    overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 45vh;
+  width: auto;
+  margin: auto;
+  border-radius: 0.5rem;
+  text-align: center;
+  object-fit: contain;
+  overflow: hidden;   
+
 }
 
-@media (min-width: 840px) {
-    .containerCarrousel {
+@media only screen and (min-width: 840px) {
+    .ads {
       width: 840px;
+    }
+  }
+
+  @media only screen and (min-width: 1260px) {
+    .ads {
+      width: 1260px;
+    }
+  }
+  
+  @media only screen and (min-width: 1680px) {
+    .ads {
+      width: 1680px;
     }
   }

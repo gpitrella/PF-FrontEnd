@@ -5,9 +5,10 @@ import {
 } from './actiontype';
 
 // Change color Theme - Night / Day:
-export const changeTheme = function() {
+export const changeTheme = function(theme = 'LIGHT') {
   return {
-    type: CHANGE_THEME
+    type: CHANGE_THEME,
+    payload: theme
   }
 }
 

@@ -10,7 +10,13 @@ import CreateProduct from './components/CreateProduct/CreateProduct'
 import notFoundPage from './components/404/NotFoundPage404';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
-import CreateCategory from './components/Categories/NewCategory';
+import CategPage from './components/CategTable/CategPage';
+import CreateCategory from './components/BrandsTable/BrandsPage';
+import BrandsPage from './components/BrandsTable/BrandsPage';
+import NewBrand from './components/BrandsTable/NewBrand';
+import ProductsTable from './components/ProductsTable/ProductsTable';
+import Admin from './Admin';
+import List from './pages/list/List';
 
 function App() {
 
@@ -36,7 +42,13 @@ function App() {
               <Route exact path="/store/brand/:brand" component = {Store} />
               <Route exact path="/productdetails/:id" component={ProductDetails} />
               <Route exact path="/createproduct" component={CreateProduct} />
-              <Route exact path="/categories" component={CreateCategory} />
+              <Route exact path="/categories" component={CategPage} />
+              <Route exact path="/categories/new" component={CreateCategory} />
+              <Route exact path="/brands" component={BrandsPage} />
+              <Route exact path="/brands/new" component={NewBrand} />
+              <Route exact path="/admin/dashboard" component={Admin} />
+              <Route exact path="/users/list" component={List} />
+              <Route exact path = '/table' component={ProductsTable} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

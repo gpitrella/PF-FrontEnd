@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createCategory } from '../../redux/actions';
-import styles from './CreateCategory.module.css';
+import styles from './FormsCategory.module.css';
 
 
 export default function CreateCategory(){
@@ -47,7 +47,7 @@ export default function CreateCategory(){
                 name: "",
             });
             alert("Category successfully created");
-        history.push('/');
+        history.push('/categories');
         };
     };
 
