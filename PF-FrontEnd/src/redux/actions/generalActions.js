@@ -97,9 +97,11 @@ export function closeCart(){
 };
 
 // Finish Order:
-export const finishOrder = function(order) {
+export const finishOrder = function(email, items) {
   return function(dispatch){
-    return axios.post(`http://localhost:3001/api/payment`, {order})
+    console.log(email)
+    console.log(items)
+    return axios.post(`http://localhost:3001/api/payment`, {email, items})
                 .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
                 .catch(error => console.log(error))
   }

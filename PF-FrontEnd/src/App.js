@@ -19,14 +19,14 @@ import Admin from './Admin';
 import List from './pages/list/List';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import FAQs from './components/FAQs/FAQs';
 
 function App() {
 
 
   const dispatch = useDispatch()
 
-  const history = useHistory()
 
   // const [user, setUser] = React.useState(null);
 
@@ -94,6 +94,7 @@ function App() {
               <Route exact path = '/table'> {user?.user?.admin ? <ProductsTable/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/checkout'> {user?.user?.admin ? <CheckOut/> : <Redirect to="/"/>}</Route>
+              <Route exact path='/faqs' component={FAQs} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

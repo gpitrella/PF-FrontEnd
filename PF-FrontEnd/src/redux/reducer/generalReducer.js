@@ -38,6 +38,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     
     case ADD_PRODUCT_TO_CART:
+      console.log(payload)
       return {
         ...state,
         productsCart: state.productsCart.concat({
@@ -48,6 +49,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
           discount: payload.discount,
           stock: payload.stock,
           categories: payload.categories,
+          description: payload.description,
           quantity: 1
         })
       }
