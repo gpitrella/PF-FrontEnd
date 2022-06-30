@@ -17,6 +17,7 @@ import Admin from './Admin';
 import List from './pages/list/List';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
+import FAQs from './components/FAQs/FAQs';
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
               <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />
               <Route exact path='/contactus' component={ContacUsForm} />
+              <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/checkout' component={CheckOut} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
