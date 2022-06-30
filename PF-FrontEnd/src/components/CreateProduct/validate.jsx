@@ -1,41 +1,41 @@
 import validator from 'validator';
 const form = document.getElementById('form');
 const inputs = document.querySelectorAll('#form input');
-const validation = {
-  empty: validator.isEmpty,
-  currency: validator.isCurrency,
-  link: validator.isURL,
-  integer: validator.isInt,
-}
-
-
-// const validateFild = (validation, value, fild, msn) =>{
-// let errors = {};
-// if(validation(value)) {
-//   errors.fild = msn
-//   document.getElementById(`${fild}`).classList.add('form__group-incorrecto')
-//   document.getElementById(`${fild}`).classList.remove('form__group-correcto')
-//   document.querySelector(`#${fild} .form__input-error`).classList.add('form__input-error-activo')
-// } else {
-//   document.getElementById(`${fild}`).classList.add('form__group-correcto')
-//   document.getElementById(`${fild}`).classList.remove('form__group-incorrecto')
-//   document.querySelector(`#${fild} .form__input-error`).classList.remove('form__input-error-activo')
-//   filds[`${fild}`] = true
-//   return errors
-// }}
 
 export default function validate(input){
     let errors = {};
 
-    if(validator.isEmpty(input.name)) {
+    if(!validator.isEmpty(input.name)) {
+      document.getElementById('name').classList.add('form__group-correcto')
+      document.getElementById('name').classList.remove('form__group-incorrecto')
+      document.querySelector('#name .form__input-error').classList.remove('form__input-error-activo')
+    } else {
       errors.name = "Add a product name"
       document.getElementById('name').classList.add('form__group-incorrecto')
       document.getElementById('name').classList.remove('form__group-correcto')
       document.querySelector('#name .form__input-error').classList.add('form__input-error-activo')
+    };
+
+    if(!validator.isEmpty(input.category)) {
+      document.getElementById('category').classList.add('form__group-correcto')
+      document.getElementById('category').classList.remove('form__group-incorrecto')
+      // document.querySelector('#category .form__input-error').classList.remove('form__input-error-activo')
     } else {
-      document.getElementById('name').classList.add('form__group-correcto')
-      document.getElementById('name').classList.remove('form__group-incorrecto')
-      document.querySelector('#name .form__input-error').classList.remove('form__input-error-activo')
+      errors.category = "Choose a product category"
+      document.getElementById('category').classList.add('form__group-incorrecto')
+      document.getElementById('category').classList.remove('form__group-correcto')
+      // document.querySelector('#category .form__input-error').classList.add('form__input-error-activo')
+    };
+
+    if(!validator.isEmpty(input.manufacturer)) {
+      document.getElementById('manufacturer').classList.add('form__group-correcto')
+      document.getElementById('manufacturer').classList.remove('form__group-incorrecto')
+      // document.querySelector('#manufacturer .form__input-error').classList.remove('form__input-error-activo')
+    } else {
+      errors.manufacturer = "Choose a product manufacturer"
+      document.getElementById('manufacturer').classList.add('form__group-incorrecto')
+      document.getElementById('manufacturer').classList.remove('form__group-correcto')
+      // document.querySelector('#manufacturer .form__input-error').classList.add('form__input-error-activo')
     };
 
     if (validator.isCurrency(input.price, {allow_negatives: false, allow_decimal: true})){
@@ -82,27 +82,9 @@ export default function validate(input){
       document.querySelector('#stock .form__input-error').classList.add('form__input-error-activo')
     }
 
-    if(input.category==='') {
-      errors.category = "Choose a product category"
-      document.getElementById('category').classList.add('form__group-incorrecto')
-      document.getElementById('category').classList.remove('form__group-correcto')
-      // document.querySelector('#category .form__input-error').classList.add('form__input-error-activo')
-    } else {
-      document.getElementById('category').classList.add('form__group-correcto')
-      document.getElementById('category').classList.remove('form__group-incorrecto')
-      // document.querySelector('#category .form__input-error').classList.remove('form__input-error-activo')
-    };
+    
 
-    if(input.manufacturer==='') {
-      errors.manufacturer = "Choose a product manufacturer"
-      document.getElementById('manufacturer').classList.add('form__group-incorrecto')
-      document.getElementById('manufacturer').classList.remove('form__group-correcto')
-      // document.querySelector('#manufacturer .form__input-error').classList.add('form__input-error-activo')
-    } else {
-      document.getElementById('manufacturer').classList.add('form__group-correcto')
-      document.getElementById('manufacturer').classList.remove('form__group-incorrecto')
-      // document.querySelector('#manufacturer .form__input-error').classList.remove('form__input-error-activo')
-    };
+    
 
     if(validator.isEmpty(input.description)) {
       errors.description = "Add a product description"

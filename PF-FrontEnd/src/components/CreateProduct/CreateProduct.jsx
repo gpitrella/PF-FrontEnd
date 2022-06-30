@@ -2,14 +2,9 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-//import {faCircleXmark, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons'
 import { postProduct } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
-
-import {validateName} from './validate'
-
 import validate from './validate'
 
 export default function CreateProduct() {
@@ -51,16 +46,6 @@ export default function CreateProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // alert('alertaaa!!!!!')
-    // if(!input.name) alert('Fill this box with a product name')
-    // else if(!input.price) alert('Add a product price.')
-    // else if(!input.image) alert('Add an image to your product.')
-    // else if(!input.discount) alert('Set a product discount.')
-    // else if(!input.stock) alert('Add the product stock.')
-    // else if(!input.category) alert('Add the product stock.')
-    // else if(!input.manufacturer) alert('Add the product stock.')
-    // else if(!input.description) alert('Add a prodcut description.')
-    // else {
     setErrors(validate({
       ...input,
       [e.target.name]: e.target.value
@@ -83,7 +68,6 @@ export default function CreateProduct() {
     
     dispatch(postProduct(input));
     console.log(input)
-    // alert('Product loaded!')
     setInput({
       name: '',
       price: '',
@@ -183,7 +167,7 @@ export default function CreateProduct() {
           <p className='form__input-error'>{errors.stock}</p>
         </div>
 
-        <div>
+        <div className='form__group' id='category'>
         <label htmlFor="category" className='form__label'>Category:</label>
         <div className='form__group-input'>
             <select
@@ -201,7 +185,7 @@ export default function CreateProduct() {
         <p className='form__input-error'>{errors.category}</p>
         </div>
 
-        <div>
+        <div className='form__group' id='manufacturer'>
         <label htmlFor="manufacturer" className='form__label'>Manufacturer:</label>
         <div className='form__group-input'>
         <select

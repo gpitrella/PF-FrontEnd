@@ -1,7 +1,6 @@
 import Google from "./google.png";
-// import Facebook from "./facebook.png";
 import { useDispatch } from "react-redux";
-import { logIn, signUp } from "../../redux/actions";
+import { logIn } from "../../redux/actions";
 import './LogIn.css'
 import { useState } from "react";
 import { Link } from "react-router-dom";
