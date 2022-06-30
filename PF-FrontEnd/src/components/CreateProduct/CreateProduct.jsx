@@ -66,41 +66,43 @@ export default function CreateProduct() {
       [e.target.name]: e.target.value
     }))
 
-    if(errors.name || errors.price ||errors.image || errors.stock || errors.discount || errors.category || errors.manufacturer || errors.description){
+    if(!input.name || !input.price || !input.image || !input.stock || !input.discount || !input.category || !input.manufacturer || !input.description){
         document.getElementById('form__msn').classList.add('form__msn-activo')
-      } else {
+      } else if (errors.name || errors.price || errors.image || errors.stock || errors.discount || errors.category || errors.manufacturer || errors.description)
+      {
+        document.getElementById('form__msn').classList.add('form__msn-activo')
+      }else if (!errors.name || !errors.price || !errors.image || !errors.stock || !errors.discount || !errors.category || !errors.manufacturer || !errors.description){
         document.getElementById('form__msn-exito').classList.add('form__msn-exito-activo')
-        document.getElementById('form__msn-activo').classList.remove('form__msn-activo')
         setTimeout(()=>{
           document.getElementById('form__msn-exito').classList.remove('form__msn-exito-activo')
         }, 4000)
-        document.querySelectorAll('.form__group-correcto').forEach((green) =>{
-          green.classList.remove('.form__group-correcto')
-          dispatch(postProduct(input));
-          console.log(input)
-          // alert('Product loaded!')
-          setInput({
-            name: '',
-            price: '',
-            image: '',
-            discount: '',
-            stock: '',
-            description:'',
-            category: '',
-            manufacturer:''
-          })
+        document.querySelectorAll('.form__group-correcto').forEach((icon)=>{
+          icon.classList.remove('form__group-correcto')
         })
+        document.getElementById('form__msn').classList.remove('form__msn-activo')
     
+    dispatch(postProduct(input));
+    console.log(input)
+    // alert('Product loaded!')
+    setInput({
+      name: '',
+      price: '',
+      image: '',
+      discount: '',
+      stock: '',
+      description:'',
+      category: '',
+      manufacturer:''
+    })
+    history.push('/createproduct')
   }
   }
-
-
 
   return (
     <div className='main'>
         {/* <Link to={'/'}><button>BACK HOME</button></Link> */}
+        <h1 className='form__title'>Create product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
-        
         <div className='form__group' id='name'>
           <label htmlFor="name" className='form__label'>Name</label>
           <div className='form__group-input'>
@@ -208,7 +210,7 @@ export default function CreateProduct() {
         name = {'manufacturer'}
         onChange={(e) => handleChange(e)}
         >
-            <option value={''} key={'Manufacturer'}>Manufacturer</option>
+            <option value={''} key={'Brand'} >Brand</option>
             {brandsList?.map((brand) => (
             <option value={brand.name} key={brand.name}>{brand.name}</option>
           ))}
@@ -239,16 +241,11 @@ export default function CreateProduct() {
             </p> 
         </div>
         <div className="form__group form__group-btn-create">
-            <button type='submit' className='form__btn'>CREATE</button>
+            <button type='submit' className='form__btn' >CREATE</button>
             <p className='form__msn-exito' id='form__msn-exito'
             >Product created!!
             </p>
         </div>
-        {/* {errors.name || errors.price || errors.stock || errors.discount || errors.manufacturer || errors.description || errors.image
-      ? <button type="submit"  disabled={true}>LOAD</button>
-      : <button type="submit" >LOAD</button>} */}
-        
-        {/* <button type="submit">ADD</button> */}
         </form>
         </div>
   )

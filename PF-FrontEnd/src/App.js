@@ -12,11 +12,11 @@ import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
+import SignUp from './components/SignUp/SignUp';
 import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
-import SignUp from './components/SignUp/SignUp';
-import { useGridState } from '@mui/x-data-grid';
+import ContacUsForm from './components/ContactUs/ContacUsForm';
 
 function App() {
 
@@ -84,6 +84,7 @@ function App() {
               <Route exact path="/admin/dashboard" component={ user ? Admin : LogIn} />
               <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />
+              <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

@@ -21,6 +21,19 @@
     font-weight: 700;
     padding: 10px;
     cursor: pointer;
+    color: white;
+}
+
+.form__title{
+    display: block;
+    font-weight: 700;
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+.form_option{
+    color: grey;
 }
 
 .form__group-input{
@@ -95,7 +108,7 @@
     height: 45px;
     line-height: 45px;
     width: 30%;
-    background: #000;
+    background: rgba(0, 117, 255, 0.671);
     color: #fff;
     font-weight: bold;
     border: none;
