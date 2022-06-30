@@ -12,19 +12,19 @@ const Ads = ()=> {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 2000 },
-      items: 15
+      items: 1
     },
     desktop: {
       breakpoint: { max: 2000, min: 1300 },
-      items: 8
+      items: 1
     },
     tablet: {
       breakpoint: { max: 1300, min: 900 },
-      items: 6
+      items: 1
     },
     mobile: {
       breakpoint: { max: 900, min: 0 },
-      items: 5
+      items: 1
     }
   };
    

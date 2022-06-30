@@ -15,7 +15,7 @@ import AddToCart from './components/AddToCart/AddToCart';
 import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
-import User from './pages/user/User'
+import UserEdit from './pages/user/UserEdit'
 import New from './pages/new/New'
 import { userInputs } from "./formSource";
 import ContacUsForm from './components/ContactUs/ContacUsForm';
@@ -48,9 +48,8 @@ function App() {
               <Route exact path="/createproduct" component={CreateProduct} />
               <Route exact path="/categories" component={CreateActivity} />
               <Route exact path="/admin/dashboard" component={Admin} />
-              <Route exact path="/users/list" component={List} />
-              <Route exact path="/user/edit/:id" component={User} />
-              <Route exact path="/user/newuser" component={New}/>
+              <Route exact path="/admin/users/list" component={List} />
+              <Route exact path="/admin/user/edit/:id" component={UserEdit} />
               <Route exact path = '/table' component={ProductsTable} />
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/checkout' component={CheckOut} />

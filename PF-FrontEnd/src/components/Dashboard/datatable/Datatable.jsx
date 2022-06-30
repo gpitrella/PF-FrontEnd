@@ -33,7 +33,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to={`/user/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
+            <Link to={`/admin/user/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">Edit</div>
             </Link>
 
@@ -48,12 +48,12 @@ const Datatable = () => {
   ];
   return (
     <div className="datatable">
-      <div className="datatableTitle">
+      {/* <div className="datatableTitle">
         Add New User
         <Link to="/user/newuser" className="link">
           Add New
         </Link>
-      </div>
+      </div> */}
       <DataGrid
         className="datagrid"
         rows={users}
