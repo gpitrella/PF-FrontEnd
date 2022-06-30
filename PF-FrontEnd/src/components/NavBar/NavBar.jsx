@@ -33,6 +33,7 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 
 
 
@@ -185,8 +186,8 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Sign Up</MenuItem>
     </Menu>
   );
 
@@ -300,17 +301,15 @@ export default function NavBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             
-            {/* <Link to={'/addtocart'} > */}
               <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
                 <Badge badgeContent={productsCart?.length} color="error">
-                  <ShoppingCartIcon />
+                  <ShoppingCartIcon className="links_general"/>
                 </Badge>
               </IconButton>
-            {/* </Link> */}
 
             <IconButton size="large" aria-label="store" color="inherit">
               <Badge badgeContent={0} color="error">
-                <Link to={'/store'} underline="none">
+                <Link to={'/store'} className="links_general">
                   <StorefrontIcon />
                 </Link>
               </Badge>
@@ -318,26 +317,27 @@ export default function NavBar() {
 
             <IconButton size="large" aria-label="create_product" color="inherit">
               <Badge badgeContent={0} color="error">
-                <Link to={'/createproduct'} underline="none">
-                  <AddBoxIcon />
+                <Link to={'/admin/dashboard'} className="links_general">
+                  <DisplaySettingsIcon />
                 </Link>
               </Badge>
             </IconButton>
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-
+              <Badge badgeContent={0} color="error">
+                <MailIcon className="links_general"/>
               </Badge>
             </IconButton>
 
+
+
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label="show 0 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+              <Badge badgeContent={0} color="error">
+                <NotificationsIcon className="links_general"/>
               </Badge>
             </IconButton>
             <IconButton
@@ -361,7 +361,7 @@ export default function NavBar() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <MoreIcon className="links_general"/>
             </IconButton>
           </Box>
         </Toolbar>
