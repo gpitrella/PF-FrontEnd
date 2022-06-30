@@ -1,7 +1,14 @@
 import {
   CHANGE_THEME,
-  POST_COMMENT_PRODUCT,
   SHOW_MINI_MODAL,
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_CART,
+  INCREASE_QUANTITY_PRODUCT,
+  REDUCE_QUANTITY_PRODUCT,
+  POST_COMMENT_PRODUCT,
+  SHOW_CART,
+  CLOSE_CART,
+  FINISH_ORDER
 } from '../actions/actiontype';
 
 const THEME = {
@@ -11,13 +18,16 @@ const THEME = {
 
 const initialState = {
   theme: 'lightTheme',
-  commentCreated: {},
   miniModal: {
     show: false,
     msg: '',
     success: false,
     error: false,
   },
+  productsCart: [],
+  commentCreated: {},
+  showCart: false,
+  finishOrder: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -27,12 +37,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         theme: THEME[payload]
       }
-    
-    case POST_COMMENT_PRODUCT:
-      return {
-        ...state,
-        commentCreated: payload
-      }
+
     case SHOW_MINI_MODAL:
       return {
         ...state,
@@ -43,6 +48,72 @@ const generalReducer = function(state = initialState, { type, payload }) {
           error: payload.error ? payload.error : false,
         }
       }
+    
+    case ADD_PRODUCT_TO_CART:
+      return {
+        ...state,
+        productsCart: state.productsCart.concat({
+          id: payload.id,
+          name: payload.name,
+          price: payload.price,
+          image: payload.image,
+          discount: payload.discount,
+          stock: payload.stock,
+          categories: payload.categories,
+          quantity: 1
+        })
+      }
+
+    case REMOVE_PRODUCT_CART:
+      return {
+        ...state,
+        productsCart: state.productsCart.filter(product => product.id !== payload)
+      }
+
+    case INCREASE_QUANTITY_PRODUCT: 
+          state.productsCart.map((product) => {
+            if(product.id === payload){
+              product.quantity += 1
+            }
+          })
+      return {
+        ...state,
+      }
+
+    case REDUCE_QUANTITY_PRODUCT:
+          state.productsCart.map((product) => {
+            if(product.id === payload){
+              product.quantity -= 1
+            }
+          }) 
+      return {
+        ...state, 
+      }
+
+    case POST_COMMENT_PRODUCT:
+      return {
+        ...state,
+        commentCreated: payload
+      }
+
+    case SHOW_CART:
+      return {
+        ...state,
+        showCart: true        
+      }
+    
+    case CLOSE_CART:
+      return {
+        ...state,
+        showCart: false
+      }
+
+    case FINISH_ORDER:
+      return {
+        ...state,
+        finishOrder: payload
+      }
+
     default:
       return state;
   }

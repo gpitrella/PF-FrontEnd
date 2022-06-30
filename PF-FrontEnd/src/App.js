@@ -12,9 +12,12 @@ import ModalAddAddress from './components/ModalAddAddress/ModalAddAddress';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
+import AddToCart from './components/AddToCart/AddToCart';
 import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
+import ContacUsForm from './components/ContactUs/ContacUsForm';
+import CheckOut from './components/CheckOut/CheckOut';
 
 function App() {
 
@@ -24,13 +27,14 @@ function App() {
     dispatch(getBrands())
   },[dispatch])
 
-  const { theme } = useSelector(state => state.general);
+  const { theme, showCart } = useSelector(state => state.general);  
 
   return (
     <React.Fragment>
       <Router>
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
+          <AddToCart showCart={showCart}/> 
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/store/" component = {Store} />
@@ -45,6 +49,8 @@ function App() {
               <Route exact path="/users/list" component={List} />
               <Route exact path = '/table' component={ProductsTable} />
               <Route exact path="/test" component={ModalAddAddress} />
+              <Route exact path='/contactus' component={ContacUsForm} />
+              <Route exact path='/checkout' component={CheckOut} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
