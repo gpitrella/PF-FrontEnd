@@ -13,47 +13,53 @@ import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
+import AddToCart from './components/AddToCart/AddToCart';
 import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
+import CheckOut from './components/CheckOut/CheckOut';
+import { Redirect, useHistory } from 'react-router-dom';
 
 function App() {
 
+
   const dispatch = useDispatch()
 
-  const [user, setUser] = React.useState(null);
+  const history = useHistory()
+
+  // const [user, setUser] = React.useState(null);
 
   // const [localUser, setLocalUser] = React.useState(null);
 
-  // const {user} = useSelector((state) => state.general)
+  const {user} = useSelector((state) => state.general)
 
   console.log(user)
 
-  React.useEffect(() => {
-    const getUser = () => {
-      fetch("http://localhost:3001/auth/login/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          setUser(resObject.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }, []);
+  // React.useEffect(() => {
+  //   const getUser = () => {
+  //     fetch("http://localhost:3001/auth/login/success", {
+  //       method: "GET",
+  //       credentials: "include",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Credentials": true,
+  //       },
+  //     })
+  //       .then((response) => {
+  //         if (response.status === 200) return response.json();
+  //         throw new Error("authentication has been failed!");
+  //       })
+  //       .then((resObject) => {
+  //         setUser(resObject.user);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
+  //   getUser();
+  // }, []);
 
   //? objeto devuelto user para sacar la data
    console.log(user);
@@ -62,29 +68,32 @@ function App() {
     dispatch(getBrands())
   },[dispatch])
 
-  const { theme } = useSelector(state => state.general);
+  const { theme, showCart } = useSelector(state => state.general);  
 
   return (
     <React.Fragment>
       <Router>
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
+          <AddToCart showCart={showCart}/> 
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/store/" component = {Store} />
-              <Route exact path="/login" component = {LogIn} />
-              <Route exact path="/signup" component = {SignUp} />
+              <Route exact path="/login"> {user ? <LogIn/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/signup"> {user ? <SignUp/> : <Redirect to="/"/>}</Route>
               <Route exact path="/store/discount/:discount" component = {Store} />
               <Route exact path="/store/name/:name" component = {Store} />
               <Route exact path="/store/category/:category" component = {Store} />
               <Route exact path="/store/brand/:brand" component = {Store} />
               <Route exact path="/productdetails/:id" component={ProductDetails} />
-              <Route exact path="/createproduct" component={CreateProduct} />
-              <Route exact path="/categories" component={CreateActivity} />
-              <Route exact path="/admin/dashboard" component={ user ? Admin : LogIn} />
-              <Route exact path="/users/list" component={List} />
-              <Route exact path = '/table' component={ProductsTable} />
+
+              <Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/admin/dashboard"> {user?.user?.admin ? <Admin/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/admin/users/list"> {user?.user?.admin ? <List/> : <Redirect to="/"/>}</Route>
+              <Route exact path = '/table'> {user?.user?.admin ? <ProductsTable/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/contactus' component={ContacUsForm} />
+              <Route exact path='/checkout'> {user?.user?.admin ? <CheckOut/> : <Redirect to="/"/>}</Route>
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
