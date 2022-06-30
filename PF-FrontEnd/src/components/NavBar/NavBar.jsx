@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getSearchProducts, clearSearchProducts } from "../../redux/actions/homepageActions";
-import { useDispatch } from 'react-redux';
+import { getSearchProducts, clearSearchProducts, showCart } from "../../redux/actions";
+import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
 import './NavBar.css';
@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -28,6 +29,12 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import Brightness3Icon from '@mui/icons-material/Brightness3';
+
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -76,8 +83,53 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 28,
+  height: 16,
+  padding: 0,
+  display: 'flex',
+  '&:active': {
+    '& .MuiSwitch-thumb': {
+      width: 15,
+    },
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      transform: 'translateX(9px)',
+    },
+  },
+  '& .MuiSwitch-switchBase': {
+    padding: 2,
+    '&.Mui-checked': {
+      transform: 'translateX(12px)',
+      color: '#fff',
+      '& + .MuiSwitch-track': {
+        opacity: 1,
+        backgroundColor: theme.palette.mode === 'dark' ? '#177ddc' : '#1890ff',
+      },
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    transition: theme.transitions.create(['width'], {
+      duration: 200,
+    }),
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor:
+      theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
+    boxSizing: 'border-box',
+  },
+}));
+
 export default function NavBar() {
+  const { theme } = useSelector(state => state.general);  
   const [ name, setName ] = React.useState('');
+  const productsCart = useSelector((state) => state.general.productsCart);
+
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
@@ -109,6 +161,11 @@ export default function NavBar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const showCartNavBar = (e) => {
+    e.preventDefault();
+    dispatch(showCart())
   };
 
   const menuId = 'primary-search-account-menu';
@@ -150,6 +207,7 @@ export default function NavBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -158,6 +216,7 @@ export default function NavBar() {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           size="large"
@@ -185,9 +244,13 @@ export default function NavBar() {
     </Menu>
   );
 
-    function handleCheck() {
-      dispatch(changeTheme());
+  function handleCheck() {
+    if(theme === 'lightTheme'){
+      dispatch(changeTheme('DARK'));
+    } else {
+      dispatch(changeTheme('LIGHT'));
     }
+  };
 
     return (
       /// Nueva NAVABar
@@ -204,6 +267,11 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography><LightModeIcon /></Typography>
+              <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} onClick={handleCheck}/>
+            <Typography><Brightness3Icon /></Typography>
+          </Stack>
           <Link to="/">
             <Box
               alignSelf="center"
@@ -231,6 +299,14 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            
+            {/* <Link to={'/addtocart'} > */}
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+                <Badge badgeContent={productsCart?.length} color="error">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            {/* </Link> */}
 
             <IconButton size="large" aria-label="store" color="inherit">
               <Badge badgeContent={0} color="error">
@@ -251,6 +327,7 @@ export default function NavBar() {
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
+
               </Badge>
             </IconButton>
 
