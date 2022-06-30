@@ -25,8 +25,7 @@ function App() {
     dispatch(getBrands())
   },[dispatch])
 
-  const { theme, showCart } = useSelector(state => state.general);
-  
+  const { theme, showCart } = useSelector(state => state.general);  
 
   return (
     <React.Fragment>

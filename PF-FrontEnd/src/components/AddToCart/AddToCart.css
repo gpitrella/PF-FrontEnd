@@ -69,3 +69,7 @@ h5 {
   text-align: end;
   padding-right: 30px;
 }
+
+.button_add_to_cart {
+  border: solid;
+}

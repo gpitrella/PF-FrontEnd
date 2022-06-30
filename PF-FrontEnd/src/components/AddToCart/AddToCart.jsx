@@ -12,6 +12,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
+import Divider from '@mui/material/Divider';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -105,6 +106,7 @@ React.useEffect(() => {
                      </div>
                  )})}
                  <div>
+                 <Divider></Divider>
                  {productsCart?.length === 0 
                         ? <span></span>
                         : (<div className="information_addtocart">
@@ -116,8 +118,8 @@ React.useEffect(() => {
                  </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseAddtoCart}>View More ...</Button>
-          <Button onClick={handleCloseAddtoCart}>Check Out</Button>
+          <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
+          <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>Check Out</Button>
         </DialogActions>
       </Dialog>
     </div>

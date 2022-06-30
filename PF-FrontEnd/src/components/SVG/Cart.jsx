@@ -50,7 +50,7 @@ export default function Cart(id) {
       </Snackbar>
       <Snackbar open={openProductInCart} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
         <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
-            The product has already been added to the cart!
+            Product already added in Cart!
         </Alert>
       </Snackbar>
     </>

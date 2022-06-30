@@ -47,7 +47,7 @@ const ContacUsForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, lastName, subject, email, phone, msg } = input;
-    init(`${KEY}`);
+    // init(`${KEY}`);
     send(
       "service_h4stj4s",
       "template_c38r8ts",

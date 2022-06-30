@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+
 import {
   CHANGE_THEME,
   ADD_PRODUCT_TO_CART,
@@ -10,8 +12,9 @@ import {
   CLOSE_CART
 } from './actiontype';
 
+
 // Change color Theme - Night / Day:
-export const changeTheme = function(theme = 'LIGHT') {
+export const changeTheme = function(theme) {
   return {
     type: CHANGE_THEME,
     payload: theme
