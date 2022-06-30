@@ -27,7 +27,6 @@ const CheckOut = () => {
   const productsCart = useSelector((state) => state.general.productsCart)
   const stateFinishOrder = useSelector((state) => state.general.finishOrder)
   const dispatch = useDispatch();
-  console.log(productsCart)
   const [input, setInput] = React.useState({
     name: "",
     lastName: "",
