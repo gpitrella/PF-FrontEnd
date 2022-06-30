@@ -7,7 +7,7 @@ export const userColumns = [
     renderCell: (params) => {
       return (
         <div className="cellWithImg">
-          <img className="cellImg" src={params.row.img} alt="avatar" />
+          <img className="cellImg" src={params.row.image} alt="avatar" />
           {params.row.name}
         </div>
       );
@@ -26,104 +26,109 @@ export const userColumns = [
   },
   {
     field: "isactive",
-    headerName: "Status",
+    headerName: "Active",
     width: 160,
-    renderCell: (params) => {
-      return (
+    // renderCell: (params) => {
+    //   return (
         
-          <div className={`cellWithStatus ${params.row.isactive}`}>
-            {params.row.isactive}
-          </div>
+    //       <div className={`${params.row.isactive}`}>
+    //         {params.row.isactive}
+    //       </div>
 
         
-      );
-    },
+    //   );
+    // },
+  },
+  {
+    field: "useraddresses.phone_number",
+    headerName: "Phone",
+    width: 100,
   },
 ];
 
 //temporary data
-export const userRows = [
-  {
-    id: 1,
-    name: "Bettina",
-    img: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-    email: "bettinaigamboa@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: "active"
-},
-{
-    id: 2,
-    name: "Enzo",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "enz997.ing.ind@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: true
-},
-{
-    id: 3,
-    name: "Lucas",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "lucassebastianbattaglia@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: true
-},
-{
-    id: 4,
-    name: "Nicolas",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "nicolasexeburgos@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: true
-},
-{
-    id: 5,
-    name: "FedeF",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "federicofaraz@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: true
-},
-{
-    id: 6,
-    name: "FedeR",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "romerof14@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: true
-},
-{
-    id: 7,
-    name: "Gabriel",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "gabrielpitrella@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: true
-},
-{
-    id: 8,
-    name: "Horacio",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "ahabitu@gmail.com",
-    password: "123456",
-    admin: true,
-    isactive: true
-},
-{
-    id: 9,
-    name: "Juan",
-    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-    email: "Juanc@gmail.com",
-    password: "123456",
-    admin: false,
-    isactive: true
-},
+// export const userRows = [
+//   {
+//     id: 1,
+//     name: "Bettina",
+//     img: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+//     email: "bettinaigamboa@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: "active"
+// },
+// {
+//     id: 2,
+//     name: "Enzo",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "enz997.ing.ind@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: true
+// },
+// {
+//     id: 3,
+//     name: "Lucas",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "lucassebastianbattaglia@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: true
+// },
+// {
+//     id: 4,
+//     name: "Nicolas",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "nicolasexeburgos@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: true
+// },
+// {
+//     id: 5,
+//     name: "FedeF",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "federicofaraz@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: true
+// },
+// {
+//     id: 6,
+//     name: "FedeR",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "romerof14@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: true
+// },
+// {
+//     id: 7,
+//     name: "Gabriel",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "gabrielpitrella@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: true
+// },
+// {
+//     id: 8,
+//     name: "Horacio",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "ahabitu@gmail.com",
+//     password: "123456",
+//     admin: true,
+//     isactive: true
+// },
+// {
+//     id: 9,
+//     name: "Juan",
+//     img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//     email: "Juanc@gmail.com",
+//     password: "123456",
+//     admin: false,
+//     isactive: true
+// },
   // {
   //   id: 1,
   //   username: "Snow",
@@ -204,4 +209,4 @@ export const userRows = [
   //   status: "active",
   //   age: 65,
   // },
-];
+//];

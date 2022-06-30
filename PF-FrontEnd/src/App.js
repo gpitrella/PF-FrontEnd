@@ -13,6 +13,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import Admin from './Admin';
 import List from './pages/list/List';
+import User from './pages/user/User'
+import New from './pages/new/New'
+import { userInputs } from "./formSource";
 
 function App() {
 
@@ -41,6 +44,8 @@ function App() {
               <Route exact path="/categories" component={CreateActivity} />
               <Route exact path="/admin/dashboard" component={Admin} />
               <Route exact path="/users/list" component={List} />
+              <Route exact path="/user/edit/:id" component={User} />
+              <Route exact path="/user/newuser" component={New}/>
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
