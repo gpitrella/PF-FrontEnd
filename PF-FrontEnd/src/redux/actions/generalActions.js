@@ -10,7 +10,9 @@ import {
   POST_COMMENT_PRODUCT,
   SHOW_CART,
   CLOSE_CART,
-  FINISH_ORDER
+  FINISH_ORDER,
+  SIGN_UP,
+  LOG_IN
 } from './actiontype';
 
 
@@ -60,8 +62,25 @@ export const postCommentProduct = function(comment, id) {
     return axios.post(`http://localhost:3001/api/comments`, {comment, id})
                 .then(comment => dispatch({ type: POST_COMMENT_PRODUCT, payload: comment.data}))
                 .catch(error => console.log(error))
+}
+}
+
+export const signUp = function(name, email, password) {
+  return function(dispatch){
+    return axios.post('http://localhost:3001/api/signup', {name, email, password})
+                .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
+                .catch(error => console.log(error))
   }
-};
+}
+
+export const logIn = function(email, password) {
+  return function(dispatch){
+    return axios.post('http://localhost:3001/api/signin', {email, password})
+                .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
+                .catch(error => console.log(error))
+  }
+}
+ 
 
 // Show Cart:
 export function showCart(){
