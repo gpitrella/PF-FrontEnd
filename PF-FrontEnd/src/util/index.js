@@ -1,4 +1,4 @@
-export let buildFilter = function({ page, size, discount, name, category, brand, minPrice, maxPrice, orderBy, order }) {
+export let buildFilter = function({ page, size, discount, name, category, brand, minPrice, maxPrice, orderBy, order, hidden }) {
   let query = `page=${page}`;
   if (size) query += `&size=${size}`;
   if (discount) query += '&discount=1';
@@ -7,6 +7,7 @@ export let buildFilter = function({ page, size, discount, name, category, brand,
   if (brand.length > 0) query += `&manufacturer=${brand.join(',')}`;
   if (minPrice !== '') query += `&min=${minPrice}`;
   if (maxPrice !== '') query += `&max=${maxPrice}`;
+  if (hidden) query += '&isVisible=false';
   query += `&order=${orderBy},${order}`;
   console.log(query);
   return query;

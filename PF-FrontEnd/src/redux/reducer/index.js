@@ -5,6 +5,7 @@ import storepage from './storepageReducer';
 import userReducer from './userReducer';
 
 import darkModeReducer from '../../context/darkModeReducer';
+import modalAddAddress from './modalAddAddressReducer'; 
 
 export default combineReducers({
   general,
@@ -12,4 +13,5 @@ export default combineReducers({
   storepage,
   darkModeReducer,
   userReducer,
+  modalAddAddress,
 })

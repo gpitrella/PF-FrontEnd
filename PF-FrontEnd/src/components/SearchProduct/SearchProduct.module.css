@@ -1,0 +1,58 @@
+.container {
+  width: 1120px;
+  display: grid;
+  grid-template-columns: auto auto auto auto 1fr;
+  grid-template-rows: auto;
+  grid-gap: 1rem;
+}
+
+.lbl {
+  font-size: 24px;
+  color: var(--fontColor);
+}
+
+.input {
+  padding: 3px 6px 3px 6px;
+  color: var(--fontColor);
+  background-color: var(--primaryColorSub);
+  border: 1px solid var(--fontColor);
+  width: 18rem;
+  font-size: var(--fontMedium);
+  font-style: italic;
+  letter-spacing: 1px;
+  border-radius: 5px;
+}
+
+.btn {
+  text-decoration: none;
+  color: green;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid green;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.btn[disabled] {
+  border-color: gray;
+  color: gray;
+  cursor: default;
+}
+
+.red {
+  border-color: var(--dangerColor);
+  color: var(--dangerColor);
+}
+
+.btnCreateContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.create {
+  border-color: var(--successColor);
+  color: var(--successColor);
+}

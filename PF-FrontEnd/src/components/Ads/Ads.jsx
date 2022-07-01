@@ -8,30 +8,11 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Ads = ()=> {
-
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 2000 },
-      items: 1
-    },
-    desktop: {
-      breakpoint: { max: 2000, min: 1300 },
-      items: 1
-    },
-    tablet: {
-      breakpoint: { max: 1300, min: 900 },
-      items: 1
-    },
-    mobile: {
-      breakpoint: { max: 900, min: 0 },
-      items: 1
-    }
-  };
    
     return(
         <div className='brandscontainer' >
-        <Carousel responsive = {responsive} infinite = {true} autoPlay={true} autoPlaySpeed={5000} removeArrowOnDeviceType={["tablet", "mobile"]} swipeable={true}
-                draggable={true} showStatus={false}>
+        <Carousel  infiniteLoop = {true} autoPlay={true} autoPlaySpeed={5000} removeArrowOnDeviceType={["tablet", "mobile"]} swipeable={true}
+                draggable={true} showStatus={false} showThumbs={false} showArrows={true} >
           <div className={s.items}>
             <img src={BlackFriday} alt="BlackFriday" />
           </div>
