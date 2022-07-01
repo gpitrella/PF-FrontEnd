@@ -11,7 +11,8 @@ import {
           showLoadingSectionThree,
           getProductsToSectionOne,
           getProductsToSectionTwo,
-          getProductsToSectionThree
+          getProductsToSectionThree,
+          resetSections
         } from '../../redux/actions';
 import SectionCatalogue from '../SectionCatalogue/SectionCatalogue';
 import Loading from '../SVG/Loading';
@@ -26,15 +27,29 @@ export default function Home () {
     three: '',
     show: false
   });
+  const [ loadingSections, setLoadingSections ] = useState(false);
 
   React.useEffect(() => {
     dispatch(showLoadingSectionOne());
     dispatch(showLoadingSectionTwo());
     dispatch(showLoadingSectionThree());
+
+    return () => {
+      dispatch(resetSections());
+      setChooseSection({
+        two: '',
+        three: '',
+        show: false
+      });
+      setLoadingSections(false);
+    }
   }, []);
 
   React.useEffect(() => {
-    if (allCategories.length > 0 && brandsList.length > 0) getRandomLists();
+    if (allCategories.length > 0 && brandsList.length > 0 && !loadingSections) { 
+      getRandomLists();
+      setLoadingSections(true);
+    }
   }, [allCategories, brandsList]);
 
   let getRandomLists = function() {
