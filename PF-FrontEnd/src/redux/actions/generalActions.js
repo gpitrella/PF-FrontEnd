@@ -13,7 +13,8 @@ import {
   CLOSE_CART,
   FINISH_ORDER,
   SIGN_UP,
-  LOG_IN
+  LOG_IN,
+  LOAD_STORAGE
 } from './actiontype';
 
 
@@ -120,3 +121,9 @@ export const finishOrder = function(email, items) {
                 .catch(error => console.log(error))
   }
 };
+
+export const loadStorage = function() {
+  return {
+    type: LOAD_STORAGE
+  }
+}

@@ -8,7 +8,7 @@ import Home from './components/Home/Home';
 import Store from './components/Store/Store';
 import CreateProduct from './components/CreateProduct/CreateProduct'
 import notFoundPage from './components/404/NotFoundPage404';
-import { getBrands } from './redux/actions';
+import { getBrands, loadStorage } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
@@ -28,6 +28,10 @@ function App() {
   const dispatch = useDispatch()
 
   const {user} = useSelector((state) => state.general)
+
+  React.useEffect(() => {
+    dispatch(loadStorage());
+  }, []);
 
   React.useEffect(()=>{
     dispatch(getBrands())

@@ -10,8 +10,11 @@ import {
   CLOSE_CART,
   FINISH_ORDER,
   SIGN_UP,
-  LOG_IN
+  LOG_IN,
+  LOAD_STORAGE
 } from '../actions/actiontype';
+
+import { LocalStorage } from '../../util/localStorage';
 
 const THEME = {
   LIGHT: 'lightTheme',
@@ -36,6 +39,7 @@ const initialState = {
 const generalReducer = function(state = initialState, { type, payload }) {
   switch(type) {
     case CHANGE_THEME:
+      LocalStorage.saveItem('theme', THEME[payload]);
       return {
         ...state,
         theme: THEME[payload]
@@ -101,11 +105,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
         commentCreated: payload
       }
     case SIGN_UP:
+      LocalStorage.saveItem('user', payload);
       return {
         ...state,
         user: payload
       }
     case LOG_IN:
+      LocalStorage.saveItem('user', payload);      
       return {
         ...state,
         user: payload
@@ -128,7 +134,15 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         finishOrder: payload
       }
-
+    case LOAD_STORAGE: {
+      let theme = LocalStorage.getItem('theme');
+      let user = LocalStorage.getItem('user');
+      return {
+        ...state,
+        theme: theme ? theme : state.theme,
+        user: user ? user : state.user
+      }
+    }
     default:
       return state;
   }
