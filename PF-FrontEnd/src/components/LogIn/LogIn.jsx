@@ -1,12 +1,16 @@
+import React from 'react';
 import Google from "./google.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../redux/actions";
+import { useEffect, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import './LogIn.css'
-import { useState } from "react";
-import { Link } from "react-router-dom";
 
 const LogIn = () => {
+  const [redirect, setRedirect] = useState({ value: false })
+  // const [checkMailPassword, setCheckMailPassword] = useState(false)
 
+  const { user } = useSelector((state) => state.general)
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
@@ -26,11 +30,18 @@ const LogIn = () => {
     
 
   const dispatch = useDispatch();
+  
 
   const handleLogIn = (e) => {
     e.preventDefault();
     dispatch(logIn(input.email, input.password))
   }
+
+  React.useEffect(() => {
+    if(user?.user && input.email !== '' && input.password !== '' ){
+      setRedirect({value: true})
+    } 
+  },[user])
 
   return (
 
@@ -48,7 +59,7 @@ const LogIn = () => {
           <div className="or">OR</div>
         </div>
         <div className="right">
-
+          {/* {checkMailPassword.value ? (<p className='danger'>Something was wrong. Please check email or password.</p>) : null} */}
           <input
           type="email"
           name={"email"}
@@ -66,6 +77,7 @@ const LogIn = () => {
           />
           
           <button type='submit' className="submit" onClick={(e) => handleLogIn(e)} >Log In</button>
+          {redirect?.value ? <Redirect push to={'/'} underline="none" /> : null}
           <p className="text">No account yet? <Link to='/signup' className="link">Sign up here!</Link></p>
         </div>
       </div>

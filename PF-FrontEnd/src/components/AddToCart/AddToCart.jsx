@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import { Button } from "@material-ui/core";
 // import { CartItemType } from "../App"; -- importa los productos agregados al carrito
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { removeProductFromCart, increaseQuantityToProductCart, reduceQuantityToProductCart, closeCart } from "../../redux/actions";
 import './AddToCart.css';
 
@@ -29,6 +29,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function AddToCart({showCart}){
 const [openComment, setOpenComment] = React.useState(false);
+const [openWithOutStock, setOpenWithOutStock] = React.useState(false);
+
 const [redirect, setRedirect] = useState({value: false})
 const productsCart = useSelector((state) => state.general.productsCart)
 const dispatch = useDispatch();
@@ -40,7 +42,7 @@ const handleCloseAddtoCart = (e) => {
 
 const handleCloseCartToCheckOut = (e) => {
   e.preventDefault();
-  if(productsCart.length > 0){
+  if(productsCart?.length > 0){
     setRedirect({value: true})
     dispatch(closeCart());
   } else {
@@ -50,11 +52,12 @@ const handleCloseCartToCheckOut = (e) => {
 
 const increaseAmountToCart = (id) => {
   productsCart.map((product) => {
-    if(product.id === id && product.stock > 1){
+    if(product.id === id && product.stock > 1 && product.stock > product.quantity){
       dispatch(increaseQuantityToProductCart(id))
     } 
-    // setAmountCart(productsCart)
-    // AGREGAR CONDICION CUANDO EL STOCK ESTA EN O   
+    if(product.id === id && product.stock === product.quantity) {
+      setOpenWithOutStock(true)
+    }
   })
 };
 
@@ -83,6 +86,7 @@ const handleCloseSuccessComment = (event, reason) => {
     return;
   }
   setOpenComment(false);
+  setOpenWithOutStock(false);
 };
 
 React.useEffect(() => {
@@ -118,7 +122,7 @@ React.useEffect(() => {
                          </div>
                          <div className="quantity_price">
                             <div>
-                                <p className="information_addtocart">Total: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
+                                <p className="information_addtocart">SubTotal: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
                             </div>
                             <div className="buttons_addtocart">
                                 <Button id="button_less" variant="outlined" size="small" onClick={() => reduceAmountToCart(e?.id)}>-</Button>
@@ -136,7 +140,7 @@ React.useEffect(() => {
                  {productsCart?.length === 0 
                         ? <span></span>
                         : (<div className="information_addtocart">
-                                <p className="total_value_cart">Total Value: ${resultTotalValue}</p>
+                                <p className="total_value_cart">Total: ${resultTotalValue}</p>
                             </div>
                  )}
                  </div>
@@ -145,13 +149,18 @@ React.useEffect(() => {
         </DialogContent>
         <DialogActions>
           <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
-          {redirect.value ? <Redirect push to={'/checkout'} underline="none" /> : null}
           <Button className='button_add_to_cart' onClick={handleCloseCartToCheckOut}>Check Out</Button>
+          {redirect?.value ? <Redirect push to={'/checkout'} underline="none" /> : null}
         </DialogActions>
       </Dialog>
       <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
           <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
               No products in Cart!
+          </Alert>
+      </Snackbar>
+      <Snackbar open={openWithOutStock} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+          <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
+              Sorry We don't have more stock!
           </Alert>
       </Snackbar>
     </div>

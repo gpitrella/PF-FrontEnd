@@ -208,4 +208,28 @@ input:checked + .slider:before {
     color: rgb(142, 142, 142);
 }
 
+.links_profile_user {
+    text-decoration: none;
+    color: white;
+}
+
+.links_profile_user:link {
+    color: rgb(0, 0, 0);
+}
+
+.links_profile_user:hover {
+    color: rgba(151, 151, 151, 0.291);
+}
+
+.links_profile_user:visited {
+    color: rgb(0, 0, 0);
+}
+
+.no_Display_navbar {
+    display: none;
+}
+
+.in_Display_navbar {
+    display: inline-flex;
+}
 

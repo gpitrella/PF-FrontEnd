@@ -129,6 +129,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 export default function NavBar() {
   const { theme } = useSelector(state => state.general);  
   const [ name, setName ] = React.useState('');
+  const { user } = useSelector((state) => state.general)
   const productsCart = useSelector((state) => state.general.productsCart);
 
   const dispatch = useDispatch();
@@ -143,6 +144,8 @@ export default function NavBar() {
 // Nueva NAVBAR
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [displayUser, setDisplayUser] = React.useState(false);
+  const [login, setLogin] = React.useState({value: false})
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -171,6 +174,7 @@ export default function NavBar() {
   };
 
   const menuId = 'primary-search-account-menu';
+  
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -187,12 +191,46 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      
-      <Link to="/login">
-        <MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
+      {displayUser ? <>
+                      <Link to="/login" className="links_profile_user">
+                        <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
+                      </Link>
+                      <Link to="/signup" className="links_profile_user">
+                        <MenuItem onClick={handleMenuClose} >Sign Out</MenuItem>
+                      </Link>
+                    </>
+                    : <>
+                        <Link to="/login" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >Sign In</MenuItem>
+                        </Link>
+                        <Link to="/signup" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >Sign Up</MenuItem>
+                        </Link>
+                    </>}
+    </Menu>
+  );
+
+  const renderMenuProfileNormalUser = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <Link to="/login" className="links_profile_user">
+        <MenuItem onClick={handleMenuClose} >Sign Out</MenuItem>
       </Link>
-      <Link to="/signup">
-        <MenuItem onClick={handleMenuClose}>Sign Up</MenuItem>
+      <Link to="/signup" className="links_profile_user">
+        <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
       </Link>
     </Menu>
   );
@@ -258,6 +296,12 @@ export default function NavBar() {
       dispatch(changeTheme('LIGHT'));
     }
   };
+
+  React.useEffect(() => {
+    if(user?.user){
+      setDisplayUser(true)
+    }
+  },[user]);
 
     return (
       /// Nueva NAVABar
@@ -342,7 +386,22 @@ export default function NavBar() {
                 <NotificationsIcon className="links_general"/>
               </Badge>
             </IconButton>
+
             <IconButton
+              sx={displayUser ? { display: 'none' } : { display: 'inline-flex' }}
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+
+            <IconButton
+              sx={!displayUser ? { display: 'none' } : { display: 'inline-flex' }}
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -369,6 +428,7 @@ export default function NavBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
+      {/* { displayUser ? {renderMenuProfileNormalUser} : {renderMenu} } */}
       {renderMenu}
     </Box>
     <ScrollToTop smooth component={<ExpandLessIcon />} />
