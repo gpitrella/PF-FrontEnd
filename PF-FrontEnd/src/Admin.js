@@ -1,5 +1,4 @@
 import Home from "./pages/home/Home";
-
 import "./style/dark.scss";
 import React from "react";
 //import { DarkModeContext } from "./context/darkModeContext";

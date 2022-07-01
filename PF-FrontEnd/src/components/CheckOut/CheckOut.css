@@ -1,3 +1,8 @@
+.main_checkout_cartdetail {
+    display: flex;
+    flex-direction: column;
+}
+
 .style {
     position: absolute;
     top: 50%;
@@ -8,4 +13,76 @@
     border: 2px solid #000;
     box-shadow: 24px;
     padding: 4px;
+}
+
+.bottom_checkout {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 20px;
+    border: 1px solid rgba(134, 134, 134, 0.507);
+    padding: 20px;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.1);
+    width: 45rem;
+    border-radius: 5px;
+    margin-top: 0px;
+}
+
+.paymentMetodCheckOut {
+    width: 40vw;
+    padding-bottom: 40px;
+}
+
+.addtocart_mainblock_checkout {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.addtocart_name_checkout{
+    margin: 10px 0px;
+}
+
+.quantity_price_checkout{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.information_addtocart_checkout{
+    margin-bottom: 0px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.box_top_checkout_resumecart{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.total_value_checkout{
+    display: flex;
+    align-content: flex-end;
+}
+
+.box_top_checkout {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: -50px;
+    border: 1px solid rgba(134, 134, 134, 0.507);
+    padding: 20px;
+    box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 10%);
+    width: 45rem;
+    border-radius: 5px;
+    margin-top: 55px;
 }
