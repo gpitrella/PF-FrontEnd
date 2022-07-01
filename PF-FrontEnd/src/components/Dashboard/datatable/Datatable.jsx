@@ -21,9 +21,9 @@ const Datatable = () => {
 
 // console.log(users[0].useraddress[0])
 
-  const handleDelete = (id) => {
-    users = users.filter((item) => item.id !== id);
-  };
+  // const handleDelete = (id) => {
+  //   users = users.filter((item) => item.id !== id);
+  // };
 
   const actionColumn = [
     {
@@ -37,10 +37,10 @@ const Datatable = () => {
               <div className="viewButton">Edit</div>
             </Link>
 
-            <div className="deleteButton"
+            {/* <div className="deleteButton"
               onClick={() => handleDelete(params.row.id)}>
               Delete
-            </div>
+            </div> */}
           </div>
         );
       },
