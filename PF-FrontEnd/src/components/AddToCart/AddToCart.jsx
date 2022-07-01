@@ -43,7 +43,6 @@ const handleCloseCartToCheckOut = (e) => {
   e.preventDefault();
   if(productsCart?.length > 0){
     dispatch(closeCart());
-    console.log('entre al despacho de checkout en carrito')
     history.push('/checkout');
   } else {
     setOpenComment(true)
