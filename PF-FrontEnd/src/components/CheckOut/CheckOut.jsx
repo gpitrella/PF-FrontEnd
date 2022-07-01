@@ -220,8 +220,9 @@ const CheckOut = () => {
           <Button onClick={handleClose}>X</Button>
         </Box>
       </Modal>
-      <div className="">
-            <img 
+      <div className="bottom_checkout">
+            <h4>Payment methods available through Mercado Pago (credit card, debit card, Rapipago, etc.)</h4>
+            <img className="paymentMetodCheckOut"
               alt="Payment Metod"
               src={paymentMetod}
             />

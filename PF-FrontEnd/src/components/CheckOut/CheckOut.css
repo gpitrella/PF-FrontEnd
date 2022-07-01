@@ -9,3 +9,15 @@
     box-shadow: 24px;
     padding: 4px;
 }
+
+.bottom_checkout {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.paymentMetodCheckOut {
+    width: 60vw;
+    padding-bottom: 40px;
+}

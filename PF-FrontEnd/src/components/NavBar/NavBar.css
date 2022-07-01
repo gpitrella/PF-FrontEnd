@@ -20,6 +20,12 @@
     padding-left: 10px;
     margin-top: 8px;
     text-decoration: none;
+    width: 40px;
+    color: white;
+}
+
+#searchIcon:hover {
+    color: rgb(209, 209, 209);
 }
 
 .list {

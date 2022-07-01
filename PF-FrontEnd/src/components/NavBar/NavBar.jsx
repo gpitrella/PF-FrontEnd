@@ -284,18 +284,14 @@ export default function NavBar() {
             />
           </Link>
           <Search >
-                {/* <Link to={(name !== '') ? `/store/name/${name}` : '/store'} underline="none"> */}
-              {
-                name && name.length > 0 && 
-                <Link to={`/store/name/${name}`} underline="none">
-                        <SearchIcon id='searchIcon'/>
-                </Link>
-              }
-              <StyledInputBase
-                placeholder="Search ..."
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={(e) => handleSearch(e)}
-                />
+            <Link to={(name !== '') ? `/store/name/${name}` : ''} underline="none">
+                    <SearchIcon id='searchIcon'/>
+            </Link>
+            <StyledInputBase
+              placeholder="Search ..."
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => handleSearch(e)}
+            />
           </Search>
           
           <Box sx={{ flexGrow: 1 }} />
