@@ -1,8 +1,6 @@
-import React, { useState } from "react";
-// import { Button } from "@material-ui/core";
-// import { CartItemType } from "../App"; -- importa los productos agregados al carrito
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { removeProductFromCart, increaseQuantityToProductCart, reduceQuantityToProductCart, closeCart } from "../../redux/actions";
 import './AddToCart.css';
 
@@ -31,7 +29,6 @@ export default function AddToCart({showCart}){
 const [openComment, setOpenComment] = React.useState(false);
 const [openWithOutStock, setOpenWithOutStock] = React.useState(false);
 
-// const [redirect, setRedirect] = useState({value: false})
 const history = useHistory();
 
 const productsCart = useSelector((state) => state.general.productsCart)
@@ -45,7 +42,6 @@ const handleCloseAddtoCart = (e) => {
 const handleCloseCartToCheckOut = (e) => {
   e.preventDefault();
   if(productsCart?.length > 0){
-    // setRedirect({value: true})
     dispatch(closeCart());
     console.log('entre al despacho de checkout en carrito')
     history.push('/checkout');
@@ -154,7 +150,6 @@ React.useEffect(() => {
         <DialogActions>
           <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
           <Button className='button_add_to_cart' onClick={handleCloseCartToCheckOut}>Check Out</Button>
-          {/* {redirect?.value ? <Redirect push to={'/checkout'} underline="none" /> : null} */}
         </DialogActions>
       </Dialog>
       <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>

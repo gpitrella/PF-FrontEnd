@@ -173,47 +173,22 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {displayUser ? <>
+      {displayUser ? <span>
                       <Link to="/login" className="links_profile_user">
                         <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
                       </Link>
                       <Link to="/signup" className="links_profile_user">
                         <MenuItem onClick={handleMenuClose} >Sign Out</MenuItem>
                       </Link>
-                    </>
-                    : <>
+                    </span>
+                    : <span>
                         <Link to="/login" className="links_profile_user">
                           <MenuItem onClick={handleMenuClose} >Sign In</MenuItem>
                         </Link>
                         <Link to="/signup" className="links_profile_user">
                           <MenuItem onClick={handleMenuClose} >Sign Up</MenuItem>
                         </Link>
-                    </>}
-    </Menu>
-  );
-
-  const renderMenuProfileNormalUser = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <Link to="/login" className="links_profile_user">
-        <MenuItem onClick={handleMenuClose} >Sign Out</MenuItem>
-      </Link>
-      <Link to="/signup" className="links_profile_user">
-        <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
-      </Link>
+                    </span>}
     </Menu>
   );
 
