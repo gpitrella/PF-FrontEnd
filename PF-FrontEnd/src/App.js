@@ -94,7 +94,7 @@ function App() {
               <Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/user/edit/:id" component={UserEdit}/>
-              <Route exact path = '/table'> {user?.user?.admin ? <ProductsTable/> : <Redirect to="/login"/>}</Route>
+              
               <Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/dashboard"> {user?.user?.admin ? <Admin/> : <Redirect to="/"/>}</Route>
