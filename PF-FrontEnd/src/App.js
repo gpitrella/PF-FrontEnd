@@ -8,7 +8,7 @@ import Home from './components/Home/Home';
 import Store from './components/Store/Store';
 import CreateProduct from './components/CreateProduct/CreateProduct'
 import notFoundPage from './components/404/NotFoundPage404';
-import { getBrands } from './redux/actions';
+import { getBrands, loadStorage } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
@@ -34,7 +34,7 @@ function App() {
 
   const {user} = useSelector((state) => state.general)
 
-  console.log(user)
+  console.log(user);
 
   // React.useEffect(() => {
   //   const getUser = () => {
@@ -63,6 +63,10 @@ function App() {
 
   //? objeto devuelto user para sacar la data
    console.log(user);
+
+  React.useEffect(() => {
+    dispatch(loadStorage());
+  }, []);
 
   React.useEffect(()=>{
     dispatch(getBrands())
