@@ -1,14 +1,28 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../../datatablesource";
+import { userColumns } from "../../../datatablesource";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllUsers } from '../../../redux/actions/userActions';
+
 
 const Datatable = () => {
-  const [data, setData] = useState(userRows);
+  const dispatch = useDispatch();
+
+  const { allusers } = useSelector((state) => state.userReducer);
+  
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  
+  let users = [];
+  users = allusers;
+
+// console.log(users[0].useraddress[0])
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    users = users.filter((item) => item.id !== id);
   };
 
   const actionColumn = [
@@ -19,13 +33,12 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
+            <Link to={`/admin/user/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <div className="viewButton">Edit</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
-            >
+
+            <div className="deleteButton"
+              onClick={() => handleDelete(params.row.id)}>
               Delete
             </div>
           </div>
@@ -35,15 +48,10 @@ const Datatable = () => {
   ];
   return (
     <div className="datatable">
-      <div className="datatableTitle">
-        Add New User
-        <Link to="/users/new" className="link">
-          Add New
-        </Link>
-      </div>
+      
       <DataGrid
         className="datagrid"
-        rows={data}
+        rows={users}
         columns={userColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}

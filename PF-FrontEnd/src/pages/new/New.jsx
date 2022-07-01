@@ -28,7 +28,7 @@ const New = ({ inputs, title }) => {
           </div>
           <div className="right">
             <form>
-              <div className="formInput">
+              {/* <div className="formInput">
                 <label htmlFor="file">
                   Image: <DriveFolderUploadOutlinedIcon className="icon" />
                 </label>
@@ -38,7 +38,7 @@ const New = ({ inputs, title }) => {
                   onChange={(e) => setFile(e.target.files[0])}
                   style={{ display: "none" }}
                 />
-              </div>
+              </div> */}
 
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
