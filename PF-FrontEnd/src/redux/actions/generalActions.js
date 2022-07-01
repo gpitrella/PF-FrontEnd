@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import {
   CHANGE_THEME,
+  SHOW_MINI_MODAL,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_CART,
   INCREASE_QUANTITY_PRODUCT,
@@ -81,6 +82,19 @@ export const logIn = function(email, password) {
   }
 }
  
+
+export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
+  console.log(show, msg, success, error);
+  return {
+    type: SHOW_MINI_MODAL,
+    payload: {
+      show: show,
+      msg: msg,
+      success: success,
+      error: error
+    }
+  }
+}
 
 // Show Cart:
 export function showCart(){

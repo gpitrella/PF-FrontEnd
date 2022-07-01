@@ -1,11 +1,31 @@
 .header {
-  height: 2rem;
-  background-color: var(--secondaryColor);
+  height: 3rem;
+  background-color: var(--primaryColor);
+  border-bottom: 1px solid var(--fontColorWithLessOpacity);
 }
 
 .headerParam {
   font-size: var(--fontSmall);
-  color: white;
+  color: var(--fontColor);
+
+  text-transform: capitalize;
+
+  border-right: 1px solid var(--fontColorWithLessOpacity);
+  border-left: 1px solid var(--fontColorWithLessOpacity);
+}
+
+.containerParam {
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  font-size: var(--fontSmall);
+  color: var(--fontColor);
+
+  text-transform: capitalize;
+
+  font-weight: 500;
 }
 
 .widthSmall {
@@ -18,4 +38,29 @@
 
 .widthLarge {
   width: 10rem;
+}
+
+.widthExtraLarge {
+  width: 12rem;
+}
+
+.containerOrder {
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.btnOrder {
+  font-size: var(--fontMedium);
+  cursor: pointer;
+}
+
+.btnOrder:hover {
+  filter: drop-shadow(1px 1px 0 white)
+  drop-shadow(-1px -1px 0 white)
+  drop-shadow(1px -1px 0 white)
+  drop-shadow(-1px 1px 0 white)
+  drop-shadow(1px 0px 0 white) 
+  drop-shadow(-1px 0px 0 white)  
+  drop-shadow(0px 1px 0 white) 
+  drop-shadow(0px -1px 0 white);
 }

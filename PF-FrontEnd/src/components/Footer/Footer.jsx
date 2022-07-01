@@ -14,7 +14,7 @@ export default function Footer() {
             <div className='cnttext'>
                 <h3>Information</h3>
                 <Link to='/contactus' className='footerlink'>Contact us</Link>
-                <Link to='' className='footerlink'>Adresses</Link>
+                <Link to='/branches' className='footerlink'>Adresses</Link>
                 <Link to='/faqs' className='footerlink'>FAQs</Link>
             </div>
             <div className='cnttext'>

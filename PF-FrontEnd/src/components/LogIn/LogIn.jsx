@@ -66,6 +66,7 @@ const LogIn = () => {
           value={input.email}
           placeholder="Email"
           onChange={(e) => handleChange(e)}
+          className = "inputLogin"
           />
 
           <input
@@ -74,6 +75,7 @@ const LogIn = () => {
           value={input.password}
           placeholder="Password"
           onChange={(e) => handleChange(e)}
+          className = "inputLogin"
           />
           
           <button type='submit' className="submit" onClick={(e) => handleLogIn(e)} >Log In</button>
