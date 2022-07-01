@@ -1,8 +1,5 @@
 import "./listproduct.scss"
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar"
-// import Navbar from "../../components/Dashboard/navbar/Navbar"
-//import Datatable from "../../components/datatable/Datatable"
-//import Table from "../../components/Dashboard/table/Table"
 import SearchProduct from '../../components/SearchProduct/SearchProduct';
 import ProductsTable from '../../components/ProductsTable/ProductsTable';
 

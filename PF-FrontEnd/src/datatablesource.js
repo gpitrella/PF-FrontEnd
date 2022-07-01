@@ -39,11 +39,7 @@ export const userColumns = [
     //   );
     // },
   },
-  {
-    field: "useraddresses.phone_number",
-    headerName: "Phone",
-    width: 100,
-  },
+  
 ];
 
 //temporary data
