@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { signUp } from "../../redux/actions";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
-import { validateUsername } from './validate';
+import { validateUsername, validateEmail, validatePassword } from './validate';
 import './SignUp.css'
 
 export default function SignUp() {
@@ -15,12 +15,15 @@ export default function SignUp() {
     })
 
     const [errors, setErrors] = useState({})
+    const [errorsEmail, setErrorsEmail] = useState({})
+    const [errorsPasword, setErrorsPassword] = useState({})
 
     const handleChange = (e) => {
         e.preventDefault();
         setInput({...input,[e.target.name]: e.target.value})
         setErrors(validateUsername({...input,[e.target.name]: e.target.value}))
-        // setErrors(validateEmail({...input,[e.target.name]: e.target.value}))
+        setErrorsEmail(validateEmail({...input,[e.target.name]: e.target.value}))
+        setErrorsPassword(validatePassword({...input,[e.target.name]: e.target.value}))
     }
 
     const dispatch = useDispatch();
@@ -29,14 +32,16 @@ export default function SignUp() {
         e.preventDefault();
         dispatch(signUp(input.username, input.email, input.password))
         setErrors(validateUsername({...input,[e.target.name]: e.target.value}))
-        // setErrors(validateEmail({...input,[e.target.name]: e.target.value}))
+        setErrorsEmail(validateEmail({...input,[e.target.name]: e.target.value}))
+        setErrorsPassword(validatePassword({...input,[e.target.name]: e.target.value}))
       }    
 
     return (
 
-<div className="login">
+    <div className="login">
         <div className="signup__wrapper">
             <div className="right">
+
                 <h1 className="signup__title">Sign Up</h1>
 
                 <div className='signup__group' id='username'>
@@ -62,7 +67,7 @@ export default function SignUp() {
                     onChange={(e) => handleChange(e)}
                     className='signup__input'
                     />
-                    <p className='signup__input-error'>{errors.email}</p>
+                    <p className='signup__input-error'>{errorsEmail.email}</p>
                 </div>
 
                 <div className='signup__group' id='password'>
@@ -74,7 +79,7 @@ export default function SignUp() {
                     onChange={(e) => handleChange(e)}
                     className='signup__input'
                     />
-                    <p className='signup__input-error'>{errors.password}</p>
+                    <p className='signup__input-error'>{errorsPasword.password}</p>
                 </div>
 
                 <button type='submit' className="signup__btn" onClick={(e) => handleSubmit(e)} >Sign Up</button>
