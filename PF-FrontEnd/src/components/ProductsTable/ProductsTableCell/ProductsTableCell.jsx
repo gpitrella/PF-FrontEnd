@@ -18,7 +18,7 @@ export default function ProductsTableCell({ product, param, viewMore, handleView
 
   if (param.isOption) return (
     <div className = {s.options}>
-      <Link to = {`productdetails/${product.id}`}>
+      <Link to = {`/productdetails/${product.id}`}>
         <button className = {`${s.btn} ${s.blue}`}>View</button>
       </Link>
       <button className = {`${s.btn} ${s.orange}`} onClick = { () => handleEnableEdit(product) }>Edit</button>

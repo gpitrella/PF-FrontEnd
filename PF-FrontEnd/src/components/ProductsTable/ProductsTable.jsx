@@ -5,6 +5,7 @@ import ProductsTableRows from './ProductsTableRows/ProductsTableRows';
 import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import Pagination from '../Pagination/Pagination';
 import MiniModal from '../MiniModal/MiniModal';
+import Loading from '../SVG/Loading';
 import { 
   closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate, updateFilter, setShowLoading, waitingResponsePut,
   showMiniModal, waitingResponseDelete
@@ -66,7 +67,16 @@ export default function ProductsTable({}) {
     }
   }, [resultDelete])
 
-  if (!showStore) return <span>Loading</span>;
+  if (!showStore) return (
+    <div className = {s.containerLoading}>
+      <div className = {s.imageContainer}>
+        <div className = {s.loadingContainer}>
+          <Loading />
+        </div>
+      </div>
+      <span className = {s.spanLoading}>Loading Products</span>
+    </div>
+  )
 
   return (
     <div className = {s.container}>
