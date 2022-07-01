@@ -1,34 +1,66 @@
-import React from 'react'
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import Navbar from "../../components/Dashboard/navbar/Navbar";
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
+import { getUserDetail, userStatus } from '../../redux/actions';
 
 const Edit = ({match}) => {
+   const dispatch = useDispatch();
+   const history = useHistory();
+
     const matchId=match.params.id;
-    console.log(matchId)
+    console.log(matchId, 'matchId')
   
+    
+   //  useEffect(() => {
+   //    dispatch(getUserDetail(matchId))
+   //  },[dispatch, matchId]);
+    
     const { allusers } = useSelector((state) => state.userReducer);
-    // useEffect(() => {
-    //   dispatch(getUserDetail(matchId))
-    // },[dispatch, matchId]);
+    
     console.log(allusers, 'allusers')
-    const user = allusers.find((element) => element.id !== matchId);
-    const useraddress = user.useraddresses
+    
+    const user = allusers.filter(function(u){
+      return u.id == matchId;
+    })
+    console.log(user, 'user')
+    const useraddress = user[0].useraddresses[0]
     console.log(useraddress, 'useraddress')  
     
     
-    console.log(user, 'filtered')
   
-    const { id, name, email, admin, isactive,  } = user
-    const { photo, phone_number, street, street_height, city, zipcode } = useraddress[0];
-    console.log(phone_number)
-  return (
+      const { id, name, email, admin, isactive,  } = user[0]
     
+      const [ newstatus, setNewstatus ] = useState(isactive ? "true" : "false");
+      //const { photo, phone_number, street, street_height, city, zipcode } = useraddress;
+         
+      
+  
+      console.log(newstatus)
+  
+      function handleSelect(e){
+         console.log(e.target.value)
+         if(e.target.value === 'true'){
+            setNewstatus("true")
+         }else {
+            setNewstatus("false")
+         }
+      console.log(newstatus)
+      dispatch(userStatus(newstatus))
+      }  
+      async function handleConfirm(){
+         await axios.put(`http://localhost:3001/api/user/${id}?isactive=${newstatus}`)
+         .then(res => history.push("/admin/users/list")) 
+         .catch(err => console.log(err.response.data))
+      }
+  return (
+    <>   
     <div className="list">
     <Sidebar/>
         <div className="listContainer">
-          <Navbar/>
+          
               <div className="containeruser">
                   <div className="userinfo">
                      <h1>User</h1>
@@ -38,33 +70,43 @@ const Edit = ({match}) => {
                      <div>
                         <span>{email}</span>
                      </div>
+                     { useraddress ?
+                     <>   
                      <div>
-                        <span>{phone_number}</span>
+                        <span>{useraddress.phone_number}</span>
                      </div>
                      <div>
-                    <span>{street}</span>
+                    <span>{useraddress.street}</span>
                      </div>
                      <div>
-                        <span>{street_height}</span>
+                        <span>{useraddress.street_height}</span>
                      </div>
                      <div>
-                        <span>{city}</span>
+                        <span>{useraddress.city}</span>
                      </div>
                      <div>
-                        <span>{zipcode}</span>
+                        <span>{useraddress.zipcode}</span>
                      </div>
+                     </>
+                     : console.log('no direccion')
+                     }   
                   </div>
                   <div className="useredit">
                       <h1>Status</h1>
                       <div>
-                        {isactive ? 'Active' : 'Baned'}
+                        {newstatus === 'true' ? 'ACTIVE' : 'BANED'}
                       </div>
                       <h1>Edit Status</h1>
                       <div>
-                      <select name="isactive">
-                        <option value="true">ACTIVE</option>
-                        <option value="false">BANED</option>
+                      <select name="isactive"
+                      onChange={(e) => handleSelect(e)}
+                      value={newstatus}>
+                        <option value={"true"}>ACTIVE</option>
+                        <option value={"false"}>BANED</option>
                       </select>
+                      </div>
+                      <div>
+                        <input type="button" value="Confirm" onClick={handleConfirm}/>
                       </div>
 
                   </div>
@@ -72,6 +114,7 @@ const Edit = ({match}) => {
               </div>  
         </div>
     </div>
+    </>
   )
 }
 

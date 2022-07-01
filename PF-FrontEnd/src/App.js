@@ -89,11 +89,13 @@ function App() {
               <Route exact path="/store/category/:category" component = {Store} />
               <Route exact path="/store/brand/:brand" component = {Store} />
               <Route exact path="/productdetails/:id" component={ProductDetails} />
-
+              <Route exact path="/admin/dashboard" component={Admin}/>
               <Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/admin/dashboard"> {user?.user?.admin ? <Admin/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/admin/users/list"> {user?.user?.admin ? <List/> : <Redirect to="/"/>}</Route>
+              {/* <Route exact path="/admin/dashboard"> {user?.user?.admin ? <Admin/> : <Redirect to="/"/>}</Route> */}
+              {/* <Route exact path="/admin/users/list"> {user?.user?.admin ? <List/> : <Redirect to="/"/>}</Route> */}
+              <Route exact path="/admin/users/list" component={List}/>
+              <Route exact path="/admin/user/edit/:id" component={UserEdit}/>
               <Route exact path = '/table'> {user?.user?.admin ? <ProductsTable/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/checkout'> {user?.user?.admin ? <CheckOut/> : <Redirect to="/"/>}</Route>

@@ -1,4 +1,4 @@
-import { GET_USERS, USER_BANNED, USER_UPDATE } from "../actions/actiontype";
+import { GET_USERS, GET_USER_DETAIL, USER_STATUS, USER_UPDATE } from "../actions/actiontype";
 
 const initialState = {
     allusers: [],
@@ -15,6 +15,10 @@ const userReducer = function(state = initialState, { type, payload }) {
           ...state,
           allusers: payload
         }
+      case GET_USER_DETAIL:
+        return {
+          oneuser: {payload}
+        }  
 
       case USER_UPDATE:
         return {
@@ -22,7 +26,7 @@ const userReducer = function(state = initialState, { type, payload }) {
           oneuser: {...state, payload}
         }
         
-      case USER_BANNED:
+      case USER_STATUS:
         return {
           ...state,
           oneuser: {...state, isactive: payload}
