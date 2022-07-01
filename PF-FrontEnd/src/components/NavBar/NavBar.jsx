@@ -27,7 +27,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
@@ -52,22 +51,6 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: '380px',
   },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textDecoration: 'none',
-  zIndex: 200,
-  '&:hover': {
-    cursor:'pointer'
-  },
-  
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -145,8 +128,7 @@ export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [displayUser, setDisplayUser] = React.useState(false);
-  const [login, setLogin] = React.useState({value: false})
-
+  
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -161,7 +143,6 @@ export default function NavBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-
   };
 
   const handleMobileMenuOpen = (event) => {
