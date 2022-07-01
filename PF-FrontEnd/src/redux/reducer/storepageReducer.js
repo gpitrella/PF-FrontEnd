@@ -9,6 +9,12 @@ import {
   SHOW_STORE,
   CLOSE_STORE,
   POST_PRODUCT,
+  PUT_PRODUCT,
+  ERROR_PUT_PRODUCT,
+  WAITING_RESPONSE_PUT,
+  DELETE_PRODUCT,
+  ERROR_DELETE_PRODUCT,
+  WAITING_RESPONSE_DELETE,
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
@@ -33,6 +39,7 @@ const initialState = {
     page: 1,
     pages: 1,
     name: '',
+    hidden: false
   },
 
   categories: [ // Las categorias para el filtro.
@@ -59,6 +66,18 @@ const initialState = {
   results: 0,
   products: [],
   noProducts: false,
+
+  resultPut: {
+    waitingResponse: false,
+    status: false,
+    error: false
+  },
+
+  resultDelete: {
+    waitingResponse: false,
+    status: false,
+    error: false
+  },
 };
 
 const storepageReducer = function(state = initialState, { type, payload }) {
@@ -134,6 +153,58 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           ...state,
           msn: ['Product created!']
           }
+    case WAITING_RESPONSE_PUT:
+      return {
+        ...state,
+        resultPut: {
+          ...state.resultPut,
+          waitingResponse: payload,
+          status: false,
+          error: false
+        }
+      }
+    case PUT_PRODUCT:
+      return {
+        ...state,
+        resultPut: {
+          ...state.resultPut,
+          status: true
+        }
+      }
+    case ERROR_PUT_PRODUCT:
+      return {
+        ...state,
+        resultPut: {
+          ...state.resultPut,
+          error: true
+        }
+      }
+    case WAITING_RESPONSE_DELETE:
+      return {
+        ...state,
+        resultDelete: {
+          ...state.resultDelete,
+          waitingResponse: payload,
+          status: false,
+          error: false
+        }
+      }
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        resultDelete: {
+          ...state.resultDelete,
+          status: true,
+        }
+      }
+    case ERROR_DELETE_PRODUCT:
+      return {
+        ...state,
+        resultDelete: {
+          ...state.resultDelete,
+          error: true
+        }
+      }
     case CLOSE_STORE:
       return { ...initialState };
     default:

@@ -1,7 +1,6 @@
-import { stepButtonClasses } from '@mui/material';
-import { showCart } from '../actions';
 import {
   CHANGE_THEME,
+  SHOW_MINI_MODAL,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_CART,
   INCREASE_QUANTITY_PRODUCT,
@@ -21,8 +20,13 @@ const THEME = {
 
 const initialState = {
   theme: 'lightTheme',
+  miniModal: {
+    show: false,
+    msg: '',
+    success: false,
+    error: false,
+  },
   productsCart: [],
-  theme: 'darkTheme',
   commentCreated: {},
   user:{},
   showCart: false,
@@ -35,6 +39,17 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         theme: THEME[payload]
+      }
+
+    case SHOW_MINI_MODAL:
+      return {
+        ...state,
+        miniModal: {
+          show: payload.show,
+          msg: payload.msg ? payload.msg : '',
+          success: payload.success ? payload.success : false,
+          error: payload.error ? payload.error : false,
+        }
       }
     
     case ADD_PRODUCT_TO_CART:
@@ -113,7 +128,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         finishOrder: payload
       }
-      
+
     default:
       return state;
   }

@@ -4,13 +4,13 @@ export const headerData = [
     className: 'widthSmall'
   },
   {
-    name: 'name',
-    className: 'widthLarge',
-    sort: true,
+    name: 'image',
+    className: 'widthMedium'
   },
   {
-    name: 'description',
-    className: 'widthLarge'
+    name: 'name',
+    className: 'widthLarge',
+    enableSort: true,
   },
   {
     name: 'category',
@@ -23,88 +23,119 @@ export const headerData = [
   {
     name: 'price',
     className: 'widthMedium',
-    sort: true,
+    enableSort: true,
   },
   {
     name: 'discount',
-    className: 'widthMedium'
+    className: 'widthSmall'
   },
   {
     name: 'stock',
-    className: 'widthMedium'
+    className: 'widthSmall'
   },
   {
     name: 'rating',
     className: 'widthSmall'
   },
   {
-    name: 'hidden',
+    name: 'status',
     className: 'widthSmall'
   },
   {
-    name: 'options',
-    className: 'widthLarge'
+    name: 'action',
+    className: 'widthExtraLarge'
   }
 ];
+
+const MAX_LENGTH = 35;
 
 export const rowData = [
   {
     name: 'id',
   },
   {
-    name: 'name',
-    isComplex: true,
-    getValue: (product) => {
-      return product.name.length > 50 ? product.name.slice(0, 50) + '...' : product.name;
-    },
-    addViewMore: true
+    name: 'image',
+    isImage: true
   },
   {
-    name: 'description',
+    name: 'name',
     isComplex: true,
+    limit: MAX_LENGTH,
     getValue: (product) => {
-      return product.description.length > 50 ? product.description.slice(0, 50) + '...' : product.description;
+      return product.name.length > MAX_LENGTH ? product.name.slice(0, MAX_LENGTH) + '...' : product.name;
     },
-    addViewMore: true
+    addViewMore: true,
+    editable: true,
+    editWith: 'TEXTAREA'
   },
   {
     name: 'category',
     isComplex: true,
     getValue: (product) => {
       return product.categories[0];
-    }
+    },
+    editable: false,
+    editWith: 'SELECT',
+    selectSource: 'categories' 
   },
   {
     name: 'brand',
     isComplex: true,
     getValue: (product) => {
       return product.manufacturers[0].name;
-    }
+    },
+    editable: false,
+    editWith: 'SELECT',
+    selectSource: 'brands' 
   },
   {
     name: 'price',
     isComplex: true,
     getValue: (product) => {
       return '$' + product.price;
-    }
+    },
+    editable: true,
+    editWith :'NUMERIC-INPUT',
+    validWithCurrency: true,
+    limits: true,
+    min: 1,
+    max: Infinity,
   },
   {
     name: 'discount',
     isComplex: true,
     getValue: (product) => {
       return product.discount + '%';
-    }
+    },
+    editable: true,
+    editWith: 'NUMERIC-INPUT',
+    validWithInt: true,
+    limits: true,
+    max: 99,
   },
   {
     name: 'stock',
+    editable: true,
+    editWith: 'NUMERIC-INPUT',
+    validWithInt: true
   },
   {
     name: 'rating',
   },
   {
-    name: 'hidden',
+    name: 'status',
+    isComplex: true,
+    getValue: (product) => {
+      return !product.isVisible ? 'inactive' : 'active';
+    },
+    isSwitch: true,
+    editable: true,
+    editWith: 'TOGGLE'
   },
   {
-    name: 'options',
+    name: 'action',
+    isOption: true,
+    editable: true,
+    showOptions: true
   }
 ];
