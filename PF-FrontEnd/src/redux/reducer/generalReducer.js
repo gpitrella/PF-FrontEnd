@@ -8,7 +8,9 @@ import {
   POST_COMMENT_PRODUCT,
   SHOW_CART,
   CLOSE_CART,
-  FINISH_ORDER
+  FINISH_ORDER,
+  SIGN_UP,
+  LOG_IN
 } from '../actions/actiontype';
 
 const THEME = {
@@ -26,6 +28,7 @@ const initialState = {
   },
   productsCart: [],
   commentCreated: {},
+  user:{},
   showCart: false,
   finishOrder: {}
 };
@@ -50,6 +53,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     
     case ADD_PRODUCT_TO_CART:
+      console.log(payload)
       return {
         ...state,
         productsCart: state.productsCart.concat({
@@ -60,6 +64,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
           discount: payload.discount,
           stock: payload.stock,
           categories: payload.categories,
+          description: payload.description,
           quantity: 1
         })
       }
@@ -95,6 +100,16 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         commentCreated: payload
       }
+    case SIGN_UP:
+      return {
+        ...state,
+        user: payload
+      }
+    case LOG_IN:
+      return {
+        ...state,
+        user: payload
+    }
 
     case SHOW_CART:
       return {

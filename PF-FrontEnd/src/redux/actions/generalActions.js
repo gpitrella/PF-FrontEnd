@@ -11,7 +11,9 @@ import {
   POST_COMMENT_PRODUCT,
   SHOW_CART,
   CLOSE_CART,
-  FINISH_ORDER
+  FINISH_ORDER,
+  SIGN_UP,
+  LOG_IN
 } from './actiontype';
 
 
@@ -61,8 +63,25 @@ export const postCommentProduct = function(comment, id) {
     return axios.post(`http://localhost:3001/api/comments`, {comment, id})
                 .then(comment => dispatch({ type: POST_COMMENT_PRODUCT, payload: comment.data}))
                 .catch(error => console.log(error))
+}
+}
+
+export const signUp = function(name, email, password) {
+  return function(dispatch){
+    return axios.post('http://localhost:3001/api/signup', {name, email, password})
+                .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
+                .catch(error => console.log(error))
   }
-};
+}
+
+export const logIn = function(email, password) {
+  return function(dispatch){
+    return axios.post('http://localhost:3001/api/signin', {email, password})
+                .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
+                .catch(error => console.log(error))
+  }
+}
+ 
 
 export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
   console.log(show, msg, success, error);
@@ -92,9 +111,11 @@ export function closeCart(){
 };
 
 // Finish Order:
-export const finishOrder = function(order) {
+export const finishOrder = function(email, items) {
   return function(dispatch){
-    return axios.post(`http://localhost:3001/api/payment`, {order})
+    console.log(email)
+    console.log(items)
+    return axios.post(`http://localhost:3001/api/payment`, {email, items})
                 .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
                 .catch(error => console.log(error))
   }
