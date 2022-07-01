@@ -21,6 +21,7 @@ import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
 import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
+import Adresses from './components/Branches/Adresses';
 
 function App() {
 
@@ -94,6 +95,8 @@ function App() {
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/checkout'> {user?.user?.admin ? <CheckOut/> : <Redirect to="/"/>}</Route>
               <Route exact path='/faqs' component={FAQs} />
+              <Route exact path='/branches' component={Adresses} />
+              <Route exact path='/checkout' component={CheckOut} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
