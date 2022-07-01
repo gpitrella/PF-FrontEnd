@@ -10,13 +10,13 @@
     padding: 40px;
 }
 
-.form{
+.signup{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;    
 }
 
-.form__label{
+.signup__label{
     display: block;
     font-weight: 700;
     padding: 10px;
@@ -24,50 +24,66 @@
     color: white;
 }
 
-.form__title{
-    display: block;
-    font-weight: 700;
-    padding: 10px;
-    cursor: pointer;
-    color: white;
+.signup__wrapper {
+    width: 50%;
+    height: 75%;
+    -webkit-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+    box-shadow: 0px 5px 33px -21px rgba(66, 68, 90, 1);
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+  }
+
+.signup__title{
+    color:lightgray
 }
 
-.form_option{
+
+.signup_option{
     color: grey;
 }
 
-.form__group-input{
+.signup__group{
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.signup__group-input{
     position: relative,
 }
 
-.form__input{
-    width: 100%;
+.signup__input{
     height: 45px;
     background-color: #fff;
     border: 3px solid transparent;
+    margin: 10px;
     border-radius: 5px;
     line-height: 45px;
     padding: 0 40px 0 10px;
     transition: .3s ease all;
 }
 
-.form__input:focus{
+.signup__input:focus{
     border: 3px solid rgb(0, 117, 255);
     outline: none;
     box-shadow: 3px 0 3px rgba(163, 163, 163, 0.4);
 }
 
-.form__input-error{
+.signup__input-error{
     font-size: 12px;
-    margin-bottom: 0;
+    margin: 0;
+    margin-left: 10px;
     display: none;
+    color: lightgrey;
 }
 
-.form__input-error-activo{
+.signup__input-error-activo{
     display: block;
 }
 
-/* .form__validation-input{
+/* .signup__validation-input{
     position: absolute;
     right: 10px;
     bottom: 15px;
@@ -76,12 +92,12 @@
     opacity: 0;
 } */
 
-.form__msn,
-.form__group-btn-create{
+/* .signup__msn, */
+.signup__group-btn-create{
     grid-column: span 2;
 }
 
-.form__msn{
+.signup__msn{
     height: 45px;
     line-height: 45px;
     background-color: #F66060;
@@ -90,21 +106,18 @@
     display: none;
 }
 
-.form__msn-activo{
+.signup__msn-activo{
     display: block;
 }
 
-.form__msn p{
+.signup__msn p{
     margin: 0;
 }
 
-.form__group-btn-create{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.form__btn{
+
+.signup__btn{
+    margin-top: 10px;
     height: 45px;
     line-height: 45px;
     width: 30%;
@@ -118,43 +131,30 @@
 }
 
 
-.form__msn-exito{
+
+.signup__msn-exito{
     font-size: 14px;
     color: #119200;
     display: none;
 }
 
-.form__msn-exito-activo{
+.signup__msn-exito-activo{
     display: block;
 }
 
-.form__group-incorrecto .form__label{
+.signup__group-incorrecto .signup__label{
     color: #bb2929;
 
 }
 
-.form__group-incorrecto .form__input{
+.signup__group-incorrecto .signup__input{
     border: 3px solid #bb2929;
 }
 
-.form__group-correcto .form__label{
+.signup__group-correcto .signup__label{
     color: #119200;
 }
 
-.form__group-correcto .form__input{
+.signup__group-correcto .signup__input{
     border: 3px solid #119200;
-}
-
-@media screen and (max-width: 800px) {
-    .form{
-        grid-template-columns: 1fr;
-    }
-
-    .form__msn,
-    .form__group-btn-create{
-    grid-column: 1;
-}
-.form__btn{
-    width: 100%;
-}
 }
