@@ -18,6 +18,7 @@ import List from './pages/list/List';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
 import FAQs from './components/FAQs/FAQs';
+import Adresses from './components/Branches/Adresses';
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
               <Route exact path = '/table' component={ProductsTable} />
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />
+              <Route exact path='/branches' component={Adresses} />
               <Route exact path='/checkout' component={CheckOut} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
