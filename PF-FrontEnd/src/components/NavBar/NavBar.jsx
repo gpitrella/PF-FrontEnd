@@ -158,6 +158,7 @@ export default function NavBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -186,8 +187,13 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Sign Up</MenuItem>
+      
+      <Link to="/login">
+        <MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
+      </Link>
+      <Link to="/signup">
+        <MenuItem onClick={handleMenuClose}>Sign Up</MenuItem>
+      </Link>
     </Menu>
   );
 
