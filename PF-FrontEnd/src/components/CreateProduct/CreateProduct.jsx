@@ -2,12 +2,9 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-//import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-//import {faCircleXmark, faTriangleExclamation} from '@fortawesome/free-solid-svg-icons'
 import { postProduct } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
-
 import validate from './validate'
 
 export default function CreateProduct() {
@@ -49,26 +46,28 @@ export default function CreateProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // alert('alertaaa!!!!!')
-    // if(!input.name) alert('Fill this box with a product name')
-    // else if(!input.price) alert('Add a product price.')
-    // else if(!input.image) alert('Add an image to your product.')
-    // else if(!input.discount) alert('Set a product discount.')
-    // else if(!input.stock) alert('Add the product stock.')
-    // else if(!input.category) alert('Add the product stock.')
-    // else if(!input.manufacturer) alert('Add the product stock.')
-    // else if(!input.description) alert('Add a prodcut description.')
-    // else {
     setErrors(validate({
       ...input,
       [e.target.name]: e.target.value
     }))
 
-    
+    if(!input.name || !input.price || !input.image || !input.stock || !input.discount || !input.category || !input.manufacturer || !input.description){
+        document.getElementById('form__msn').classList.add('form__msn-activo')
+      } else if (errors.name || errors.price || errors.image || errors.stock || errors.discount || errors.category || errors.manufacturer || errors.description)
+      {
+        document.getElementById('form__msn').classList.add('form__msn-activo')
+      }else if (!errors.name || !errors.price || !errors.image || !errors.stock || !errors.discount || !errors.category || !errors.manufacturer || !errors.description){
+        document.getElementById('form__msn-exito').classList.add('form__msn-exito-activo')
+        setTimeout(()=>{
+          document.getElementById('form__msn-exito').classList.remove('form__msn-exito-activo')
+        }, 4000)
+        document.querySelectorAll('.form__group-correcto').forEach((icon)=>{
+          icon.classList.remove('form__group-correcto')
+        })
+        document.getElementById('form__msn').classList.remove('form__msn-activo')
     
     dispatch(postProduct(input));
     console.log(input)
-    // alert('Product loaded!')
     setInput({
       name: '',
       price: '',
@@ -79,17 +78,15 @@ export default function CreateProduct() {
       category: '',
       manufacturer:''
     })
-    // history.push('/')
-  // }
+    history.push('/createproduct')
   }
-
-
+  }
 
   return (
     <div className='main'>
         {/* <Link to={'/'}><button>BACK HOME</button></Link> */}
+        <h1 className='form__title'>Create product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
-        
         <div className='form__group' id='name'>
           <label htmlFor="name" className='form__label'>Name</label>
           <div className='form__group-input'>
@@ -170,7 +167,7 @@ export default function CreateProduct() {
           <p className='form__input-error'>{errors.stock}</p>
         </div>
 
-        <div>
+        <div className='form__group' id='category'>
         <label htmlFor="category" className='form__label'>Category:</label>
         <div className='form__group-input'>
             <select
@@ -179,7 +176,7 @@ export default function CreateProduct() {
             name = {'category'}
             onChange={(e) => handleChange(e)}
             >
-                <option value={''} key={'Category'}>Category</option>
+                <option value={''} >Category</option>
                 {allCategories?.map((category) => (
                 <option value={category.name} key={category.name}>{category.name}</option>
             ))}
@@ -188,7 +185,7 @@ export default function CreateProduct() {
         <p className='form__input-error'>{errors.category}</p>
         </div>
 
-        <div>
+        <div className='form__group' id='manufacturer'>
         <label htmlFor="manufacturer" className='form__label'>Manufacturer:</label>
         <div className='form__group-input'>
         <select
@@ -197,7 +194,7 @@ export default function CreateProduct() {
         name = {'manufacturer'}
         onChange={(e) => handleChange(e)}
         >
-            <option key={'Manufacturer'}>Manufacturer</option>
+            <option value={''} key={'Brand'} >Brand</option>
             {brandsList?.map((brand) => (
             <option value={brand.name} key={brand.name}>{brand.name}</option>
           ))}
@@ -222,22 +219,17 @@ export default function CreateProduct() {
           <p className='form__input-error'>{errors.description}</p>
         </div>
 
-        {/* <div className='form__msn' id='form__msn'>
+        <div className='form__msn' id='form__msn'>
             <p>
             <b>Error:</b> please check the boxes with errors.
             </p> 
-        </div> */}
+        </div>
         <div className="form__group form__group-btn-create">
-            <button type='submit' className='form__btn'>CREATE</button>
+            <button type='submit' className='form__btn' >CREATE</button>
             <p className='form__msn-exito' id='form__msn-exito'
             >Product created!!
             </p>
         </div>
-        {/* {errors.name || errors.price || errors.stock || errors.discount || errors.manufacturer || errors.description || errors.image
-      ? <button type="submit"  disabled={true}>LOAD</button>
-      : <button type="submit" >LOAD</button>} */}
-        
-        {/* <button type="submit">ADD</button> */}
         </form>
         </div>
   )

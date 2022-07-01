@@ -1,5 +1,4 @@
 .navbar_main_block {
-    
     position: inherit;
     z-index: 100;
     top: 0;
@@ -192,6 +191,15 @@ input:checked + .slider:before {
     box-shadow: -3px -3px 5px rgb(228, 228, 228);
     transition: .1s;
     transition-property: box-shadow;
+}
+
+.links_general {
+    text-decoration: none; 
+    color: white;
+} 
+
+.links_general:hover {
+    color: rgb(142, 142, 142);
 }
 
 

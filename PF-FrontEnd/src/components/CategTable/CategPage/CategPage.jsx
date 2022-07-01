@@ -1,7 +1,7 @@
 import "./CategPage.scss"
-import Sidebar from "../Dashboard/sidebar/Sidebar";
-import Navbar from "../Dashboard/navbar/Navbar";
-import { CategSource } from "./CategTableSource";
+import Sidebar from "../../Dashboard/sidebar/Sidebar";
+import Navbar from "../../Dashboard/navbar/Navbar";
+import { CategoryTable } from "../CategTable/CategTableSource";
 
 const CategPage = () => {
   return (
@@ -9,7 +9,7 @@ const CategPage = () => {
       <Sidebar/>
       <div className="listContainer">
         <Navbar/>
-        <CategSource/>
+        <CategoryTable/>
       </div>
     </div>
   )
