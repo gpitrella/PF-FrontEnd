@@ -128,6 +128,7 @@ export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [displayUser, setDisplayUser] = React.useState(false);
+  const [displayUserAdmin, setDisplayUserAdmin] = React.useState(false);
   
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -280,7 +281,10 @@ export default function NavBar() {
 
   React.useEffect(() => {
     if(user?.user){
-      setDisplayUser(true)
+      setDisplayUser(true);
+      if(user.user.admin){
+        setDisplayUserAdmin(true);
+      }
     }
   },[user]);
 
@@ -342,7 +346,12 @@ export default function NavBar() {
               </Badge>
             </IconButton>
 
-            <IconButton size="large" aria-label="create_product" color="inherit">
+            <IconButton 
+                size="large" 
+                aria-label="create_product" 
+                color="inherit"
+                sx={!displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}
+              >
               <Badge badgeContent={0} color="error">
                 <Link to={'/admin/dashboard'} className="links_general">
                   <DisplaySettingsIcon />

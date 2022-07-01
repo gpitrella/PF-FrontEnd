@@ -32,6 +32,7 @@ const style = {
 };
 
 const CheckOut = () => {
+  console.log('entre a check out')
 
   const history = useHistory();
   const productsCart = useSelector((state) => state.general.productsCart)

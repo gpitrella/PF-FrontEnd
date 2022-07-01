@@ -200,7 +200,8 @@ input:checked + .slider:before {
 }
 
 .links_general {
-    text-decoration: none; 
+    text-decoration: none;
+    display: inline-block;
     color: white;
 } 
 
