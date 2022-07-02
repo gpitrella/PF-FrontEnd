@@ -430,6 +430,7 @@ export default function ProductDetails (){
                                     <Rating
                                         name="read-only"
                                         value={element?.score}
+                                        readOnly
                                     />
                                 </Box>
                                 <p> - {element.comment.charAt(0) + element.comment.slice(1, element.comment.length).toLowerCase()}</p>

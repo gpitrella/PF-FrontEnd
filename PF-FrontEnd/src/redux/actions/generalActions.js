@@ -14,6 +14,8 @@ import {
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
+  LOAD_STORAGE,
+  LOGOUT,
   POST_REVIEW_PRODUCT,
   LOAD_STORAGE,
   OPEN_PAGE_LOADER,
@@ -149,5 +151,11 @@ export const openPageLoader = function() {
 export const closePageLoader = function() {
   return {
     type: CLOSE_PAGE_LOADER
+  }
+}
+
+export const logout = function() {
+    return {
+    type: LOGOUT
   }
 }

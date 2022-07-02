@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getSearchProducts, clearSearchProducts, showCart } from "../../redux/actions";
+import { Link, useHistory } from 'react-router-dom';
+import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
@@ -110,6 +110,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function NavBar() {
+  const history = useHistory()
   const { theme } = useSelector(state => state.general);  
   const [ name, setName ] = React.useState('');
   const { user } = useSelector((state) => state.general)
@@ -146,6 +147,13 @@ export default function NavBar() {
     handleMobileMenuClose();
   };
 
+  const logOutNavBar = (e) => {
+    e.preventDefault()
+    handleMenuClose()
+    dispatch(logout())
+    history.push('/')
+  }
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -174,11 +182,11 @@ export default function NavBar() {
       onClose={handleMenuClose}
     >
       {user?.user ? <span>
-                        <Link to="/login" className="links_profile_user">
+                        <Link to="/myprofile" className="links_profile_user">
                           <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
                         </Link>
                         <Link to="/signup" className="links_profile_user">
-                          <MenuItem onClick={handleMenuClose} >LogOut</MenuItem>
+                          <MenuItem onClick={logOutNavBar} >LogOut</MenuItem>
                         </Link>
                     </span>
                     : <span>
@@ -306,6 +314,18 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+            <IconButton 
+                font-size="1rem"
+                size="small" 
+                aria-label="create_product" 
+                color="inherit"
+                sx={!user?.user ? { display: 'none' } : { display: 'inline-flex' }}
+              >
+                  <Typography font-size="1rem" component="div" sx={{ flexGrow: 1 }}>
+                      Welcome {user?.user?.name}
+                  </Typography>
+            </IconButton>
             
               <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
                 <Badge badgeContent={productsCart?.length} color="error">

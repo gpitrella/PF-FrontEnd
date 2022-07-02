@@ -33,7 +33,8 @@ const initialState = {
     errorOne: false,
     errorTwo: false,
     errorThree: false,
-  }
+  },
+  allProducts: []
 };
 
 const homepageReducer = function(state = initialState, { type, payload }) {
