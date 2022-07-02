@@ -26,10 +26,12 @@ import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
 import MyProfile from './components/MyProfile/MyProfile';
 
+import PageLoader from './components/PageLoader/PageLoader';
+
 function App() {
   const dispatch = useDispatch()
 
-  const {user} = useSelector((state) => state.general)
+  const { user, showPageLoader } = useSelector((state) => state.general);
 
   React.useEffect(() => {
     dispatch(loadStorage());
@@ -40,6 +42,14 @@ function App() {
   },[dispatch])
 
   const { theme, showCart } = useSelector(state => state.general);
+
+  if (showPageLoader) return (
+    <React.Fragment>
+      <div className= {`globalVariables mainContainer ${theme}`}>
+        <PageLoader />
+      </div>
+    </React.Fragment>
+  );
 
   return (
     <React.Fragment>

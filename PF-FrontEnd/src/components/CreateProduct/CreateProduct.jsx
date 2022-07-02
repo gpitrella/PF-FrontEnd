@@ -7,6 +7,8 @@ import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
 import validate from './validate'
 
+import s from './CreateProduct.module.css';
+
 export default function CreateProduct() {
 
   const [input, setInput] = useState({
@@ -83,9 +85,9 @@ export default function CreateProduct() {
   }
 
   return (
-    <div className='main'>
+    <div className={`main ${s.container}`}>
         {/* <Link to={'/'}><button>BACK HOME</button></Link> */}
-        <h1 className='form__title'>Create product</h1>
+        <h1 className={`form__title ${s.title}`}>Create product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
         <div className='form__group' id='name'>
           <label htmlFor="name" className='form__label'>Name</label>
