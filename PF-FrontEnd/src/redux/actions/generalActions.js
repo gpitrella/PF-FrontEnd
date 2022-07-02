@@ -15,6 +15,9 @@ import {
   LOAD_STORAGE,
   LOGOUT,
   POST_REVIEW_PRODUCT,
+  LOAD_STORAGE,
+  OPEN_PAGE_LOADER,
+  CLOSE_PAGE_LOADER
 } from './actiontype';
 
 
@@ -134,6 +137,18 @@ export const postReviewProduct = function(comment, score, id) {
 export const loadStorage = function() {
   return {
     type: LOAD_STORAGE
+  }
+}
+
+export const openPageLoader = function() {
+  return {
+    type: OPEN_PAGE_LOADER
+  }
+}
+
+export const closePageLoader = function() {
+  return {
+    type: CLOSE_PAGE_LOADER
   }
 }
 
