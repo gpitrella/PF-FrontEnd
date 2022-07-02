@@ -25,13 +25,13 @@
     border: 1px solid rgba(134, 134, 134, 0.507);
     padding: 20px;
     box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.1);
-    width: 45rem;
+    width: 50rem;
     border-radius: 5px;
     margin-top: 0px;
 }
 
 .paymentMetodCheckOut {
-    width: 40vw;
+    width: 30vw;
     padding-bottom: 40px;
 }
 
@@ -82,7 +82,7 @@
     border: 1px solid rgba(134, 134, 134, 0.507);
     padding: 20px;
     box-shadow: 3px 3px 5px 0px rgb(0 0 0 / 10%);
-    width: 45rem;
+    width: 50rem;
     border-radius: 5px;
     margin-top: 55px;
 }

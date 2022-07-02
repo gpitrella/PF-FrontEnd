@@ -11,6 +11,7 @@ import {
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
+  POST_REVIEW_PRODUCT,
   LOAD_STORAGE
 } from '../actions/actiontype';
 
@@ -33,7 +34,8 @@ const initialState = {
   commentCreated: {},
   user:{},
   showCart: false,
-  finishOrder: {}
+  finishOrder: {},
+  reviewCreated: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -118,18 +120,20 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         commentCreated: payload
       }
+
     case SIGN_UP:
       LocalStorage.saveItem('user', payload);
       return {
         ...state,
         user: payload
       }
+
     case LOG_IN:
       LocalStorage.saveItem('user', payload);      
       return {
         ...state,
         user: payload
-    }
+      }
 
     case SHOW_CART:
       return {
@@ -148,6 +152,12 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         finishOrder: payload
       }
+    case POST_REVIEW_PRODUCT:
+      return {
+        ...state,
+        reviewCreated: payload
+      }
+
     case LOAD_STORAGE: {
       let theme = LocalStorage.getItem('theme');
       let user = LocalStorage.getItem('user');
