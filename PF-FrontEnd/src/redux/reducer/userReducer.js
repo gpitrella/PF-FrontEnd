@@ -1,10 +1,11 @@
-import { GET_USERS, GET_USER_DETAIL, USER_STATUS, USER_UPDATE } from "../actions/actiontype";
+import { GET_USERS, GET_USER_DETAIL, PUT_USER_STATUS, USER_STATUS, USER_STATUS_RESET, USER_UPDATE } from "../actions/actiontype";
 
 const initialState = {
     allusers: [],
     oneuser: {},
     oneaddress: {},
     userisactive: null,
+    usereditstatusok: false,
 }
 
 const userReducer = function(state = initialState, { type, payload }) {
@@ -17,13 +18,13 @@ const userReducer = function(state = initialState, { type, payload }) {
         }
       case GET_USER_DETAIL:
         return {
-          oneuser: {payload}
+          oneuser: payload
         }  
 
       case USER_UPDATE:
         return {
           ...state,
-          oneuser: {...state, payload}
+          oneuser: payload
         }
         
       case USER_STATUS:
@@ -31,7 +32,18 @@ const userReducer = function(state = initialState, { type, payload }) {
           ...state,
           oneuser: {...state, isactive: payload}
         }
+      
+      case PUT_USER_STATUS:
+        return {
+          ...state,
+          usereditstatusok: true  
+        }  
 
+      case USER_STATUS_RESET:
+        return {
+          ...state,
+          usereditstatusok: false
+        }  
   
       default:
         return state;
