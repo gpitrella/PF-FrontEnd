@@ -24,7 +24,7 @@ import CheckOut from './components/CheckOut/CheckOut';
 import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
-import CategPage from "./components/CategTable/CategPage/CategPage";
+// import CategPage from "./components/CategTable/CategPage/CategPage";
 
 function App() {
   const dispatch = useDispatch()
@@ -60,7 +60,7 @@ function App() {
               <Route exact path="/productdetails/:id" component={ProductDetails} />
               <Route exact path='/checkout'> {user?.user ? <CheckOut/> : <Redirect to="/login"/>}</Route>
               {/*<Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>*/}
-              <Route exact path="/admin/categories" component = {CategPage} />
+              {/* <Route exact path="/admin/categories" component = {CategPage} /> */}
               
               <Route path = "/admin"> {user?.user?.admin ? <Admin/> : <Redirect to = "/"/>}</Route>
 {/*              <Route exact path="/admin/users/list"> {user?.user?.admin ? <List/> : <Redirect to="/"/>}</Route>
