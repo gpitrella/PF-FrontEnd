@@ -7,9 +7,9 @@ export const userInputs = [
     },
     {
       id: 2,
-      label: "Name and surname",
+      label: "Status",
       type: "text",
-      placeholder: "John Doe",
+      placeholder: "Active",
     },
     {
       id: 3,
@@ -30,15 +30,21 @@ export const userInputs = [
     },
     {
       id: 6,
-      label: "Address",
+      label: "Street",
       type: "text",
-      placeholder: "Elton St. 216 NewYork",
+      placeholder: "Moreno",
     },
     {
       id: 7,
-      label: "Country",
+      label: "Street Height",
       type: "text",
-      placeholder: "USA",
+      placeholder: "216",
+    },
+    {
+      id: 8,
+      label: "City",
+      type: "text",
+      placeholder: "Mendoza",
     },
   ];
   

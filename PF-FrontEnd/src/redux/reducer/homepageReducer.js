@@ -1,4 +1,3 @@
-import { ActionTypes } from '@mui/base';
 import {
   GET_BRANDS,
   TEST_HOMEPAGE,
@@ -15,6 +14,7 @@ import {
   SHOW_ERROR_SECTION_ONE,
   SHOW_ERROR_SECTION_TWO,
   SHOW_ERROR_SECTION_THREE,
+  RESET_SECTIONS
 } from '../actions/actiontype';
 
 const initialState = {
@@ -154,6 +154,13 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         section: {
           ...state.section,
           errorThree: true
+        }
+      }
+    case RESET_SECTIONS:
+      return {
+        ...state,
+        section: {
+          ...initialState.section
         }
       }
     // Fin para las secciones.

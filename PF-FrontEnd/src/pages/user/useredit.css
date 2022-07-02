@@ -1,0 +1,18 @@
+.list {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.listContainer {
+    display: flex;
+    
+    margin-top: -1000px;
+}
+
+.containeruser {
+    display: grid;
+
+}
+
+  

@@ -11,19 +11,21 @@ import notFoundPage from './components/404/NotFoundPage404';
 import { getBrands } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import CategPage from './components/CategTable/CategPage/CategPage';
-import CreateCategory from './components/BrandsTable/BrandsPage';
-import BrandsPage from './components/BrandsTable/BrandsPage';
-import NewBrand from './components/BrandsTable/NewBrand';
+import BrandsPage from './components/BrandsTable/BrandsPage/BrandsPage';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
 import AddToCart from './components/AddToCart/AddToCart';
-import ProductsTable from './components/ProductsTable/ProductsTable';
 import Admin from './Admin';
 import List from './pages/list/List';
+import UserEdit from './pages/user/UserEdit'
+import New from './pages/new/New'
+import { userInputs } from "./formSource";
+import ListProducts from './pages/listproduct/Listproduct';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
 import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
+import Adresses from './components/Branches/Adresses';
 
 function App() {
 
@@ -89,17 +91,21 @@ function App() {
               <Route exact path="/store/category/:category" component = {Store} />
               <Route exact path="/store/brand/:brand" component = {Store} />
               <Route exact path="/productdetails/:id" component={ProductDetails} />
+              
               <Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/admin/categories/new"> {user?.user?.admin ? <CreateCategory/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/admin/user/edit/:id" component={UserEdit}/>
+              
               <Route exact path="/admin/categories"> {user?.user?.admin ? <CategPage/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/admin/brands/new"> {user?.user?.admin ? <NewBrand/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/brands"> {user?.user?.admin ? <BrandsPage/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/dashboard"> {user?.user?.admin ? <Admin/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/users/list"> {user?.user?.admin ? <List/> : <Redirect to="/"/>}</Route>
-              <Route exact path = '/table'> {user?.user?.admin ? <ProductsTable/> : <Redirect to="/login"/>}</Route>
+              <Route exact path = '/admin/products/list'> {user?.user?.admin ? <ListProducts/> : <Redirect to="/"/>}</Route>
+
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/checkout'> {user?.user?.admin ? <CheckOut/> : <Redirect to="/"/>}</Route>
               <Route exact path='/faqs' component={FAQs} />
+              <Route exact path='/branches' component={Adresses} />
+              <Route exact path='/checkout' component={CheckOut} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

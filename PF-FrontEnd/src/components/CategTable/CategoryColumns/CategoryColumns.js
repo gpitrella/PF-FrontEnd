@@ -4,6 +4,7 @@ export const categoryColumns = [
       field: "name",
       headerName: "Category",
       width: 230,
+      // editable: true,
       renderCell: (params) => {
         return (
           <div className="cell">

@@ -1,58 +1,89 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { categoryColumns } from '../CategoryColumns/CategoryColumns';
 import { getCategories } from '../../../redux/actions/homepageActions';
 import { deleteCategory, updateCategory } from '../../../redux/actions';
 import "./CategTable.scss";
-import { DataGrid, GridRowModel } from "@mui/x-data-grid";
-import Modal from "../../Modals/Modal";
-import { useModal } from "../../Modals/useModal";
-import CreateCategory from "../NewCategory";
-import EditCategory from "../EditCategory";
-import DeleteModal from "../DeleteModal";
-import { Button, TextField } from '@mui/material';
-import Snackbar from '@mui/material/Snackbar';
-import Alert, { AlertProps } from '@mui/material/Alert';
+import DataTable from '../../common/DataTable/DataTable';
+import EditCategoryModal from '../CategoryModals/EditCategoryModal';
+import DeleteCategoryModal from '../CategoryModals/DeleteCategoryModal';
 
+const useFakeMutation = () => {
+  return React.useCallback(
+    (category) =>
+    new Promise((resolve, reject) => 
+    setTimeout(()=> {
+      if (category.name?.trim() === '') {
+        reject(new Error("Error while saving user: name can't be empty."));
+      } else {
+        resolve({ ...category, name: category.name?.toUpperCase() });
+      }
+    }, 200),
+    ),
+  [],
+  );
+};
 
-export const CategoryTable = () => {
+const CategoryTable = ({ onError }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const mutateRow = useFakeMutation();
+
   const { allCategories } = useSelector((state) => state.homepage);
+  const [data, setData] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState([{
+    id: 0,
+    name: ''  
+  }]);
+  const [openModalDelete, setOpenModalDelete] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
 
   useEffect(()=>{
     dispatch(getCategories());
   }, [dispatch]);
 
-  const [snackbar, setSnackbar] = React.useState(null);
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setData(prevState => ([{
+      ...prevState,
+      name:value
+    }]));
+  };
 
-  const handleCloseSnackbar = () => setSnackbar(null);
-
-  const handleEdit = (id, data) => {
-    dispatch(updateCategory(id, data))
-    dispatch(getCategories());
+  const editCategory = (e) =>{
+    const newSelectedCategory = allCategories.find((c) => c.id === e);
+    setSelectedCategory(newSelectedCategory);
+    setOpenModalEdit(true);
   }
 
+  const deleteThisCategory = (e) => {
+    const newSelectedCategory = allCategories.find((c) => c.id === e);
+    setSelectedCategory(newSelectedCategory)
+    setOpenModalDelete(true);
+  };
 
-  const handleDelete = (id) => {
-    dispatch(deleteCategory(id))
+  const savedEditedCategory = (values) => {
+    setOpenModalEdit(false);
+    dispatch(updateCategory(values));
     dispatch(getCategories());
+    history.push("/admin/categories");
   }
 
-  const [isOpenModalNew, openModalNew, closeModalNew] = useModal(false);
-  const [isOpenModalEdit, openModalEdit, closeModalEdit] = useModal(false)
-  const [isOpenModalDelete, openModalDelete, closeModalDelete] = useModal(false);
+  const confirmDeletedCategory = (id) => {
+    setOpenModalDelete(false);
+    dispatch(deleteCategory(id));
+    dispatch(getCategories());
+    history.push("/admin/categories");
+  }
 
-
-  // const bodyDelete=(
-  //   <div className="modal">
-  //     <p>Are you sure you want to delete this category?</p>
-  //     <div align="right">
-  //       <Button color="secondary" onClick={()=>handleDelete()}>Yes</Button>
-  //       <Button onClick={closeModalDelete}>No</Button>
-  //     </div>
-  //   </div>
-  // )
-
+  const processRowUpdate = React.useCallback(
+    async (newRow) => {
+      dispatch(updateCategory(newRow))
+      const response = await mutateRow(newRow)
+      return response
+    }, [updateCategory, mutateRow]
+  )
 
   const actionColumn = [
     {
@@ -62,10 +93,13 @@ export const CategoryTable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <div className="editButton">Edit</div>
+            <div className="viewButton"
+            onChange={()=>handleChange(params.row.id)}
+            onClick={()=>editCategory(params.row.id)}
+            >Edit</div>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={()=>deleteThisCategory(params.row.id)}
             >
               Delete
             </div>
@@ -78,32 +112,21 @@ export const CategoryTable = () => {
     <div className="datatable">
       <div className="datatableTitle">
         Categories
-        <button onClick={openModalNew}>New Category</button>
-            <Modal isOpen={isOpenModalNew} closeModal={closeModalNew}>
-                <CreateCategory />    
-            </Modal >
       </div>
-      <DataGrid
+      <DataTable
         className="datagrid"
         rows={allCategories}
         columns={categoryColumns.concat(actionColumn)}
-        pageSize={9}
+        pageSize={10}
         rowsPerPageOptions={[9]}
+        loading={!allCategories.length}
         getRowId={(row) => row.id}
-        processRowUpdate={handleEdit}
-        isCellEditable={(params) => params.row.name}
-        experimentalFeatures={{ newEditingApi: true }}
+        processRowUpdate={processRowUpdate}      
       />
-      {!!snackbar && (
-        <Snackbar
-          open
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          onClose={handleCloseSnackbar}
-          autoHideDuration={6000}
-        >
-          <Alert {...snackbar} onClose={handleCloseSnackbar} />
-        </Snackbar>
-      )}
+      <EditCategoryModal category={selectedCategory} open={openModalEdit} onClose={() => setOpenModalEdit=false} savedEditedCategory={savedEditedCategory} />
+      <DeleteCategoryModal id={selectedCategory.id} open={openModalDelete} onClose={() => setOpenModalDelete=false} confirmDeletedCategory={confirmDeletedCategory} />
     </div>
   );
 };
+
+export default CategoryTable;

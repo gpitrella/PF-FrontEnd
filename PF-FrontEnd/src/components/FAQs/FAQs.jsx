@@ -15,15 +15,15 @@ const FAQs = () => {
 
   return (
     <div>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
+      <br />
       <Grid>
         <Card style={{ maxWidth: 1000, padding: "20px 5px", margin: "0 auto" }}>
-      <Typography gutterBottom variant="h5">
-                Frequently Asqued Questions
-              </Typography>
+          <Typography gutterBottom variant="h5">
+            Frequently Asqued Questions
+          </Typography>
           <CardContent>
             <Accordion
               expanded={expanded === "panel1"}
@@ -61,7 +61,7 @@ const FAQs = () => {
                   Can't access my account
                 </Typography>
                 <Typography sx={{ color: "text.secondary" }}>
-                 Forget my password
+                  Forget my password
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -84,9 +84,7 @@ const FAQs = () => {
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
                   How can I change my password
                 </Typography>
-                <Typography sx={{ color: "text.secondary" }}>
-
-                </Typography>
+                <Typography sx={{ color: "text.secondary" }}></Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
@@ -193,7 +191,7 @@ const FAQs = () => {
                 id="panel4bh-header"
               >
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                How to modify a purchase
+                  How to modify a purchase
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -214,7 +212,7 @@ const FAQs = () => {
                 id="panel4bh-header"
               >
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                How to cancel a purchase
+                  How to cancel a purchase
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -240,17 +238,17 @@ const FAQs = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-                  See on Disney...Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                  Integer sit amet egestas eros, vitae egestas augue. Duis vel
-                  est augue.
+                  See on Disney...Nunc vitae orci ultricies, auctor nunc in,
+                  volutpat nisl. Integer sit amet egestas eros, vitae egestas
+                  augue. Duis vel est augue.
                 </Typography>
               </AccordionDetails>
             </Accordion>
           </CardContent>
         </Card>
       </Grid>
-      <br/>
-      <br/>
+      <br />
+      <br />
     </div>
   );
 };
