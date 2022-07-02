@@ -14,7 +14,8 @@ import {
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
-  POST_REVIEW_PRODUCT
+  POST_REVIEW_PRODUCT,
+  LOAD_STORAGE
 } from './actiontype';
 
 
@@ -130,3 +131,9 @@ export const postReviewProduct = function(comment, score, id) {
                 .catch(error => console.log(error))
   }
 };
+
+export const loadStorage = function() {
+  return {
+    type: LOAD_STORAGE
+  }
+}
