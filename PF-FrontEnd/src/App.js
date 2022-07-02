@@ -6,18 +6,18 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
-import CreateProduct from './components/CreateProduct/CreateProduct'
+// import CreateProduct from './components/CreateProduct/CreateProduct'
 import notFoundPage from './components/404/NotFoundPage404';
 import { getBrands, loadStorage } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
-import CreateActivity from './components/Categories/NewCategory';
+// import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
 import AddToCart from './components/AddToCart/AddToCart';
 import Admin from './Admin';
-import List from './pages/list/List';
-import UserEdit from './pages/user/UserEdit'
-import ListProducts from './pages/listproduct/Listproduct';
+// import List from './pages/list/List';
+// import UserEdit from './pages/user/UserEdit'
+// import ListProducts from './pages/listproduct/Listproduct';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
 import { Redirect } from 'react-router-dom';
@@ -57,15 +57,15 @@ function App() {
               <Route exact path="/store/brand/:brand" component = {Store} />
               <Route exact path="/productdetails/:id" component={ProductDetails} />
               <Route exact path='/checkout'> {user?.user ? <CheckOut/> : <Redirect to="/login"/>}</Route>
-              <Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>
+              {/*<Route exact path="/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>*/}
               
-              <Route exact path="/admin/dashboard"> {user?.user?.admin ? <Admin/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/admin/users/list"> {user?.user?.admin ? <List/> : <Redirect to="/"/>}</Route>
+              <Route path = "/admin"> {user?.user?.admin ? <Admin/> : <Redirect to = "/"/>}</Route>
+{/*              <Route exact path="/admin/users/list"> {user?.user?.admin ? <List/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/user/edit/:id" component={UserEdit}/>
               <Route exact path ="/admin/products/list"> {user?.user?.admin ? <ListProducts/> : <Redirect to="/"/>}</Route>
               <Route exact path="/admin/products/createproduct"> {user?.user?.admin ? <CreateProduct/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/admin/categories"> {user?.user?.admin ? <CreateActivity/> : <Redirect to="/"/>}</Route>*/}
 
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />

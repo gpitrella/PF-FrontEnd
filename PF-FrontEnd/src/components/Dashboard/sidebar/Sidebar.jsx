@@ -1,9 +1,12 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import HomeIcon from '@mui/icons-material/Home';
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
+import CategoryIcon from '@mui/icons-material/Category';
+import CopyrightIcon from '@mui/icons-material/Copyright';
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -26,7 +29,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         
-          <span className="logo">TechMarket Admin</span>
+          <span className="logo">TechMarket <i className = "adminLogo">ADMIN</i></span>
         
       </div>
       <hr />
@@ -41,7 +44,7 @@ const Sidebar = () => {
           </Link>
           <Link to="/" style={{ textDecoration: "none" }}>
           <li>
-            <DashboardIcon className="icon" />
+            <HomeIcon className="icon" />
             <span>Home</span>
           </li>
           </Link>
@@ -63,11 +66,11 @@ const Sidebar = () => {
             <span>Orders</span>
           </li>
           <li>
-            <LocalShippingIcon className="icon" />
+            <CategoryIcon className="icon" />
             <span>Categories</span>
           </li>
           <li>
-            <LocalShippingIcon className="icon" />
+            <CopyrightIcon className="icon" />
             <span>Manufacturers</span>
           </li>
           <p className="title">USEFUL</p>
@@ -102,16 +105,6 @@ const Sidebar = () => {
             <span>Logout</span>
           </li>
         </ul>
-      </div>
-      <div className="bottom">
-        <div
-          className="colorOption"
-          onClick={ () => dispatch(changeTheme('LIGHT')) }
-        ></div>
-        <div
-          className="colorOption"
-          onClick={ () => dispatch(changeTheme("DARK")) }
-        ></div>
       </div>
     </div>
   );
