@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Navbar from "../../components/Dashboard/navbar/Navbar";
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
-import { getUserDetail, userStatus } from '../../redux/actions';
+import { getUserDetail, putUserStatus, userStatus, userStatusReset } from '../../redux/actions';
 
 const Edit = ({match}) => {
    const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Edit = ({match}) => {
    //    dispatch(getUserDetail(matchId))
    //  },[dispatch, matchId]);
     
-    const { allusers } = useSelector((state) => state.userReducer);
+    const { allusers, usereditstatusok } = useSelector((state) => state.userReducer);
     
     console.log(allusers, 'allusers')
     
@@ -50,11 +50,19 @@ const Edit = ({match}) => {
       console.log(newstatus)
       dispatch(userStatus(newstatus))
       }  
-      async function handleConfirm(){
-         await axios.put(`http://localhost:3001/api/user/${id}?isactive=${newstatus}`)
-         .then(res => history.push("/admin/users/list")) 
-         .catch(err => console.log(err.response.data))
+      function handleConfirm(){
+         dispatch(putUserStatus(id, newstatus))
+
       }
+
+      useEffect(()=>{
+         if (usereditstatusok){
+         history.push('admin/users/list')
+            dispatch(userStatusReset())
+      }
+
+      }, [usereditstatusok])
+
   return (
     <>   
     <div className="list">
