@@ -54,16 +54,7 @@
     position: relative,
 }
 
-.signup__input{
-    height: 45px;
-    background-color: #fff;
-    border: 3px solid transparent;
-    margin: 10px;
-    border-radius: 5px;
-    line-height: 45px;
-    padding: 0 40px 0 10px;
-    transition: .3s ease all;
-}
+
 
 .signup__input:focus{
     border: 3px solid rgb(0, 117, 255);
@@ -114,23 +105,38 @@
     margin: 0;
 }
 
-
+.signup__input{
+    height: 45px;
+    width: 230px;
+    background-color: #fff;
+    border: 3px solid transparent;
+    margin-top: 20px;
+    border-radius: 5px;
+    line-height: 45px;
+    padding: 0 40px 0 10px;
+    transition: .3s ease all;
+}
 
 .signup__btn{
-    margin-top: 10px;
     height: 45px;
+    margin-top: 20px;
     line-height: 45px;
-    width: 30%;
+    width: 230px;
     background: rgba(0, 117, 255, 0.671);
     color: #fff;
     font-weight: bold;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
     transition: .1s ease all;
 }
 
-
+.signup_right{
+    flex: content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
 .signup__msn-exito{
     font-size: 14px;
