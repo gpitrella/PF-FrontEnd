@@ -64,9 +64,10 @@
     display: flex;
     align-items: center;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-top: 20px;
     cursor: pointer;
   }
+  
   
   .google{
     background-color: #df4930;
@@ -157,7 +158,17 @@
     margin: 0;
 }
 
-.login__btn{
+/* .submit{
+  width: 200px;
+  background-color: rgba(128, 0, 128, 0.671);
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+} */
+
+/* .login__btn{
     margin-top: 10px;
     height: 45px;
     width: 65%;
@@ -169,7 +180,7 @@
     border-radius: 3px;
     cursor: pointer;
     transition: .1s ease all;
-}
+} */
   .inputLogin {
     width: 200px;
     padding: 15px 20px;

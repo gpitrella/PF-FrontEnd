@@ -4,7 +4,6 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
 import { showCart } from "../../redux/actions";
-// import { send, init } from "emailjs-com";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { finishOrder } from "../../redux/actions"
@@ -32,11 +31,10 @@ const style = {
 };
 
 const CheckOut = () => {
-  console.log('entre a check out')
-
   const history = useHistory();
   const productsCart = useSelector((state) => state.general.productsCart)
   const stateFinishOrder = useSelector((state) => state.general.finishOrder)
+  const { user } = useSelector((state) => state.general)
   const dispatch = useDispatch();
   const [input, setInput] = React.useState({
     name: "",
@@ -49,7 +47,7 @@ const CheckOut = () => {
 
   const [items, setItems] = React.useState({});
   const [openWithOutStock, setOpenWithOutStock] = React.useState(false);
-  // const [redirect, setRedirect] = React.useState({redirect: false});
+  const [openYouAreAdmin, setOpenYouAreAdmin] = React.useState(false);
 
   const preOrder = () => {
     const formMercadoPAgo = productsCart?.map((product) => ({
@@ -103,9 +101,13 @@ totalValue();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(productsCart.length > 0){
+    if(productsCart.length > 0 && !user?.user.admin){
       dispatch(finishOrder(input.email, items))    
-    } else {
+    } 
+    if(productsCart.length > 0 && user?.user.admin){
+      setOpenYouAreAdmin(true);
+    }
+    else {
       setOpenWithOutStock(true);
     }
   };
@@ -115,6 +117,7 @@ totalValue();
       return;
     }
     setOpenWithOutStock(false);
+    setOpenYouAreAdmin(false);
   };
 
   const handleCart = (e) => {
@@ -163,7 +166,7 @@ totalValue();
        <br />
         <Grid>
           <Card
-            style={{ maxWidth: "45rem", padding: "20px 5px", margin: "0 auto" }}
+            style={{ maxWidth: "50rem", padding: "20px 5px", margin: "0 auto" }}
           >
             <CardContent>
               <Typography gutterBottom variant="h6">
@@ -297,6 +300,12 @@ totalValue();
       <Snackbar open={openWithOutStock} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
           <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
               Don't have products in Cart!
+          </Alert>
+      </Snackbar>
+
+      <Snackbar open={openYouAreAdmin} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+          <Alert onClose={handleCloseSuccessComment} severity="error" sx={{ width: '100%' }}>
+              Sorry you are Admin, You can't buy!
           </Alert>
       </Snackbar>
     </div>

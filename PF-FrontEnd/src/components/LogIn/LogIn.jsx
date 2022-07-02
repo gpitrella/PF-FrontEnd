@@ -96,7 +96,7 @@ const LogIn = () => {
           {/* {checkMailPassword.value ? (<p className='danger'>Something was wrong. Please check email or password.</p>) : null} */}
           
           
-          <button type='submit' className="login__btn" onClick={(e) => handleLogIn(e)} >Log In</button>
+          <button type='submit' className="submit" onClick={(e) => handleLogIn(e)} >Log In</button>
           {redirect?.value ? <Redirect push to={'/'} underline="none" /> : null}
           <p className="text">No account yet? <Link to='/signup' className="link">Sign up here!</Link></p>
         </div>

@@ -15,7 +15,8 @@ import {
   SIGN_UP,
   LOG_IN,
   LOAD_STORAGE,
-  LOGOUT
+  LOGOUT,
+  POST_REVIEW_PRODUCT,
 } from './actiontype';
 
 
@@ -60,13 +61,13 @@ export function reduceQuantityToProductCart(id){
 };
 
 // Create comments product
-export const postCommentProduct = function(comment, id) {
+export const postCommentProduct = function(comment, idProduc, idUser) {
   return function(dispatch){
-    return axios.post(`http://localhost:3001/api/comments`, {comment, id})
+    return axios.post(`http://localhost:3001/api/comments`, {comment, idProduc, idUser})
                 .then(comment => dispatch({ type: POST_COMMENT_PRODUCT, payload: comment.data}))
                 .catch(error => console.log(error))
-}
-}
+  }
+};
 
 export const signUp = function(name, email, password) {
   return function(dispatch){
@@ -123,6 +124,15 @@ export const finishOrder = function(email, items) {
   }
 };
 
+// Create Review product
+export const postReviewProduct = function(comment, score, id) {
+  return function(dispatch){
+    return axios.post(`http://localhost:3001/api/review`, {comment, score, id})
+                .then(comment => dispatch({ type: POST_REVIEW_PRODUCT, payload: comment.data}))
+                .catch(error => console.log(error))
+  }
+};
+
 export const loadStorage = function() {
   return {
     type: LOAD_STORAGE
@@ -130,9 +140,7 @@ export const loadStorage = function() {
 }
 
 export const logout = function() {
-  return function(dispatch){
-    return axios.get('http://localhost:3001/api/logout')
-                .then(data => dispatch({ type: LOGOUT}))
-                .catch(error => console.log(error))
+    return {
+    type: LOGOUT
   }
 }

@@ -12,7 +12,8 @@ import {
   SIGN_UP,
   LOG_IN,
   LOAD_STORAGE,
-  LOGOUT
+  LOGOUT,
+  POST_REVIEW_PRODUCT,
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -34,7 +35,8 @@ const initialState = {
   commentCreated: {},
   user:{},
   showCart: false,
-  finishOrder: {}
+  finishOrder: {},
+  reviewCreated: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -119,18 +121,20 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         commentCreated: payload
       }
+
     case SIGN_UP:
       LocalStorage.saveItem('user', payload);
       return {
         ...state,
         user: payload
       }
+
     case LOG_IN:
       LocalStorage.saveItem('user', payload);      
       return {
         ...state,
         user: payload
-    }
+      }
 
     case SHOW_CART:
       return {
@@ -149,6 +153,12 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         finishOrder: payload
       }
+    case POST_REVIEW_PRODUCT:
+      return {
+        ...state,
+        reviewCreated: payload
+      }
+
     case LOAD_STORAGE: {
       let theme = LocalStorage.getItem('theme');
       let user = LocalStorage.getItem('user');
@@ -161,6 +171,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case LOGOUT: {
+      LocalStorage.removeItem('user');
       return {
         ...state,
         user:{}
