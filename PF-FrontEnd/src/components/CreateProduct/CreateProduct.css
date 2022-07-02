@@ -158,3 +158,17 @@
     width: 100%;
 }
 }
+
+
+/* EDITADO POR FEDERICO ROMERO */
+
+.form__label {
+  color: var(--fontColor);
+}
+
+.form__input {
+  background-color: var(--primaryColorSub) !important;
+  color: var(--fontColor) !important;
+}
+
+/* FIN DE EDICION */
