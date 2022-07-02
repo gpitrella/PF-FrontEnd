@@ -29,8 +29,7 @@ import PageLoader from './components/PageLoader/PageLoader';
 function App() {
   const dispatch = useDispatch()
 
-  const {user} = useSelector((state) => state.general);
-  const [ showPageLoader, setShowPageLoader ] = React.useState(true);
+  const { user, showPageLoader } = useSelector((state) => state.general);
 
   React.useEffect(() => {
     dispatch(loadStorage());
@@ -45,7 +44,7 @@ function App() {
   if (showPageLoader) return (
     <React.Fragment>
       <div className= {`globalVariables mainContainer ${theme}`}>
-        <PageLoader setShow = {setShowPageLoader} />
+        <PageLoader />
       </div>
     </React.Fragment>
   );

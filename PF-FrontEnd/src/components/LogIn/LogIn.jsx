@@ -1,7 +1,7 @@
 import React from 'react';
 import Google from "./google.png";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "../../redux/actions";
+import { logIn, openPageLoader } from "../../redux/actions";
 import { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import './LogIn.css'
@@ -39,9 +39,13 @@ const LogIn = () => {
 
   React.useEffect(() => {
     if(user?.user && input.email !== '' && input.password !== '' ){
-      setRedirect({value: true})
+      setRedirect({value: true});
     } 
-  },[user])
+  },[user]);
+
+  React.useEffect(() => {
+    if (redirect && redirect.value) dispatch(openPageLoader());
+  }, [redirect]);
 
   return (
 
