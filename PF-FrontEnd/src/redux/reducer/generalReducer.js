@@ -60,6 +60,17 @@ const generalReducer = function(state = initialState, { type, payload }) {
     
     case ADD_PRODUCT_TO_CART:
       console.log(payload)
+      LocalStorage.saveItem('productsCart', state.productsCart.concat({
+          id: payload.id,
+          name: payload.name,
+          price: payload.price,
+          image: payload.image,
+          discount: payload.discount,
+          stock: payload.stock,
+          categories: payload.categories,
+          description: payload.description,
+          quantity: 1
+        }));
       return {
         ...state,
         productsCart: state.productsCart.concat({
@@ -76,27 +87,30 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
 
     case REMOVE_PRODUCT_CART:
+      LocalStorage.saveItem('productsCart', state.productsCart.filter(product => product.id !== payload));
       return {
         ...state,
         productsCart: state.productsCart.filter(product => product.id !== payload)
       }
 
     case INCREASE_QUANTITY_PRODUCT: 
-          state.productsCart.map((product) => {
-            if(product.id === payload){
-              product.quantity += 1
-            }
-          })
+      state.productsCart.forEach((product) => {
+        if(product.id === payload){
+          product.quantity += 1
+        }
+      })
+      LocalStorage.saveItem('productsCart', state.productsCart);
       return {
         ...state,
       }
 
     case REDUCE_QUANTITY_PRODUCT:
-          state.productsCart.map((product) => {
-            if(product.id === payload){
-              product.quantity -= 1
-            }
-          }) 
+      state.productsCart.forEach((product) => {
+        if(product.id === payload){
+          product.quantity -= 1
+        }
+      }) 
+      LocalStorage.saveItem('productsCart', state.productsCart);
       return {
         ...state, 
       }
@@ -147,10 +161,12 @@ const generalReducer = function(state = initialState, { type, payload }) {
     case LOAD_STORAGE: {
       let theme = LocalStorage.getItem('theme');
       let user = LocalStorage.getItem('user');
+      let productsCart = LocalStorage.getItem('productsCart');
       return {
         ...state,
         theme: theme ? theme : state.theme,
-        user: user ? user : state.user
+        user: user ? user : state.user,
+        productsCart: productsCart ? productsCart : state.productsCart
       }
     }
     default:

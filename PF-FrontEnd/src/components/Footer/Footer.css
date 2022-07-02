@@ -14,7 +14,7 @@
 .cntfooter{
     display: flex;
     background-color: #2A2A2A;
-    width: 100vw;
+/*    width: 100vw;*/
 }
 
 .cntsocial h3 {
