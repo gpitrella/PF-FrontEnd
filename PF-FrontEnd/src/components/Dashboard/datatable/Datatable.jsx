@@ -48,7 +48,7 @@ const Datatable = () => {
   ];
   return (
     <div className="datatable">
-      
+      <h1>Users List</h1>
       <DataGrid
         className="datagrid"
         rows={users}

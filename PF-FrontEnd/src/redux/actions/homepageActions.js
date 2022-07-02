@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
   TEST_HOMEPAGE,
   ALL_CATEGORIES,
-  CREATE_CATEGORY,
   GET_BRANDS,
   GET_PRODUCT_DETAILS,
   GET_SEARCH_PRODUCTS,
@@ -41,22 +40,6 @@ export const getCategories = function () {
     }
   }
 };
-
-export const createCategory = ({ name, image, products }) => {
-  return async (dispatch) => {
-      try{
-          let categCreated = await axios.post("http://localhost:3001/categories", { name, image, products });
-          dispatch({
-              type: CREATE_CATEGORY,
-              payload: categCreated
-          });
-      }catch(error){
-          console.log(error);
-          return error;
-      }
-  }
-};
-
 
 export const getBrands = function() {
   return async (dispatch)=>{

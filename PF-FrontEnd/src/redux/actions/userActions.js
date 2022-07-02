@@ -5,6 +5,8 @@ import {
   USER_UPDATE,
   USER_DELETE,
   USER_STATUS,
+  PUT_USER_STATUS,
+  USER_STATUS_RESET,
   
 } from './actiontype';
 
@@ -31,6 +33,19 @@ export function getUserDetail(id) {
        .then((res) => dispatch({ type: "GET_USER_DETAIL", payload: res.data }))
        .catch(error => console.log(error))
     };
+}
+
+export function putUserStatus(id, newstatus){
+  return (dispatch => {
+    return axios.put(`http://localhost:3001/api/user/${id}?isactive=${newstatus}`)
+           .then(res => dispatch({ type: PUT_USER_STATUS})) 
+           .catch(err => console.log(err.response.data))
+  })
+
+  }
+
+export function userStatusReset(){
+  return { type: USER_STATUS_RESET}
 }  
 
 export function userStatus(status) {
