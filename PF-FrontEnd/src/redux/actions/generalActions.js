@@ -14,8 +14,9 @@ import {
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
+  LOAD_STORAGE,
+  LOGOUT,
   POST_REVIEW_PRODUCT,
-  LOAD_STORAGE
 } from './actiontype';
 
 
@@ -135,5 +136,11 @@ export const postReviewProduct = function(comment, score, id) {
 export const loadStorage = function() {
   return {
     type: LOAD_STORAGE
+  }
+}
+
+export const logout = function() {
+    return {
+    type: LOGOUT
   }
 }

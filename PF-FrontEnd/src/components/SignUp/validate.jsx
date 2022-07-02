@@ -1,9 +1,5 @@
 import validator from 'validator';
 
-import React from 'react'
-
-
-
 export function validateUsername(input) {
     let errors = {};
 
@@ -12,8 +8,8 @@ export function validateUsername(input) {
             document.getElementById('username').classList.add('signup__group-incorrecto')
             document.getElementById('username').classList.remove('signup__group-correcto')
             document.querySelector('#username .signup__input-error').classList.add('signup__input-error-activo')
-    } else if (input.username.length <= 6){
-            errors.username = "Minimum of 6 characters"
+    } else if (input.username.length <= 3){
+            errors.username = "Minimum of 3 characters"
             document.getElementById('username').classList.add('signup__group-incorrecto')
             document.getElementById('username').classList.remove('signup__group-correcto')
             document.querySelector('#username .signup__input-error').classList.add('signup__input-error-activo')
@@ -27,14 +23,20 @@ export function validateUsername(input) {
             document.getElementById('username').classList.remove('signup__group-incorrecto')
             document.querySelector('#username .signup__input-error').classList.remove('signup__input-error-activo')
         }
+    
+  return errors
+}
+
+export function validateEmail(input) {
+        const errosEmail = {}
 
         if (validator.isEmpty(input.email)){
-                errors.username = "Add a email"
+                errosEmail.email = "Add an email"
                 document.getElementById('email').classList.add('signup__group-incorrecto')
                 document.getElementById('email').classList.remove('signup__group-correcto')
                 document.querySelector('#email .signup__input-error').classList.add('signup__input-error-activo')
         } else if (!validator.isEmail(input.email)){
-                errors.email = "Insert a valid email adress"
+                errosEmail.email = "Insert a valid email adress"
                 document.getElementById('email').classList.add('signup__group-incorrecto')
                 document.getElementById('email').classList.remove('signup__group-correcto')
                 document.querySelector('#email .signup__input-error').classList.add('signup__input-error-activo')
@@ -44,27 +46,33 @@ export function validateUsername(input) {
                 document.querySelector('#email .signup__input-error').classList.remove('signup__input-error-activo')
             }
     
-  return errors
+  return errosEmail
 }
 
-// export function validateEmail(input) {
-//     let errors = {};
+export function validatePassword(input) {
+        const errosPassword = {}
 
-//     if (validator.isEmpty(input.email)){
-//             errors.username = "Add a email"
-//             document.getElementById('email').classList.add('signup__group-incorrecto')
-//             document.getElementById('email').classList.remove('signup__group-correcto')
-//             document.querySelector('#email .signup__input-error').classList.add('signup__input-error-activo')
-//     } else if (!validator.isEmail(input.email)){
-//             errors.email = "Insert a valid email adress"
-//             document.getElementById('email').classList.add('signup__group-incorrecto')
-//             document.getElementById('email').classList.remove('signup__group-correcto')
-//             document.querySelector('#email .signup__input-error').classList.add('signup__input-error-activo')
-//     } else {
-//             document.getElementById('email').classList.add('signup__group-correcto')
-//             document.getElementById('email').classList.remove('signup__group-incorrecto')
-//             document.querySelector('#email .signup__input-error').classList.remove('signup__input-error-activo')
-//         }
+        if (validator.isEmpty(input.password)){
+                errosPassword.password = "Add a password"
+                document.getElementById('password').classList.add('signup__group-incorrecto')
+                document.getElementById('password').classList.remove('signup__group-correcto')
+                document.querySelector('#password .signup__input-error').classList.add('signup__input-error-activo')
+        } else if (input.password.length < 6){
+                errosPassword.password = "Minimum of 6 characters"
+                document.getElementById('password').classList.add('signup__group-incorrecto')
+                document.getElementById('password').classList.remove('signup__group-correcto')
+                document.querySelector('#password .signup__input-error').classList.add('signup__input-error-activo')
+        } else if (validator.matches(input.password, '^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$')){
+                errosPassword.password = "At least one letter and one number"
+                document.getElementById('password').classList.add('signup__group-incorrecto')
+                document.getElementById('password').classList.remove('signup__group-correcto')
+                document.querySelector('#password .signup__input-error').classList.add('signup__input-error-activo')
+        } else {
+                document.getElementById('password').classList.add('signup__group-correcto')
+                document.getElementById('password').classList.remove('signup__group-incorrecto')
+                document.querySelector('#password .signup__input-error').classList.remove('signup__input-error-activo')
+            }
     
-//   return errors
-// }
+  return errosPassword
+}
+

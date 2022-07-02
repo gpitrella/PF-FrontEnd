@@ -13,6 +13,7 @@ export const CLOSE_CART = 'CLOSE_CART';
 export const FINISH_ORDER = 'FINISH_ORDER';
 export const POST_REVIEW_PRODUCT = 'POST_REVIEW_PRODUCT';
 export const LOAD_STORAGE = 'LOAD_STORAGE';
+export const LOGOUT = 'LOGOUT'
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';
