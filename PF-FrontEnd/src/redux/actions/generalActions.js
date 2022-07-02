@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import {
   CHANGE_THEME,
+  SHOW_MINI_MODAL,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_CART,
   INCREASE_QUANTITY_PRODUCT,
@@ -12,7 +13,9 @@ import {
   CLOSE_CART,
   FINISH_ORDER,
   SIGN_UP,
-  LOG_IN
+  LOG_IN,
+  LOAD_STORAGE,
+  LOGOUT
 } from './actiontype';
 
 
@@ -82,6 +85,19 @@ export const logIn = function(email, password) {
 }
  
 
+export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
+  console.log(show, msg, success, error);
+  return {
+    type: SHOW_MINI_MODAL,
+    payload: {
+      show: show,
+      msg: msg,
+      success: success,
+      error: error
+    }
+  }
+}
+
 // Show Cart:
 export function showCart(){
   return {
@@ -106,3 +122,17 @@ export const finishOrder = function(email, items) {
                 .catch(error => console.log(error))
   }
 };
+
+export const loadStorage = function() {
+  return {
+    type: LOAD_STORAGE
+  }
+}
+
+export const logout = function() {
+  return function(dispatch){
+    return axios.get('http://localhost:3001/api/logout')
+                .then(data => dispatch({ type: LOGOUT}))
+                .catch(error => console.log(error))
+  }
+}

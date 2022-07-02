@@ -1,13 +1,17 @@
+import React from 'react';
 import Google from "./google.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../redux/actions";
-import './LogIn.css'
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Redirect } from "react-router-dom";
 import './LogIn.css'
 import { validateEmail, validatePassword } from "./validate";
-const LogIn = () => {
 
+const LogIn = () => {
+  const [redirect, setRedirect] = useState({ value: false })
+  // const [checkMailPassword, setCheckMailPassword] = useState(false)
+
+  const { user } = useSelector((state) => state.general)
   const google = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
@@ -29,6 +33,7 @@ const LogIn = () => {
     
 
   const dispatch = useDispatch();
+  
 
   const handleLogIn = (e) => {
     e.preventDefault();
@@ -37,12 +42,18 @@ const LogIn = () => {
     setErrorsPassword(validatePassword({...input,[e.target.name]: e.target.value}))
   }
 
+  React.useEffect(() => {
+    if(user?.user && input.email !== '' && input.password !== '' ){
+      setRedirect({value: true})
+    } 
+  },[user])
+
   return (
 
     <div className="login">
+          <h1 className="login__title">Log In</h1>
       <div className="login__wrapper">
         <div className="left">
-          <h1 className="login__title">Log In</h1>
 
 
           <div className="loginButton google" onClick={google}>
@@ -82,7 +93,11 @@ const LogIn = () => {
             <p className='login__input-error'>{errorsPassword.password}</p>
         </div>
           
+          {/* {checkMailPassword.value ? (<p className='danger'>Something was wrong. Please check email or password.</p>) : null} */}
+          
+          
           <button type='submit' className="login__btn" onClick={(e) => handleLogIn(e)} >Log In</button>
+          {redirect?.value ? <Redirect push to={'/'} underline="none" /> : null}
           <p className="text">No account yet? <Link to='/signup' className="link">Sign up here!</Link></p>
         </div>
       </div>

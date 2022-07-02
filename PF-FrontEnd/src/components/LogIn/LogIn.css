@@ -170,6 +170,35 @@
     cursor: pointer;
     transition: .1s ease all;
 }
+  .inputLogin {
+    width: 200px;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+  
+  .submit{
+    width: 200px;
+    background-color: rgba(0, 117, 255, 0.671);
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .loginTitle{
+    position: absolute;
+    top: 150px;
+    color:lightgray
+  }
+  
+  .link{
+    color: inherit;
+    text-decoration: none;
+    color: rgb(0, 117, 255);
+    font-weight: bold;
+  }
 
 
 

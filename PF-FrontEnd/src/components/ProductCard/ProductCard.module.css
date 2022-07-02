@@ -77,6 +77,10 @@
   color: var(--fontColor);
 }
 
+.price {
+  color: yellow !important;
+}
+
 .price,
 .spanRating {
   font-weight: 700;
@@ -122,10 +126,13 @@
 
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 8fr 2fr;
-  padding: 0 0.5rem 0 0.5rem;
+  grid-template-columns: 33% 34% 33%;
+  padding: 0;
 
   box-sizing: border-box;
+
+  align-content: center;
+  align-items: center;
 }
 
 .btn {
@@ -145,9 +152,12 @@
 
 .containerButtonsSVG {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: auto auto;
+  justify-content: flex-end;
   align-items: center;
+  grid-gap: 10px;
 }
 
 .containerSVG {
@@ -206,10 +216,39 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: min-content min-content;
-  grid-gap: 10px;
+  grid-gap: 5px;
 
   align-items: center;
   justify-items: flex-start;
 
   box-sizing: content-box;
+}
+
+.spanStock {
+  font-size: var(--fontSmall);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0 5px 0;
+  color: white;
+  letter-spacing: 2px;
+}
+
+.green {
+  background-color: var(--successColor);
+}
+
+.red {
+  background-color: var(--dangerColor);
+}
+
+.redHeart > svg:hover {
+  fill: var(--dangerColor);
+}
+
+.priceSymbol {
+  font-style: normal;
+  font-size: var(--fontTitle);
+  margin-right: 5px;
 }

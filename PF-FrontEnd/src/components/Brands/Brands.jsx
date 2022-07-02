@@ -44,7 +44,7 @@ const Brands = ()=> {
       <Carousel responsive = {responsive} infinite = {true}>
         {
           brandsList && brandsList.map((b) => 
-            <BrandCard name={b.name} image={b.image} />
+            <BrandCard name={b.name} image={b.image} key={brandsList?.indexOf(b)}/>
           )
         }
       </Carousel>

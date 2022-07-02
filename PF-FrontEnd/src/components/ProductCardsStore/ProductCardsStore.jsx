@@ -14,6 +14,7 @@ export default function ProductCardsStore({ products }){
           name = {product.name}
           category = {product.categories[0]}
           price = {product.price}
+          stock = {product.stock}
           discount = {product.discount}
           rating = {9.5}
           image = {product.image}

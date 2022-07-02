@@ -1,7 +1,6 @@
-import { stepButtonClasses } from '@mui/material';
-import { showCart } from '../actions';
 import {
   CHANGE_THEME,
+  SHOW_MINI_MODAL,
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_CART,
   INCREASE_QUANTITY_PRODUCT,
@@ -11,8 +10,12 @@ import {
   CLOSE_CART,
   FINISH_ORDER,
   SIGN_UP,
-  LOG_IN
+  LOG_IN,
+  LOAD_STORAGE,
+  LOGOUT
 } from '../actions/actiontype';
+
+import { LocalStorage } from '../../util/localStorage';
 
 const THEME = {
   LIGHT: 'lightTheme',
@@ -21,8 +24,13 @@ const THEME = {
 
 const initialState = {
   theme: 'lightTheme',
+  miniModal: {
+    show: false,
+    msg: '',
+    success: false,
+    error: false,
+  },
   productsCart: [],
-  theme: 'darkTheme',
   commentCreated: {},
   user:{},
   showCart: false,
@@ -32,9 +40,21 @@ const initialState = {
 const generalReducer = function(state = initialState, { type, payload }) {
   switch(type) {
     case CHANGE_THEME:
+      LocalStorage.saveItem('theme', THEME[payload]);
       return {
         ...state,
         theme: THEME[payload]
+      }
+
+    case SHOW_MINI_MODAL:
+      return {
+        ...state,
+        miniModal: {
+          show: payload.show,
+          msg: payload.msg ? payload.msg : '',
+          success: payload.success ? payload.success : false,
+          error: payload.error ? payload.error : false,
+        }
       }
     
     case ADD_PRODUCT_TO_CART:
@@ -86,11 +106,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
         commentCreated: payload
       }
     case SIGN_UP:
+      LocalStorage.saveItem('user', payload);
       return {
         ...state,
         user: payload
       }
     case LOG_IN:
+      LocalStorage.saveItem('user', payload);      
       return {
         ...state,
         user: payload
@@ -113,7 +135,21 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         finishOrder: payload
       }
-      
+    case LOAD_STORAGE: {
+      let theme = LocalStorage.getItem('theme');
+      let user = LocalStorage.getItem('user');
+      return {
+        ...state,
+        theme: theme ? theme : state.theme,
+        user: user ? user : state.user
+      }
+    }
+    case LOGOUT: {
+      return {
+        ...state,
+        user:{}
+      }
+    }
     default:
       return state;
   }

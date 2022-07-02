@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getProductDetails, addProductToCart, postCommentProduct } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
@@ -44,16 +44,13 @@ export default function ProductDetails (){
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
-      //  return() => {
-      //      dispatch(clearGameDetail())
-      //  }
     }, [commentCreated]);
 
     // Configuración boton agregar comentario.
     const [openComment, setOpenComment] = React.useState(false);
     const [openSuccessAddToCart, setOpenSuccessAddToCart] = React.useState(false);
     const [openProductInCart, setProductInCart] = React.useState(false);
-    
+    const history = useHistory();
     const [comment, setComment] = React.useState();
 
     const handleClickOpen = () => {
@@ -73,14 +70,23 @@ export default function ProductDetails (){
         handleClose();
     };
     const addtoCart = () => {
-        console.log(productsCart)
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
         if(productInCart?.length === 0){
             dispatch(addProductToCart(productDetails.id));
             setOpenSuccessAddToCart(true)
-            console.log('producto agregado al carrito')        
         } else {
             handleOpenProductInCart();
+        }
+    };
+
+    const addtoCartandCheckOut = (e) => {
+        e.preventDefault();
+        const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
+        if(productInCart?.length === 0){
+            dispatch(addProductToCart(productDetails.id));
+            history.push('/checkout');
+        } else {
+            history.push('/checkout');
         }
     };
     
@@ -140,7 +146,7 @@ export default function ProductDetails (){
                     <Stack spacing={2} direction="row">
                         <span>Stock: <span id="stock_status">{productDetails?.stock} unid.</span></span>
                         <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCart}>Add to Cart</Button>
-                        <Button className='btn_Product_Detail' size="small" variant="contained">Buy</Button>
+                        <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCartandCheckOut}>Buy</Button>
                     </Stack>                    
                     <hr/>
 
