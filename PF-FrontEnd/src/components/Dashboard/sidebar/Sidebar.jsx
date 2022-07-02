@@ -26,7 +26,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         
-          <span className="logo">TechMarket Admin</span>
+          <span className="logo">TechMarket <i className = "adminLogo">ADMIN</i></span>
         
       </div>
       <hr />
@@ -102,16 +102,6 @@ const Sidebar = () => {
             <span>Logout</span>
           </li>
         </ul>
-      </div>
-      <div className="bottom">
-        <div
-          className="colorOption"
-          onClick={ () => dispatch(changeTheme('LIGHT')) }
-        ></div>
-        <div
-          className="colorOption"
-          onClick={ () => dispatch(changeTheme("DARK")) }
-        ></div>
       </div>
     </div>
   );
