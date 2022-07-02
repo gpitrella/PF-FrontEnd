@@ -24,10 +24,13 @@ import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
 
+import PageLoader from './components/PageLoader/PageLoader';
+
 function App() {
   const dispatch = useDispatch()
 
-  const {user} = useSelector((state) => state.general)
+  const {user} = useSelector((state) => state.general);
+  const [ showPageLoader, setShowPageLoader ] = React.useState(true);
 
   React.useEffect(() => {
     dispatch(loadStorage());
@@ -37,7 +40,15 @@ function App() {
     dispatch(getBrands())
   },[dispatch])
 
-  const { theme, showCart } = useSelector(state => state.general);  
+  const { theme, showCart } = useSelector(state => state.general);
+
+  if (showPageLoader) return (
+    <React.Fragment>
+      <div className= {`globalVariables mainContainer ${theme}`}>
+        <PageLoader setShow = {setShowPageLoader} />
+      </div>
+    </React.Fragment>
+  );
 
   return (
     <React.Fragment>
