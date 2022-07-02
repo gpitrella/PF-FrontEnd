@@ -1,6 +1,4 @@
 import axios from 'axios';
-
-
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,

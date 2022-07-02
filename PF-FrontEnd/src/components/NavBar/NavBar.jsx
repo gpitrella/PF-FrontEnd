@@ -6,6 +6,7 @@ import { changeTheme } from '../../redux/actions';
 
 import './NavBar.css';
 import gitfLogo from './img/logo_TechMarket.gif';
+import userAvatar from './img/user_avatar.png';
 
 // Nueva Navbar
 import { styled, alpha } from '@mui/material/styles';
@@ -33,9 +34,7 @@ import Switch from '@mui/material/Switch';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
-
-
-
+import Avatar from '@mui/material/Avatar';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -248,6 +247,7 @@ export default function NavBar() {
           color="inherit"
         >
           <AccountCircle />
+          <Avatar alt="Avatar Imagen" src={userAvatar} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
