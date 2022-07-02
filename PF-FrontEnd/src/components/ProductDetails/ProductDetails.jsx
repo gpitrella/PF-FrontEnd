@@ -132,7 +132,7 @@ export default function ProductDetails (){
             handleClose();
         }
     };
-    
+
     const addtoCart = () => {
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
         if(productInCart?.length === 0){
@@ -307,7 +307,7 @@ export default function ProductDetails (){
                             </Button>
                         </DialogActions>
                 </BootstrapDialog>
-                </div>
+            </div>
         </div>
         )    
 }
