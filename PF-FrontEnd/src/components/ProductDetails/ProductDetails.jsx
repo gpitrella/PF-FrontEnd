@@ -15,23 +15,59 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
 
+// Alerta comentario creado
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export const product = 
-    {
-        "id": 1,
-        "name": "LENOVO V14-ADA | PROCESADOR AMD ATHLON 3020E | RAM 4GB | SSD 256GB | PANTALLA 14 | FREE SO | TECLADO ES",
-        "price": 10995,
-        "description": "LENOVO V14-ADA | PROCESADOR AMD ATHLON 3020E | RAM 4GB | SSD 256GB | PANTALLA 14 | FREE SO | TECLADO ES",
-        "image": "https://www.mastecnologia.com.ar/images/productos/90411.png",
-        "category": "Notebook",
-        "discount": 10,
-        "stock": 35,
-        "comment": []
-      }
+// Box desplegable para login
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+      padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+      padding: theme.spacing(1),
+    },
+  }));
+  
+  const BootstrapDialogTitle = (props) => {
+    const { children, onClose, ...other } = props;
+  
+    return (
+      <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+        {children}
+        {onClose ? (
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        ) : null}
+      </DialogTitle>
+    );
+  };
+  
+  BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+  };
+
+
 
 export default function ProductDetails (){
     const [open, setOpen] = React.useState(false);
@@ -40,11 +76,28 @@ export default function ProductDetails (){
     const productDetails = useSelector((state) => state.homepage.productDetails)
     const productsCart = useSelector((state) => state.general.productsCart)
     const commentCreated = useSelector((state) => state.general.commentCreated)
+    const { user } = useSelector((state) => state.general)
+    console.log(user)
     let discountPrice = Math.round(productDetails.price - productDetails.price * (productDetails.discount / 100));
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
     }, [commentCreated]);
+
+    // Cartel desplegable de Login
+    const [openLogin, setOpenLogin] = React.useState(false);
+
+    const handleClickOpenLogin = () => {
+        setOpenLogin(true);
+    };
+  
+    const handleCloseLogin = () => {
+        setOpenLogin(false);
+    };
+
+    const handleOpenPageLogin = () => {
+        history.push('/login');
+    }
 
     // Configuración boton agregar comentario.
     const [openComment, setOpenComment] = React.useState(false);
@@ -54,21 +107,32 @@ export default function ProductDetails (){
     const [comment, setComment] = React.useState();
 
     const handleClickOpen = () => {
-        setOpen(true);
+        if(!user?.user){
+            handleClickOpenLogin();
+        } else {
+            setOpen(true);
+        }
     };
+
     const handleClose = () => {
         setOpen(false);
     };
+
     const handleComment = (e) => {
         e.preventDefault();
         setComment(e.target.value);
     };
+
     const handleSend = () => {
-        // product.comment.push(comment);
-        dispatch(postCommentProduct(comment, productDetails.id));
-        handleClickComment()
-        handleClose();
+        if(!user?.user){
+            handleClickOpenLogin();
+        } else {
+            dispatch(postCommentProduct(comment, productDetails.id, user?.user.id));
+            handleClickComment()
+            handleClose();
+        }
     };
+    
     const addtoCart = () => {
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
         if(productInCart?.length === 0){
@@ -105,6 +169,7 @@ export default function ProductDetails (){
         setOpenComment(false);
         setOpenSuccessAddToCart(false);
         setProductInCart(false);
+        handleCloseLogin()
     };
     
   
@@ -220,6 +285,29 @@ export default function ProductDetails (){
                     </Alert>
                 </Snackbar>
             </div>
+            <div>
+                <BootstrapDialog
+                    onClose={handleCloseLogin}
+                    aria-labelledby="customized-dialog-title"
+                    open={openLogin}
+                >
+                    <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLogin}>
+                        You must be Login:
+                    </BootstrapDialogTitle>
+                    <DialogContent dividers>
+                        <Typography gutterBottom>
+                            Register or log in to be able to make comments and discover 
+                            all the functionalities of the website, 
+                            such as exclusive discounts, additional promotions, etc.
+                        </Typography>
+                    </DialogContent>
+                        <DialogActions>
+                            <Button autoFocus onClick={handleOpenPageLogin}>
+                                Login
+                            </Button>
+                        </DialogActions>
+                </BootstrapDialog>
+                </div>
         </div>
         )    
 }

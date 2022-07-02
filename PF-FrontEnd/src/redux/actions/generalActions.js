@@ -58,9 +58,9 @@ export function reduceQuantityToProductCart(id){
 };
 
 // Create comments product
-export const postCommentProduct = function(comment, id) {
+export const postCommentProduct = function(comment, idProduc, idUser) {
   return function(dispatch){
-    return axios.post(`http://localhost:3001/api/comments`, {comment, id})
+    return axios.post(`http://localhost:3001/api/comments`, {comment, idProduc, idUser})
                 .then(comment => dispatch({ type: POST_COMMENT_PRODUCT, payload: comment.data}))
                 .catch(error => console.log(error))
 }
