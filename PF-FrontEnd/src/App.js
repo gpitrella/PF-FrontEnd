@@ -10,6 +10,7 @@ import Store from './components/Store/Store';
 import notFoundPage from './components/404/NotFoundPage404';
 import { getBrands, loadStorage } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
+
 // import CreateActivity from './components/Categories/NewCategory';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
@@ -37,7 +38,7 @@ function App() {
     dispatch(getBrands())
   },[dispatch])
 
-  const { theme, showCart } = useSelector(state => state.general);  
+  const { theme, showCart } = useSelector(state => state.general);
 
   return (
     <React.Fragment>

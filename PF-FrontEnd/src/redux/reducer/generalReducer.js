@@ -1,3 +1,5 @@
+import { stepButtonClasses } from '@mui/material';
+import { showCart } from '../actions';
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -11,8 +13,9 @@ import {
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
+  LOAD_STORAGE,
+  LOGOUT,
   POST_REVIEW_PRODUCT,
-  LOAD_STORAGE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -167,6 +170,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
         theme: theme ? theme : state.theme,
         user: user ? user : state.user,
         productsCart: productsCart ? productsCart : state.productsCart
+      }
+    }
+    case LOGOUT: {
+      LocalStorage.removeItem('user');
+      return {
+        ...state,
+        user:{}
       }
     }
     default:

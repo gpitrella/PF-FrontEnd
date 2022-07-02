@@ -5,6 +5,7 @@ import { logIn } from "../../redux/actions";
 import { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import './LogIn.css'
+import { validateEmail, validatePassword } from "./validate";
 
 const LogIn = () => {
   const [redirect, setRedirect] = useState({ value: false })
@@ -15,17 +16,19 @@ const LogIn = () => {
     window.open("http://localhost:3001/auth/google", "_self");
   };
 
-    const [ input, setInput ] = useState({
-        email: '',
-        password: ''
-    })
+  const [errorsEmail, setErrorsEmail] = useState({})
+  const [errorsPassword, setErrorsPassword] = useState({})
+
+  const [ input, setInput ] = useState({
+      email: '',
+      password: ''
+  })
 
     const handleChange = (e) => {
         e.preventDefault();
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value
-        })
+        setInput({...input,[e.target.name]: e.target.value})
+        setErrorsEmail(validateEmail({...input,[e.target.name]: e.target.value}))
+        setErrorsPassword(validatePassword({...input,[e.target.name]: e.target.value}))
     }
     
 
@@ -35,6 +38,8 @@ const LogIn = () => {
   const handleLogIn = (e) => {
     e.preventDefault();
     dispatch(logIn(input.email, input.password))
+    setErrorsEmail(validateEmail({...input,[e.target.name]: e.target.value}))
+    setErrorsPassword(validatePassword({...input,[e.target.name]: e.target.value}))
   }
 
   React.useEffect(() => {
@@ -46,9 +51,11 @@ const LogIn = () => {
   return (
 
     <div className="login">
-      <h1 className="loginTitle">Log In</h1>
-      <div className="wrapper">
+          <h1 className="login__title">Log In</h1>
+      <div className="login__wrapper">
         <div className="left">
+
+
           <div className="loginButton google" onClick={google}>
           <img src={Google} alt="" className="icon" />
           Google
@@ -59,24 +66,35 @@ const LogIn = () => {
           <div className="or">OR</div>
         </div>
         <div className="right">
-          {/* {checkMailPassword.value ? (<p className='danger'>Something was wrong. Please check email or password.</p>) : null} */}
-          <input
-          type="email"
-          name={"email"}
-          value={input.email}
-          placeholder="Email"
-          onChange={(e) => handleChange(e)}
-          className = "inputLogin"
-          />
+          
+        <div className='login__group' id='email'>
+            <input
+            type="email"
+            id="email"
+            name={"email"}
+            value={input.email}
+            placeholder="Email"
+            onChange={(e) => handleChange(e)}
+            className='login__input'
+            />
+            <p className='login__input-error'>{errorsEmail.email}</p>
+        </div>
 
-          <input
-          type="password"
-          name={"password"}
-          value={input.password}
-          placeholder="Password"
-          onChange={(e) => handleChange(e)}
-          className = "inputLogin"
-          />
+        <div className='login__group' id='password'>
+            <input
+            type="password"
+            id='password'
+            name={"password"}
+            value={input.password}
+            placeholder="Password"
+            onChange={(e) => handleChange(e)}
+            className='login__input'
+            />
+            <p className='login__input-error'>{errorsPassword.password}</p>
+        </div>
+          
+          {/* {checkMailPassword.value ? (<p className='danger'>Something was wrong. Please check email or password.</p>) : null} */}
+          
           
           <button type='submit' className="submit" onClick={(e) => handleLogIn(e)} >Log In</button>
           {redirect?.value ? <Redirect push to={'/'} underline="none" /> : null}

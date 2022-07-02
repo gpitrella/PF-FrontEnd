@@ -65,6 +65,18 @@ const Sidebar = () => {
             <CreditCardIcon className="icon" />
             <span>Orders</span>
           </li>
+          <Link to="/admin/categories" style={{ textDecoration: "none" }}>
+            <li>
+              <LocalShippingIcon className="icon" />
+              <span>Categories</span>
+            </li>
+          </Link>
+          <Link to="/admin/brands" style={{ textDecoration: "none" }}>
+            <li>
+              <LocalShippingIcon className="icon" />
+              <span>Manufacturers</span>
+            </li>
+          </Link>
           <li>
             <CategoryIcon className="icon" />
             <span>Categories</span>
