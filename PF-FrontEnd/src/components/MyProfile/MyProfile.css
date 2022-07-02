@@ -1,0 +1,32 @@
+.main_box_pyProfile {
+    padding: 100px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.button_myprofile {
+    justify-content:center;
+}
+
+.personal_informacion {
+    margin-top: 20px;
+    margin-bottom: -22px;
+}
+
+.personal_myreview{
+    margin-left: 15px;
+    margin-top: -10px;
+    margin-bottom: 8px;
+}
+
+.title_myprofile {
+    font-size: 30px;
+    padding-top: 50px;
+    padding-bottom: 0px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
