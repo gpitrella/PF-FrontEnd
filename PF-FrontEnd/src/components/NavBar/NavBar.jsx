@@ -396,7 +396,9 @@ export default function NavBar() {
       {/* { displayUser ? {renderMenuProfileNormalUser} : {renderMenu} } */}
       {renderMenu}
     </Box>
-    <ScrollToTop smooth component={<ExpandLessIcon />} />
+    <div className = {'scrollToTop'}>
+      <ScrollToTop smooth component={<ExpandLessIcon />} />
+    </div>
       </nav>
     )
 };
