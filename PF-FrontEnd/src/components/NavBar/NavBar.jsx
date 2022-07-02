@@ -174,7 +174,7 @@ export default function NavBar() {
       onClose={handleMenuClose}
     >
       {user?.user ? <span>
-                        <Link to="/login" className="links_profile_user">
+                        <Link to="/myprofile" className="links_profile_user">
                           <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
                         </Link>
                         <Link to="/signup" className="links_profile_user">
