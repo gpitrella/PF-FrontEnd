@@ -173,13 +173,13 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {displayUser ? <span>
-                      <Link to="/login" className="links_profile_user">
-                        <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
-                      </Link>
-                      <Link to="/signup" className="links_profile_user">
-                        <MenuItem onClick={handleMenuClose} >Sign Out</MenuItem>
-                      </Link>
+      {user?.user ? <span>
+                        <Link to="/login" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
+                        </Link>
+                        <Link to="/signup" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >LogOut</MenuItem>
+                        </Link>
                     </span>
                     : <span>
                         <Link to="/login" className="links_profile_user">
@@ -253,7 +253,7 @@ export default function NavBar() {
       dispatch(changeTheme('LIGHT'));
     }
   };
-
+  
   React.useEffect(() => {
     if(user?.user){
       setDisplayUser(true);
