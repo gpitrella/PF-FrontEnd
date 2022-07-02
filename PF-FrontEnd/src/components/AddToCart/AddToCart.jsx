@@ -1,11 +1,8 @@
-import React, { useState } from "react";
-// import { Button } from "@material-ui/core";
-// import { CartItemType } from "../App"; -- importa los productos agregados al carrito
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { removeProductFromCart, increaseQuantityToProductCart, reduceQuantityToProductCart, closeCart } from "../../redux/actions";
 import './AddToCart.css';
-
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -17,6 +14,11 @@ import Divider from '@mui/material/Divider';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -26,10 +28,67 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
   });
 
+// Box Desplegable para Logearse:
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
 
 export default function AddToCart({showCart}){
 const [openComment, setOpenComment] = React.useState(false);
-const [redirect, setRedirect] = useState({value: false})
+const [openWithOutStock, setOpenWithOutStock] = React.useState(false);
+const { user } = useSelector((state) => state.general)
+const history = useHistory();
+
+// Cartel desplegable de Login
+const [openLogin, setOpenLogin] = React.useState(false);
+
+const handleClickOpenLogin = () => {
+    setOpenLogin(true);
+};
+
+const handleCloseLogin = () => {
+    setOpenLogin(false);
+};
+
+const handleOpenPageLogin = () => {
+    dispatch(closeCart())
+    history.push('/login');
+;}
+
 const productsCart = useSelector((state) => state.general.productsCart)
 const dispatch = useDispatch();
 
@@ -40,21 +99,26 @@ const handleCloseAddtoCart = (e) => {
 
 const handleCloseCartToCheckOut = (e) => {
   e.preventDefault();
-  if(productsCart.length > 0){
-    setRedirect({value: true})
+  if(productsCart?.length > 0 && user?.user){
     dispatch(closeCart());
-  } else {
+    history.push('/checkout');
+  } 
+  if(productsCart?.length > 0 && !user?.user){
+    handleClickOpenLogin();
+  } 
+  if(productsCart?.length === 0) {
     setOpenComment(true)
   }
 };
 
 const increaseAmountToCart = (id) => {
   productsCart.map((product) => {
-    if(product.id === id && product.stock > 1){
+    if(product.id === id && product.stock > 1 && product.stock > product.quantity){
       dispatch(increaseQuantityToProductCart(id))
     } 
-    // setAmountCart(productsCart)
-    // AGREGAR CONDICION CUANDO EL STOCK ESTA EN O   
+    if(product.id === id && product.stock === product.quantity) {
+      setOpenWithOutStock(true)
+    }
   })
 };
 
@@ -83,6 +147,8 @@ const handleCloseSuccessComment = (event, reason) => {
     return;
   }
   setOpenComment(false);
+  setOpenWithOutStock(false);
+  setOpenLogin(false);
 };
 
 React.useEffect(() => {
@@ -118,7 +184,7 @@ React.useEffect(() => {
                          </div>
                          <div className="quantity_price">
                             <div>
-                                <p className="information_addtocart">Total: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
+                                <p className="information_addtocart">SubTotal: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
                             </div>
                             <div className="buttons_addtocart">
                                 <Button id="button_less" variant="outlined" size="small" onClick={() => reduceAmountToCart(e?.id)}>-</Button>
@@ -136,25 +202,52 @@ React.useEffect(() => {
                  {productsCart?.length === 0 
                         ? <span></span>
                         : (<div className="information_addtocart">
-                                <p className="total_value_cart">Total Value: ${resultTotalValue}</p>
+                                <p className="total_value_cart">Total: ${resultTotalValue}</p>
                             </div>
                  )}
                  </div>
                 </div>
                  </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
-          {redirect.value ? <Redirect push to={'/checkout'} underline="none" /> : null}
-          <Button className='button_add_to_cart' onClick={handleCloseCartToCheckOut}>Check Out</Button>
-        </DialogActions>
-      </Dialog>
-      <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
-          <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
-              No products in Cart!
-          </Alert>
-      </Snackbar>
-    </div>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
+                      <Button className='button_add_to_cart' onClick={handleCloseCartToCheckOut}>Check Out</Button>
+                    </DialogActions>
+                  </Dialog>
+                  <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                      <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
+                          No products in Cart!
+                      </Alert>
+                  </Snackbar>
+                  <Snackbar open={openWithOutStock} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                      <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
+                          Sorry We don't have more stock!
+                      </Alert>
+                  </Snackbar>
+                </div>
+                <div>
+                <BootstrapDialog
+                    onClose={handleCloseLogin}
+                    aria-labelledby="customized-dialog-title"
+                    open={openLogin}
+                >
+                    <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLogin}>
+                        You must be Login:
+                    </BootstrapDialogTitle>
+                    <DialogContent dividers>
+                        <Typography gutterBottom>
+                            Register or Log in to be able to make an order and discover 
+                            all the functionalities of the website, 
+                            such as exclusive discounts, additional promotions, etc.
+                        </Typography>
+                    </DialogContent>
+                        <DialogActions>
+                            <Button autoFocus onClick={handleOpenPageLogin}>
+                                Login
+                            </Button>
+                        </DialogActions>
+                </BootstrapDialog>
+            </div>
     </div>
   );
 };

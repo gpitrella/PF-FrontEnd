@@ -1,9 +1,12 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import HomeIcon from '@mui/icons-material/Home';
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
+import CategoryIcon from '@mui/icons-material/Category';
+import CopyrightIcon from '@mui/icons-material/Copyright';
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -25,18 +28,26 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">TechMarket Admin</span>
-        </Link>
+        
+          <span className="logo">TechMarket <i className = "adminLogo">ADMIN</i></span>
+        
       </div>
       <hr />
       <div className="center">
-        <ul>
+        <ul className="centerlist">
           <p className="title">MAIN</p>
+          <Link to="/admin/dashboard" style={{ textDecoration: "none" }}>
           <li>
             <DashboardIcon className="icon" />
             <span>Dashboard</span>
           </li>
+          </Link>
+          <Link to="/" style={{ textDecoration: "none" }}>
+          <li>
+            <HomeIcon className="icon" />
+            <span>Home</span>
+          </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/admin/users/list" style={{ textDecoration: "none" }}>
             <li>
@@ -44,7 +55,7 @@ const Sidebar = () => {
               <span>Users</span>
             </li>
           </Link>
-          <Link to="/admin/products" style={{ textDecoration: "none" }}>
+          <Link to="/admin/products/list" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
               <span>Products</span>
@@ -66,6 +77,14 @@ const Sidebar = () => {
               <span>Manufacturers</span>
             </li>
           </Link>
+          <li>
+            <CategoryIcon className="icon" />
+            <span>Categories</span>
+          </li>
+          <li>
+            <CopyrightIcon className="icon" />
+            <span>Manufacturers</span>
+          </li>
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />
@@ -98,16 +117,6 @@ const Sidebar = () => {
             <span>Logout</span>
           </li>
         </ul>
-      </div>
-      <div className="bottom">
-        <div
-          className="colorOption"
-          onClick={ () => dispatch(changeTheme('LIGHT')) }
-        ></div>
-        <div
-          className="colorOption"
-          onClick={ () => dispatch(changeTheme("DARK")) }
-        ></div>
       </div>
     </div>
   );

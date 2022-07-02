@@ -42,6 +42,7 @@ export default function ProductCards({ products, section }) {
                   category = {product.categories[0]}
                   price = {product.price}
                   discount = {product.discount}
+                  stock = {product.stock}
                   rating = {9.5}
                   image = {product.image}
                   brand = {product.manufacturers[0]}

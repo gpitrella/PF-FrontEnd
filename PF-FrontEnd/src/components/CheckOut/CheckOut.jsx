@@ -3,12 +3,20 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
-import { send, init } from "emailjs-com";
+import { showCart } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { finishOrder } from "../../redux/actions"
 import paymentMetod from './img/paymentMetod.webp';
+import Divider from '@mui/material/Divider';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import './CheckOut.css';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
 
 const style = {
   position: "absolute",
@@ -23,10 +31,10 @@ const style = {
 };
 
 const CheckOut = () => {
-
   const history = useHistory();
   const productsCart = useSelector((state) => state.general.productsCart)
   const stateFinishOrder = useSelector((state) => state.general.finishOrder)
+  const { user } = useSelector((state) => state.general)
   const dispatch = useDispatch();
   const [input, setInput] = React.useState({
     name: "",
@@ -38,7 +46,8 @@ const CheckOut = () => {
   });
 
   const [items, setItems] = React.useState({});
-  // const [redirect, setRedirect] = React.useState({redirect: false});
+  const [openWithOutStock, setOpenWithOutStock] = React.useState(false);
+  const [openYouAreAdmin, setOpenYouAreAdmin] = React.useState(false);
 
   const preOrder = () => {
     const formMercadoPAgo = productsCart?.map((product) => ({
@@ -53,7 +62,7 @@ const CheckOut = () => {
   }
   
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  // const handleOpen = () => setOpen(true);
   const handleClose = () => {
     return setOpen(false), history.push("/");
   };
@@ -75,6 +84,14 @@ const CheckOut = () => {
     preOrder()
   };
 
+  let resultTotalValue = 0;
+  const totalValue = () => {
+    productsCart?.map((product) => {
+      resultTotalValue += product?.quantity * (product.discount !== 0 ? Math.round(product.price - product.price * (product.discount / 100)) : product.price)
+    })
+  };
+totalValue();
+
   React.useEffect(()=>{
         if(stateFinishOrder?.data){
           window.location.href = stateFinishOrder?.data;          
@@ -84,11 +101,64 @@ const CheckOut = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(finishOrder(input.email, items))    
+    if(productsCart.length > 0 && !user?.user.admin){
+      dispatch(finishOrder(input.email, items))    
+    } 
+    if(productsCart.length > 0 && user?.user.admin){
+      setOpenYouAreAdmin(true);
+    }
+    else {
+      setOpenWithOutStock(true);
+    }
+  };
+
+  const handleCloseSuccessComment = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenWithOutStock(false);
+    setOpenYouAreAdmin(false);
+  };
+
+  const handleCart = (e) => {
+    e.preventDefault();
+    dispatch(showCart());
   };
   
   return (
-    <div>
+    <div className="main_checkout_cartdetail">
+      <div className="box_top_checkout">
+        <h2>CHECK OUT</h2>
+        <Divider width={"100%"}></Divider>
+        <h3>Purchase's Detail</h3>
+        <div className="addtocart_mainblock_checkout">
+          {(productsCart?.length === 0)
+                        ? <p>You don't have product in cart.</p>
+                        : productsCart?.map((e) => {
+                          return (
+                            <div className="box_top_checkout_resumecart">
+                              <div className="addtocart_name_checkout">
+                                 <h5>{e?.name.slice(0,60)}</h5>
+                                 <h5><strong>Price: </strong> ${e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price} {`x ${e?.quantity} unid.`}</h5>
+                              </div>
+                              <div className="quantity_price_checkout">
+                                 <div>
+                                     <p className="information_addtocart_checkout">SubTotal: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
+                                 </div>
+                              </div>
+                            </div>
+                      )})
+                    }            
+          </div>
+          <Divider  width={"100%"}></Divider>
+              {productsCart?.length === 0 
+                    ? <span></span>
+                    : (<div className="information_addtocart_checkout">
+                            <Button onClick={handleCart}>Edit Order</Button>
+                            <p className="total_value_checkout">Total: ${resultTotalValue}</p>
+                        </div>
+              )}
+      </div>
       <div className="App">
        <br />
        <br />
@@ -96,11 +166,11 @@ const CheckOut = () => {
        <br />
         <Grid>
           <Card
-            style={{ maxWidth: "45rem", padding: "20px 5px", margin: "0 auto" }}
+            style={{ maxWidth: "50rem", padding: "20px 5px", margin: "0 auto" }}
           >
             <CardContent>
-              <Typography gutterBottom variant="h5">
-                CHECK OUT
+              <Typography gutterBottom variant="h6">
+                Personal Information
               </Typography>
               <Typography
                 variant="body2"
@@ -220,18 +290,26 @@ const CheckOut = () => {
           <Button onClick={handleClose}>X</Button>
         </Box>
       </Modal>
-      <div className="">
-            <img 
+      <div className="bottom_checkout">
+            <h4>Payment methods available through Mercado Pago (credit card, debit card, Rapipago, etc.)</h4>
+            <img className="paymentMetodCheckOut"
               alt="Payment Metod"
               src={paymentMetod}
             />
       </div>
+      <Snackbar open={openWithOutStock} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+          <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
+              Don't have products in Cart!
+          </Alert>
+      </Snackbar>
+
+      <Snackbar open={openYouAreAdmin} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+          <Alert onClose={handleCloseSuccessComment} severity="error" sx={{ width: '100%' }}>
+              Sorry you are Admin, You can't buy!
+          </Alert>
+      </Snackbar>
     </div>
   );
 };
 
 export default CheckOut;
-
-{/*`${SERVICE}`,
-      `${TEMPLATE}`
-    ${KEY} */}

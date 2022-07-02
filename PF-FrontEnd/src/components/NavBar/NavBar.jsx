@@ -27,7 +27,6 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
@@ -52,22 +51,6 @@ const Search = styled('div')(({ theme }) => ({
     marginLeft: theme.spacing(3),
     width: '380px',
   },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textDecoration: 'none',
-  zIndex: 200,
-  '&:hover': {
-    cursor:'pointer'
-  },
-  
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -129,6 +112,7 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 export default function NavBar() {
   const { theme } = useSelector(state => state.general);  
   const [ name, setName ] = React.useState('');
+  const { user } = useSelector((state) => state.general)
   const productsCart = useSelector((state) => state.general.productsCart);
 
   const dispatch = useDispatch();
@@ -143,7 +127,9 @@ export default function NavBar() {
 // Nueva NAVBAR
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [displayUser, setDisplayUser] = React.useState(false);
+  const [displayUserAdmin, setDisplayUserAdmin] = React.useState(false);
+  
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -170,6 +156,7 @@ export default function NavBar() {
   };
 
   const menuId = 'primary-search-account-menu';
+  
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -186,8 +173,22 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Sign In</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Sign Up</MenuItem>
+      {user?.user ? <span>
+                        <Link to="/login" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
+                        </Link>
+                        <Link to="/signup" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >LogOut</MenuItem>
+                        </Link>
+                    </span>
+                    : <span>
+                        <Link to="/login" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >Sign In</MenuItem>
+                        </Link>
+                        <Link to="/signup" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >Sign Up</MenuItem>
+                        </Link>
+                    </span>}
     </Menu>
   );
 
@@ -252,6 +253,15 @@ export default function NavBar() {
       dispatch(changeTheme('LIGHT'));
     }
   };
+  
+  React.useEffect(() => {
+    if(user?.user){
+      setDisplayUser(true);
+      if(user.user.admin){
+        setDisplayUserAdmin(true);
+      }
+    }
+  },[user]);
 
     return (
       /// Nueva NAVABar
@@ -284,18 +294,14 @@ export default function NavBar() {
             />
           </Link>
           <Search >
-                {/* <Link to={(name !== '') ? `/store/name/${name}` : '/store'} underline="none"> */}
-              {
-                name && name.length > 0 && 
-                <Link to={`/store/name/${name}`} underline="none">
-                        <SearchIcon id='searchIcon'/>
-                </Link>
-              }
-              <StyledInputBase
-                placeholder="Search ..."
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={(e) => handleSearch(e)}
-                />
+            <Link to={(name !== '') ? `/store/name/${name}` : ''} underline="none">
+                    <SearchIcon id='searchIcon'/>
+            </Link>
+            <StyledInputBase
+              placeholder="Search ..."
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => handleSearch(e)}
+            />
           </Search>
           
           <Box sx={{ flexGrow: 1 }} />
@@ -315,7 +321,12 @@ export default function NavBar() {
               </Badge>
             </IconButton>
 
-            <IconButton size="large" aria-label="create_product" color="inherit">
+            <IconButton 
+                size="large" 
+                aria-label="create_product" 
+                color="inherit"
+                sx={!displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}
+              >
               <Badge badgeContent={0} color="error">
                 <Link to={'/admin/dashboard'} className="links_general">
                   <DisplaySettingsIcon />
@@ -340,7 +351,22 @@ export default function NavBar() {
                 <NotificationsIcon className="links_general"/>
               </Badge>
             </IconButton>
+
             <IconButton
+              sx={displayUser ? { display: 'none' } : { display: 'inline-flex' }}
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+
+            <IconButton
+              sx={!displayUser ? { display: 'none' } : { display: 'inline-flex' }}
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -367,6 +393,7 @@ export default function NavBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
+      {/* { displayUser ? {renderMenuProfileNormalUser} : {renderMenu} } */}
       {renderMenu}
     </Box>
     <ScrollToTop smooth component={<ExpandLessIcon />} />

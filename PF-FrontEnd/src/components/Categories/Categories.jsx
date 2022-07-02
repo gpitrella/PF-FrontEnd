@@ -10,7 +10,6 @@ import style from"./Categories.module.css";
 export default function Categories () {
     const dispatch = useDispatch();
     const { allCategories } = useSelector((state) => state.homepage);
-    console.log(allCategories)
 
     useEffect(()=>{
         dispatch(getCategories());
