@@ -306,6 +306,18 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+            <IconButton 
+                font-size="1rem"
+                size="small" 
+                aria-label="create_product" 
+                color="inherit"
+                sx={!user?.user ? { display: 'none' } : { display: 'inline-flex' }}
+              >
+                  <Typography font-size="1rem" component="div" sx={{ flexGrow: 1 }}>
+                      Welcome {user?.user?.name}
+                  </Typography>
+            </IconButton>
             
               <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
                 <Badge badgeContent={productsCart?.length} color="error">
