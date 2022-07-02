@@ -67,24 +67,17 @@ const Sidebar = () => {
           </li>
           <Link to="/admin/categories" style={{ textDecoration: "none" }}>
             <li>
-              <LocalShippingIcon className="icon" />
+              <CategoryIcon className="icon" />
               <span>Categories</span>
             </li>
           </Link>
           <Link to="/admin/brands" style={{ textDecoration: "none" }}>
             <li>
-              <LocalShippingIcon className="icon" />
+              <CopyrightIcon className="icon" />
               <span>Manufacturers</span>
             </li>
           </Link>
-          <li>
-            <CategoryIcon className="icon" />
-            <span>Categories</span>
-          </li>
-          <li>
-            <CopyrightIcon className="icon" />
-            <span>Manufacturers</span>
-          </li>
+         
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />

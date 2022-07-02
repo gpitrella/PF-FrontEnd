@@ -1,10 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import Navbar from "../../components/Dashboard/navbar/Navbar";
+import { useHistory } from "react-router-dom";
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
-import { getUserDetail, putUserStatus, userStatus, userStatusReset } from '../../redux/actions';
+import { putUserStatus, userStatus, userStatusReset } from '../../redux/actions';
 
 const Edit = ({match}) => {
    const dispatch = useDispatch();
@@ -12,12 +10,7 @@ const Edit = ({match}) => {
 
     const matchId=match.params.id;
     console.log(matchId, 'matchId')
-  
-    
-   //  useEffect(() => {
-   //    dispatch(getUserDetail(matchId))
-   //  },[dispatch, matchId]);
-    
+      
     const { allusers, usereditstatusok } = useSelector((state) => state.userReducer);
     
     console.log(allusers, 'allusers')
@@ -25,19 +18,19 @@ const Edit = ({match}) => {
     const user = allusers.filter(function(u){
       return u.id == matchId;
     })
+
     console.log(user, 'user')
+
     const useraddress = user[0].useraddresses[0]
+
     console.log(useraddress, 'useraddress')  
     
     
   
-      const { id, name, email, admin, isactive,  } = user[0]
+      const { id, name, email, isactive,  } = user[0]
     
       const [ newstatus, setNewstatus ] = useState(isactive ? "true" : "false");
-      //const { photo, phone_number, street, street_height, city, zipcode } = useraddress;
-         
-      
-  
+             
       console.log(newstatus)
   
       function handleSelect(e){
@@ -50,16 +43,16 @@ const Edit = ({match}) => {
       console.log(newstatus)
       dispatch(userStatus(newstatus))
       }  
+
       function handleConfirm(){
          dispatch(putUserStatus(id, newstatus))
-
       }
 
       useEffect(()=>{
          if (usereditstatusok){
-         history.push('admin/users/list')
             dispatch(userStatusReset())
-      }
+            history.push('/admin/users/list')
+         }
 
       }, [usereditstatusok])
 

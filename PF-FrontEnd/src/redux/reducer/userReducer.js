@@ -18,13 +18,13 @@ const userReducer = function(state = initialState, { type, payload }) {
         }
       case GET_USER_DETAIL:
         return {
-          oneuser: {payload}
+          oneuser: payload
         }  
 
       case USER_UPDATE:
         return {
           ...state,
-          oneuser: {...state, payload}
+          oneuser: payload
         }
         
       case USER_STATUS:
