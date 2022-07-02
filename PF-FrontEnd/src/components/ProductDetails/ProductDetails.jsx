@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { getProductDetails, addProductToCart, postCommentProduct } from "../../redux/actions";
+import { getProductDetails, addProductToCart, postCommentProduct, postReviewProduct } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
@@ -22,6 +22,7 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 // Alerta comentario creado
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -70,19 +71,23 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 
 export default function ProductDetails (){
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false); // Box de comentarios
+    const [openReview, setOpenReview] = React.useState(false); // Box de review
+    const [value, setValue] = React.useState(0); // Rating
+    console.log(value)
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.homepage.productDetails)
     const productsCart = useSelector((state) => state.general.productsCart)
     const commentCreated = useSelector((state) => state.general.commentCreated)
+    const reviewCreated = useSelector((state) => state.general.reviewCreated)
     const { user } = useSelector((state) => state.general)
     console.log(user)
     let discountPrice = Math.round(productDetails.price - productDetails.price * (productDetails.discount / 100));
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
-    }, [commentCreated]);
+    }, [commentCreated, reviewCreated]);
 
     // Cartel desplegable de Login
     const [openLogin, setOpenLogin] = React.useState(false);
@@ -104,7 +109,8 @@ export default function ProductDetails (){
     const [openSuccessAddToCart, setOpenSuccessAddToCart] = React.useState(false);
     const [openProductInCart, setProductInCart] = React.useState(false);
     const history = useHistory();
-    const [comment, setComment] = React.useState();
+    const [comment, setComment] = React.useState(); // Box de comentarios
+    const [commentReview, setCommentReview] = React.useState();
 
     const handleClickOpen = () => {
         if(!user?.user){
@@ -133,6 +139,48 @@ export default function ProductDetails (){
         }
     };
 
+    // Agrega una Review
+    const handleClickOpenReview = () => {
+        if(!user?.user){
+            handleClickOpenLogin();
+        } else {
+            setOpenReview(true);
+        }
+    };
+
+    const handleCloseReview = () => {
+        setOpenReview(false);
+    };
+
+    const handleCommentReview = (e) => {
+        e.preventDefault();
+        setCommentReview(e.target.value);
+    };
+
+    const handleSendReview = () => {
+        if(!user?.user){
+            handleClickOpenLogin();
+        } else {
+            dispatch(postReviewProduct(commentReview, value, productDetails.id));
+            handleClickComment()
+            handleCloseReview();
+        }
+    };
+
+    let score = 0;
+    const reducer = (accumulator, curr) => accumulator + curr;
+    const sumaryScore = () => {
+        const sumary = [];
+        if(productDetails?.reviews?.length > 0){
+            productDetails?.reviews?.map((element)=>{
+                sumary.push(element.score)
+            })
+            score = sumary.reduce(reducer) / sumary.length;
+        }
+    };
+    sumaryScore();
+
+    // Adherir al Carrito
     const addtoCart = () => {
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
         if(productInCart?.length === 0){
@@ -197,8 +245,17 @@ export default function ProductDetails (){
                             <p id="product_seller">Brand: <strong>{productDetails?.manufacturers ? productDetails.manufacturers[0]?.name : 'WithOut Brand'}</strong></p>
                         </div>
                         <div id="review_block">
-                            <p id="review_detail">Reviews:</p>
-                            <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+                            <p id="review_detail">Rating: <strong>{score.toFixed(1)}</strong> </p>
+                            <Box
+                                sx={{
+                                    '& > legend': { mt: 2 },
+                                }}
+                                >
+                                <Rating
+                                    name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly
+                                    value={score}
+                                />
+                            </Box>
                         </div>
                     </div>
                     
@@ -254,8 +311,8 @@ export default function ProductDetails (){
                                     />
                                     </DialogContent>
                                     <DialogActions>
-                                        <Button onClick={handleClose}>Cancelar</Button>
-                                        <Button onClick={handleSend}>Enviar</Button>
+                                        <Button onClick={handleClose}>Cancel</Button>
+                                        <Button onClick={handleSend}>Send</Button>
                                     </DialogActions>
                                 </Dialog>
                             </div>
@@ -308,6 +365,83 @@ export default function ProductDetails (){
                         </DialogActions>
                 </BootstrapDialog>
             </div>
+            <div className="comment_main">
+                <div className="comment_add">
+                    <div>
+                        <span><strong> PRODUCT REVIEW: </strong></span>
+                    </div>
+                    <div id="review_comment">
+                        <div>
+                            <div id="review_block">
+                                <Button variant="outlined" onClick={handleClickOpenReview}>
+                                    Write a Review
+                                </Button>
+                                <Dialog open={openReview} onClose={handleCloseReview}>
+                                    <DialogTitle>Review:</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText>
+                                            Write a review of the product you bought so you help other buyers in their decision.
+                                        </DialogContentText>
+                                        <Box
+                                            sx={{
+                                                '& > legend': { mt: 2 },
+                                            }}
+                                            >
+                                            <Typography component="legend">Review Rating</Typography>
+                                            <Rating
+                                                name="simple-controlled"
+                                                value={value}
+                                                onChange={(event, newValue) => {
+                                                setValue(newValue);
+                                                }}
+                                            />
+                                        </Box>
+                                        <TextField
+                                            autoFocus
+                                            margin="dense"
+                                            id="comment"
+                                            label="Write here your review ..."
+                                            type="text"
+                                            fullWidth
+                                            variant="standard"
+                                            onChange={(e)=> handleCommentReview(e)}
+                                        />
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button onClick={handleCloseReview}>Cancel</Button>
+                                        <Button onClick={handleSendReview}>Send Review</Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {(productDetails.reviews?.length === 0)
+                        ? <p>This product has no Review yet.</p>
+                        : productDetails.reviews?.map((element) => {
+                            return(
+                            <div key={parseInt(Math.random() * 10000 / Math.random())}>
+                                <Box
+                                    sx={{
+                                        '& > legend': { mt: 2 },
+                                    }}
+                                    >
+                                    <Rating
+                                        name="read-only"
+                                        value={element?.score}
+                                    />
+                                </Box>
+                                <p> - {element.comment.charAt(0) + element.comment.slice(1, element.comment.length).toLowerCase()}</p>
+                            </div>)
+                        })}
+                </div>
+                <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
+                        Success review created!
+                    </Alert>
+                </Snackbar>
+            </div>
         </div>
-        )    
+    )    
 }

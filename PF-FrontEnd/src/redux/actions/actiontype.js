@@ -11,6 +11,7 @@ export const LOG_IN = 'LOG_IN';
 export const SHOW_CART = 'SHOW_CART';
 export const CLOSE_CART = 'CLOSE_CART';
 export const FINISH_ORDER = 'FINISH_ORDER';
+export const POST_REVIEW_PRODUCT = 'POST_REVIEW_PRODUCT';
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';

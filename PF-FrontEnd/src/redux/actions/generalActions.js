@@ -13,7 +13,8 @@ import {
   CLOSE_CART,
   FINISH_ORDER,
   SIGN_UP,
-  LOG_IN
+  LOG_IN,
+  POST_REVIEW_PRODUCT
 } from './actiontype';
 
 
@@ -63,8 +64,8 @@ export const postCommentProduct = function(comment, idProduc, idUser) {
     return axios.post(`http://localhost:3001/api/comments`, {comment, idProduc, idUser})
                 .then(comment => dispatch({ type: POST_COMMENT_PRODUCT, payload: comment.data}))
                 .catch(error => console.log(error))
-}
-}
+  }
+};
 
 export const signUp = function(name, email, password) {
   return function(dispatch){
@@ -117,6 +118,15 @@ export const finishOrder = function(email, items) {
     console.log(items)
     return axios.post(`http://localhost:3001/api/payment`, {email, items})
                 .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
+                .catch(error => console.log(error))
+  }
+};
+
+// Create Review product
+export const postReviewProduct = function(comment, score, id) {
+  return function(dispatch){
+    return axios.post(`http://localhost:3001/api/review`, {comment, score, id})
+                .then(comment => dispatch({ type: POST_REVIEW_PRODUCT, payload: comment.data}))
                 .catch(error => console.log(error))
   }
 };

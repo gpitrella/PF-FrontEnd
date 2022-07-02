@@ -10,7 +10,8 @@ import {
   CLOSE_CART,
   FINISH_ORDER,
   SIGN_UP,
-  LOG_IN
+  LOG_IN,
+  POST_REVIEW_PRODUCT
 } from '../actions/actiontype';
 
 const THEME = {
@@ -30,7 +31,8 @@ const initialState = {
   commentCreated: {},
   user:{},
   showCart: false,
-  finishOrder: {}
+  finishOrder: {},
+  reviewCreated: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -100,16 +102,18 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         commentCreated: payload
       }
+
     case SIGN_UP:
       return {
         ...state,
         user: payload
       }
+
     case LOG_IN:
       return {
         ...state,
         user: payload
-    }
+      }
 
     case SHOW_CART:
       return {
@@ -127,6 +131,11 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         finishOrder: payload
+      }
+    case POST_REVIEW_PRODUCT:
+      return {
+        ...state,
+        reviewCreated: payload
       }
 
     default:
