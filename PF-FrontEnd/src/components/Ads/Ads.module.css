@@ -1,0 +1,36 @@
+.ads{
+  width: 100%;
+  position: relative;
+  margin: 7vh auto;
+}
+.items{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 45vh;
+  width: auto;
+  margin: auto;
+  border-radius: 0.5rem;
+  text-align: center;
+  object-fit: contain;
+  overflow: hidden;   
+
+}
+
+@media only screen and (min-width: 840px) {
+    .ads {
+      width: 840px;
+    }
+  }
+
+  @media only screen and (min-width: 1260px) {
+    .ads {
+      width: 1260px;
+    }
+  }
+  
+  @media only screen and (min-width: 1680px) {
+    .ads {
+      width: 1680px;
+    }
+  }
