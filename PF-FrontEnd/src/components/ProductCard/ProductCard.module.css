@@ -252,3 +252,7 @@
   font-size: var(--fontTitle);
   margin-right: 5px;
 }
+
+.alreadyOnCart > svg {
+  fill: var(--secondaryColor);
+}
