@@ -6,7 +6,7 @@ import {
   USER_DELETE,
   USER_STATUS,
   PUT_USER_STATUS,
-  USER_STATUS_RESET,
+  USER_STATUS_RESET
   
 } from './actiontype';
 
