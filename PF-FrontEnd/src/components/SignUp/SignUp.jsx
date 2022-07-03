@@ -40,7 +40,6 @@ export default function SignUp() {
 
     <div className="login">
         <div className="signup__wrapper">
-            <div className="signup_right">
 
                 <h1 className="signup__title">Sign Up</h1>
 
@@ -85,8 +84,7 @@ export default function SignUp() {
                 <div className='signup__group' >
                 <button type='submit' className="signup__btn" onClick={(e) => handleSubmit(e)} >Sign Up</button>
                 </div>
-                <p className="text">Already a user? <Link to='/login' className="link">Log In</Link></p>
-            </div>
+                <p className="signup__text">Already a user? <Link to='/login' className="link">Log In</Link></p>
         </div>
     </div>
   )
