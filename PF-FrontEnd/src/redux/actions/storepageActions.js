@@ -14,7 +14,9 @@ import {
   ERROR_PUT_PRODUCT,
   WAITING_RESPONSE_DELETE,
   DELETE_PRODUCT,
-  ERROR_DELETE_PRODUCT
+  ERROR_DELETE_PRODUCT,
+  WAITING_RESPONSE_POST,
+  ERROR_POST_PRODUCT
 } from './actiontype';
 
 import axios from 'axios'
@@ -87,7 +89,7 @@ export const postProduct = function(body) {
   return function(dispatch) {
     return axios.post("http://localhost:3001/api/product", body)
            .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
-           .catch(error => console.log(error));
+           .catch(error => dispatch({ type: ERROR_POST_PRODUCT }));
   }
 }
 
@@ -117,6 +119,13 @@ export const deleteProduct = function(id) {
 export const waitingResponseDelete = function(status = false) {
   return {
     type: WAITING_RESPONSE_DELETE,
+    payload: status
+  }
+}
+
+export const waitingResponsePost = function(status = false) {
+  return {
+    type: WAITING_RESPONSE_POST,
     payload: status
   }
 }
