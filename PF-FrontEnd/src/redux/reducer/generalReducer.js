@@ -16,7 +16,8 @@ import {
   LOGOUT,
   POST_REVIEW_PRODUCT,
   OPEN_PAGE_LOADER,
-  CLOSE_PAGE_LOADER
+  CLOSE_PAGE_LOADER,
+  LOAD_STORAGE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';

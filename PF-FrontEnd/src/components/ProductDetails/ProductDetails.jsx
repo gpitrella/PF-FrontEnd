@@ -133,7 +133,8 @@ export default function ProductDetails (){
         if(!user?.user){
             handleClickOpenLogin();
         } else {
-            dispatch(postCommentProduct(comment, productDetails.id, user?.user.id));
+            console.log('entre a comentarios')
+            dispatch(postCommentProduct(comment, productDetails?.id, user?.user.id));
             handleClickComment()
             handleClose();
         }
@@ -161,7 +162,8 @@ export default function ProductDetails (){
         if(!user?.user){
             handleClickOpenLogin();
         } else {
-            dispatch(postReviewProduct(commentReview, value, productDetails.id));
+            console.log(user)
+            dispatch(postReviewProduct(commentReview, value, productDetails?.id, user?.user.id));
             handleClickComment()
             handleCloseReview();
         }
