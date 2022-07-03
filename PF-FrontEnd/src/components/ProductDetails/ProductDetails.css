@@ -1,0 +1,139 @@
+/* Product Details Page */
+.mainProduct{
+    padding: 90px;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-bottom: 20px;
+}
+.mainProductDetail{
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 20px;
+    border: 1px solid rgba(134, 134, 134, 0.507);
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.5);
+    padding: 20px;
+}
+
+#product_category {
+    color: grey;
+    font-size: 0.8rem;
+}
+
+#title_product{
+    padding: 5px;
+    margin: 0px;
+}
+
+.price_rating{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#review_block{
+    padding-right: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+#review_comment {
+    display: flex;
+    flex-direction: column;
+}
+
+#review_detail{
+    text-align: center;
+    margin-top: 0;
+}
+
+#product_price_discount {
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+#product_price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-decoration:line-through;
+    color: red;
+    padding-bottom: 10px;
+}
+
+.containerDiscount {
+    position: relative;
+    top: 1.5REM;
+    left: -10REM;
+    background-color: var(--dangerColor);
+    width: 20REM;
+    padding: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 700;
+    font-size: var(--fontMedium);
+    transform: rotate(-45deg);
+  }
+
+.btn_Product_Detail {
+    width: 125px;
+    height: 40px;
+    margin: 0.3rem;
+}
+
+.comment_main{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 20px;
+    border: 1px solid rgba(134, 134, 134, 0.507);
+    padding: 20px;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.5);
+}
+
+.comment_add{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#product_seller {
+color: grey;
+font-size: 1.1rem;
+}
+
+#stock_status {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-left: 0.3rem;
+}
+
+.redColor {
+    color: red;
+}
+
+.greenColor {
+    color: green;
+}
+
+#product_image {
+    text-align: center;
+    padding: 10px;
+    padding-right: 70px;
+    padding-left: 50px;
+    height: 20rem;    
+}
+
+@media screen and (max-width: 800px){
+    .mainProductDetail{
+        flex-direction: column;
+    }
+    #product_image {
+        margin-top: 3rem;
+    }
+
+}

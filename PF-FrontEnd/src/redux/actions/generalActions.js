@@ -1,0 +1,157 @@
+import axios from 'axios';
+import {
+  CHANGE_THEME,
+  SHOW_MINI_MODAL,
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_CART,
+  INCREASE_QUANTITY_PRODUCT,
+  REDUCE_QUANTITY_PRODUCT,
+  POST_COMMENT_PRODUCT,
+  SHOW_CART,
+  CLOSE_CART,
+  FINISH_ORDER,
+  SIGN_UP,
+  LOG_IN,
+  LOGOUT,
+  POST_REVIEW_PRODUCT,
+  LOAD_STORAGE,
+  OPEN_PAGE_LOADER,
+  CLOSE_PAGE_LOADER,
+  BASE_URL
+} from './actiontype';
+
+
+// Change color Theme - Night / Day:
+export const changeTheme = function(theme) {
+  return {
+    type: CHANGE_THEME,
+    payload: theme
+  }
+}
+
+// Add To CART
+export function addProductToCart(id){
+  return function(dispatch){
+      return axios.get(`${BASE_URL}/api/product/${id}`)
+                  .then(product => dispatch({ type: ADD_PRODUCT_TO_CART, payload: product.data[0]}))
+                  .catch(error => console.log(error))
+  }
+};
+
+// Remove To CART:
+export function removeProductFromCart(id){
+  return function(dispatch){
+      dispatch({ type: REMOVE_PRODUCT_CART, payload: id})
+  }
+};
+
+// Add Quantity To Product CART:
+export function increaseQuantityToProductCart(id){
+  return function(dispatch){
+    console.log('entre a general action')
+
+      dispatch({ type: INCREASE_QUANTITY_PRODUCT, payload: id})
+  }
+};
+
+// Add Amount To Product CART:
+export function reduceQuantityToProductCart(id){
+  return function(dispatch){
+      dispatch({ type: REDUCE_QUANTITY_PRODUCT, payload: id})
+  }
+};
+ 
+// Create comments product
+export const postCommentProduct = function(comment, idProduct, idUser) {
+  return function(dispatch){
+    return axios.post(`${BASE_URL}/api/comments`, {comment, idProduct, idUser})
+                .then(comment => dispatch({ type: POST_COMMENT_PRODUCT, payload: comment.data}))
+                .catch(error => console.log(error))
+  }
+};
+
+export const signUp = function(name, email, password) {
+  return function(dispatch){
+    return axios.post(`${BASE_URL}/api/signup`, {name, email, password})
+                .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
+                .catch(error => console.log(error))
+  }
+};
+
+export const logIn = function(email, password) {
+  return function(dispatch){
+    return axios.post(`${BASE_URL}/api/signin`, {email, password})
+                .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
+                .catch(error => console.log(error))
+  }
+};
+ 
+
+export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
+  console.log(show, msg, success, error);
+  return {
+    type: SHOW_MINI_MODAL,
+    payload: {
+      show: show,
+      msg: msg,
+      success: success,
+      error: error
+    }
+  }
+}
+
+// Show Cart:
+export function showCart(){
+  return {
+    type: SHOW_CART,
+  }
+};
+
+// Show Cart:
+export function closeCart(){
+  return {
+    type: CLOSE_CART,
+  }
+};
+
+// Finish Order:
+export const finishOrder = function(email, items) {
+  return function(dispatch){
+    return axios.post(`${BASE_URL}/api/payment`, {email, items})
+                .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
+                .catch(error => console.log(error))
+  }
+};
+
+// Create Review product
+export const postReviewProduct = function( comment, score, idProduct, idUser) {
+  return function(dispatch){
+    return axios.post(`${BASE_URL}/api/review`, {comment, score, idProduct, idUser})
+                .then(comment => dispatch({ type: POST_REVIEW_PRODUCT, payload: comment.data}))
+                .catch(error => console.log(error))
+  }
+};
+
+export const loadStorage = function() {
+  return {
+    type: LOAD_STORAGE
+  }
+};
+
+export const openPageLoader = function() {
+  return {
+    type: OPEN_PAGE_LOADER
+  }
+};
+
+export const closePageLoader = function() {
+  return {
+    type: CLOSE_PAGE_LOADER
+  }
+};
+
+export const logout = function() {
+    return {
+    type: LOGOUT
+  }
+};

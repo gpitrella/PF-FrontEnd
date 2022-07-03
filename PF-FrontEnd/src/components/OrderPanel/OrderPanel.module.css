@@ -1,0 +1,20 @@
+.container {
+  width: 400px;
+  display: grid;
+  grid-template-columns: 2fr 3fr 3fr;
+  grid-template-rows: 1fr;
+  grid-gap: 5px;
+
+  align-items: center;
+}
+
+.select {
+  padding: 5px 5px 5px 5px;
+  color: var(--fontColor);
+  background-color: var(--primaryColor);
+  border: 1px solid var(--fontColor);
+}
+
+.lblSelect {
+  color: var(--fontColor);
+}

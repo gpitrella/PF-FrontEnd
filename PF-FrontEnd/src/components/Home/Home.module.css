@@ -1,0 +1,87 @@
+.ads{
+    text-align: center;
+    padding: 1rem;
+    justify-self: center;
+    height:45vh;
+    /*max-width: 90rem;*/
+    margin-top: 4vh;
+}
+
+.ads img{
+    height: 45vh;
+    max-width: 1100px;
+    min-width: max-content;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.catalogue{
+    padding: 1rem;
+    margin-top: 10vh;
+}
+
+
+.sectionLink {
+    color: rgb(65, 65, 65);
+    display: inline;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 3vh;
+    font-weight: bolder;
+    margin-left: 54rem;
+    cursor: pointer;
+}
+
+
+.brandsTitle{
+    color: rgb(65, 65, 65);
+    font-size: 4.5vh;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    margin-top: 6vh;
+}
+
+.noProductsContainer {
+  display: grid;
+  grid-template-columns: 400px;
+  grid-template-rows: 300px 138px;
+
+  align-content: center;
+  justify-content: center;
+
+  align-items: center;
+  justify-items: center;
+}
+
+.imageContainer {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  height: 150px;
+  aspect-ratio: 1/1;
+}
+
+.span {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+  color: var(--secondaryColor);
+  font-size: var(--fontSubTitle);
+  font-weight: 700;
+  align-self: flex-start;
+}
+
+.imageContainer > svg {
+  animation: rotateLoading 2s infinite;
+  animation-timing-function: linear;
+  fill: var(--secondaryColor);
+}
+
+@keyframes rotateLoading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

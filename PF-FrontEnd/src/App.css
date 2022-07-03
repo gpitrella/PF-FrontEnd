@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+
+/* GLOBAL VARIABLES: */
+
+.globalVariables {
+  --fontTitle: 1.5rem;
+  --fontSubTitle: 1.2rem;
+  --fontMedium: 1rem;
+  --fontSmall: 0.8rem;
+  --fontSmallest: 0.7rem;
+}
+
+.darkTheme {
+  --primaryColor: #424242;
+  --primaryColorSub: #242424;
+  --secondaryColor: #1976d2;
+
+  --fontColor: white;
+  --fontColorWithLessOpacity: rgba(255, 255, 255, 0.3);
+  --dangerColor: crimson;
+  --successColor: green;
+}
+
+.lightTheme {
+  --primaryColor: white;
+  --primaryColorSub: rgb(240, 240, 240);
+  --secondaryColor: #1976d2;
+
+  --fontColor: black;
+  --fontColorWithLessOpacity: rgba(0, 0, 0, 0.3);
+  --dangerColor: crimson;
+  --successColor: green;
+}
+
+.mainContainer {
+  background-color: var(--primaryColorSub);
+  transition: background-color 0.5s;
+  width: 100%;
+}
