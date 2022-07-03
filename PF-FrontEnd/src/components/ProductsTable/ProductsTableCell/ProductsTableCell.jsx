@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
 import ImageLoader from '../../ImageLoader/ImageLoader';
+import View from '../../SVG/View';
+import Edit from '../../SVG/Edit';
+import EditMore from '../../SVG/EditMore';
+import Trash from '../../SVG/Trash';
 
 import s from './ProductsTableCell.module.css';
 
@@ -19,10 +23,25 @@ export default function ProductsTableCell({ product, param, viewMore, handleView
   if (param.isOption) return (
     <div className = {s.options}>
       <Link to = {`/productdetails/${product.id}`}>
-        <button className = {`${s.btn} ${s.blue}`}>View</button>
+        <button className = {`${s.svgButton} ${s.blue}`}>
+          <div className = {`${s.tag} ${s.blue}`}>View More</div>
+          <View />
+        </button>
       </Link>
-      <button className = {`${s.btn} ${s.orange}`} onClick = { () => handleEnableEdit(product) }>Edit</button>
-      <button className = {`${s.btn} ${s.red}`} onClick = { () => handleDelete(product) }>Delete</button>
+      <button className = {`${s.svgButton} ${s.orange}`} onClick = { () => handleEnableEdit(product) } >
+        <div className = {`${s.tag} ${s.orange}`}>Edit Here</div>
+        <Edit />
+      </button>
+      <Link to = {`/admin/products/edit/${product.id}`}>
+        <button className = {`${s.svgButton} ${s.orange}`}>
+          <div className = {`${s.tag} ${s.orange}`}>Edit More</div>
+          <EditMore />
+        </button>
+      </Link>
+      <button className = {`${s.svgButton} ${s.red}`} onClick = { () => handleDelete(product) } >
+        <div className = {`${s.tag} ${s.red}`}>Delete</div>
+        <Trash />
+      </button>
     </div>
   )
 

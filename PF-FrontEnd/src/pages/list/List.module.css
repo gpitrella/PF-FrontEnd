@@ -1,4 +1,5 @@
 .list {
+  min-height: 800px;
   height: fit-content;
   display: flex;
   align-items: flex-start;
@@ -13,12 +14,7 @@
   flex: 6;
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: auto;
   grid-gap: 1rem;
-  justify-content: center;
-  align-content: center;
-  justify-items: center;
-  align-items: center;
   margin-top: 0 !important;
   margin-bottom: 1rem;
 }

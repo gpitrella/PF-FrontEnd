@@ -147,6 +147,10 @@ export default function FilterPanel() {
     dispatch(resetFilter());
     if (location && location.pathname.length > 7) {
       setShowFilterByName(false);
+      if (!location.pathname.includes('name')) {
+        dispatch(setShowLoading());
+        dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+      }
       history.replace('/store');
     }
     else {
@@ -170,10 +174,10 @@ export default function FilterPanel() {
         </div>
       }
 
-      <div className = {s.check}>
+      {/*<div className = {s.check}>
         <input type = 'checkbox' checked = {filter.favorites} className = {s.largeCheck} onChange = {() => handleCheck('favorites')} />
         <label className = {s.lbl}>Show Only Favorites</label>
-      </div>
+      </div>*/}
 
       <div className = {s.check}>
         <input type = 'checkbox' checked = {filter.discount} className = {s.largeCheck} onChange = {() => handleCheck('discount')} />

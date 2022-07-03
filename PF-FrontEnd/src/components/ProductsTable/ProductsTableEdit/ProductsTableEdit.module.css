@@ -99,3 +99,31 @@
   background-color: gray;
   cursor: default;
 }
+
+.tag {
+  position: absolute;
+  font-size: var(--fontSmall);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  transform: translateY(-3rem);
+  display: none;
+  text-align: center;
+}
+
+.tag:after {
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  bottom: -5px;
+  left: 42%;
+  content: '';
+  transform: rotate(45deg);
+  margin-top: 0;
+  margin-left: 0;
+  background-color: inherit;
+}
+
+.svgButton:hover > .tag {
+  display: block;
+}

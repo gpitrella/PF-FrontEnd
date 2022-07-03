@@ -15,6 +15,8 @@ import {
   DELETE_PRODUCT,
   ERROR_DELETE_PRODUCT,
   WAITING_RESPONSE_DELETE,
+  ERROR_POST_PRODUCT,
+  WAITING_RESPONSE_POST,
 } from '../actions/actiontype';
 
 const ORDER_BY_PRICE = "price";
@@ -74,6 +76,12 @@ const initialState = {
   },
 
   resultDelete: {
+    waitingResponse: false,
+    status: false,
+    error: false
+  },
+
+  resultPost: {
     waitingResponse: false,
     status: false,
     error: false
@@ -148,11 +156,11 @@ const storepageReducer = function(state = initialState, { type, payload }) {
           name: ''
         }
       }
-    case POST_PRODUCT:
-          return {
-          ...state,
-          msn: ['Product created!']
-          }
+    // case POST_PRODUCT:
+    //       return {
+    //       ...state,
+    //       msn: ['Product created!']
+    //       }
     case WAITING_RESPONSE_PUT:
       return {
         ...state,
@@ -202,6 +210,32 @@ const storepageReducer = function(state = initialState, { type, payload }) {
         ...state,
         resultDelete: {
           ...state.resultDelete,
+          error: true
+        }
+      }
+    case WAITING_RESPONSE_POST:
+      return {
+        ...state,
+        resultPost: {
+          ...state.resultPost,
+          waitingResponse: payload,
+          status: false,
+          error: false
+        }
+      }
+    case POST_PRODUCT:
+      return {
+        ...state,
+        resultPost: {
+          ...state.resultPost,
+          status: true,
+        }
+      }
+    case ERROR_POST_PRODUCT:
+      return {
+        ...state,
+        resultPost: {
+          ...state.resultPost,
           error: true
         }
       }
