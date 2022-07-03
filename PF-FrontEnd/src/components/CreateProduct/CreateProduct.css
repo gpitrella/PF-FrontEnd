@@ -5,7 +5,7 @@
 .main{
     box-sizing: border-box;
     max-width: 800px;
-    width: 90%;
+    width: 800px;
     margin: auto;
     padding: 40px;
 }
@@ -169,6 +169,11 @@
 .form__input {
   background-color: var(--primaryColorSub) !important;
   color: var(--fontColor) !important;
+}
+
+.form__label,
+.form__title {
+    cursor: default;
 }
 
 /* FIN DE EDICION */

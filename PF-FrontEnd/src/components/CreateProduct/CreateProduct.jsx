@@ -86,7 +86,9 @@ export default function CreateProduct() {
 
   return (
     <div className={`main ${s.container}`}>
-        {/* <Link to={'/'}><button>BACK HOME</button></Link> */}
+        <Link to = {'/admin/products/list'}>
+          <button className = {s.goBack}>{'< Go Back'}</button>
+        </Link>
         <h1 className={`form__title ${s.title}`}>Create product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
         <div className='form__group' id='name'>
