@@ -1,0 +1,68 @@
+.list {
+    display: flex;
+    width: 100vw;
+    margin-top: 35px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.listContainer {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 85%;
+    height: 80%;
+    border-color: rgb(147, 156, 156);
+}
+
+.containeruser {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border-color: rgb(147, 156, 156);
+}
+
+.userinfo{
+    width:30%;
+    padding-left: 5rem;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    border-color: rgb(147, 156, 156);
+}
+
+.useredit{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    margin-right: 3rem;
+    margin-bottom: 2rem;
+    flex-direction: column;
+    width: 70%;
+}
+.selectDiv{
+    margin-bottom: 1rem;
+
+}
+.inputDiv{
+    border-radius: 0.5rem;
+}
+.input{
+ background-color: black;
+ color: white;   
+ border-color: white;
+ border-radius: 0.5rem;
+ height: 2rem;
+
+}
+.input:hover{
+    transition: 0.4s;
+    background-color: gray;
+    color: rgb(104, 0, 0);
+    border-color: rgb(104, 0, 0);
+    border-radius: 0.5rem;
+}
+
+  

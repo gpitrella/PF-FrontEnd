@@ -7,10 +7,10 @@ import {
   USER_STATUS,
   PUT_USER_STATUS,
   USER_STATUS_RESET,
-  
+  BASE_URL  
 } from './actiontype';
 
-const urluser = 'http://localhost:3001/api/user';
+const urluser = `${BASE_URL}/api/user`;
 
 // export const getAllUsers = function() {
 //   return {
@@ -29,7 +29,7 @@ export function getUserDetail(id) {
   console.log(id,'actions')
    return async (dispatch) => {
      return await axios
-       .get(`http://localhost:3001/api/user/${id}`)
+       .get(`${BASE_URL}/api/user/${id}`)
        .then((res) => dispatch({ type: "GET_USER_DETAIL", payload: res.data }))
        .catch(error => console.log(error))
     };
@@ -37,7 +37,7 @@ export function getUserDetail(id) {
 
 export function putUserStatus(id, newstatus){
   return (dispatch => {
-    return axios.put(`http://localhost:3001/api/user/${id}?isactive=${newstatus}`)
+    return axios.put(`${BASE_URL}/api/user/${id}?isactive=${newstatus}`)
            .then(res => dispatch({ type: PUT_USER_STATUS})) 
            .catch(err => console.log(err.response.data))
   })

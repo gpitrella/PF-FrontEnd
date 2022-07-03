@@ -15,7 +15,7 @@ export const POST_REVIEW_PRODUCT = 'POST_REVIEW_PRODUCT';
 export const LOAD_STORAGE = 'LOAD_STORAGE';
 export const OPEN_PAGE_LOADER = 'OPEN_PAGE_LOADER';
 export const CLOSE_PAGE_LOADER = 'CLOSE_PAGE_LOADER';
-export const LOGOUT = 'LOGOUT'
+export const LOGOUT = 'LOGOUT';
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';
@@ -89,3 +89,6 @@ export const GET_MUNICIPIOS = 'GET_MUNICIPIOS';
 export const GET_LOCALIDADES = 'GET_LOCALIDADES';
 export const VALIDATING_ADDRESS = 'VALIDATING_ADDRESS';
 export const NORMALIZE_ADDRESS = 'NORMALIZE_ADDRESS';
+
+// BASE URL
+export const BASE_URL = 'https://techmarketapp.herokuapp.com';
