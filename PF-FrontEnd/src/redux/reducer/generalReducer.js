@@ -13,9 +13,11 @@ import {
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
-  LOAD_STORAGE,
   LOGOUT,
   POST_REVIEW_PRODUCT,
+  OPEN_PAGE_LOADER,
+  CLOSE_PAGE_LOADER,
+  LOAD_STORAGE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -38,7 +40,8 @@ const initialState = {
   user:{},
   showCart: false,
   finishOrder: {},
-  reviewCreated: {}
+  reviewCreated: {},
+  showPageLoader: true
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -170,6 +173,18 @@ const generalReducer = function(state = initialState, { type, payload }) {
         theme: theme ? theme : state.theme,
         user: user ? user : state.user,
         productsCart: productsCart ? productsCart : state.productsCart
+      }
+    }
+    case OPEN_PAGE_LOADER: {
+      return {
+        ...state,
+        showPageLoader: true,
+      }
+    }
+    case CLOSE_PAGE_LOADER: {
+      return {
+        ...state,
+        showPageLoader: false,
       }
     }
     case LOGOUT: {

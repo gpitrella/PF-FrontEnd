@@ -8,11 +8,12 @@ import {
    UPDATE_BRAND,
    DELETE_BRAND,
    PRODUCTS_TO_FORMS,
+   BASE_URL
 } from './actiontype';
 
-const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
-const PATH_GET_CATEGORIES = 'http://localhost:3001/api/categories';
-const PATH_GET_ALL_PRODUCTS = 'http: //localhost:3001/api/product';
+const PATH_GET_BRANDS = `${BASE_URL}/api/manufacturer`;
+const PATH_GET_CATEGORIES = `${BASE_URL}/api/categories`;
+const PATH_GET_ALL_PRODUCTS = `${BASE_URL}/api/product`;
 
 
 export const createCategory = ({ name }) => {
