@@ -48,7 +48,8 @@ export default function EditProduct() {
       stock: productDetails.stock.toString(),
       description: productDetails.description,
       category: productDetails.categories[0],
-      manufacturer: productDetails.manufacturers[0].name
+      manufacturer: productDetails.manufacturers[0].name,
+      isVisible: productDetails.isVisible === true ? 'true' : 'false'
     })
   }, [productDetails]);
 
@@ -80,7 +81,10 @@ export default function EditProduct() {
       })
       document.getElementById('form__msn').classList.remove('form__msn-activo')
     
-      dispatch(putProduct(input));
+      dispatch(putProduct(productDetails.id ,{
+        ...input,
+        isVisible: input.isVisible === 'true' ? true : false
+      }));
       //console.log(input)
       setInput({
         name: '',
@@ -90,11 +94,27 @@ export default function EditProduct() {
         stock: '',
         description:'',
         category: '',
-        manufacturer:''
+        manufacturer:'',
+        isVisible: ''
       })
       dispatch(waitingResponsePut(true));
-      //history.push('/admin/products/list');
+      history.replace('/admin/products/list');
     }
+  }
+
+  const resetChanges = function() {
+    setInput({
+      name: productDetails.name,
+      price: productDetails.price.toString(),
+      image: productDetails.image,
+      discount: productDetails.discount.toString(),
+      stock: productDetails.stock.toString(),
+      description: productDetails.description,
+      category: productDetails.categories[0],
+      manufacturer: productDetails.manufacturers[0].name,
+      isVisible: productDetails.isVisible === true ? 'true' : 'false'
+    });
+    setErrors({});
   }
 
   if (loading) return (
@@ -110,9 +130,12 @@ export default function EditProduct() {
 
   return (
     <div className={`main ${s.container}`}>
-        <Link to = {'/admin/products/list'}>
-          <button className = {s.goBack}>{'< Go Back'}</button>
-        </Link>
+        <div className = {s.header}>
+          <Link to = {'/admin/products/list'}>
+            <button className = {s.goBack}>{'< Go Back'}</button>
+          </Link>
+          <button className = {s.reset} onClick = {resetChanges}>{'Reset Changes'}</button>
+        </div>
         <h1 className={`form__title ${s.title}`}>Edit product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
         <div className='form__group' id='name'>
@@ -245,6 +268,23 @@ export default function EditProduct() {
                 value = {input.description}
                 onChange={(e) => handleChange(e)}
                 />
+          </div> 
+          <p className='form__input-error'>{errors.description}</p>
+        </div>
+
+        <div className = {`form__group ${s.inputStatus}`} id='description'>
+          <label htmlFor="description" className='form__label'>Status</label>
+          <div className='form__group-input'>
+            <select
+              className='form__input'
+              id='isVisible'
+              name = {'isVisible'}
+              onChange={(e) => handleChange(e)}
+              value = {input.isVisible}
+            >
+              <option value={'false'}>INACTIVE</option>
+              <option value={'true'}>ACTIVE</option>
+            </select>
           </div> 
           <p className='form__input-error'>{errors.description}</p>
         </div>

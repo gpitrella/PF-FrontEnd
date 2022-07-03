@@ -67,6 +67,25 @@
   cursor: pointer;
 }
 
+.svgButton {
+  height: 2rem;
+  width: 2rem;
+
+  border-radius: 5px;
+
+  border: 0 solid transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.svgButton > svg {
+  fill: white;
+}
+
 .blue {
   background-color: rgba(0, 0, 255, 1);
 }
@@ -77,4 +96,32 @@
 
 .red {
   background-color: rgba(220, 20, 60, 1);
+}
+
+.tag {
+  position: absolute;
+  font-size: var(--fontSmall);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  transform: translateY(-3rem);
+  display: none;
+  text-align: center;
+}
+
+.tag:after {
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  bottom: -5px;
+  left: 42%;
+  content: '';
+  transform: rotate(45deg);
+  margin-top: 0;
+  margin-left: 0;
+  background-color: inherit;
+}
+
+.svgButton:hover > .tag {
+  display: block;
 }
