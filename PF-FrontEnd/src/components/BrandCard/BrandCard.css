@@ -3,6 +3,8 @@
     width: 150px;
     height: 150px;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     border-radius: 5px;
     border: 1px solid black;
     margin-left: 2px;

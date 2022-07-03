@@ -1,43 +1,36 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import Navbar from "../../components/Dashboard/navbar/Navbar";
+import { useHistory } from "react-router-dom";
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
-import { getUserDetail, userStatus } from '../../redux/actions';
-
+import { putUserStatus, userStatus, userStatusReset } from '../../redux/actions';
+import style from "./Useredit.module.css"
 const Edit = ({match}) => {
    const dispatch = useDispatch();
    const history = useHistory();
 
     const matchId=match.params.id;
     console.log(matchId, 'matchId')
-  
-    
-   //  useEffect(() => {
-   //    dispatch(getUserDetail(matchId))
-   //  },[dispatch, matchId]);
-    
-    const { allusers } = useSelector((state) => state.userReducer);
+      
+    const { allusers, usereditstatusok } = useSelector((state) => state.userReducer);
     
     console.log(allusers, 'allusers')
     
     const user = allusers.filter(function(u){
       return u.id == matchId;
     })
+
     console.log(user, 'user')
+
     const useraddress = user[0].useraddresses[0]
+
     console.log(useraddress, 'useraddress')  
     
     
   
-      const { id, name, email, admin, isactive,  } = user[0]
+      const { id, name, email, isactive,  } = user[0]
     
       const [ newstatus, setNewstatus ] = useState(isactive ? "true" : "false");
-      //const { photo, phone_number, street, street_height, city, zipcode } = useraddress;
-         
-      
-  
+             
       console.log(newstatus)
   
       function handleSelect(e){
@@ -50,20 +43,28 @@ const Edit = ({match}) => {
       console.log(newstatus)
       dispatch(userStatus(newstatus))
       }  
-      async function handleConfirm(){
-         await axios.put(`http://localhost:3001/api/user/${id}?isactive=${newstatus}`)
-         .then(res => history.push("/admin/users/list")) 
-         .catch(err => console.log(err.response.data))
+
+      function handleConfirm(){
+         dispatch(putUserStatus(id, newstatus))
       }
+
+      useEffect(()=>{
+         if (usereditstatusok){
+            dispatch(userStatusReset())
+            history.push('/admin/users/list')
+         }
+
+      }, [usereditstatusok])
+
   return (
     <>   
-    <div className="list">
+    <div className={style.list}>
     <Sidebar/>
-        <div className="listContainer">
+        <div className={style.listContainer}>
           
-              <div className="containeruser">
-                  <div className="userinfo">
-                     <h1>User</h1>
+              <div className={style.containeruser}>
+                  <div className={style.userinfo}>
+                     <h2>User</h2>
                      <div>
                         <span>{name}</span>
                      </div>
@@ -91,13 +92,13 @@ const Edit = ({match}) => {
                      : console.log('no direccion')
                      }   
                   </div>
-                  <div className="useredit">
-                      <h1>Status</h1>
+                  <div className={style.useredit}>
+                      <h2>Status</h2>
                       <div>
                         {newstatus === 'true' ? 'ACTIVE' : 'BANED'}
                       </div>
-                      <h1>Edit Status</h1>
-                      <div>
+                      <h3>Edit Status</h3>
+                      <div className={style.selectDiv}>
                       <select name="isactive"
                       onChange={(e) => handleSelect(e)}
                       value={newstatus}>
@@ -105,8 +106,8 @@ const Edit = ({match}) => {
                         <option value={"false"}>BANED</option>
                       </select>
                       </div>
-                      <div>
-                        <input type="button" value="Confirm" onClick={handleConfirm}/>
+                      <div className={style.inputDiv}>
+                        <input className={style.input} type="button" value="Confirm" onClick={handleConfirm}/>
                       </div>
 
                   </div>

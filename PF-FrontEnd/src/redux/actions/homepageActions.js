@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
   TEST_HOMEPAGE,
   ALL_CATEGORIES,
-  CREATE_CATEGORY,
   GET_BRANDS,
   GET_PRODUCT_DETAILS,
   GET_SEARCH_PRODUCTS,
@@ -16,10 +15,11 @@ import {
   SHOW_ERROR_SECTION_ONE,
   SHOW_ERROR_SECTION_TWO,
   SHOW_ERROR_SECTION_THREE,
-  RESET_SECTIONS
+  RESET_SECTIONS,
+  BASE_URL
 } from './actiontype';
 
-const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = 'http://localhost:3001/api/product/?';
+const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = `${BASE_URL}/api/product/?`;
 
 export const testHomePage = function() {
   return {
@@ -30,7 +30,7 @@ export const testHomePage = function() {
 export const getCategories = function () {
   return async (dispatch) => {
     try{
-        let totalCategories = await axios.get("http://localhost:3001/api/categories");
+        let totalCategories = await axios.get(`${BASE_URL}/api/categories`);
         dispatch({
             type: ALL_CATEGORIES,
             payload: totalCategories.data
@@ -42,32 +42,16 @@ export const getCategories = function () {
   }
 };
 
-export const createCategory = ({ name, image, products }) => {
-  return async (dispatch) => {
-      try{
-          let categCreated = await axios.post("http://localhost:3001/categories", { name, image, products });
-          dispatch({
-              type: CREATE_CATEGORY,
-              payload: categCreated
-          });
-      }catch(error){
-          console.log(error);
-          return error;
-      }
-  }
-};
-
-
 export const getBrands = function() {
   return async (dispatch)=>{
-    const res = await axios('http://localhost:3001/api/manufacturer');
+    const res = await axios(`${BASE_URL}/api/manufacturer`);
     return dispatch({ type: GET_BRANDS, payload: res.data });
 }
 }
 // Get Product Details:
 export function getProductDetails(id){
   return function(dispatch){
-      return axios.get(`http://localhost:3001/api/product/${id}`)
+      return axios.get(`${BASE_URL}/api/product/${id}`)
                   .then(product => dispatch({ type: GET_PRODUCT_DETAILS, payload: product.data[0]}))
                   .catch(error => console.log(error))
   }
@@ -77,7 +61,7 @@ export function getProductDetails(id){
 export function getSearchProducts(name){
   return function(dispatch){
       
-      return axios.get(`http://localhost:3001/api/product/?size=7&name=${name}`)
+      return axios.get(`${BASE_URL}/api/product/?size=7&name=${name}`)
                   .then(product => dispatch({ type: GET_SEARCH_PRODUCTS, payload: product.data}))
                   .catch(error => console.log(error))
   }

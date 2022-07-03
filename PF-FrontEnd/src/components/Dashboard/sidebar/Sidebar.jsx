@@ -1,3 +1,4 @@
+import React from "react";
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import HomeIcon from '@mui/icons-material/Home';
@@ -65,14 +66,19 @@ const Sidebar = () => {
             <CreditCardIcon className="icon" />
             <span>Orders</span>
           </li>
-          <li>
-            <CategoryIcon className="icon" />
-            <span>Categories</span>
-          </li>
-          <li>
-            <CopyrightIcon className="icon" />
-            <span>Manufacturers</span>
-          </li>
+          <Link to="/admin/categories" style={{ textDecoration: "none" }}>
+            <li>
+              <CategoryIcon className="icon" />
+              <span>Categories</span>
+            </li>
+          </Link>
+          <Link to="/admin/brands" style={{ textDecoration: "none" }}>
+            <li>
+              <CopyrightIcon className="icon" />
+              <span>Manufacturers</span>
+            </li>
+          </Link>
+         
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />

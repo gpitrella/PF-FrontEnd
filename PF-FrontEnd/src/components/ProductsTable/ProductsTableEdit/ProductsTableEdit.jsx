@@ -83,15 +83,18 @@ export default function ProductsTableEdit({ param, newProductDetails, handleChan
   return (
     <div className = {s.options}>
       <button className = {`${s.svgButton} ${s.red}`} onClick = {() => handleOptions('CANCEL')}>
+        <div className = {`${s.tag} ${s.red}`}>Cancel</div>
         <Cancel />
       </button>
       <button className = {`${s.svgButton} ${s.orange}`} onClick = {() => handleOptions('RELOAD')}>
+        <div className = {`${s.tag} ${s.orange}`}>Reset</div>
         <Reload />
       </button>
       <button 
         className = {`${s.svgButton} ${s.green}`}
         disabled = { Object.keys(invalid).some(param => invalid[param]) }
         onClick = {() => handleOptions('ACCEPT')}>
+        <div className = {`${s.tag} ${s.green}`}>Accept</div>
         <Accept />
       </button>
     </div>

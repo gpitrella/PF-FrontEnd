@@ -1,0 +1,32 @@
+.container {
+  margin: 0;
+  border-radius: 16px;
+  background-color: var(--primaryColor);
+
+  box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.5);
+  color: var(--fontColor);
+}
+
+.title {
+  color: var(--fontColor);
+  text-align: center;
+  margin: 0.5rem;
+
+  cursor: default;
+}
+
+.goBack {
+  color: var(--fontColor);
+  background-color: transparent;
+  border: none;
+
+  font-size: var(--fontSubTitle);
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+.goBack:hover {
+  color: var(--dangerColor);
+}

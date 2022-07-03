@@ -234,3 +234,7 @@ input:checked + .slider:before {
     display: inline-flex;
 }
 
+.scrollToTop > button {
+    background-color: var(--secondaryColor);
+    color: white;
+}

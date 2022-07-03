@@ -1,14 +1,15 @@
 .list {
   display: flex;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 50px !important;
   background: none;
   background-color: var(--primaryColorSub);
   .listContainer {
     flex: 6;
     margin-top: -100px;
-    margin-top: 0;
+    margin-top: 0 !important;
     background-color: var(--primaryColorSub);
+    height: auto;
     .datatable {
       background-color: var(--primaryColor);
       padding: 0;

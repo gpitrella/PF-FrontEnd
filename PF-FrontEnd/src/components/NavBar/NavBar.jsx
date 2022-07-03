@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
+import { getSearchProducts, clearSearchProducts, showCart, logout, openPageLoader } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
 import './NavBar.css';
 import gitfLogo from './img/logo_TechMarket.gif';
+import userAvatar from './img/user_avatar.png';
 
 // Nueva Navbar
 import { styled, alpha } from '@mui/material/styles';
@@ -33,9 +34,7 @@ import Switch from '@mui/material/Switch';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
-
-
-
+import Avatar from '@mui/material/Avatar';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -151,6 +150,7 @@ export default function NavBar() {
     e.preventDefault()
     handleMenuClose()
     dispatch(logout())
+    dispatch(openPageLoader());
     history.push('/')
   }
 
@@ -182,7 +182,7 @@ export default function NavBar() {
       onClose={handleMenuClose}
     >
       {user?.user ? <span>
-                        <Link to="/login" className="links_profile_user">
+                        <Link to="/myprofile" className="links_profile_user">
                           <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
                         </Link>
                         <Link to="/signup" className="links_profile_user">
@@ -248,6 +248,7 @@ export default function NavBar() {
           color="inherit"
         >
           <AccountCircle />
+          <Avatar alt="Avatar Imagen" src={userAvatar} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -314,6 +315,18 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+            <IconButton 
+                font-size="1rem"
+                size="small" 
+                aria-label="create_product" 
+                color="inherit"
+                sx={!user?.user ? { display: 'none' } : { display: 'inline-flex' }}
+              >
+                  <Typography font-size="1rem" component="div" sx={{ flexGrow: 1 }}>
+                      Welcome {user?.user?.name}
+                  </Typography>
+            </IconButton>
             
               <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
                 <Badge badgeContent={productsCart?.length} color="error">
@@ -404,7 +417,9 @@ export default function NavBar() {
       {/* { displayUser ? {renderMenuProfileNormalUser} : {renderMenu} } */}
       {renderMenu}
     </Box>
-    <ScrollToTop smooth component={<ExpandLessIcon />} />
+    <div className = {'scrollToTop'}>
+      <ScrollToTop smooth component={<ExpandLessIcon />} />
+    </div>
       </nav>
     )
 };

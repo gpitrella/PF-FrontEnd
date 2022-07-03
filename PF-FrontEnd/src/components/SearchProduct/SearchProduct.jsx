@@ -44,7 +44,7 @@ export default function SearchProduct() {
       <input className = {s.input} value = {inputName} onInput = {handleInput} />
       <button className = {s.btn} onClick = {handleSearch} disabled = {inputName === ''}>Search</button>
       <button className = {`${s.btn} ${s.red}`} onClick = {handleReset} disabled = {filter.name === ''}>Reset</button>
-      <Link to = {'/admin/products/createproduct'} className = {s.btnCreateContainer}>
+      <Link to = {'/admin/products/create'} className = {s.btnCreateContainer}>
         <button className = {`${s.btn} ${s.create}`}>Create</button>
       </Link>
     </div>

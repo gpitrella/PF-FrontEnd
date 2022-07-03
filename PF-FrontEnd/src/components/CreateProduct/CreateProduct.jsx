@@ -2,10 +2,12 @@ import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { postProduct } from '../../redux/actions/storepageActions'
+import { postProduct, waitingResponsePost } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands } from '../../redux/actions/homepageActions'
 import './CreateProduct.css'
 import validate from './validate'
+
+import s from './CreateProduct.module.css';
 
 export default function CreateProduct() {
 
@@ -39,10 +41,10 @@ export default function CreateProduct() {
   }
 
   useEffect(() => {
-    dispatch(postProduct())
+    //dispatch(postProduct())
     dispatch(getCategories())
     dispatch(getBrands())
-  }, [dispatch])
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,41 +53,45 @@ export default function CreateProduct() {
       [e.target.name]: e.target.value
     }))
 
-    if(!input.name || !input.price || !input.image || !input.stock || !input.discount || !input.category || !input.manufacturer || !input.description){
-        document.getElementById('form__msn').classList.add('form__msn-activo')
-      } else if (errors.name || errors.price || errors.image || errors.stock || errors.discount || errors.category || errors.manufacturer || errors.description)
-      {
-        document.getElementById('form__msn').classList.add('form__msn-activo')
-      }else if (!errors.name || !errors.price || !errors.image || !errors.stock || !errors.discount || !errors.category || !errors.manufacturer || !errors.description){
-        document.getElementById('form__msn-exito').classList.add('form__msn-exito-activo')
-        setTimeout(()=>{
-          document.getElementById('form__msn-exito').classList.remove('form__msn-exito-activo')
-        }, 4000)
-        document.querySelectorAll('.form__group-correcto').forEach((icon)=>{
-          icon.classList.remove('form__group-correcto')
-        })
-        document.getElementById('form__msn').classList.remove('form__msn-activo')
+    if(!input.name || !input.price || !input.image || !input.stock || !input.discount || !input.category || !input.manufacturer || !input.description) {
+      document.getElementById('form__msn').classList.add('form__msn-activo')
+    } 
+    else if (errors.name || errors.price || errors.image || errors.stock || errors.discount || errors.category || errors.manufacturer || errors.description) {
+      document.getElementById('form__msn').classList.add('form__msn-activo')
+    }
+    else if (!errors.name || !errors.price || !errors.image || !errors.stock || !errors.discount || !errors.category || !errors.manufacturer || !errors.description) {
+      document.getElementById('form__msn-exito').classList.add('form__msn-exito-activo')
+      // setTimeout(()=>{
+      //   document.getElementById('form__msn-exito').classList.remove('form__msn-exito-activo')
+      // }, 4000)
+      document.querySelectorAll('.form__group-correcto').forEach((icon)=>{
+        icon.classList.remove('form__group-correcto')
+      })
+      document.getElementById('form__msn').classList.remove('form__msn-activo')
     
-    dispatch(postProduct(input));
-    console.log(input)
-    setInput({
-      name: '',
-      price: '',
-      image: '',
-      discount: '',
-      stock: '',
-      description:'',
-      category: '',
-      manufacturer:''
-    })
-    history.push('/createproduct')
-  }
+      dispatch(postProduct(input));
+      //console.log(input)
+      setInput({
+        name: '',
+        price: '',
+        image: '',
+        discount: '',
+        stock: '',
+        description:'',
+        category: '',
+        manufacturer:''
+      })
+      dispatch(waitingResponsePost(true));
+      history.push('/admin/products/list');
+    }
   }
 
   return (
-    <div className='main'>
-        {/* <Link to={'/'}><button>BACK HOME</button></Link> */}
-        <h1 className='form__title'>Create product</h1>
+    <div className={`main ${s.container}`}>
+        <Link to = {'/admin/products/list'}>
+          <button className = {s.goBack}>{'< Go Back'}</button>
+        </Link>
+        <h1 className={`form__title ${s.title}`}>Create product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
         <div className='form__group' id='name'>
           <label htmlFor="name" className='form__label'>Name</label>
