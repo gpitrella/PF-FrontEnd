@@ -42,15 +42,15 @@ const LogIn = () => {
     setErrorsPassword(validatePassword({...input,[e.target.name]: e.target.value}))
   }
 
-  React.useEffect(() => {
-    if(user?.user && input.email !== '' && input.password !== '' ){
-      setRedirect({value: true});
-    } 
-  },[user]);
+  // React.useEffect(() => {
+  //   if(user?.user && input.email !== '' && input.password !== '' ){
+  //     setRedirect({value: true});
+  //   } 
+  // },[user]);
 
-  React.useEffect(() => {
-    if (redirect && redirect.value) dispatch(openPageLoader());
-  }, [redirect]);
+  // React.useEffect(() => {
+  //   if (redirect && redirect.value) dispatch(openPageLoader());
+  // }, [redirect]);
 
   return (
 
