@@ -61,8 +61,8 @@ function App() {
                         
               <Route exact path="/" component={Home} />
               <Route exact path="/store/" component = {Store} />
-              <Route exact path="/login"> {user ? <LogIn/> : <Redirect to="/"/>}</Route>
-              <Route exact path="/signup"> {user ? <SignUp/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/login"> { !user && !user.user ? <LogIn/> : <Redirect to="/"/>}</Route>
+              <Route exact path="/signup"> { !user && !user.user ? <SignUp/> : <Redirect to="/"/>}</Route>
               <Route exact path="/store/discount/:discount" component = {Store} />
               <Route exact path="/store/name/:name" component = {Store} />
               <Route exact path="/store/category/:category" component = {Store} />
