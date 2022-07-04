@@ -226,15 +226,16 @@ export default function ProductDetails (){
 
         return (
         <div className="mainProduct">
+            <div className="main_product_box">
             <div className="mainProductDetail">
-                <div id="product_image">
                     {
                         productDetails.discount !== 0 &&
                         <div className = 'containerDiscount'>
                             {productDetails.discount}% OFF
                         </div>
                     }
-                    <ImageLoader image = {productDetails?.image} alt = {productDetails?.name} />
+                <div id="product_image">
+                    <img src={productDetails?.image} alt="Image Product Detail" />
                 </div>
                 <div>
                     <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
@@ -244,7 +245,12 @@ export default function ProductDetails (){
                         <div>
                             <span id="product_price_discount" > ${productDetails.discount !== 0 ? discountPrice : productDetails.price} </span>
                             <span id="product_price"> ${productDetails?.price} </span>
-                            <p id="product_seller">Brand: <strong>{productDetails?.manufacturers ? productDetails.manufacturers[0]?.name : 'WithOut Brand'}</strong></p>
+                            <div className = "brand_product_detail">
+                                <p id="product_seller">Brand: </p>
+                                <div >
+                                    <img className="image_brand_product_detail" src = {productDetails?.manufacturers ? productDetails.manufacturers[0]?.image : ""} alt = "brand product detail"/>
+                                </div>
+                            </div>
                         </div>
                         <div id="review_block">
                             <p id="review_detail">Rating: <strong>{score.toFixed(1)}</strong> </p>
@@ -445,6 +451,7 @@ export default function ProductDetails (){
                     </Alert>
                 </Snackbar>
             </div>
+        </div>
         </div>
     )    
 }
