@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -17,7 +19,11 @@ import {
   LOAD_STORAGE,
   OPEN_PAGE_LOADER,
   CLOSE_PAGE_LOADER,
-  BASE_URL
+  ADD_PRODUCT_TO_FAVOURITES,
+  GET_CATEGORIES_TO_STORE,
+  GET_FAVOURITES_PRODUCTS,
+  REMOVE_FAVOURITE_PRODUCT,
+  BASE_URL,
 } from './actiontype';
 
 
@@ -154,4 +160,29 @@ export const logout = function() {
     return {
     type: LOGOUT
   }
+};
+
+//FAVOURITES PRODUCTS
+export function addProdToFavourites(idUser, idProduct){
+  return function(dispatch){
+      return axios.post(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
+                  .then(product => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: product.data[0]}))
+                  .catch(error => console.log(error))
+  }
+};
+
+export function getFavouritesProducts(idUser){
+  return function(dispatch){
+    return axios.post(`${BASE_URL}/api/favorite/${idUser}`)
+    .then(response => dispatch({ type: GET_FAVOURITES_PRODUCTS, payload: response.data }))
+    .catch(error => console.log(error))
+  };
+};
+
+export function removeFavourite(idProduct, idUser){
+  return function(dispatch){
+    return axios.delete(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
+    .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT}))
+    .catch(error => console.log(error))
+  };
 };

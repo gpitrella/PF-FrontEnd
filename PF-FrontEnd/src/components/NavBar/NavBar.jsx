@@ -315,6 +315,14 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            
+            {/* <Link to={'/addtocart'} > */}
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+                <Badge badgeContent={productsCart?.length} color="error">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            {/* </Link> */}
 
             <IconButton 
                 font-size="1rem"
