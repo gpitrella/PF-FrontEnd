@@ -90,5 +90,5 @@ export const GET_LOCALIDADES = 'GET_LOCALIDADES';
 export const VALIDATING_ADDRESS = 'VALIDATING_ADDRESS';
 export const NORMALIZE_ADDRESS = 'NORMALIZE_ADDRESS';
 
-// BASE URL/
+// BASE URL//
 export const BASE_URL = 'https://techmarketapp.herokuapp.com';
