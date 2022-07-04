@@ -1,46 +1,64 @@
 .list {
     display: flex;
-    width: 100vw;
-    margin-top: 35px;
+    /*width: 100vw;*/
+    width: 100%;
+    /*margin-top: 35px;
     align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: center;*/
+    display: flex;
+    align-items: flex-start;
+
+    margin-top: 50px !important;
+
 }
 
 .listContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow: hidden;
-    width: 85%;
-    height: 80%;
-    border-color: rgb(147, 156, 156);
+    justify-content: center;
+    align-items: center;
+    /*width: 50%;
+    height: 50%;*/
+    /*border-color: rgb(147, 156, 156);*/
+    background-color: var(--primaryColor);
 }
 
 .containeruser {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    border-color: rgb(147, 156, 156);
+    flex-direction: column;
+    width: 50%;
+    /*border-color: rgb(147, 156, 156);*/
+    background-color: var(--primaryColor);
+    border-radius: 16px;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
 }
 
 .userinfo{
-    width:30%;
-    padding-left: 5rem;
     align-items: center;
-    align-content: center;
     justify-content: center;
-    border-color: rgb(147, 156, 156);
+    text-align: center;
+}
+
+.userinfo > h2 {
+    margin-top: 0;
+    padding-top: 0;
+    letter-spacing: 1px;
+}
+
+.userinfo > div {
+    margin: 0.5rem;
 }
 
 .useredit{
     display: flex;
     align-items: center;
-    align-content: center;
     justify-content: center;
-    margin-right: 3rem;
-    margin-bottom: 2rem;
     flex-direction: column;
-    width: 70%;
 }
 .selectDiv{
     margin-bottom: 1rem;
@@ -49,7 +67,7 @@
 .inputDiv{
     border-radius: 0.5rem;
 }
-.input{
+/*.input{
  background-color: black;
  color: white;   
  border-color: white;
@@ -63,6 +81,54 @@
     color: rgb(104, 0, 0);
     border-color: rgb(104, 0, 0);
     border-radius: 0.5rem;
+}*/
+
+.input {
+  height: 2rem;
+  width: 10rem;
+  color: white;
+  background-color: var(--secondaryColor) !important;
+  cursor: pointer;
+  font-size: var(--fontMedium);
+  font-weight: 700;
+  border: 1px solid var(--secondaryColor);
+
+  letter-spacing: 1px;
+
+  margin-top: 1rem;
 }
 
-  
+.red {
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--dangerColor);
+}
+
+.green {
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--successColor);
+}
+
+.header {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.goBack {
+  color: var(--fontColor);
+  background-color: transparent;
+  border: none;
+
+  font-size: var(--fontSubTitle);
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  text-align: left;
+}
+
+.goBack:hover {
+  color: var(--dangerColor);
+}

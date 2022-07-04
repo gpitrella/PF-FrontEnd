@@ -135,14 +135,16 @@ const generalReducer = function(state = initialState, { type, payload }) {
       LocalStorage.saveItem('user', payload);
       return {
         ...state,
-        user: payload
+        user: payload,
+        showPageLoader: true
       }
 
     case LOG_IN:
       LocalStorage.saveItem('user', payload);      
       return {
         ...state,
-        user: payload
+        user: payload,
+        showPageLoader: true
       }
 
     case SHOW_CART:
