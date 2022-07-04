@@ -8,7 +8,7 @@ import MiniModal from '../MiniModal/MiniModal';
 import Loading from '../SVG/Loading';
 import { 
   closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate, updateFilter, setShowLoading, waitingResponsePut,
-  showMiniModal, waitingResponseDelete
+  showMiniModal, waitingResponseDelete, waitingResponsePost
 } from '../../redux/actions';
 import { buildFilter } from '../../util';
 
@@ -17,7 +17,9 @@ import s from './ProductsTable.module.css';
 export default function ProductsTable({}) {
 
   const dispatch = useDispatch();
-  const { products, showStore, showLoading, showError, filter, results, resultPut, resultDelete} = useSelector(state => state.storepage);
+  const { products, showStore, showLoading, showError, filter, results, 
+    resultPut, resultDelete, resultPost
+  } = useSelector(state => state.storepage);
   const { miniModal } = useSelector(state => state.general);
 
   React.useEffect(() => {
@@ -52,7 +54,7 @@ export default function ProductsTable({}) {
       dispatch(showMiniModal(true, 'Server Error: Try Again Later...', false, true));
       dispatch(waitingResponsePut(false));
     }
-  }, [resultPut])
+  }, [resultPut]);
 
   React.useEffect(() => {
     if (resultDelete.waitingResponse && resultDelete.status) {
@@ -65,7 +67,20 @@ export default function ProductsTable({}) {
       dispatch(showMiniModal(true, 'Server Error: Try Again Later...', false, true));
       dispatch(waitingResponseDelete(false));
     }
-  }, [resultDelete])
+  }, [resultDelete]);
+
+  React.useEffect(() => {
+    if (resultPost.waitingResponse && resultPost.status) {
+      dispatch(showMiniModal(true, 'Success on Creating Product!!!', true, false));
+      dispatch(waitingResponsePost(false));
+      dispatch(setShowLoading());
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter(filter)));
+    }
+    else if (resultPost.waitingResponse && resultPost.error) {
+      dispatch(showMiniModal(true, 'Server Error: Try Again Later...', false, true));
+      dispatch(waitingResponsePost(false));
+    }
+  }, [resultPost]);
 
   if (!showStore) return (
     <div className = {s.containerLoading}>

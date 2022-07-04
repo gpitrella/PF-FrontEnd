@@ -1,18 +1,18 @@
 import "./listproduct.scss"
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar"
-import CreateProduct from '../../components/CreateProduct/CreateProduct';
+import EditProduct from '../../components/EditProduct/EditProduct';
 
-import s from './CreateProductPage.module.css';
+import s from './EditProductPage.module.css';
 
-const CreateProductPage = () => {
+const EditProductPage = () => {
   return (
     <div className={`list ${s.list}`}>
       <Sidebar/>
       <div className={`listContainer ${s.listContainer}`}>
-        <CreateProduct />
+        <EditProduct />
       </div>
     </div>
   )
 }
 
-export default CreateProductPage
+export default EditProductPage

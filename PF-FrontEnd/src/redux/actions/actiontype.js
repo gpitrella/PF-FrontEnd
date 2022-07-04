@@ -78,6 +78,9 @@ export const ERROR_PUT_PRODUCT = 'ERROR_PUT_PRODUCT';
 export const WAITING_RESPONSE_DELETE = 'WAITING_RESPONSE_DELETE';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const ERROR_DELETE_PRODUCT = 'ERROR_DELETE_PRODUCT';
+// CREATE PRODUCT
+export const WAITING_RESPONSE_POST = 'WAITING_RESPONSE_POST';
+export const ERROR_POST_PRODUCT = 'ERROR_POST_PRODUCT';
 
 // MODALADDADDRESS ACTIONS
 export const SHOW_LOADING_PARAM = 'SHOW_LOADING_PARAM';
@@ -87,5 +90,5 @@ export const GET_LOCALIDADES = 'GET_LOCALIDADES';
 export const VALIDATING_ADDRESS = 'VALIDATING_ADDRESS';
 export const NORMALIZE_ADDRESS = 'NORMALIZE_ADDRESS';
 
-// BASE URL
-export const BASE_URL = 'https://techmarketapp.herokuapp.com/';
+// BASE URL/
+export const BASE_URL = 'https://techmarketapp.herokuapp.com';
