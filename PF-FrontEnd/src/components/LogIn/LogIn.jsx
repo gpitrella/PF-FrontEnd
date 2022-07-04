@@ -7,6 +7,8 @@ import { Link, Redirect } from "react-router-dom";
 import './LogIn.css'
 import { validateEmail, validatePassword } from "./validate";
 
+import s from './Login.module.css';
+
 const LogIn = () => {
   const [redirect, setRedirect] = useState({ value: false })
   // const [checkMailPassword, setCheckMailPassword] = useState(false)
@@ -55,7 +57,7 @@ const LogIn = () => {
   return (
 
     <div className="login">
-      <div className="login__wrapper">
+      <div className = {`login__wrapper ${s.loginContainer}`}>
         
           <h1 className="login__title">Log In</h1>
 
@@ -67,9 +69,9 @@ const LogIn = () => {
             value={input.email}
             placeholder="Email"
             onChange={(e) => handleChange(e)}
-            className='login__input'
+            className = {`login__input ${s.input}`}
             />
-            <p className='login__input-error'>{errorsEmail.email}</p>
+            <p className = {`login__input-error ${s.errorMsg}`}>{errorsEmail.email}</p>
         </div>
 
         <div className='login__group' id='password'>
@@ -80,9 +82,9 @@ const LogIn = () => {
             value={input.password}
             placeholder="Password"
             onChange={(e) => handleChange(e)}
-            className='login__input'
+            className = {`login__input ${s.input}`}
             />
-            <p className='login__input-error'>{errorsPassword.password}</p>
+            <p className = {`login__input-error ${s.errorMsg}`}>{errorsPassword.password}</p>
         </div>
         <div className='login__group' >
           <button type='submit' className="login__btn" onClick={(e) => handleLogIn(e)} >Log In</button>

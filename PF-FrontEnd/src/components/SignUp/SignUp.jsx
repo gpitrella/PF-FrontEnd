@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { validateUsername, validateEmail, validatePassword } from './validate';
 import './SignUp.css'
 
+import s from './SignUp.module.css';
+
 export default function SignUp() {
 
     const [ input, setInput ] = useState({
@@ -39,7 +41,7 @@ export default function SignUp() {
     return (
 
     <div className="login">
-        <div className="signup__wrapper">
+        <div className = {`signup__wrapper ${s.signUpContainer}`}>
 
                 <h1 className="signup__title">Sign Up</h1>
 
@@ -51,9 +53,9 @@ export default function SignUp() {
                     value={input.username}
                     placeholder="Username"
                     onChange={(e) => handleChange(e)}
-                    className='signup__input'
+                    className = {`signup__input ${s.input}`}
                     />
-                    <p className='signup__input-error'>{errors.username}</p>
+                    <p className = {`signup__input-error ${s.errorMsg}`}>{errors.username}</p>
                 </div>
 
                 <div className='signup__group' id='email'>
@@ -64,9 +66,9 @@ export default function SignUp() {
                     value={input.email}
                     placeholder="Email"
                     onChange={(e) => handleChange(e)}
-                    className='signup__input'
+                    className = {`signup__input ${s.input}`}
                     />
-                    <p className='signup__input-error'>{errorsEmail.email}</p>
+                    <p className = {`signup__input-error ${s.errorMsg}`}>{errorsEmail.email}</p>
                 </div>
 
                 <div className='signup__group' id='password'>
@@ -76,9 +78,9 @@ export default function SignUp() {
                     value={input.password}
                     placeholder="Password"
                     onChange={(e) => handleChange(e)}
-                    className='signup__input'
+                    className = {`signup__input ${s.input}`}
                     />
-                    <p className='signup__input-error'>{errorsPasword.password}</p>
+                    <p className = {`signup__input-error ${s.errorMsg}`}>{errorsPasword.password}</p>
                 </div>
                 
                 <div className='signup__group' >
