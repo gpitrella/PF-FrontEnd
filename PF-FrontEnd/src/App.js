@@ -19,7 +19,8 @@ import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
 import MyProfile from './components/MyProfile/MyProfile';
-import SuccessBuy from './components/SuccessBuy/SuccessBuy'
+import SuccessBuy from './components/SuccessBuy/SuccessBuy';
+import Landing from './components/Landing/Landing';
 
 import PageLoader from './components/PageLoader/PageLoader';
 
@@ -55,6 +56,7 @@ function App() {
             <Switch>
                         
               <Route exact path="/" component={Home} />
+              <Route exact path="/landing" component={Landing} />
               <Route exact path="/store/" component = {Store} />
               <Route exact path="/login"> { !user || !user.user ? <LogIn/> : <Redirect to="/"/>}</Route>
               <Route exact path="/signup"> { !user || !user.user ? <SignUp/> : <Redirect to="/"/>}</Route>
