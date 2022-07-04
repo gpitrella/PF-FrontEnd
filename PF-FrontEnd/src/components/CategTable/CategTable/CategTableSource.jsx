@@ -117,7 +117,7 @@ const CategoryTable = ({ onError }) => {
         className="datagrid"
         rows={allCategories}
         columns={categoryColumns.concat(actionColumn)}
-        pageSize={10}
+        pageSize={9}
         rowsPerPageOptions={[9]}
         loading={!allCategories.length}
         getRowId={(row) => row.id}

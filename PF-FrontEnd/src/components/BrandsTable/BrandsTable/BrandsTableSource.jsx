@@ -119,7 +119,7 @@ export const BrandsTable = () => {
         className="datagrid"
         rows={brandsList}
         columns={BrandsColumns.concat(actionColumn)}
-        pageSize={10}
+        pageSize={9}
         rowsPerPageOptions={[9]}
         loading={!brandsList.length}
         getRowId={(row) => row.id}

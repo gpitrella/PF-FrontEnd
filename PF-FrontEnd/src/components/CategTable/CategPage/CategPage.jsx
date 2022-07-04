@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./CategPage.scss";
+import s from "./CategPage.module.css";
 import Sidebar from "../../Dashboard/sidebar/Sidebar";
 import BasicCard from '../../common/BasicCard/BasicCard';
 import BasicSnackbar from '../../common/BasicSnackbar/BasicSnackbar';
@@ -35,13 +35,21 @@ const CategPage = () => {
   }
 
   return (
-    <div className="list">
+    <div className={s.list}>
       <Sidebar/>
-      <div className="listContainer">
+      <div className={s.listContainer}>
         <CommonButton
           variant="contained"
           onClick={addCategory}
           size="large"
+          sx={{
+            zIndex: "tooltip",
+            mt: 1,
+            ml: 100,
+            justifyContent: "end",
+            position: "absolute",
+
+          }}
         >
           New Category
         </CommonButton>

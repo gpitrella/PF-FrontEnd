@@ -1,7 +1,12 @@
 export const cardStyles = {
-    width: '1050px',
+    width: '87.5%',
+    height: 'fit-content',
     position: 'absolute',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    borderRadius: '8px',
+    marginLeft: '1vw',
+    transform: 'translate(20%, 0%)',
+    right: '0%',
+    borderRadius: '5px',
+    border: '1px solid var(--fontColorWithLessOpacity)',
+    backgroundColor: 'var(--primaryColor)',
+    color: 'var(--secondaryColor)'
 };
