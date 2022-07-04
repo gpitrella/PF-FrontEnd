@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logIn, openPageLoader } from "../../redux/actions";
 import { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { BASE_URL  } from '../../redux/actions/actiontype';
 import './LogIn.css'
 import { validateEmail, validatePassword } from "./validate";
 
@@ -15,7 +16,7 @@ const LogIn = () => {
 
   const { user } = useSelector((state) => state.general)
   const google = () => {
-    window.open("http://localhost:3001/auth/google", "_self");
+    window.open(`${BASE_URL}/auth/google`, "_self");
   };
 
   const [errorsEmail, setErrorsEmail] = useState({})

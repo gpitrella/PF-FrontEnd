@@ -107,7 +107,8 @@ export default function ProductDetails (){
     // Configuración boton agregar comentario.
     const [openComment, setOpenComment] = React.useState(false);
     const [openSuccessAddToCart, setOpenSuccessAddToCart] = React.useState(false);
-    const [openProductInCart, setProductInCart] = React.useState(false);
+    const [openProductInCart, setOpenProductInCart] = React.useState(false);
+    const [openWithOutStock, setOpenWithOutStock] = React.useState(false)
     const history = useHistory();
     const [comment, setComment] = React.useState(); // Box de comentarios
     const [commentReview, setCommentReview] = React.useState();
@@ -185,10 +186,14 @@ export default function ProductDetails (){
     // Adherir al Carrito
     const addtoCart = () => {
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
-        if(productInCart?.length === 0){
+        if(productInCart?.length === 0 && productDetails?.stock > 0){
             dispatch(addProductToCart(productDetails.id));
             setOpenSuccessAddToCart(true)
-        } else {
+        } 
+        if(productInCart?.length > 0 && productDetails?.stock === 0){
+            handleOpenWithOutStock();
+        }
+        if(productInCart?.length > 0 && productDetails?.stock > 0) {
             handleOpenProductInCart();
         }
     };
@@ -196,12 +201,16 @@ export default function ProductDetails (){
     const addtoCartandCheckOut = (e) => {
         e.preventDefault();
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
-        if(productInCart?.length === 0){
+        if(productInCart?.length === 0 && productDetails?.stock > 0){
             dispatch(addProductToCart(productDetails.id));
             history.push('/checkout');
         } else {
             history.push('/checkout');
         }
+    };
+
+    const handleOpenWithOutStock = () => {
+        setOpenWithOutStock(true);
     };
     
     const handleClickComment = () => {
@@ -209,7 +218,7 @@ export default function ProductDetails (){
     };
 
     const handleOpenProductInCart = () => {
-        setProductInCart(true);
+        setOpenProductInCart(true);
     };
 
     const handleCloseSuccessComment = (event, reason) => {
@@ -218,25 +227,27 @@ export default function ProductDetails (){
         }
         setOpenComment(false);
         setOpenSuccessAddToCart(false);
-        setProductInCart(false);
-        handleCloseLogin()
+        setOpenProductInCart(false);
+        handleCloseLogin();
+        setOpenWithOutStock(false);
     };
     
   
 
         return (
         <div className="mainProduct">
+            <div className="main_product_box">
             <div className="mainProductDetail">
-                <div id="product_image">
                     {
                         productDetails.discount !== 0 &&
                         <div className = 'containerDiscount'>
                             {productDetails.discount}% OFF
                         </div>
                     }
-                    <ImageLoader image = {productDetails?.image} alt = {productDetails?.name} />
-                </div>
                 <div>
+                    <img className="product_image" src={productDetails?.image} alt="Image Product Detail" />
+                </div>
+                <div className="box_detail_product_without_image">
                     <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
                     <h3 id="title_product">{productDetails?.name}</h3>
                     <hr/>
@@ -244,7 +255,12 @@ export default function ProductDetails (){
                         <div>
                             <span id="product_price_discount" > ${productDetails.discount !== 0 ? discountPrice : productDetails.price} </span>
                             <span id="product_price"> ${productDetails?.price} </span>
-                            <p id="product_seller">Brand: <strong>{productDetails?.manufacturers ? productDetails.manufacturers[0]?.name : 'WithOut Brand'}</strong></p>
+                            <div className = "brand_product_detail">
+                                <p id="product_seller">Brand: </p>
+                                <div >
+                                    <img className="image_brand_product_detail" src = {productDetails?.manufacturers ? productDetails.manufacturers[0]?.image : ""} alt = "brand product detail"/>
+                                </div>
+                            </div>
                         </div>
                         <div id="review_block">
                             <p id="review_detail">Rating: <strong>{score.toFixed(1)}</strong> </p>
@@ -444,7 +460,13 @@ export default function ProductDetails (){
                         Success review created!
                     </Alert>
                 </Snackbar>
+                <Snackbar open={openWithOutStock} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
+                        Sorry Product WithOut Stock!
+                    </Alert>
+                </Snackbar>
             </div>
+        </div>
         </div>
     )    
 }

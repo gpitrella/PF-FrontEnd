@@ -21,6 +21,7 @@ import {
   ADD_PRODUCT_TO_FAVOURITES,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SUCCESS_BUY
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -194,9 +195,11 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case LOGOUT: {
+      LocalStorage.removeItem('productsCart');
       LocalStorage.removeItem('user');
       return {
         ...state,
+        productsCart: [],
         user:{}
       }
     }
@@ -230,6 +233,14 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
       ...state,
       favouritesProducts: state.favouritesProducts.filter(product => product.id !== payload)
+      }
+    }
+
+    case SUCCESS_BUY: {
+      LocalStorage.removeItem('productsCart');
+      return {
+        ...state,
+        productsCart: []
       }
     }
     default:

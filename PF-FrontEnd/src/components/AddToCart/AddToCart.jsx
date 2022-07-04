@@ -176,7 +176,7 @@ React.useEffect(() => {
                  ? <p>No products added to cart.</p>
                  : productsCart?.map((e) => {
                      return (
-                     <div className="addtocart_mainblock">
+                     <div className="addtocart_mainblock" key={parseInt(Math.random() * 10000 / Math.random())}>
                         <img className="img_addtocart" src={e?.image} alt={e?.name} />
                         <div className="addtocart_name">
                             <h5>{e?.name}</h5>

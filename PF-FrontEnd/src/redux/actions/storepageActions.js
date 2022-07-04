@@ -97,7 +97,10 @@ export const postProduct = function(body) {
 
 export const putProduct = function(id, body) {
   return function(dispatch) {
-    return axios.put(`${PATH_PUT_PRODUCT}${id}`, body)
+    return axios.put(`${PATH_PUT_PRODUCT}${id}`, {
+      ...body,
+      isVisible: typeof body.isVisible === 'string' ? body.isVisible : (body.isVisible ? 'true' : 'false')
+    })
            .then(data => dispatch({ type: PUT_PRODUCT, payload: data }))
            .catch(error => dispatch({ type: ERROR_PUT_PRODUCT }));
   }
