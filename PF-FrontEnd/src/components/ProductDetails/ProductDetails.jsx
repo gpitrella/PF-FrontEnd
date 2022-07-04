@@ -107,7 +107,8 @@ export default function ProductDetails (){
     // Configuración boton agregar comentario.
     const [openComment, setOpenComment] = React.useState(false);
     const [openSuccessAddToCart, setOpenSuccessAddToCart] = React.useState(false);
-    const [openProductInCart, setProductInCart] = React.useState(false);
+    const [openProductInCart, setOpenProductInCart] = React.useState(false);
+    const [openWithOutStock, setOpenWithOutStock] = React.useState(false)
     const history = useHistory();
     const [comment, setComment] = React.useState(); // Box de comentarios
     const [commentReview, setCommentReview] = React.useState();
@@ -185,10 +186,14 @@ export default function ProductDetails (){
     // Adherir al Carrito
     const addtoCart = () => {
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
-        if(productInCart?.length === 0){
+        if(productInCart?.length === 0 && productDetails?.stock > 0){
             dispatch(addProductToCart(productDetails.id));
             setOpenSuccessAddToCart(true)
-        } else {
+        } 
+        if(productInCart?.length > 0 && productDetails?.stock === 0){
+            handleOpenWithOutStock();
+        }
+        if(productInCart?.length > 0 && productDetails?.stock > 0) {
             handleOpenProductInCart();
         }
     };
@@ -196,12 +201,16 @@ export default function ProductDetails (){
     const addtoCartandCheckOut = (e) => {
         e.preventDefault();
         const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
-        if(productInCart?.length === 0){
+        if(productInCart?.length === 0 && productDetails?.stock > 0){
             dispatch(addProductToCart(productDetails.id));
             history.push('/checkout');
         } else {
             history.push('/checkout');
         }
+    };
+
+    const handleOpenWithOutStock = () => {
+        setOpenWithOutStock(true);
     };
     
     const handleClickComment = () => {
@@ -209,7 +218,7 @@ export default function ProductDetails (){
     };
 
     const handleOpenProductInCart = () => {
-        setProductInCart(true);
+        setOpenProductInCart(true);
     };
 
     const handleCloseSuccessComment = (event, reason) => {
@@ -218,8 +227,9 @@ export default function ProductDetails (){
         }
         setOpenComment(false);
         setOpenSuccessAddToCart(false);
-        setProductInCart(false);
-        handleCloseLogin()
+        setOpenProductInCart(false);
+        handleCloseLogin();
+        setOpenWithOutStock(false);
     };
     
   
@@ -448,6 +458,11 @@ export default function ProductDetails (){
                 <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
                     <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
                         Success review created!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={openWithOutStock} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+                    <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
+                        Sorry Product WithOut Stock!
                     </Alert>
                 </Snackbar>
             </div>
