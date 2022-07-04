@@ -1,0 +1,17 @@
+.cell{
+    width: max-content;
+}
+.cellWithImg{
+    width: max-content;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.cellImg {
+    width: auto;
+    height: 50px;
+    justify-content: center;
+    border-radius: 2px;
+    object-fit: scale-down;
+}

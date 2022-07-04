@@ -10,7 +10,7 @@ const BasicModal = ({ open, onClose, title, subTitle, content, onSubmit }) => {
 
     return (
         <Modal open={open} onClose={onClose} >
-            <Box sx={modalStyles.wrapper} onClick={handleModalContainerClick}>
+            <Box sx={modalStyles.wrapper} >
                 <Typography
                     variant="h6"
                     component="h2"

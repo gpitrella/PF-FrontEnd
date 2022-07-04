@@ -317,13 +317,13 @@ export default function NavBar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
             <IconButton 
-                font-size="1rem"
+                fontSize="1rem"
                 size="small" 
                 aria-label="create_product" 
                 color="inherit"
                 sx={!user?.user ? { display: 'none' } : { display: 'inline-flex' }}
               >
-                  <Typography font-size="1rem" component="div" sx={{ flexGrow: 1 }}>
+                  <Typography fontSize="1rem" component="div" sx={{ flexGrow: 1 }}>
                       Welcome {user?.user?.name}
                   </Typography>
             </IconButton>

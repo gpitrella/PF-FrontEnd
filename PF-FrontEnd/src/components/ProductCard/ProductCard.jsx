@@ -9,9 +9,13 @@ import Cart from '../SVG/Cart';
 import s from './ProductCard.module.css';
 import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
+import { useSelector } from 'react-redux';
 
 export default function ProductCard({ id, name, image, category, price, discount, stock, rating, brand }) {
   let discountPrice = Math.round(price - price * (discount / 100));
+
+  const cart = useSelector(state => state.general.productsCart);
+  const isAlreadyOnCart = cart.some(product => product.id === id);
 
   return (
     <div className = {s.container}>
@@ -59,7 +63,7 @@ export default function ProductCard({ id, name, image, category, price, discount
               <Heart />
             </div>
 
-            <div className = {s.containerSVG}>
+            <div className = {`${s.containerSVG} ${isAlreadyOnCart ? s.alreadyOnCart : ''}`}>
               <Cart id={id}/>
             </div>
           </div>

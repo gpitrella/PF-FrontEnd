@@ -17,7 +17,11 @@ import {
   POST_REVIEW_PRODUCT,
   OPEN_PAGE_LOADER,
   CLOSE_PAGE_LOADER,
-  LOAD_STORAGE
+  LOAD_STORAGE,
+  ADD_PRODUCT_TO_FAVOURITES,
+  GET_FAVOURITES_PRODUCTS,
+  REMOVE_FAVOURITE_PRODUCT,
+  SUCCESS_BUY
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -41,7 +45,8 @@ const initialState = {
   showCart: false,
   finishOrder: {},
   reviewCreated: {},
-  showPageLoader: true
+  showPageLoader: true,
+  favouritesProducts: [],
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -131,14 +136,16 @@ const generalReducer = function(state = initialState, { type, payload }) {
       LocalStorage.saveItem('user', payload);
       return {
         ...state,
-        user: payload
+        user: payload,
+        showPageLoader: true
       }
 
     case LOG_IN:
       LocalStorage.saveItem('user', payload);      
       return {
         ...state,
-        user: payload
+        user: payload,
+        showPageLoader: true
       }
 
     case SHOW_CART:
@@ -188,10 +195,52 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case LOGOUT: {
+      LocalStorage.removeItem('productsCart');
       LocalStorage.removeItem('user');
       return {
         ...state,
+        productsCart: [],
         user:{}
+      }
+    }
+    case ADD_PRODUCT_TO_FAVOURITES:{
+      LocalStorage.saveItem('favouritesProducst', state.favouritesProducts.concat({
+        id: payload.id,
+        name: payload.name,
+        price: payload.price,
+        image: payload.image,
+        discount: payload.discount,
+        stock: payload.stock,
+        categories: payload.categories,
+        description: payload.description,
+        user: payload.userId,
+      }));
+    return {
+      ...state,
+      favouritesProducts: state.favouritesProducts.concat({
+        id: payload.id,
+        user: payload.userId,
+      })
+    }}
+    case GET_FAVOURITES_PRODUCTS: {
+      return {
+        ...state,
+        favouritesProducts: payload
+      }
+    }
+    case REMOVE_FAVOURITE_PRODUCT: {
+      LocalStorage.saveItem('productsCart', state.favouritesProducts.filter(product => product.id !== payload));
+      return {
+      ...state,
+      favouritesProducts: state.favouritesProducts.filter(product => product.id !== payload)
+      }
+    }
+
+    case SUCCESS_BUY: {
+      LocalStorage.removeItem('productsCart');
+      return {
+        ...state,
+        productsCart: []
       }
     }
     default:

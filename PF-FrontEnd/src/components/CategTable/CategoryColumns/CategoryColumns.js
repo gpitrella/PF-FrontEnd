@@ -1,3 +1,5 @@
+import s from "./CategoryColumns.module.css";
+
 export const categoryColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
@@ -7,7 +9,7 @@ export const categoryColumns = [
       // editable: true,
       renderCell: (params) => {
         return (
-          <div className="cell">
+          <div className={s.cell}>
             {params.row.name}
           </div>
         );

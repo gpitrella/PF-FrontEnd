@@ -38,10 +38,12 @@ const CategoryTable = ({ onError }) => {
   }]);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [categoriesModified, setCategoriesModified] = useState(false);
 
   useEffect(()=>{
     dispatch(getCategories());
-  }, [dispatch]);
+    setCategoriesModified(false);
+  }, [dispatch, categoriesModified]);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -66,14 +68,14 @@ const CategoryTable = ({ onError }) => {
   const savedEditedCategory = (values) => {
     setOpenModalEdit(false);
     dispatch(updateCategory(values));
-    dispatch(getCategories());
+    setCategoriesModified(true);
     history.push("/admin/categories");
   }
 
   const confirmDeletedCategory = (id) => {
     setOpenModalDelete(false);
     dispatch(deleteCategory(id));
-    dispatch(getCategories());
+    setCategoriesModified(true);
     history.push("/admin/categories");
   }
 
@@ -117,7 +119,7 @@ const CategoryTable = ({ onError }) => {
         className="datagrid"
         rows={allCategories}
         columns={categoryColumns.concat(actionColumn)}
-        pageSize={10}
+        pageSize={9}
         rowsPerPageOptions={[9]}
         loading={!allCategories.length}
         getRowId={(row) => row.id}
