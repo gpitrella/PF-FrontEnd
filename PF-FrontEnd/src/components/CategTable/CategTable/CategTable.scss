@@ -1,12 +1,15 @@
 .datatable {
-    height: 600px;
-    padding: 20px;
+    height: 610px;
+    padding: 15px;
+    background-color: var(--primaryColor);
+
     
     .datatableTitle{
       width: 100%;
-      font-size: 24px;
-      color: gray;
-      margin-bottom: 10px;
+      height: 8vh;
+      font-size: var(--font-Medium);
+      color: var(--fontColor);
+      margin-bottom: 0px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -22,29 +25,17 @@
         cursor: pointer;
       }
     }
-  
-    .cellWithImg {
-      display: flex;
-      align-items: center;
-  
-      .cellImg {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 20px;
-      }
-    }
+
   
     .categoryName {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 1px;
   
-      .editButton {
+      .viewButton {
         padding: 2px 5px;
         border-radius: 5px;
-        color: darkblue;
+        color: var(--secondaryColor);
         border: 1px dotted rgba(0, 0, 139, 0.596);
         cursor: pointer;
       }
@@ -52,7 +43,8 @@
       .deleteButton {
         padding: 2px 5px;
         border-radius: 5px;
-        color: crimson;
+        color: var(--dangerColor);
+;
         border: 1px dotted rgba(220, 20, 60, 0.6);
         cursor: pointer;
       }

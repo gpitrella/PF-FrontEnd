@@ -41,10 +41,12 @@ export const BrandsTable = () => {
   }]);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [brandModified, setBrandModified] = useState(false);
   
   useEffect(()=>{
     dispatch(getBrands());
-  }, [dispatch]);
+    setBrandModified(false);
+  }, [dispatch, brandModified]);
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -69,14 +71,14 @@ export const BrandsTable = () => {
   const saveEditedBrand = (values) => {
     setOpenModalEdit(false);
     dispatch(updateBrand(values));
-    dispatch(getBrands());
+    setBrandModified(true);
     history.push("/admin/brands")
   };
 
   const confirmDeletedBrand = (id) => {
     setOpenModalDelete(false);
     dispatch(deleteBrand(id));
-    dispatch(getBrands());
+    setBrandModified(true);
     history.push("/admin/brands")
   }
 
@@ -119,7 +121,7 @@ export const BrandsTable = () => {
         className="datagrid"
         rows={brandsList}
         columns={BrandsColumns.concat(actionColumn)}
-        pageSize={10}
+        pageSize={9}
         rowsPerPageOptions={[9]}
         loading={!brandsList.length}
         getRowId={(row) => row.id}
