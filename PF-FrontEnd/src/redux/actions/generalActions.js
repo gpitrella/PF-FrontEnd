@@ -24,6 +24,7 @@ import {
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
   BASE_URL,
+  SUCCESS_BUY
 } from './actiontype';
 
 
@@ -186,3 +187,12 @@ export function removeFavourite(idProduct, idUser){
     .catch(error => console.log(error))
   };
 };
+
+
+// Success Buy - Remove Product from Cart
+export function successBuyAction(){
+  return {
+      type: SUCCESS_BUY
+  }
+};
+

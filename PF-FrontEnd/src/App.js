@@ -19,6 +19,7 @@ import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
 import MyProfile from './components/MyProfile/MyProfile';
+import SuccessBuy from './components/SuccessBuy/SuccessBuy'
 
 import PageLoader from './components/PageLoader/PageLoader';
 
@@ -68,6 +69,7 @@ function App() {
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
+              <Route exact path='/successbuy' component={SuccessBuy} />
             
               <Route exact path='*' component={notFoundPage} />
             </Switch>

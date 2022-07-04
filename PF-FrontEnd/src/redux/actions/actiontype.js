@@ -19,6 +19,7 @@ export const LOGOUT = 'LOGOUT';
 export const ADD_PRODUCT_TO_FAVOURITES = "ADD_PRODUCT_TO_FAVOURITES";
 export const GET_FAVOURITES_PRODUCTS = "GET_FAVOURITES_PRODUCTS";
 export const REMOVE_FAVOURITE_PRODUCT = "REMOVE_FAVOURITE_PRODUCT";
+export const SUCCESS_BUY = "SUCCESS_BUY";
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';
@@ -94,5 +95,5 @@ export const VALIDATING_ADDRESS = 'VALIDATING_ADDRESS';
 export const NORMALIZE_ADDRESS = 'NORMALIZE_ADDRESS';
 
 // BASE URL
-export const BASE_URL = 'https://techmarketapp.herokuapp.com';
-// export const BASE_URL = 'http://localhost:3001';
+// export const BASE_URL = 'https://techmarketapp.herokuapp.com';
+export const BASE_URL = 'http://localhost:3001';
