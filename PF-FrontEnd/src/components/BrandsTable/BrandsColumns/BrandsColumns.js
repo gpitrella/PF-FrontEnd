@@ -1,3 +1,5 @@
+import s from "./BrandsColumns.module.css";
+
 export const BrandsColumns = [
     { field: "id", headerName: "ID", width: 70 },
     {
@@ -7,7 +9,7 @@ export const BrandsColumns = [
       editable: true,
       renderCell: (params) => {
         return (
-          <div className="cell">
+          <div className={s.cell}>
             {params.row.name}
           </div>
         );
@@ -20,8 +22,8 @@ export const BrandsColumns = [
       editable: true,
       renderCell: (params) => {
         return (
-          <div className="cellWithImg">
-            <img className="cellImg" src={params.row.image} alt="brandicon" />
+          <div className={s.cellWithImg}>
+            <img className={s.cellImg} src={params.row.image} alt="brandicon" />
           </div>
         );
       },
