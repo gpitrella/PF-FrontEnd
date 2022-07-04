@@ -8,6 +8,8 @@ import { BASE_URL  } from '../../redux/actions/actiontype';
 import './LogIn.css'
 import { validateEmail, validatePassword } from "./validate";
 
+import s from './Login.module.css';
+
 const LogIn = () => {
   const [redirect, setRedirect] = useState({ value: false })
   // const [checkMailPassword, setCheckMailPassword] = useState(false)
@@ -43,35 +45,23 @@ const LogIn = () => {
     setErrorsPassword(validatePassword({...input,[e.target.name]: e.target.value}))
   }
 
-  React.useEffect(() => {
-    if(user?.user && input.email !== '' && input.password !== '' ){
-      setRedirect({value: true});
-    } 
-  },[user]);
+  // React.useEffect(() => {
+  //   if(user?.user && input.email !== '' && input.password !== '' ){
+  //     setRedirect({value: true});
+  //   } 
+  // },[user]);
 
-  React.useEffect(() => {
-    if (redirect && redirect.value) dispatch(openPageLoader());
-  }, [redirect]);
+  // React.useEffect(() => {
+  //   if (redirect && redirect.value) dispatch(openPageLoader());
+  // }, [redirect]);
 
   return (
 
     <div className="login">
+      <div className = {`login__wrapper ${s.loginContainer}`}>
+        
           <h1 className="login__title">Log In</h1>
-      <div className="login__wrapper">
-        <div className="left">
 
-
-          <div className="loginButton google" onClick={google}>
-          <img src={Google} alt="" className="icon" />
-          Google
-          </div>
-        </div>
-        <div className="center">
-          <div className="line" />
-          <div className="or">OR</div>
-        </div>
-        <div className="right">
-          
         <div className='login__group' id='email'>
             <input
             type="email"
@@ -80,9 +70,9 @@ const LogIn = () => {
             value={input.email}
             placeholder="Email"
             onChange={(e) => handleChange(e)}
-            className='login__input'
+            className = {`login__input ${s.input}`}
             />
-            <p className='login__input-error'>{errorsEmail.email}</p>
+            <p className = {`login__input-error ${s.errorMsg}`}>{errorsEmail.email}</p>
         </div>
 
         <div className='login__group' id='password'>
@@ -93,18 +83,32 @@ const LogIn = () => {
             value={input.password}
             placeholder="Password"
             onChange={(e) => handleChange(e)}
-            className='login__input'
+            className = {`login__input ${s.input}`}
             />
-            <p className='login__input-error'>{errorsPassword.password}</p>
+            <p className = {`login__input-error ${s.errorMsg}`}>{errorsPassword.password}</p>
         </div>
-          
+        <div className='login__group' >
+          <button type='submit' className="login__btn" onClick={(e) => handleLogIn(e)} >Log In</button>
+          </div>
           {/* {checkMailPassword.value ? (<p className='danger'>Something was wrong. Please check email or password.</p>) : null} */}
           
           
-          <button type='submit' className="submit" onClick={(e) => handleLogIn(e)} >Log In</button>
           {redirect?.value ? <Redirect push to={'/'} underline="none" /> : null}
-          <p className="text">No account yet? <Link to='/signup' className="link">Sign up here!</Link></p>
-        </div>
+
+          <div className="login__group">
+            <div className="login_lines">
+          <div className="or">OR</div>
+          </div>
+          </div>
+
+          <div className='login__google' >
+          <div className="login__btn-google " onClick={google}>
+          <img src={Google} alt="" className="icon" />
+          Google
+          </div>
+          </div>
+          <p className="login__text">No account yet? <Link to='/signup' className="link">Sign up here!</Link></p>
+        
       </div>
     </div>
   );

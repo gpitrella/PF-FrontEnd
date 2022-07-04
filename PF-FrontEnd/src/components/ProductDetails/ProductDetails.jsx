@@ -234,10 +234,10 @@ export default function ProductDetails (){
                             {productDetails.discount}% OFF
                         </div>
                     }
-                <div id="product_image">
-                    <img src={productDetails?.image} alt="Image Product Detail" />
-                </div>
                 <div>
+                    <img className="product_image" src={productDetails?.image} alt="Image Product Detail" />
+                </div>
+                <div className="box_detail_product_without_image">
                     <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
                     <h3 id="title_product">{productDetails?.name}</h3>
                     <hr/>

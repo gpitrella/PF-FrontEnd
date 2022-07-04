@@ -5,6 +5,11 @@
     padding-right: 5rem;
     padding-bottom: 20px;
 }
+
+.box_detail_product_without_image {
+    width: 38rem;
+}
+
 .mainProductDetail{
     overflow: hidden;
     background-color: white;
@@ -121,12 +126,11 @@ font-size: 1.1rem;
     color: green;
 }
 
-#product_image {
+.product_image {
     text-align: center;
     padding: 10px;
-    padding-right: 70px;
-    padding-left: 50px;
-    height: 20rem;    
+    padding-left: 40px;
+    width: 25rem;   
 }
 
 .brand_product_detail {

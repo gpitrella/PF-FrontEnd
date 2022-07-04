@@ -9,4 +9,24 @@
 
 .title {
   color: var(--fontColor);
+  text-align: center;
+  margin: 0.5rem;
+
+  cursor: default;
+}
+
+.goBack {
+  color: var(--fontColor);
+  background-color: transparent;
+  border: none;
+
+  font-size: var(--fontSubTitle);
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+.goBack:hover {
+  color: var(--dangerColor);
 }

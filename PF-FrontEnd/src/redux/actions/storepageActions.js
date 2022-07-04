@@ -15,7 +15,10 @@ import {
   WAITING_RESPONSE_DELETE,
   DELETE_PRODUCT,
   ERROR_DELETE_PRODUCT,
-  BASE_URL
+  BASE_URL,
+  WAITING_RESPONSE_POST,
+  ERROR_POST_PRODUCT
+
 } from './actiontype';
 
 import axios from 'axios'
@@ -88,13 +91,16 @@ export const postProduct = function(body) {
   return function(dispatch) {
     return axios.post(`${BASE_URL}/api/product`, body)
            .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
-           .catch(error => console.log(error));
+           .catch(error => dispatch({ type: ERROR_POST_PRODUCT }));
   }
 }
 
 export const putProduct = function(id, body) {
   return function(dispatch) {
-    return axios.put(`${PATH_PUT_PRODUCT}${id}`, body)
+    return axios.put(`${PATH_PUT_PRODUCT}${id}`, {
+      ...body,
+      isVisible: typeof body.isVisible === 'string' ? body.isVisible : (body.isVisible ? 'true' : 'false')
+    })
            .then(data => dispatch({ type: PUT_PRODUCT, payload: data }))
            .catch(error => dispatch({ type: ERROR_PUT_PRODUCT }));
   }
@@ -118,6 +124,13 @@ export const deleteProduct = function(id) {
 export const waitingResponseDelete = function(status = false) {
   return {
     type: WAITING_RESPONSE_DELETE,
+    payload: status
+  }
+}
+
+export const waitingResponsePost = function(status = false) {
+  return {
+    type: WAITING_RESPONSE_POST,
     payload: status
   }
 }
