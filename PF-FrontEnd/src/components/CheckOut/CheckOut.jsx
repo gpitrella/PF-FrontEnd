@@ -107,7 +107,7 @@ totalValue();
     if(productsCart.length > 0 && user?.user?.admin){
       setOpenYouAreAdmin(true);
     }
-    else {
+    if(productsCart.length === 0){
       setOpenWithOutStock(true);
     }
   };
