@@ -8,20 +8,27 @@ import NewBrandModal from "../BrandsModals/NewBrandModal";
 import CommonButton from '../../common/CommonButton/CommonButton';
 import { useDispatch } from 'react-redux';
 import { createBrand, getBrands } from '../../../redux/actions';
+import { useEffect } from 'react';
 
 const BrandsPage = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [brandAdded, setBrandAdded] = useState(false);
 
   const addBrand = () => {
     setOpenModal(true);
   }
 
+  useEffect(()=>{
+    dispatch(getBrands());
+    setBrandAdded(false);
+  }, [dispatch, brandAdded]);
+
   const addNewBrand = (data) => {
     dispatch(createBrand(data));
     setOpenModal(false);
-    dispatch(getBrands());
+    setBrandAdded(true);
   }
 
   const handleClose = (e, reason) => {

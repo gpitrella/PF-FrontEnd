@@ -9,21 +9,28 @@ import CommonButton from '../../common/CommonButton/CommonButton';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createCategory, getCategories } from '../../../redux/actions';
+import { useEffect } from 'react';
 
 const CategPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [categoryAdded, setCategoryAdded] = useState(false);
 
   const addCategory = () => {
     setOpenModal(true);
   }
 
+  useEffect(()=>{
+    dispatch(getCategories());
+    setCategoryAdded(false);
+  }, [dispatch, categoryAdded]);
+  
   const addNewCategory = (data) => {
     dispatch(createCategory(data));
     setOpenModal(false);
-    dispatch(getCategories());
+    setCategoryAdded(true);
     history.push("/admin/categories");
   }
 

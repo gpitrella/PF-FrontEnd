@@ -4,6 +4,7 @@
   flex-direction: row;
   width: 100%;
   margin-top: 6vh;
+  margin-bottom: 6vh;
   align-items: flex-start;
   justify-content: space-between;
   background-color: var(--primaryColorSub);
@@ -13,9 +14,11 @@
 
 .listContainer {
   flex: 6;
-  margin-top: 1vh;
-  margin-left: 1vw;
+  margin-top: 0;
+  margin-left: 0.5vw;
   margin-right: 0vw;
+  margin-bottom: 6vh;
+  padding: 10px;
   display: flex;
   justify-content: center;
   transform: translate(-30%, 0%);
