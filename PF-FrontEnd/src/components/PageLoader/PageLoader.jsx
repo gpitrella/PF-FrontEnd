@@ -1,9 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { closePageLoader } from '../../redux/actions';
 import Logo from '../SVG/Logo';
-
 import s from './PageLoader.module.css';
+import { closePageLoader } from "../../redux/actions";
 
 export default function PageLoader() {
 

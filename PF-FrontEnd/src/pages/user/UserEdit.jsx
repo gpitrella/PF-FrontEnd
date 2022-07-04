@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
 import { putUserStatus, userStatus, userStatusReset } from '../../redux/actions';
-
+import style from "./Useredit.module.css"
 const Edit = ({match}) => {
    const dispatch = useDispatch();
    const history = useHistory();
@@ -58,13 +58,13 @@ const Edit = ({match}) => {
 
   return (
     <>   
-    <div className="list">
+    <div className={style.list}>
     <Sidebar/>
-        <div className="listContainer">
+        <div className={style.listContainer}>
           
-              <div className="containeruser">
-                  <div className="userinfo">
-                     <h1>User</h1>
+              <div className={style.containeruser}>
+                  <div className={style.userinfo}>
+                     <h2>User</h2>
                      <div>
                         <span>{name}</span>
                      </div>
@@ -92,13 +92,13 @@ const Edit = ({match}) => {
                      : console.log('no direccion')
                      }   
                   </div>
-                  <div className="useredit">
-                      <h1>Status</h1>
+                  <div className={style.useredit}>
+                      <h2>Status</h2>
                       <div>
                         {newstatus === 'true' ? 'ACTIVE' : 'BANED'}
                       </div>
-                      <h1>Edit Status</h1>
-                      <div>
+                      <h3>Edit Status</h3>
+                      <div className={style.selectDiv}>
                       <select name="isactive"
                       onChange={(e) => handleSelect(e)}
                       value={newstatus}>
@@ -106,8 +106,8 @@ const Edit = ({match}) => {
                         <option value={"false"}>BANED</option>
                       </select>
                       </div>
-                      <div>
-                        <input type="button" value="Confirm" onClick={handleConfirm}/>
+                      <div className={style.inputDiv}>
+                        <input className={style.input} type="button" value="Confirm" onClick={handleConfirm}/>
                       </div>
 
                   </div>

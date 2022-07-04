@@ -15,17 +15,19 @@ import {
   WAITING_RESPONSE_DELETE,
   DELETE_PRODUCT,
   ERROR_DELETE_PRODUCT,
+  BASE_URL
   WAITING_RESPONSE_POST,
   ERROR_POST_PRODUCT
+
 } from './actiontype';
 
 import axios from 'axios'
 
-const PATH_GET_BRANDS = 'http://localhost:3001/api/manufacturer';
-const PATH_GET_CATEGORIES = 'http://localhost:3001/api/categories';
-const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = "http://localhost:3001/api/product/?";
-const PATH_PUT_PRODUCT = 'http://localhost:3001/api/product/';
-const PATH_DELETE_PRODUCT = 'http://localhost:3001/api/product/';
+const PATH_GET_BRANDS = `${BASE_URL}/api/manufacturer`;
+const PATH_GET_CATEGORIES = `${BASE_URL}/api/categories`;
+const PATH_GET_PRODUCTS_WITH_FILTERS_AND_PAGINATE = `${BASE_URL}/api/product/?`;
+const PATH_PUT_PRODUCT = `${BASE_URL}/api/product/`;
+const PATH_DELETE_PRODUCT = `${BASE_URL}/api/product/`;
 
 export const updateFilter = function(newFilter) {
   return {
@@ -87,7 +89,7 @@ export const getCategoriesToStore = function() {
 
 export const postProduct = function(body) {
   return function(dispatch) {
-    return axios.post("http://localhost:3001/api/product", body)
+    return axios.post(`${BASE_URL}/api/product`, body)
            .then(data => dispatch({ type: POST_PRODUCT, payload: data }))
            .catch(error => dispatch({ type: ERROR_POST_PRODUCT }));
   }
