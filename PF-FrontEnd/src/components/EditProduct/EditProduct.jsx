@@ -1,32 +1,25 @@
 import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { postProduct, waitingResponsePost } from '../../redux/actions/storepageActions'
-import { getCategories, getBrands } from '../../redux/actions/homepageActions'
-import './CreateProduct.css'
-import validate from './validate'
+import Loading from '../SVG/Loading';
+import { putProduct, waitingResponsePut } from '../../redux/actions/storepageActions'
+import { getCategories, getBrands, getProductDetails } from '../../redux/actions/homepageActions'
+import './EditProduct.css'
+import validate from '../CreateProduct/validate';
 
-import s from './CreateProduct.module.css';
+import s from './EditProduct.module.css';
 
-export default function CreateProduct() {
+export default function EditProduct() {
 
-  const [input, setInput] = useState({
-    name: '',
-    price: '',
-    image: '',
-    discount: '',
-    stock: '',
-    description:'',
-    category: '',
-    manufacturer:''
-  })
-  const [errors, setErrors] = useState({})
-  const {allCategories, brandsList} = useSelector((state) => state.homepage)
+  const [ loading, setLoading ] = useState(true);
+  const [ input, setInput] = useState({});
+  const [ errors, setErrors ] = useState({})
+  const { allCategories, brandsList, productDetails } = useSelector((state) => state.homepage);
+  const { id } = useParams();
 
-
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -41,10 +34,29 @@ export default function CreateProduct() {
   }
 
   useEffect(() => {
-    //dispatch(postProduct())
-    dispatch(getCategories())
-    dispatch(getBrands())
+    dispatch(getCategories());
+    dispatch(getBrands());
+    dispatch(getProductDetails(id));
   }, []);
+
+  useEffect(() => {
+    if (productDetails.hasOwnProperty('id') && productDetails.id === Number(id)) setInput({
+      name: productDetails.name,
+      price: productDetails.price.toString(),
+      image: productDetails.image,
+      discount: productDetails.discount.toString(),
+      stock: productDetails.stock.toString(),
+      description: productDetails.description,
+      category: productDetails.categories[0],
+      manufacturer: productDetails.manufacturers[0].name,
+      isVisible: productDetails.isVisible === true ? 'true' : 'false'
+    })
+  }, [productDetails]);
+
+  useEffect(() => {
+    if (allCategories.length > 0 && brandsList.length > 0 && productDetails.hasOwnProperty('id') && productDetails.id === Number(id))
+      setLoading(false);
+  }, [allCategories, brandsList, productDetails]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,7 +81,10 @@ export default function CreateProduct() {
       })
       document.getElementById('form__msn').classList.remove('form__msn-activo')
     
-      dispatch(postProduct(input));
+      dispatch(putProduct(productDetails.id ,{
+        ...input,
+        isVisible: input.isVisible === 'true' ? true : false
+      }));
       //console.log(input)
       setInput({
         name: '',
@@ -79,19 +94,49 @@ export default function CreateProduct() {
         stock: '',
         description:'',
         category: '',
-        manufacturer:''
+        manufacturer:'',
+        isVisible: ''
       })
-      dispatch(waitingResponsePost(true));
-      history.push('/admin/products/list');
+      dispatch(waitingResponsePut(true));
+      history.replace('/admin/products/list');
     }
   }
 
+  const resetChanges = function() {
+    setInput({
+      name: productDetails.name,
+      price: productDetails.price.toString(),
+      image: productDetails.image,
+      discount: productDetails.discount.toString(),
+      stock: productDetails.stock.toString(),
+      description: productDetails.description,
+      category: productDetails.categories[0],
+      manufacturer: productDetails.manufacturers[0].name,
+      isVisible: productDetails.isVisible === true ? 'true' : 'false'
+    });
+    setErrors({});
+  }
+
+  if (loading) return (
+    <div className = {s.containerLoading}>
+      <div className = {s.imageContainer}>
+        <div className = {s.loadingContainer}>
+          <Loading />
+        </div>
+      </div>
+      <span className = {s.spanLoading}>Loading Product Details</span>
+    </div>
+  );
+
   return (
     <div className={`main ${s.container}`}>
-        <Link to = {'/admin/products/list'}>
-          <button className = {s.goBack}>{'< Go Back'}</button>
-        </Link>
-        <h1 className={`form__title ${s.title}`}>Create product</h1>
+        <div className = {s.header}>
+          <Link to = {'/admin/products/list'}>
+            <button className = {s.goBack}>{'< Go Back'}</button>
+          </Link>
+          <button className = {s.reset} onClick = {resetChanges}>{'Reset Changes'}</button>
+        </div>
+        <h1 className={`form__title ${s.title}`}>Edit product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
         <div className='form__group' id='name'>
           <label htmlFor="name" className='form__label'>Name</label>
@@ -181,6 +226,7 @@ export default function CreateProduct() {
             id='category'
             name = {'category'}
             onChange={(e) => handleChange(e)}
+            value = {input.category}
             >
                 <option value={''} >Category</option>
                 {allCategories?.map((category) => (
@@ -199,6 +245,7 @@ export default function CreateProduct() {
         id='manufacturer'
         name = {'manufacturer'}
         onChange={(e) => handleChange(e)}
+        value = {input.manufacturer}
         >
             <option value={''} key={'Brand'} >Brand</option>
             {brandsList?.map((brand) => (
@@ -225,15 +272,32 @@ export default function CreateProduct() {
           <p className='form__input-error'>{errors.description}</p>
         </div>
 
+        <div className = {`form__group ${s.inputStatus}`} id='description'>
+          <label htmlFor="description" className='form__label'>Status</label>
+          <div className='form__group-input'>
+            <select
+              className='form__input'
+              id='isVisible'
+              name = {'isVisible'}
+              onChange={(e) => handleChange(e)}
+              value = {input.isVisible}
+            >
+              <option value={'false'}>INACTIVE</option>
+              <option value={'true'}>ACTIVE</option>
+            </select>
+          </div> 
+          <p className='form__input-error'>{errors.description}</p>
+        </div>
+
         <div className='form__msn' id='form__msn'>
             <p>
             <b>Error:</b> please check the boxes with errors.
             </p> 
         </div>
         <div className="form__group form__group-btn-create">
-            <button type='submit' className='form__btn' >CREATE</button>
+            <button type='submit' className='form__btn' >EDIT</button>
             <p className='form__msn-exito' id='form__msn-exito'
-            >Product created!!
+            >Product Edited!!
             </p>
         </div>
         </form>
