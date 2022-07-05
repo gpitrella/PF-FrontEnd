@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageLoader from '../ImageLoader/ImageLoader';
+
 import { Link } from 'react-router-dom';
 
 import Heart from '../SVG/Heart';
@@ -8,10 +9,13 @@ import Cart from '../SVG/Cart';
 import s from './ProductCard.module.css';
 import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
+import { useSelector } from 'react-redux';
 
-export default function ProductCard({ id, name, image, category, price, discount, rating, brand }) {
-
+export default function ProductCard({ id, name, image, category, price, discount, stock, rating, brand }) {
   let discountPrice = Math.round(price - price * (discount / 100));
+
+  const cart = useSelector(state => state.general.productsCart);
+  const isAlreadyOnCart = cart.some(product => product.id === id);
 
   return (
     <div className = {s.container}>
@@ -39,20 +43,28 @@ export default function ProductCard({ id, name, image, category, price, discount
         <div className = {s.containerOptions}>
 
           <div className = {s.containerPrice}>
-            <span className = {s.price}>${ discount !== 0 ? discountPrice : price }</span>
+            <span className = {s.price}><i className = {s.priceSymbol}>$</i>{ discount !== 0 ? discountPrice : price }</span>
             {
               discount !== 0 &&
               <span className = {s.discountPrice}>${price}</span>
             }
           </div>
 
+          {
+            stock > 0 && <span className={`${s.spanStock} ${s.green}`}>In Stock</span>
+          }
+
+          {
+            stock === 0 && <span className={`${s.spanStock} ${s.red}`}>Sold Out</span>
+          }
+
           <div className = {s.containerButtonsSVG}>
-            <div className = {s.containerSVG}>
+            <div className = {`${s.containerSVG} ${s.redHeart}`}>
               <Heart />
             </div>
 
-            <div className = {s.containerSVG}>
-              <Cart />
+            <div className = {`${s.containerSVG} ${isAlreadyOnCart ? s.alreadyOnCart : ''}`}>
+              <Cart id={id}/>
             </div>
           </div>
 

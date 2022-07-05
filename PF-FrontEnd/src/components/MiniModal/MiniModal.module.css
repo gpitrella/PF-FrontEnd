@@ -1,0 +1,50 @@
+.container {
+  position: fixed;
+  width: fit-content;
+  height: fit-content;
+  left: 50%;
+  bottom: 1rem;
+  padding: 0.7rem;
+  background-color: var(--secondaryColor);
+  font-size: var(--fontSmallest);
+  font-weight: 700;
+  color: white;
+  letter-spacing: 1px;
+  animation: showModal 0.5s;
+  animation-fill-mode: both;
+}
+
+.success {
+  background-color: var(--successColor);
+}
+
+.error {
+  background-color: var(--dangerColor);
+}
+
+@keyframes showModal {
+  from {
+    transform: translate(-50%, 1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes closeModal {
+  from {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(-50%, 1rem);
+    opacity: 0;
+  }
+}
+
+.closeModal {
+  animation: closeModal 0.5s;
+  animation-fill-mode: both;
+}

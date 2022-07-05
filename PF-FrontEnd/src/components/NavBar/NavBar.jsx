@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { getSearchProducts, clearSearchProducts } from "../../redux/actions/homepageActions";
-import { useDispatch } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { getSearchProducts, clearSearchProducts, showCart, logout, openPageLoader } from "../../redux/actions";
+import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
 import './NavBar.css';
 import gitfLogo from './img/logo_TechMarket.gif';
+import userAvatar from './img/user_avatar.png';
 
 // Nueva Navbar
 import { styled, alpha } from '@mui/material/styles';
@@ -14,6 +15,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
@@ -26,7 +28,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
-
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import Stack from '@mui/material/Stack';
+import Switch from '@mui/material/Switch';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import Brightness3Icon from '@mui/icons-material/Brightness3';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
+import Avatar from '@mui/material/Avatar';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -44,22 +52,6 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textDecoration: 'none',
-  zIndex: 200,
-  '&:hover': {
-    cursor:'pointer'
-  },
-  
-}));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
@@ -74,8 +66,55 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 28,
+  height: 16,
+  padding: 0,
+  display: 'flex',
+  '&:active': {
+    '& .MuiSwitch-thumb': {
+      width: 15,
+    },
+    '& .MuiSwitch-switchBase.Mui-checked': {
+      transform: 'translateX(9px)',
+    },
+  },
+  '& .MuiSwitch-switchBase': {
+    padding: 2,
+    '&.Mui-checked': {
+      transform: 'translateX(12px)',
+      color: '#fff',
+      '& + .MuiSwitch-track': {
+        opacity: 1,
+        backgroundColor: theme.palette.mode === 'dark' ? '#177ddc' : '#1890ff',
+      },
+    },
+  },
+  '& .MuiSwitch-thumb': {
+    boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    transition: theme.transitions.create(['width'], {
+      duration: 200,
+    }),
+  },
+  '& .MuiSwitch-track': {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor:
+      theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
+    boxSizing: 'border-box',
+  },
+}));
+
 export default function NavBar() {
+  const history = useHistory()
+  const { theme } = useSelector(state => state.general);  
   const [ name, setName ] = React.useState('');
+  const { user } = useSelector((state) => state.general)
+  const productsCart = useSelector((state) => state.general.productsCart);
+
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
@@ -88,7 +127,9 @@ export default function NavBar() {
 // Nueva NAVBAR
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [displayUser, setDisplayUser] = React.useState(false);
+  const [displayUserAdmin, setDisplayUserAdmin] = React.useState(false);
+  
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -105,11 +146,25 @@ export default function NavBar() {
     handleMobileMenuClose();
   };
 
+  const logOutNavBar = (e) => {
+    e.preventDefault()
+    handleMenuClose()
+    dispatch(logout())
+    dispatch(openPageLoader());
+    history.push('/')
+  }
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const showCartNavBar = (e) => {
+    e.preventDefault();
+    dispatch(showCart())
+  };
+
   const menuId = 'primary-search-account-menu';
+  
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -126,8 +181,22 @@ export default function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {user?.user ? <span>
+                        <Link to="/myprofile" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >My Profile</MenuItem>
+                        </Link>
+                        <Link to="/signup" className="links_profile_user">
+                          <MenuItem onClick={logOutNavBar} >LogOut</MenuItem>
+                        </Link>
+                    </span>
+                    : <span>
+                        <Link to="/login" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >Sign In</MenuItem>
+                        </Link>
+                        <Link to="/signup" className="links_profile_user">
+                          <MenuItem onClick={handleMenuClose} >Sign Up</MenuItem>
+                        </Link>
+                    </span>}
     </Menu>
   );
 
@@ -148,6 +217,7 @@ export default function NavBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -156,6 +226,7 @@ export default function NavBar() {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
+
       <MenuItem>
         <IconButton
           size="large"
@@ -177,15 +248,29 @@ export default function NavBar() {
           color="inherit"
         >
           <AccountCircle />
+          <Avatar alt="Avatar Imagen" src={userAvatar} />
         </IconButton>
         <p>Profile</p>
       </MenuItem>
     </Menu>
   );
 
-    function handleCheck() {
-      dispatch(changeTheme());
+  function handleCheck() {
+    if(theme === 'lightTheme'){
+      dispatch(changeTheme('DARK'));
+    } else {
+      dispatch(changeTheme('LIGHT'));
     }
+  };
+  
+  React.useEffect(() => {
+    if(user?.user){
+      setDisplayUser(true);
+      if(user.user.admin){
+        setDisplayUserAdmin(true);
+      }
+    }
+  },[user]);
 
     return (
       /// Nueva NAVABar
@@ -202,6 +287,11 @@ export default function NavBar() {
           >
             <MenuIcon />
           </IconButton>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Typography><LightModeIcon /></Typography>
+              <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} onClick={handleCheck}/>
+            <Typography><Brightness3Icon /></Typography>
+          </Stack>
           <Link to="/">
             <Box
               alignSelf="center"
@@ -213,33 +303,91 @@ export default function NavBar() {
             />
           </Link>
           <Search >
-                <Link to={`/store/name/${name}`} underline="none">
-                        <SearchIcon id='searchIcon'/>
-                </Link>
-              <StyledInputBase
-                placeholder="Search ..."
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={(e) => handleSearch(e)}
-                />
+            <Link to={(name !== '') ? `/store/name/${name}` : ''} underline="none">
+                    <SearchIcon id='searchIcon'/>
+            </Link>
+            <StyledInputBase
+              placeholder="Search ..."
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => handleSearch(e)}
+            />
           </Search>
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
+
+            <IconButton 
+                fontSize="1rem"
+                size="small" 
+                aria-label="create_product" 
+                color="inherit"
+                sx={!user?.user ? { display: 'none' } : { display: 'inline-flex' }}
+              >
+                  <Typography fontSize="1rem" component="div" sx={{ flexGrow: 1 }}>
+                      Welcome {user?.user?.name}
+                  </Typography>
+            </IconButton>
+            
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+                <Badge badgeContent={productsCart?.length} color="error">
+                  <ShoppingCartIcon className="links_general"/>
+                </Badge>
+              </IconButton>
+
+            <IconButton size="large" aria-label="store" color="inherit">
+              <Badge badgeContent={0} color="error">
+                <Link to={'/store'} className="links_general">
+                  <StorefrontIcon />
+                </Link>
               </Badge>
             </IconButton>
+
+            <IconButton 
+                size="large" 
+                aria-label="create_product" 
+                color="inherit"
+                sx={!displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}
+              >
+              <Badge badgeContent={0} color="error">
+                <Link to={'/admin/dashboard'} className="links_general">
+                  <DisplaySettingsIcon />
+                </Link>
+              </Badge>
+            </IconButton>
+
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={0} color="error">
+                <MailIcon className="links_general"/>
+              </Badge>
+            </IconButton>
+
+
+
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
+              aria-label="show 0 new notifications"
               color="inherit"
             >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
+              <Badge badgeContent={0} color="error">
+                <NotificationsIcon className="links_general"/>
               </Badge>
             </IconButton>
+
             <IconButton
+              sx={displayUser ? { display: 'none' } : { display: 'inline-flex' }}
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+
+            <IconButton
+              sx={!displayUser ? { display: 'none' } : { display: 'inline-flex' }}
               size="large"
               edge="end"
               aria-label="account of current user"
@@ -260,15 +408,18 @@ export default function NavBar() {
               onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <MoreIcon />
+              <MoreIcon className="links_general"/>
             </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
+      {/* { displayUser ? {renderMenuProfileNormalUser} : {renderMenu} } */}
       {renderMenu}
     </Box>
-    <ScrollToTop smooth component={<ExpandLessIcon />} />
+    <div className = {'scrollToTop'}>
+      <ScrollToTop smooth component={<ExpandLessIcon />} />
+    </div>
       </nav>
     )
 };

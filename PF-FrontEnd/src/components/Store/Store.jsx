@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import FilterPanel from '../FilterPanel/FilterPanel';
 import OrderPanel from '../OrderPanel/OrderPanel';
 import Pagination from '../Pagination/Pagination';
+import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import ProductCardsStore from '../ProductCardsStore/ProductCardsStore';
 import LoadingStore from '../LoadingStore/LoadingStore';
 import { closeStore, getBrandsToStore, getCategoriesToStore, getProductsWithFiltersAndPaginate,
@@ -23,19 +24,22 @@ export default function Store() {
 
   React.useEffect(() => {
 
-    if (params.discount) handleUpdateFilter('discount', true);
-    //if (params.name) handleUpdateFilter('name', params.name);
-    if (params.category) handleUpdateFilter('category', params.category);
-    if (params.brand) handleUpdateFilter('brand', [params.brand]);
+    let idTimeOut = setTimeout(() => {
 
-    dispatch(getBrandsToStore());
-    dispatch(getCategoriesToStore());
+      if (params.discount) handleUpdateFilter('discount', true);
+      if (params.category) handleUpdateFilter('category', params.category);
+      if (params.brand) handleUpdateFilter('brand', [params.brand]);
+
+      dispatch(getBrandsToStore());
+      dispatch(getCategoriesToStore());
+
+    }, Math.random() * 400 + 1000);
 
     return () => {
-      console.log('cerrando la store...');
       dispatch(closeStore());
       setqueryName('');
       setDispatching(false);
+      clearTimeout(idTimeOut);
     }
   }, [])
 
@@ -60,14 +64,12 @@ export default function Store() {
   React.useEffect(() => {
     if (!showStore || (dispatching && params.name === queryName)) return;
 
-    console.log('Empiezo a cargar los productos con el filtro.');
-
     if (params && params.name) {
-      console.log('Actualizo el filtro por nombre.');
       handleUpdateFilter('name', params.name);
       dispatch(getProductsWithFiltersAndPaginate(buildFilter({
         ...filter,
-        name: params.name
+        name: params.name,
+        page: 1,
       })));
     }
     else {
@@ -76,6 +78,7 @@ export default function Store() {
         category: params.category ? params.category : 'None',
         brand: params.brand ? [params.brand] : [],
         discount: params.discount ? params.discount : false,
+        page: 1,
         name: ''
       })));
     }
@@ -84,7 +87,6 @@ export default function Store() {
   }, [showStore, params.name]);
 
   let handleUpdateFilter = function(property, value) {
-    console.log('Actualizo el filtro');
     let newFilter = { 
       ...filter,
       [property]: value,
@@ -94,7 +96,18 @@ export default function Store() {
     dispatch(updateFilter(newFilter));
   }
 
-  if (!showStore) return <span>Loading...</span>;
+  if (!showStore) {
+    return (
+      <div className = {s.container}>
+        <div className = {s.imageContainer}>
+          <div className = {s.loadingContainer}>
+            <Loading />
+          </div>
+        </div>
+        <span className = {s.spanLoading}>Loading Store</span>
+      </div>
+    )
+  }
 
   return (
     <div className = {s.container}>
@@ -112,20 +125,7 @@ export default function Store() {
         </div>
         <div className = {s.subHeaderZone}>
 
-          {
-            showLoading && <span></span>
-          }
-          {
-            results === 0 && !showLoading && <span className = {s.results}>Showing 0-0 of 0 Products</span>
-          }
-          {
-            results !== 0 && !showLoading &&
-            <span className = {s.results}>
-              Showing { (filter.page - 1) * (Math.ceil(results / filter.pages)) + 1 }-{
-              filter.page === filter.pages ? results :  filter.page * ( Math.ceil(results / filter.pages)) } of {
-              results} Products
-            </span>
-          }
+          <ShowResultCount loading = {showLoading} results = {results} page = {filter.page} pages = {filter.pages} />
 
           <div className = {s.orderPanel}>
             <OrderPanel />

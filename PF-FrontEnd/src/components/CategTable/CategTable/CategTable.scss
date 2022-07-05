@@ -1,0 +1,53 @@
+.datatable {
+    height: 610px;
+    padding: 15px;
+    background-color: var(--primaryColor);
+
+    
+    .datatableTitle{
+      width: 100%;
+      height: 8vh;
+      font-size: var(--font-Medium);
+      color: var(--fontColor);
+      margin-bottom: 0px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  
+      .link{
+        text-decoration: none;
+        color: green;
+        font-size: 16px;
+        font-weight: 400;
+        border: 1px solid green;
+        padding: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    }
+
+  
+    .categoryName {
+      display: flex;
+      align-items: center;
+      gap: 1px;
+  
+      .viewButton {
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: var(--secondaryColor);
+        border: 1px dotted rgba(0, 0, 139, 0.596);
+        cursor: pointer;
+      }
+      
+      .deleteButton {
+        padding: 2px 5px;
+        border-radius: 5px;
+        color: var(--dangerColor);
+;
+        border: 1px dotted rgba(220, 20, 60, 0.6);
+        cursor: pointer;
+      }
+    }
+  }
+  

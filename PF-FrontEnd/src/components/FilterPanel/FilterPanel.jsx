@@ -147,6 +147,10 @@ export default function FilterPanel() {
     dispatch(resetFilter());
     if (location && location.pathname.length > 7) {
       setShowFilterByName(false);
+      if (!location.pathname.includes('name')) {
+        dispatch(setShowLoading());
+        dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+      }
       history.replace('/store');
     }
     else {
@@ -161,32 +165,24 @@ export default function FilterPanel() {
 
       <h1 className = {s.title}>Set Filters</h1>
 
-      <div className = {s.check}>
+      {
+        showFilterByName &&
+        <div className = {s.btnName} onClick = {handleCheckFilterByName}>
+          <span className = {s.symbol}>{'<'}</span>
+          <span className = {s.spanName}>Searching: <i>{filter.name.length > 15 ? `${filter.name.slice(0, 15)}...` : filter.name }</i></span>
+          <span className = {s.spanName}>Go Back to Default Filter</span>
+        </div>
+      }
+
+      {/*<div className = {s.check}>
         <input type = 'checkbox' checked = {filter.favorites} className = {s.largeCheck} onChange = {() => handleCheck('favorites')} />
         <label className = {s.lbl}>Show Only Favorites</label>
-      </div>
+      </div>*/}
 
       <div className = {s.check}>
         <input type = 'checkbox' checked = {filter.discount} className = {s.largeCheck} onChange = {() => handleCheck('discount')} />
         <label className = {s.lbl}>Show Only On Discount</label>
       </div>
-
-      {
-        showFilterByName &&
-          <div className = {s.check}>
-            <input 
-              type = 'checkbox' 
-              checked = {showFilterByName}
-              className = {s.largeCheck}
-              onChange = {handleCheckFilterByName} 
-            />
-            <label 
-              className = {s.lbl}
-            >
-              Search: '<i>{ filter.name.length > 15 ? filter.name.slice(0, 15) : filter.name }</i>'
-            </label>
-          </div>
-      }
 
       <div className = {s.separator}></div>
 

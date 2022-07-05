@@ -50,19 +50,23 @@
 .darkTheme {
   --primaryColor: #424242;
   --primaryColorSub: #242424;
-  --secondaryColor: #651fff;
+  --secondaryColor: #1976d2;
 
   --fontColor: white;
+  --fontColorWithLessOpacity: rgba(255, 255, 255, 0.3);
   --dangerColor: crimson;
+  --successColor: green;
 }
 
 .lightTheme {
   --primaryColor: white;
   --primaryColorSub: rgb(240, 240, 240);
-  --secondaryColor: #651fff;
+  --secondaryColor: #1976d2;
 
   --fontColor: black;
+  --fontColorWithLessOpacity: rgba(0, 0, 0, 0.3);
   --dangerColor: crimson;
+  --successColor: green;
 }
 
 .mainContainer {

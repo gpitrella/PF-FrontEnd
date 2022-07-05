@@ -1,4 +1,3 @@
-import { ActionTypes } from '@mui/base';
 import {
   GET_BRANDS,
   TEST_HOMEPAGE,
@@ -14,7 +13,8 @@ import {
   GET_PRODUCT_TO_SECTION_THREE,
   SHOW_ERROR_SECTION_ONE,
   SHOW_ERROR_SECTION_TWO,
-  SHOW_ERROR_SECTION_THREE
+  SHOW_ERROR_SECTION_THREE,
+  RESET_SECTIONS
 } from '../actions/actiontype';
 
 const initialState = {
@@ -33,7 +33,8 @@ const initialState = {
     errorOne: false,
     errorTwo: false,
     errorThree: false,
-  }
+  },
+  allProducts: []
 };
 
 const homepageReducer = function(state = initialState, { type, payload }) {
@@ -153,6 +154,13 @@ const homepageReducer = function(state = initialState, { type, payload }) {
         section: {
           ...state.section,
           errorThree: true
+        }
+      }
+    case RESET_SECTIONS:
+      return {
+        ...state,
+        section: {
+          ...initialState.section
         }
       }
     // Fin para las secciones.
