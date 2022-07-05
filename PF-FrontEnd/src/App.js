@@ -8,7 +8,7 @@ import Home from './components/Home/Home';
 import Store from './components/Store/Store';
 import PurchaseDetails from './components/PurchaseDetails/PurchaseDetails';
 import notFoundPage from './components/404/NotFoundPage404';
-import { getBrands, loadStorage } from './redux/actions';
+import { getBrands, loadStorage, loginWithGoogle, notLoadingWithGoogle } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
@@ -23,14 +23,17 @@ import MyProfile from './components/MyProfile/MyProfile';
 import SuccessBuy from './components/SuccessBuy/SuccessBuy'
 
 import PageLoader from './components/PageLoader/PageLoader';
+import { LocalStorage } from './util/localStorage';
 
 function App() {
   const dispatch = useDispatch()
 
-  const { user, showPageLoader } = useSelector((state) => state.general);
+  const { user, showPageLoader, loadingUser } = useSelector((state) => state.general);
 
   React.useEffect(() => {
     dispatch(loadStorage());
+    if (!LocalStorage.getItem('user')) dispatch(loginWithGoogle());
+    else dispatch(notLoadingWithGoogle());
   }, []);
 
   React.useEffect(()=>{
@@ -39,7 +42,7 @@ function App() {
 
   const { theme, showCart } = useSelector(state => state.general);
 
-  if (showPageLoader) return (
+  if (showPageLoader || loadingUser) return (
     <React.Fragment>
       <div className= {`globalVariables mainContainer ${theme}`}>
         <PageLoader />

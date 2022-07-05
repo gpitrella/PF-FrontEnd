@@ -24,7 +24,9 @@ import {
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
   BASE_URL,
-  SUCCESS_BUY
+  SUCCESS_BUY,
+  LOGIN_WITH_GOOGLE,
+  NOT_LOGIN_WITH_GOOGLE
 } from './actiontype';
 
 
@@ -196,3 +198,17 @@ export function successBuyAction(){
   }
 };
 
+export function loginWithGoogle() {
+  return function(dispatch){
+    return axios.get(`${BASE_URL}/auth/login/success`, { withCredentials: true })
+    .then(data => {
+      dispatch({ type: LOGIN_WITH_GOOGLE, payload: data.data.user }) })
+    .catch(error => dispatch({ type: LOGIN_WITH_GOOGLE, payload: {} }))
+  };
+}
+
+export function notLoadingWithGoogle() {
+  return {
+    type: NOT_LOGIN_WITH_GOOGLE
+  }
+}

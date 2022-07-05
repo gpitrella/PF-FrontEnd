@@ -1,5 +1,3 @@
-import { stepButtonClasses } from '@mui/material';
-import { showCart } from '../actions';
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -21,7 +19,9 @@ import {
   ADD_PRODUCT_TO_FAVOURITES,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
-  SUCCESS_BUY
+  SUCCESS_BUY,
+  LOGIN_WITH_GOOGLE,
+  NOT_LOGIN_WITH_GOOGLE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -46,6 +46,7 @@ const initialState = {
   finishOrder: {},
   reviewCreated: {},
   showPageLoader: true,
+  loadingUser: true,
   favouritesProducts: [],
 };
 
@@ -243,6 +244,23 @@ const generalReducer = function(state = initialState, { type, payload }) {
         productsCart: []
       }
     }
+
+    case LOGIN_WITH_GOOGLE: {
+      if (payload.user) LocalStorage.saveItem('user', payload); 
+      return {
+        ...state,
+        user: payload,
+        loadingUser: false
+      }
+    }
+
+    case NOT_LOGIN_WITH_GOOGLE: {
+      return {
+        ...state,
+        loadingUser: false
+      }
+    }
+
     default:
       return state;
   }
