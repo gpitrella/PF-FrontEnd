@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 :root {
-  --left-bg-color: rgba(31, 65, 176, 0.664);
+  --left-bg-color: rgba(56, 115, 203, 0.592); 
   --right-bg-color: rgba(43, 43, 43, 0.8);
   --left-btn-hover-color: rgba(87, 84, 236, 1);
-  --right-btn-hover-color: rgba(28, 122, 28, 1);
+  --right-btn-hover-color: rgb(33, 90, 175);
   --hover-width: 75%;
   --other-width: 25%;
   --speed: 1000ms;
@@ -41,7 +41,7 @@ h1 {
   transform: translateX(-50%);
   text-decoration: none;
   color: #fff;
-  border: #fff solid 0.2rem;
+
   font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -144,10 +144,134 @@ position: absolute;
   width: var(--other-width);
 }
 
-/* .image_landind_page {
-    width: 20rem;
-    z-index: inherit;
-} */
+
+
+
+
+
+
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 270px;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+}
+
+.form-start-landing {
+  align-items: center;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+}
+
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  padding: 10px 50px;
+  color: #037bf4;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px
+}
+
+.login-box a:hover {
+  background: #037bf4;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #037bf4,
+              0 0 25px #037bf4,
+              0 0 50px #037bf4,
+              0 0 100px #037bf4;
+}
+
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #037bf4);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+.login-box a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #037bf4);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+.login-box a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #037bf4);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+.login-box a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #037bf4);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
 
 @media (max-width: 800px) {
   h1 {

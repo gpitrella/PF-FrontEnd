@@ -21,6 +21,7 @@ import Adresses from './components/Branches/Adresses';
 import MyProfile from './components/MyProfile/MyProfile';
 import SuccessBuy from './components/SuccessBuy/SuccessBuy';
 import Landing from './components/Landing/Landing';
+import PersonalInformation from './components/MyProfile/PersonalInformation/PersonalInformation';
 
 import PageLoader from './components/PageLoader/PageLoader';
 
@@ -46,10 +47,11 @@ function App() {
       </div>
     </React.Fragment>
   );
-
+  
   return (
     <React.Fragment>
       <Router>
+      <Landing />
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
           <AddToCart showCart={showCart}/> 
@@ -68,11 +70,12 @@ function App() {
               <Route exact path='/checkout' component = {CheckOut} />              
               <Route path = "/admin"> {user?.user?.admin ? <Admin/> : <Redirect to = "/"/>}</Route>
               <Route exact path='/myprofile'> {user?.user ? <MyProfile/> : <Redirect to="/login"/>}</Route>
+              <Route exact path='/myprofile/personalinformation'> {user?.user ? <PersonalInformation/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
               <Route exact path='/successbuy' component={SuccessBuy} />
-            
+              
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

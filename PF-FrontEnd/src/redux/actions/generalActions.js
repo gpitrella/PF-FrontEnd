@@ -24,7 +24,8 @@ import {
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
   BASE_URL,
-  SUCCESS_BUY
+  SUCCESS_BUY,
+  CLOSE_LANDING
 } from './actiontype';
 
 
@@ -193,6 +194,13 @@ export function removeFavourite(idProduct, idUser){
 export function successBuyAction(){
   return {
       type: SUCCESS_BUY
+  }
+};
+
+// Close Landing:
+export function closeLanding(){
+  return {
+    type: CLOSE_LANDING,
   }
 };
 

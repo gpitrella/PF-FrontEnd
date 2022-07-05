@@ -162,6 +162,8 @@ export default function NavBar() {
     dispatch(showCart())
   };
 
+  
+
   const menuId = 'primary-search-account-menu';
   
   const renderMenu = (
