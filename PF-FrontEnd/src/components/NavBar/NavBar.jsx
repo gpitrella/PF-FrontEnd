@@ -150,7 +150,7 @@ export default function NavBar() {
     e.preventDefault()
     handleMenuClose()
     dispatch(logout())
-    history.push('/')
+    //history.push('/')
   }
 
   const handleMobileMenuOpen = (event) => {
