@@ -15,10 +15,10 @@ export default function PurchasesTableEdit({ param, newPurchaseDetails, handleCh
         purchasesState && purchasesState[param.selectSource].map((pick, index) =>  {
           return (
             <option 
-              value = {pick}
-              key = {`option-${pick}-${index}`}
+              value = {pick.value}
+              key = {`option-${pick.value}-${index}`}
             >
-              {pick}
+              {pick.value.toUpperCase()}
             </option>
           ) 
         })

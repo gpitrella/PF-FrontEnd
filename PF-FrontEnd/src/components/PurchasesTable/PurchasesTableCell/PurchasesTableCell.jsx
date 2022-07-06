@@ -29,6 +29,10 @@ export default function PurchasesTableCell({ purchase, param, viewMore, handleVi
     </div>
   );
 
+  if (param.isComplex && param.hasColors) return (
+    <span className = {`${s.spanStatus} ${s[param.getColor(purchase)]}`}>{param.getValue(purchase)}</span>
+  );
+
   return (
     <>
     { param.isComplex ? 

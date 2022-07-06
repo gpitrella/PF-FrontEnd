@@ -25,7 +25,7 @@ export const headerData = [
   },
   {
     name: 'status',
-    className: 'widthMedium'
+    className: 'widthLarge'
   },
   {
     name: 'action',
@@ -34,6 +34,24 @@ export const headerData = [
 ];
 
 const MAX_LENGTH = 35;
+
+const PURCHASES_COLORS = {
+  pending: {
+    color: 'color_orange'
+  },
+  processing: {
+    color: 'color_violet'
+  },
+  dispatched: {
+    color: 'color_blue'
+  },
+  filled: {
+    color: 'color_green'
+  },
+  cancelled: {
+    color: 'color_red'
+  },
+}
 
 export const rowData = [
   {
@@ -94,9 +112,15 @@ export const rowData = [
   },
   {
     name: 'status',
-    editable: false,
+    isComplex: true,
+    getValue: (purchase) => {
+      return purchase.status.toUpperCase();
+    },
+    editable: true,
     editWith: 'SELECT',
-    selectSource: 'purchaseStatusEnum'
+    selectSource: 'purchaseStatusEnum',
+    hasColors: true,
+    getColor: (purchase) => PURCHASES_COLORS[purchase.status].color,
   },
   {
     name: 'action',

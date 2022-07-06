@@ -19,12 +19,43 @@ const purchase = {
   },
   creationDate: "2022-07-05T23:31:20.169Z",
   updatedAt: "2022-07-05T23:31:20.169Z",
-  status: 'IN PROCESSS'
+  status: 'in process'
 }
 
+const PURCHASES_STATUS_ENUM = [
+  {
+    value: 'pending',
+    color: 'yellow'
+  },
+  {
+    value: 'processing',
+    color: 'orange'
+  },
+  {
+    value: 'dispatched',
+    color: 'blue'
+  },
+  {
+    value: 'filled',
+    color: 'green'
+  },
+  {
+    value: 'cancelled',
+    color: 'red'
+  },
+]
+
 const initialState = {
-  purchases: [ ...Array(10).keys() ].map(i=> { return {...purchase, id: i, updatedAt: i % 2 === 0 ? purchase.updatedAt : null } }),
-  showLoading: false
+  purchases: [ ...Array(10).keys() ].map(i=> { 
+    return {
+      ...purchase,
+      id: i,
+      updatedAt: i % 2 === 0 ? purchase.updatedAt : null,
+      status: PURCHASES_STATUS_ENUM[i % 5].value
+    }
+  }),
+  showLoading: false,
+  purchaseStatusEnum: [ ...PURCHASES_STATUS_ENUM ]
 }
 
 const purchaseReducer = function(state = initialState, { type, payload }) {

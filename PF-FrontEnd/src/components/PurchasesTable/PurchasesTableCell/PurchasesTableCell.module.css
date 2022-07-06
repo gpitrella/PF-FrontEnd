@@ -135,3 +135,31 @@
 .date {
   font-size: var(--fontSmallest);
 }
+
+.spanStatus {
+  color: white;
+  padding: 3px 5px 3px 5px;
+  border-radius: 5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.color_violet {
+  background-color: darkviolet;
+}
+
+.color_orange {
+  background-color: rgba(255, 166, 0, 1);
+}
+
+.color_blue {
+  background-color: rgba(0, 0, 255, 1);
+}
+
+.color_green {
+  background-color: green;
+}
+
+.color_red {
+  background-color: rgba(220, 20, 60, 1);
+}
