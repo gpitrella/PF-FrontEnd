@@ -22,7 +22,8 @@ import {
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
   SUCCESS_BUY,
-  CLOSE_LANDING
+  CLOSE_LANDING,
+  LOG_IN_ERROR
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -48,7 +49,8 @@ const initialState = {
   reviewCreated: {},
   showPageLoader: true,
   favouritesProducts: [],
-  viewLanding: true
+  viewLanding: true,
+  logInError: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -250,6 +252,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         viewLanding: false
+      }
+    }
+
+    case LOG_IN_ERROR: {
+      return {
+        ...state,
+        logInError: payload
       }
     }
     default:
