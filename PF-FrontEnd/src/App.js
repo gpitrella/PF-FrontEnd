@@ -20,6 +20,7 @@ import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
 import SuccessBuy from './components/SuccessBuy/SuccessBuy';
 import CanceledBuy from './components/CanceledBuy/CanceledBuy';
+import PendingBuy from './components/PendingBuy/PendingBuy';
 import UserProfile from './UserProfile'
 import Landing from './components/Landing/Landing';
 
@@ -73,8 +74,9 @@ function App() {
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
-              <Route exact path='/successbuy' component={SuccessBuy} />
-              <Route exact path='/canceledbuy' component={CanceledBuy} />
+              <Route exact path='/successbuy' >{user?.user ? <SuccessBuy/> : <Redirect to="/login"/>}</Route>
+              <Route exact path='/canceledbuy' >{user?.user ? <CanceledBuy/> : <Redirect to="/login"/>}</Route>
+              <Route exact path='/pendingbuy' >{user?.user ? <PendingBuy/> : <Redirect to="/login"/>}</Route>
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

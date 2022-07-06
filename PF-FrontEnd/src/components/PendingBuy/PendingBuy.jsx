@@ -1,12 +1,12 @@
 import React from "react";
-import buycancel from './img/buycancel.gif';
+import buypending from './img/buypending.gif';
 import Button from '@mui/material/Button';
 // import { successBuyAction } from "../../redux/actions";
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import './CanceledBuy.css';
+import './PendingBuy.css';
 
-export default function CanceledBuy(){
+export default function PendingBuy(){
     const dispatch = useDispatch();
     React.useEffect(() => {
         // dispatch(successBuyAction());
@@ -14,16 +14,16 @@ export default function CanceledBuy(){
     
 
     return (
-        <div className="canceled_buy_page">
-            <img className="img_canceled_buy_page"
-              alt="Buy canceled"
-              src={buycancel}
+        <div className="pending_buy_page">
+            <img className="img_pending_buy_page"
+              alt="Buy pending"
+              src={buypending}
             />
-            <div className="canceled_page_text">
-                <h2>Sorry there was a problem with your order, it was canceled.</h2>
+            <div className="pending_page_text">
+                <h2>Your order are pending.</h2>
                 <p>
-                    Contact your bank to ask about your purchase canceled. <br></br>
-                    Any questions do not hesitate to contact us. 
+                    Contact your bank to ask about your pending purchase, <br></br>
+                    or contact Us and we check any problem about your order. 
                 </p>
                 <Link to="/">
                     <Button id="button_less" variant="outlined" size="medium"> HOME </Button>
