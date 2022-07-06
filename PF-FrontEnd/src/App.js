@@ -18,11 +18,10 @@ import CheckOut from './components/CheckOut/CheckOut';
 import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
-import MyProfile from './components/MyProfile/MyProfile';
 import SuccessBuy from './components/SuccessBuy/SuccessBuy';
+import CanceledBuy from './components/CanceledBuy/CanceledBuy';
 import UserProfile from './UserProfile'
 import Landing from './components/Landing/Landing';
-import PersonalInformation from './components/MyProfile/PersonalInformation/PersonalInformation';
 
 import PageLoader from './components/PageLoader/PageLoader';
 
@@ -75,7 +74,7 @@ function App() {
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
               <Route exact path='/successbuy' component={SuccessBuy} />
-              
+              <Route exact path='/canceledbuy' component={CanceledBuy} />
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />
