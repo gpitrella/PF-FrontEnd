@@ -9,13 +9,13 @@ import person from './img/profile_blue.gif';
 import my_favourites from './img/favorite_heart.gif';
 import my_address from './img/home.gif';
 import review_animation from './img/review_animation.gif';
+import question from './img/question.gif';
 import './MyProfile.css'
 import { Link } from 'react-router-dom';
 
 export default function MyProfile() {
   return (
     <div>
-    <h2 className='title_myprofile'> My account </h2>
     <div className='main_box_pyProfile'>
       <Card sx={{ width: 200, height: 200 }}>
         <CardActionArea >
@@ -30,9 +30,11 @@ export default function MyProfile() {
           </Link>
         </CardActionArea>
         <CardActions className='button_myprofile'>
-          <Button size="small" color="primary">
-              My Personal Information
-          </Button>
+          <Link to='/myprofile/personalinformation'>
+            <Button size="small" color="primary">
+                My Personal Information
+            </Button>
+          </Link>
         </CardActions>
       </Card>
 
@@ -87,18 +89,44 @@ export default function MyProfile() {
       </Card>
       <Card sx={{ width: 200, height: 200 }}>
         <CardActionArea>
-          <CardMedia className='personal_myreview'
-            component="img"
-            height='130'
-            width="50"
-            image={review_animation}
-            alt="my reviews"
-          />
+          <Link to='/myprofile/myreviews'>
+            <CardMedia className='personal_myreview'
+              component="img"
+              height='130'
+              width="50"
+              image={review_animation}
+              alt="my reviews"
+            />
+          </Link>
+
         </CardActionArea>
         <CardActions className='button_myprofile'>
-          <Button size="small" color="primary">
-            My Reviews
-          </Button>
+          <Link to='/myprofile/myreviews'>
+            <Button size="small" color="primary">
+              My Reviews
+            </Button>
+          </Link>
+        </CardActions>
+      </Card>
+
+      <Card sx={{ width: 200, height: 200 }}>
+        <CardActionArea>
+          <Link to='/myprofile/mycomments'>
+            <CardMedia className='personal_informacion'
+              component="img"
+              height='130'
+              width="50"
+              image={question}
+              alt="my address"
+            />
+          </Link>
+        </CardActionArea>
+        <CardActions className='button_myprofile'>
+          <Link to='/myprofile/mycomments'>
+            <Button size="small" color="primary">
+              My Questions
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     </div>
