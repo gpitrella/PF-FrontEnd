@@ -160,8 +160,10 @@ export const closePageLoader = function() {
 };
 
 export const logout = function() {
-    return {
-    type: LOGOUT
+  return function(dispatch){
+    return axios.get(`${BASE_URL}/auth/logout/`, { withCredentials: true })
+                .then(product => dispatch({ type: LOGOUT }))
+                .catch(error => dispatch({ type: LOGOUT }))
   }
 };
 
