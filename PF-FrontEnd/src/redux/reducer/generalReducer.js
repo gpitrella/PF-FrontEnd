@@ -203,7 +203,8 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         productsCart: [],
-        user:{}
+        user:{},
+        showPageLoader: true
       }
     }
     case ADD_PRODUCT_TO_FAVOURITES:{
