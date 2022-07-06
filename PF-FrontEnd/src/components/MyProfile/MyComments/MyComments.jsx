@@ -25,8 +25,9 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { visuallyHidden } from '@mui/utils';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Rating from '@mui/material/Rating';
-import './MyReviews.css'
+import './MyCommets.css'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -66,28 +67,28 @@ const headCells = [
     label: 'Product Name', // antes Dessert (100g serving)
   },
   {
-    id: 'score', // antes calories
+    id: 'question', // antes calories
     numeric: true,
     disablePadding: false,
-    label: 'Your Rating', // antes Calories
+    label: 'Your Question', // antes Calories
   },
   {
-    id: 'review', // antes fat
+    id: 'dateQuestion', // antes fat
     numeric: true,
     disablePadding: false,
-    label: 'Your Review', // antes Fat (g)
+    label: 'Date Question', // antes Fat (g)
   },
   {
-    id: 'date', // antes carbs
+    id: 'answer', // antes carbs
     numeric: true,
     disablePadding: false,
-    label: 'Date created', // antes Carbs (g)
+    label: 'Answer', // antes Carbs (g)
   },
   {
-    id: 'viewProduct',
+    id: 'dateAnswer',
     numeric: true,
     disablePadding: false,
-    label: 'view',
+    label: 'Date Answer',
   },
 ];
 
@@ -168,7 +169,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Your Reviews Detail 
+          Your Questions Detail 
         </Typography>
       )}
 
@@ -193,8 +194,8 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function MyReviews({userReviews}) {
-  const rows = userReviews
+export default function MyReviews({commentByUser}) {
+  const rows = commentByUser
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -238,7 +239,7 @@ export default function MyReviews({userReviews}) {
 
   return (
     <div className='main_box_myreviews'>
-    <h3 className='title_myreviews'> My Reviews </h3>
+    <h3 className='title_myreviews'> My Questions </h3>
     <Box sx={{ width: '100%' }} id='box_table_myreviews'>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
@@ -272,13 +273,7 @@ export default function MyReviews({userReviews}) {
                       key={row.id}
                     >
                       <TableCell padding="checkbox">
-                      <Stack direction="row" spacing={2}>
-                        <Avatar id="avatar_product_review"
-                            alt="Remy Sharp"
-                            src={row.products[0].image}
-                            sx={{ width: 56, height: 56 }}                           
-                            />                        
-                        </Stack>
+                        <HelpOutlineIcon id="avatar_product_review"/>
                       </TableCell>
                       <TableCell
                         component="th"
@@ -288,11 +283,10 @@ export default function MyReviews({userReviews}) {
                       >
                         {row.products[0].name}
                       </TableCell>
-                      <TableCell align="right"> ({row.score})
-                        <Rating name="simple-controlled" value={row.score}/> </TableCell>
                       <TableCell align="right">{row.comment}</TableCell>
                       <TableCell align="right">{row.createdAt.slice(0,10)}</TableCell>
-                      <TableCell align="right"><Link to={`/productdetails/${row.products[0].id}`}> View Prod. </Link></TableCell>
+                      <TableCell align="right">{row.answer ? row.answer : 'With answer yet'}</TableCell>
+                      <TableCell align="right">{(row.updatedAt !== row.createdAt) ? row.updatedAt.slice(0,10) : '--'}</TableCell>
                     </TableRow>
                   );
                 })}

@@ -8,7 +8,8 @@ import {
   PUT_USER_STATUS,
   USER_STATUS_RESET,
   BASE_URL,
-  USER_REVIEWS
+  USER_REVIEWS,
+  GET_COMMENTS_BY_USER
 } from './actiontype';
 
 const urluser = `${BASE_URL}/api/user`;
@@ -63,5 +64,16 @@ export function getUserReviews(id){
     return axios.get(`${BASE_URL}/api/ProfileUser/reviews/${id}`)
            .then(res => dispatch({ type: USER_REVIEWS, payload: res.data})) 
            .catch(err => console.log(err))
+  }
+};
+
+
+// Get comments or question By User
+export const getAllCommentByUserID = function(idUser) {
+  return function(dispatch){
+    console.log(idUser)
+    return axios.get(`${BASE_URL}/api/comments`)
+                .then(comment => dispatch({ type: GET_COMMENTS_BY_USER, payload: comment.data.filter(data => data.users[0].id === idUser )}))
+                .catch(error => console.log(error))
   }
 };

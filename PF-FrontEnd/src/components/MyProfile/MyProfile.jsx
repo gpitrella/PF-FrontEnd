@@ -9,6 +9,7 @@ import person from './img/profile_blue.gif';
 import my_favourites from './img/favorite_heart.gif';
 import my_address from './img/home.gif';
 import review_animation from './img/review_animation.gif';
+import question from './img/question.gif';
 import './MyProfile.css'
 import { Link } from 'react-router-dom';
 
@@ -103,6 +104,27 @@ export default function MyProfile() {
           <Link to='/myprofile/myreviews'>
             <Button size="small" color="primary">
               My Reviews
+            </Button>
+          </Link>
+        </CardActions>
+      </Card>
+
+      <Card sx={{ width: 200, height: 200 }}>
+        <CardActionArea>
+          <Link to='/myprofile/mycomments'>
+            <CardMedia className='personal_informacion'
+              component="img"
+              height='130'
+              width="50"
+              image={question}
+              alt="my address"
+            />
+          </Link>
+        </CardActionArea>
+        <CardActions className='button_myprofile'>
+          <Link to='/myprofile/mycomments'>
+            <Button size="small" color="primary">
+              My Questions
             </Button>
           </Link>
         </CardActions>
