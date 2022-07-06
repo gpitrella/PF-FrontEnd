@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -25,6 +24,8 @@ import {
   REMOVE_FAVOURITE_PRODUCT,
   BASE_URL,
   SUCCESS_BUY,
+  LOGIN_WITH_GOOGLE,
+  NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING
 } from './actiontype';
 
@@ -159,8 +160,10 @@ export const closePageLoader = function() {
 };
 
 export const logout = function() {
-    return {
-    type: LOGOUT
+  return function(dispatch){
+    return axios.get(`${BASE_URL}/auth/logout/`, { withCredentials: true })
+                .then(product => dispatch({ type: LOGOUT }))
+                .catch(error => dispatch({ type: LOGOUT }))
   }
 };
 
@@ -197,10 +200,24 @@ export function successBuyAction(){
   }
 };
 
+export function loginWithGoogle() {
+  return function(dispatch){
+    return axios.get(`${BASE_URL}/auth/login/success`, { withCredentials: true })
+    .then(data => {
+      dispatch({ type: LOGIN_WITH_GOOGLE, payload: data.data.user }) })
+    .catch(error => dispatch({ type: LOGIN_WITH_GOOGLE, payload: {} }))
+  };
+}
+
+export function notLoginWithGoogle() {
+  return {
+    type: NOT_LOGIN_WITH_GOOGLE
+  }
+}
+
 // Close Landing:
 export function closeLanding(){
   return {
     type: CLOSE_LANDING,
   }
 };
-

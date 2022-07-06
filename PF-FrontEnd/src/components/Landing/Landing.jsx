@@ -69,7 +69,7 @@ export default function Landing() {
         <div className="main_landing_page">
             <div className={container}>
                 <div className="split left" onMouseEnter={handleEnterLeft} onMouseLeave={handleLeaveLeft}>
-                    <h1 id="text_landing_page">
+                    <h1 className = "titleLandingPage" id="text_landing_page">
                         Welcome to TechMarket! 
                     </h1>
                     <img src={gitfLogo} className="btn_image_logo" alt='logo techmarket' />
