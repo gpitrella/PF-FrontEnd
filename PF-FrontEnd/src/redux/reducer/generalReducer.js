@@ -21,7 +21,8 @@ import {
   REMOVE_FAVOURITE_PRODUCT,
   SUCCESS_BUY,
   LOGIN_WITH_GOOGLE,
-  NOT_LOGIN_WITH_GOOGLE
+  NOT_LOGIN_WITH_GOOGLE,
+  CLOSE_LANDING
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -48,6 +49,7 @@ const initialState = {
   showPageLoader: true,
   loadingUser: true,
   favouritesProducts: [],
+  viewLanding: true
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -261,6 +263,12 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
 
+    case CLOSE_LANDING: {
+      return {
+        ...state,
+        viewLanding: false
+      }
+    }
     default:
       return state;
   }

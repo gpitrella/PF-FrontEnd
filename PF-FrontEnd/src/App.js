@@ -8,7 +8,7 @@ import Home from './components/Home/Home';
 import Store from './components/Store/Store';
 import PurchaseDetails from './components/PurchaseDetails/PurchaseDetails';
 import notFoundPage from './components/404/NotFoundPage404';
-import { getBrands, loadStorage, loginWithGoogle, notLoadingWithGoogle } from './redux/actions';
+import { getBrands, loadStorage, loginWithGoogle, notLoginWithGoogle } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
@@ -20,7 +20,9 @@ import { Redirect } from 'react-router-dom';
 import FAQs from './components/FAQs/FAQs';
 import Adresses from './components/Branches/Adresses';
 import MyProfile from './components/MyProfile/MyProfile';
-import SuccessBuy from './components/SuccessBuy/SuccessBuy'
+import SuccessBuy from './components/SuccessBuy/SuccessBuy';
+import Landing from './components/Landing/Landing';
+import PersonalInformation from './components/MyProfile/PersonalInformation/PersonalInformation';
 
 import PageLoader from './components/PageLoader/PageLoader';
 import { LocalStorage } from './util/localStorage';
@@ -33,7 +35,7 @@ function App() {
   React.useEffect(() => {
     dispatch(loadStorage());
     if (!LocalStorage.getItem('user')) dispatch(loginWithGoogle());
-    else dispatch(notLoadingWithGoogle());
+    else dispatch(notLoginWithGoogle());
   }, []);
 
   React.useEffect(()=>{
@@ -49,15 +51,17 @@ function App() {
       </div>
     </React.Fragment>
   );
-
+  
   return (
     <React.Fragment>
       <Router>
+      <Landing />
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
           <AddToCart showCart={showCart}/> 
             <Switch>                
               <Route exact path="/" component={Home} />
+              <Route exact path="/landing" component={Landing} />
               <Route exact path="/store/" component = {Store} />
               <Route exact path="/login"> { !user || !user.user ? <LogIn/> : <Redirect to="/"/>}</Route>
               <Route exact path="/signup"> { !user || !user.user ? <SignUp/> : <Redirect to="/"/>}</Route>
@@ -69,11 +73,12 @@ function App() {
               <Route exact path='/checkout' component = {CheckOut} />              
               <Route path = "/admin"> {user?.user?.admin ? <Admin/> : <Redirect to = "/"/>}</Route>
               <Route exact path='/myprofile'> {user?.user ? <MyProfile/> : <Redirect to="/login"/>}</Route>
+              <Route exact path='/myprofile/personalinformation'> {user?.user ? <PersonalInformation/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
               <Route exact path='/successbuy' component={SuccessBuy} />
-            
+              
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

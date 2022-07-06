@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -26,7 +25,8 @@ import {
   BASE_URL,
   SUCCESS_BUY,
   LOGIN_WITH_GOOGLE,
-  NOT_LOGIN_WITH_GOOGLE
+  NOT_LOGIN_WITH_GOOGLE,
+  CLOSE_LANDING
 } from './actiontype';
 
 
@@ -209,8 +209,15 @@ export function loginWithGoogle() {
   };
 }
 
-export function notLoadingWithGoogle() {
+export function notLoginWithGoogle() {
   return {
     type: NOT_LOGIN_WITH_GOOGLE
   }
 }
+
+// Close Landing:
+export function closeLanding(){
+  return {
+    type: CLOSE_LANDING,
+  }
+};

@@ -10,12 +10,32 @@ import my_favourites from './img/favorite_heart.gif';
 import my_address from './img/home.gif';
 import review_animation from './img/review_animation.gif';
 import './MyProfile.css'
+import { Link } from 'react-router-dom';
 
 export default function MyProfile() {
   return (
     <div>
     <h2 className='title_myprofile'> My account </h2>
     <div className='main_box_pyProfile'>
+      <Card sx={{ width: 200, height: 200 }}>
+        <CardActionArea >
+          <Link to='/myprofile/personalinformation'>
+            <CardMedia className='personal_informacion'
+              component="img"
+              height="130"
+              width="50"
+              image={person}
+              alt="personal information"
+            />
+          </Link>
+        </CardActionArea>
+        <CardActions className='button_myprofile'>
+          <Button size="small" color="primary">
+              My Personal Information
+          </Button>
+        </CardActions>
+      </Card>
+
       <Card sx={{ width: 200, height: 200 }}>
         <CardActionArea>
           <CardMedia
@@ -32,22 +52,7 @@ export default function MyProfile() {
           </Button>
         </CardActions>
       </Card>
-      <Card sx={{ width: 200, height: 200 }}>
-        <CardActionArea >
-          <CardMedia className='personal_informacion'
-            component="img"
-            height="130"
-            width="50"
-            image={person}
-            alt="personal information"
-          />
-        </CardActionArea>
-        <CardActions className='button_myprofile'>
-          <Button size="small" color="primary">
-              My Personal Information
-          </Button>
-        </CardActions>
-      </Card>
+  
       <Card sx={{ width: 200, height: 200 }}>
         <CardActionArea>
           <CardMedia className='personal_informacion'

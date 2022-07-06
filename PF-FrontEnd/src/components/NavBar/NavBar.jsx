@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { getSearchProducts, clearSearchProducts, showCart, logout, openPageLoader } from "../../redux/actions";
+import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
@@ -150,7 +150,6 @@ export default function NavBar() {
     e.preventDefault()
     handleMenuClose()
     dispatch(logout())
-    dispatch(openPageLoader());
     history.push('/')
   }
 
@@ -162,6 +161,8 @@ export default function NavBar() {
     e.preventDefault();
     dispatch(showCart())
   };
+
+  
 
   const menuId = 'primary-search-account-menu';
   
