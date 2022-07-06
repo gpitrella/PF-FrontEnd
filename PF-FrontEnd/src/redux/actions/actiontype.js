@@ -95,6 +95,10 @@ export const GET_LOCALIDADES = 'GET_LOCALIDADES';
 export const VALIDATING_ADDRESS = 'VALIDATING_ADDRESS';
 export const NORMALIZE_ADDRESS = 'NORMALIZE_ADDRESS';
 
+// LOGIN WITH GOOGLE
+export const LOGIN_WITH_GOOGLE = 'LOGIN_WITH_GOOGLE';
+export const NOT_LOGIN_WITH_GOOGLE = 'NOT_LOGIN_WITH_GOOGLE';
+
 // BASE URL
 // export const BASE_URL = 'https://techmarketapp.herokuapp.com';
 export const BASE_URL = 'http://localhost:3001';

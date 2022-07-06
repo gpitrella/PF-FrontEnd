@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ProductsTableCell from '../ProductsTableCell/ProductsTableCell';
 import ProductsTableEdit from '../ProductsTableEdit/ProductsTableEdit';
 import GeneralModal from '../../GeneralModal/GeneralModal';
@@ -16,6 +16,8 @@ export default function ProductsTableRow({ product }) {
   const [ enableEdit, setEnableEdit ] = React.useState(false);
   const [ newProductDetails, setNewProductDetails ] = React.useState({});
   const [ invalid, setInvalid ] = React.useState({});
+
+  const { showLoading } = useSelector(state => state.storepage);
 
   const [ modal, setModal ] = React.useState({
     show: false
@@ -193,7 +195,9 @@ export default function ProductsTableRow({ product }) {
   if (product.isDummy) return (
     <tr className = {s.row}>
       <td>
-        <div className = {s.rowParam}></div>
+        <div className = {s.rowParam}>
+          {showLoading ? 'LOADING' : ''}
+        </div>
       </td>
     </tr>
   );

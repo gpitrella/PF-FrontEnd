@@ -6,8 +6,9 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
+import PurchaseDetails from './components/PurchaseDetails/PurchaseDetails';
 import notFoundPage from './components/404/NotFoundPage404';
-import { getBrands, loadStorage } from './redux/actions';
+import { getBrands, loadStorage, loginWithGoogle, notLoginWithGoogle } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
@@ -25,14 +26,17 @@ import UserProfile from './UserProfile'
 import Landing from './components/Landing/Landing';
 
 import PageLoader from './components/PageLoader/PageLoader';
+import { LocalStorage } from './util/localStorage';
 
 function App() {
   const dispatch = useDispatch()
 
-  const { user, showPageLoader } = useSelector((state) => state.general);
+  const { user, showPageLoader, loadingUser } = useSelector((state) => state.general);
 
   React.useEffect(() => {
     dispatch(loadStorage());
+    if (!LocalStorage.getItem('user')) dispatch(loginWithGoogle());
+    else dispatch(notLoginWithGoogle());
   }, []);
 
   React.useEffect(()=>{
@@ -41,7 +45,7 @@ function App() {
 
   const { theme, showCart } = useSelector(state => state.general);
 
-  if (showPageLoader) return (
+  if (showPageLoader || loadingUser) return (
     <React.Fragment>
       <div className= {`globalVariables mainContainer ${theme}`}>
         <PageLoader />
@@ -56,8 +60,7 @@ function App() {
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
           <AddToCart showCart={showCart}/> 
-            <Switch>
-                        
+            <Switch>                
               <Route exact path="/" component={Home} />
               <Route exact path="/landing" component={Landing} />
               <Route exact path="/store/" component = {Store} />
