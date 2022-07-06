@@ -99,6 +99,9 @@ export const NORMALIZE_ADDRESS = 'NORMALIZE_ADDRESS';
 export const LOGIN_WITH_GOOGLE = 'LOGIN_WITH_GOOGLE';
 export const NOT_LOGIN_WITH_GOOGLE = 'NOT_LOGIN_WITH_GOOGLE';
 
+// PURCHASES ACTIONS
+export const EXAMPLE_ACTION = 'EXAMPLE_ACTION';
+
 // BASE URL
 // export const BASE_URL = 'https://techmarketapp.herokuapp.com';
 export const BASE_URL = 'http://localhost:3001';

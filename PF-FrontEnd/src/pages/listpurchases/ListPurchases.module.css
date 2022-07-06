@@ -1,0 +1,25 @@
+.list {
+  min-height: 1000px;
+  height: fit-content;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+
+  transition: background-color 0.5s;
+
+  margin-top: 50px !important;
+}
+
+.listContainer {
+  flex: 6;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto;
+  grid-gap: 1rem;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  margin-top: 0 !important;
+  margin-bottom: 1rem;
+}

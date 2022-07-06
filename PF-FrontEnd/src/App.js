@@ -25,6 +25,7 @@ import Landing from './components/Landing/Landing';
 import PersonalInformation from './components/MyProfile/PersonalInformation/PersonalInformation';
 
 import PageLoader from './components/PageLoader/PageLoader';
+import ModalAddAddress from './components/ModalAddAddress/ModalAddAddress';
 import { LocalStorage } from './util/localStorage';
 
 function App() {
@@ -78,6 +79,8 @@ function App() {
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
               <Route exact path='/successbuy' component={SuccessBuy} />
+
+              <Route exact path='/address' component={ModalAddAddress} />
               
               <Route exact path='*' component={notFoundPage} />
             </Switch>
