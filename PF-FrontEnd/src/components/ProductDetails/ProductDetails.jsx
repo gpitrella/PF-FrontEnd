@@ -1,12 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-<<<<<<< Updated upstream
 import { useParams, useHistory } from "react-router-dom";
 import { getProductDetails, addProductToCart, postCommentProduct, postReviewProduct } from "../../redux/actions";
-=======
-import { useParams } from "react-router-dom";
-import { getProductDetails, addProductToCart, postCommentProduct } from "../../redux/actions";
->>>>>>> Stashed changes
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
@@ -92,7 +87,6 @@ export default function ProductDetails (){
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
-<<<<<<< Updated upstream
     }, [commentCreated, reviewCreated]);
 
     // Cartel desplegable de Login
@@ -109,27 +103,15 @@ export default function ProductDetails (){
     const handleOpenPageLogin = () => {
         history.push('/login');
     }
-=======
-      //  return() => {
-      //      dispatch(clearGameDetail())
-      //  }
-    }, [commentCreated]);
->>>>>>> Stashed changes
 
     // Configuración boton agregar comentario.
     const [openComment, setOpenComment] = React.useState(false);
     const [openSuccessAddToCart, setOpenSuccessAddToCart] = React.useState(false);
-<<<<<<< Updated upstream
     const [openProductInCart, setOpenProductInCart] = React.useState(false);
     const [openWithOutStock, setOpenWithOutStock] = React.useState(false)
     const history = useHistory();
     const [comment, setComment] = React.useState(); // Box de comentarios
     const [commentReview, setCommentReview] = React.useState();
-=======
-    const [openProductInCart, setProductInCart] = React.useState(false);
-    
-    const [comment, setComment] = React.useState();
->>>>>>> Stashed changes
 
     const handleClickOpen = () => {
         if(!user?.user){
@@ -167,7 +149,6 @@ export default function ProductDetails (){
             setOpenReview(true);
         }
     };
-<<<<<<< Updated upstream
 
     const handleCloseReview = () => {
         setOpenReview(false);
@@ -231,30 +212,13 @@ export default function ProductDetails (){
     const handleOpenWithOutStock = () => {
         setOpenWithOutStock(true);
     };
-=======
-    const addtoCart = () => {
-        console.log(productsCart)
-        const productInCart = productsCart?.filter(product => product.id === productDetails?.id)
-        if(productInCart?.length === 0){
-            dispatch(addProductToCart(productDetails.id));
-            setOpenSuccessAddToCart(true)
-            console.log('producto agregado al carrito')        
-        } else {
-            handleOpenProductInCart();
-        }
-    };
->>>>>>> Stashed changes
     
     const handleClickComment = () => {
         setOpenComment(true);
     };
 
     const handleOpenProductInCart = () => {
-<<<<<<< Updated upstream
         setOpenProductInCart(true);
-=======
-        setProductInCart(true);
->>>>>>> Stashed changes
     };
 
     const handleCloseSuccessComment = (event, reason) => {
@@ -263,13 +227,9 @@ export default function ProductDetails (){
         }
         setOpenComment(false);
         setOpenSuccessAddToCart(false);
-<<<<<<< Updated upstream
         setOpenProductInCart(false);
         handleCloseLogin();
         setOpenWithOutStock(false);
-=======
-        setProductInCart(false);
->>>>>>> Stashed changes
     };
     
   
@@ -326,11 +286,7 @@ export default function ProductDetails (){
                     <Stack spacing={2} direction="row">
                         <span>Stock: <span id="stock_status">{productDetails?.stock} unid.</span></span>
                         <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCart}>Add to Cart</Button>
-<<<<<<< Updated upstream
                         <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCartandCheckOut}>Buy</Button>
-=======
-                        <Button className='btn_Product_Detail' size="small" variant="contained">Buy</Button>
->>>>>>> Stashed changes
                     </Stack>                    
                     <hr/>
 
@@ -403,7 +359,6 @@ export default function ProductDetails (){
                         Product already added in Cart!      
                     </Alert>
                 </Snackbar>
-<<<<<<< Updated upstream
             </div>
             <div>
                 <BootstrapDialog
@@ -514,9 +469,4 @@ export default function ProductDetails (){
         </div>
         </div>
     )    
-=======
-            </div>
-        </div>
-        )    
->>>>>>> Stashed changes
 }

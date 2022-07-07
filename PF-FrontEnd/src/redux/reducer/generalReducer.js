@@ -2,10 +2,7 @@ import { stepButtonClasses } from '@mui/material';
 import { showCart } from '../actions';
 import {
   CHANGE_THEME,
-<<<<<<< Updated upstream
   SHOW_MINI_MODAL,
-=======
->>>>>>> Stashed changes
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_CART,
   INCREASE_QUANTITY_PRODUCT,
@@ -13,7 +10,6 @@ import {
   POST_COMMENT_PRODUCT,
   SHOW_CART,
   CLOSE_CART,
-<<<<<<< Updated upstream
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
@@ -29,9 +25,6 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING
-=======
-  FINISH_ORDER
->>>>>>> Stashed changes
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -43,7 +36,6 @@ const THEME = {
 
 const initialState = {
   theme: 'lightTheme',
-<<<<<<< Updated upstream
   miniModal: {
     show: false,
     msg: '',
@@ -60,13 +52,6 @@ const initialState = {
   loadingUser: true,
   favouritesProducts: [],
   viewLanding: true
-=======
-  productsCart: [],
-  theme: 'darkTheme',
-  commentCreated: {},
-  showCart: false,
-  finishOrder: {}
->>>>>>> Stashed changes
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -90,7 +75,6 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     
     case ADD_PRODUCT_TO_CART:
-<<<<<<< Updated upstream
       console.log(payload)
       LocalStorage.saveItem('productsCart', state.productsCart.concat({
           id: payload.id,
@@ -103,8 +87,6 @@ const generalReducer = function(state = initialState, { type, payload }) {
           description: payload.description,
           quantity: 1
         }));
-=======
->>>>>>> Stashed changes
       return {
         ...state,
         productsCart: state.productsCart.concat({
@@ -115,58 +97,36 @@ const generalReducer = function(state = initialState, { type, payload }) {
           discount: payload.discount,
           stock: payload.stock,
           categories: payload.categories,
-<<<<<<< Updated upstream
           description: payload.description,
-=======
->>>>>>> Stashed changes
           quantity: 1
         })
       }
 
     case REMOVE_PRODUCT_CART:
-<<<<<<< Updated upstream
       LocalStorage.saveItem('productsCart', state.productsCart.filter(product => product.id !== payload));
-=======
->>>>>>> Stashed changes
       return {
         ...state,
         productsCart: state.productsCart.filter(product => product.id !== payload)
       }
 
     case INCREASE_QUANTITY_PRODUCT: 
-<<<<<<< Updated upstream
       state.productsCart.forEach((product) => {
         if(product.id === payload){
           product.quantity += 1
         }
       })
       LocalStorage.saveItem('productsCart', state.productsCart);
-=======
-          state.productsCart.map((product) => {
-            if(product.id === payload){
-              product.quantity += 1
-            }
-          })
->>>>>>> Stashed changes
       return {
         ...state,
       }
 
     case REDUCE_QUANTITY_PRODUCT:
-<<<<<<< Updated upstream
       state.productsCart.forEach((product) => {
         if(product.id === payload){
           product.quantity -= 1
         }
       }) 
       LocalStorage.saveItem('productsCart', state.productsCart);
-=======
-          state.productsCart.map((product) => {
-            if(product.id === payload){
-              product.quantity -= 1
-            }
-          }) 
->>>>>>> Stashed changes
       return {
         ...state, 
       }
@@ -177,7 +137,6 @@ const generalReducer = function(state = initialState, { type, payload }) {
         commentCreated: payload
       }
 
-<<<<<<< Updated upstream
     case SIGN_UP:
       LocalStorage.saveItem('user', payload);
       return {
@@ -194,8 +153,6 @@ const generalReducer = function(state = initialState, { type, payload }) {
         showPageLoader: true
       }
 
-=======
->>>>>>> Stashed changes
     case SHOW_CART:
       return {
         ...state,
@@ -213,7 +170,6 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         finishOrder: payload
       }
-<<<<<<< Updated upstream
     case POST_REVIEW_PRODUCT:
       return {
         ...state,
@@ -302,9 +258,6 @@ const generalReducer = function(state = initialState, { type, payload }) {
         viewLanding: false
       }
     }
-=======
-      
->>>>>>> Stashed changes
     default:
       return state;
   }

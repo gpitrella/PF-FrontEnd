@@ -1,17 +1,8 @@
 import React from "react";
-<<<<<<< Updated upstream
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { removeProductFromCart, increaseQuantityToProductCart, reduceQuantityToProductCart, closeCart } from "../../redux/actions";
 import './AddToCart.css';
-=======
-// import { Button } from "@material-ui/core";
-// import { CartItemType } from "../App"; -- importa los productos agregados al carrito
-import { useDispatch, useSelector } from "react-redux";
-import { removeProductFromCart, increaseQuantityToProductCart, reduceQuantityToProductCart, closeCart } from "../../redux/actions";
-import './AddToCart.css';
-
->>>>>>> Stashed changes
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -21,7 +12,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import Divider from '@mui/material/Divider';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-<<<<<<< Updated upstream
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import PropTypes from 'prop-types';
@@ -33,14 +23,11 @@ import Typography from '@mui/material/Typography';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-=======
->>>>>>> Stashed changes
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
   });
 
-<<<<<<< Updated upstream
 // Box Desplegable para Logearse:
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -102,10 +89,6 @@ const handleOpenPageLogin = () => {
     history.push('/login');
 ;}
 
-=======
-
-export default function AddToCart({showCart}){
->>>>>>> Stashed changes
 const productsCart = useSelector((state) => state.general.productsCart)
 const dispatch = useDispatch();
 
@@ -114,7 +97,6 @@ const handleCloseAddtoCart = (e) => {
   dispatch(closeCart())
 };
 
-<<<<<<< Updated upstream
 const handleCloseCartToCheckOut = (e) => {
   e.preventDefault();
   if(productsCart?.length > 0 && user?.user){
@@ -137,15 +119,6 @@ const increaseAmountToCart = (id) => {
     if(product.id === id && product.stock === product.quantity) {
       setOpenWithOutStock(true)
     }
-=======
-const increaseAmountToCart = (id) => {
-  productsCart.map((product) => {
-    if(product.id === id && product.stock > 1){
-      dispatch(increaseQuantityToProductCart(id))
-    } 
-    // setAmountCart(productsCart)
-    // AGREGAR CONDICION CUANDO EL STOCK ESTA EN O   
->>>>>>> Stashed changes
   })
 };
 
@@ -169,7 +142,6 @@ const totalValue = () => {
 };
 totalValue();
 
-<<<<<<< Updated upstream
 const handleCloseSuccessComment = (event, reason) => {
   if (reason === 'clickaway') {
     return;
@@ -179,8 +151,6 @@ const handleCloseSuccessComment = (event, reason) => {
   setOpenLogin(false);
 };
 
-=======
->>>>>>> Stashed changes
 React.useEffect(() => {
   totalValue();
 }, [dispatch]);
@@ -206,11 +176,7 @@ React.useEffect(() => {
                  ? <p>No products added to cart.</p>
                  : productsCart?.map((e) => {
                      return (
-<<<<<<< Updated upstream
                      <div className="addtocart_mainblock" key={parseInt(Math.random() * 10000 / Math.random())}>
-=======
-                     <div className="addtocart_mainblock">
->>>>>>> Stashed changes
                         <img className="img_addtocart" src={e?.image} alt={e?.name} />
                         <div className="addtocart_name">
                             <h5>{e?.name}</h5>
@@ -218,11 +184,7 @@ React.useEffect(() => {
                          </div>
                          <div className="quantity_price">
                             <div>
-<<<<<<< Updated upstream
                                 <p className="information_addtocart">SubTotal: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
-=======
-                                <p className="information_addtocart">Total: ${(e?.quantity * (e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price))}</p>
->>>>>>> Stashed changes
                             </div>
                             <div className="buttons_addtocart">
                                 <Button id="button_less" variant="outlined" size="small" onClick={() => reduceAmountToCart(e?.id)}>-</Button>
@@ -240,17 +202,12 @@ React.useEffect(() => {
                  {productsCart?.length === 0 
                         ? <span></span>
                         : (<div className="information_addtocart">
-<<<<<<< Updated upstream
                                 <p className="total_value_cart">Total: ${resultTotalValue}</p>
-=======
-                                <p className="total_value_cart">Total Value: ${resultTotalValue}</p>
->>>>>>> Stashed changes
                             </div>
                  )}
                  </div>
                 </div>
                  </DialogContentText>
-<<<<<<< Updated upstream
                     </DialogContent>
                     <DialogActions>
                       <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
@@ -291,15 +248,6 @@ React.useEffect(() => {
                         </DialogActions>
                 </BootstrapDialog>
             </div>
-=======
-        </DialogContent>
-        <DialogActions>
-          <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
-          <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>Check Out</Button>
-        </DialogActions>
-      </Dialog>
-    </div>
->>>>>>> Stashed changes
     </div>
   );
 };

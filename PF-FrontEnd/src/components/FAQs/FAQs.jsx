@@ -15,7 +15,6 @@ const FAQs = () => {
 
   return (
     <div>
-<<<<<<< Updated upstream
       <br />
       <br />
       <br />
@@ -25,17 +24,6 @@ const FAQs = () => {
           <Typography gutterBottom variant="h5">
             Frequently Asqued Questions
           </Typography>
-=======
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <Grid>
-        <Card style={{ maxWidth: 1000, padding: "20px 5px", margin: "0 auto" }}>
-      <Typography gutterBottom variant="h5">
-                Frequently Asqued Questions
-              </Typography>
->>>>>>> Stashed changes
           <CardContent>
             <Accordion
               expanded={expanded === "panel1"}
@@ -73,11 +61,7 @@ const FAQs = () => {
                   Can't access my account
                 </Typography>
                 <Typography sx={{ color: "text.secondary" }}>
-<<<<<<< Updated upstream
                   Forget my password
-=======
-                 Forget my password
->>>>>>> Stashed changes
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -100,13 +84,7 @@ const FAQs = () => {
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
                   How can I change my password
                 </Typography>
-<<<<<<< Updated upstream
                 <Typography sx={{ color: "text.secondary" }}></Typography>
-=======
-                <Typography sx={{ color: "text.secondary" }}>
-
-                </Typography>
->>>>>>> Stashed changes
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
@@ -213,11 +191,7 @@ const FAQs = () => {
                 id="panel4bh-header"
               >
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
-<<<<<<< Updated upstream
                   How to modify a purchase
-=======
-                How to modify a purchase
->>>>>>> Stashed changes
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -238,11 +212,7 @@ const FAQs = () => {
                 id="panel4bh-header"
               >
                 <Typography sx={{ width: "33%", flexShrink: 0 }}>
-<<<<<<< Updated upstream
                   How to cancel a purchase
-=======
-                How to cancel a purchase
->>>>>>> Stashed changes
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
@@ -268,28 +238,17 @@ const FAQs = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography>
-<<<<<<< Updated upstream
                   See on Disney...Nunc vitae orci ultricies, auctor nunc in,
                   volutpat nisl. Integer sit amet egestas eros, vitae egestas
                   augue. Duis vel est augue.
-=======
-                  See on Disney...Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
-                  Integer sit amet egestas eros, vitae egestas augue. Duis vel
-                  est augue.
->>>>>>> Stashed changes
                 </Typography>
               </AccordionDetails>
             </Accordion>
           </CardContent>
         </Card>
       </Grid>
-<<<<<<< Updated upstream
       <br />
       <br />
-=======
-      <br/>
-      <br/>
->>>>>>> Stashed changes
     </div>
   );
 };
