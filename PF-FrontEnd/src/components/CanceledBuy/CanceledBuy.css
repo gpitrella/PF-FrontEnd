@@ -1,0 +1,27 @@
+.canceled_buy_page{
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+    size: 20rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_canceled_buy_page{
+    width: 35rem;
+    padding: 100px;
+}
+
+@media screen and (max-width: 800px){
+    .canceled_buy_page{
+        flex-direction: column;
+    }
+    .canceled_page_text{
+        text-align: center;
+    }
+    .img_canceled_buy_page{
+        width: 20rem;
+        padding: 50px;
+    }
+}

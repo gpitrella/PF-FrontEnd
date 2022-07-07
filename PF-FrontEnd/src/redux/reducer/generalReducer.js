@@ -1,5 +1,3 @@
-import { stepButtonClasses } from '@mui/material';
-import { showCart } from '../actions';
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -21,6 +19,10 @@ import {
   ADD_PRODUCT_TO_FAVOURITES,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SUCCESS_BUY,
+  LOGIN_WITH_GOOGLE,
+  NOT_LOGIN_WITH_GOOGLE,
+  CLOSE_LANDING
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -45,7 +47,9 @@ const initialState = {
   finishOrder: {},
   reviewCreated: {},
   showPageLoader: true,
+  loadingUser: true,
   favouritesProducts: [],
+  viewLanding: true
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -194,10 +198,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case LOGOUT: {
+      LocalStorage.removeItem('productsCart');
       LocalStorage.removeItem('user');
       return {
         ...state,
-        user:{}
+        productsCart: [],
+        user:{},
+        showPageLoader: true
       }
     }
     case ADD_PRODUCT_TO_FAVOURITES:{
@@ -216,6 +223,37 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
       ...state,
       payload
+      }
+    }
+
+    case SUCCESS_BUY: {
+      LocalStorage.removeItem('productsCart');
+      return {
+        ...state,
+        productsCart: []
+      }
+    }
+
+    case LOGIN_WITH_GOOGLE: {
+      if (payload.user) LocalStorage.saveItem('user', payload); 
+      return {
+        ...state,
+        user: payload,
+        loadingUser: false
+      }
+    }
+
+    case NOT_LOGIN_WITH_GOOGLE: {
+      return {
+        ...state,
+        loadingUser: false
+      }
+    }
+
+    case CLOSE_LANDING: {
+      return {
+        ...state,
+        viewLanding: false
       }
     }
     default:

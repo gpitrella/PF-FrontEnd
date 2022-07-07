@@ -101,13 +101,13 @@ totalValue();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(productsCart.length > 0 && !user?.user.admin){
+    if(productsCart.length > 0 && !user?.user?.admin){
       dispatch(finishOrder(input.email, items))    
     } 
-    if(productsCart.length > 0 && user?.user.admin){
+    if(productsCart.length > 0 && user?.user?.admin){
       setOpenYouAreAdmin(true);
     }
-    else {
+    if(productsCart.length === 0){
       setOpenWithOutStock(true);
     }
   };

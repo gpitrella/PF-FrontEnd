@@ -1,0 +1,27 @@
+.pending_buy_page{
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+    size: 20rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_pending_buy_page{
+    width: 25rem;
+    padding: 100px;
+}
+
+@media screen and (max-width: 800px){
+    .pending_buy_page{
+        flex-direction: column;
+    }
+    .pending_page_text{
+        text-align: center;
+    }
+    .img_pending_buy_page{
+        width: 15rem;
+        padding: 50px;
+    }
+}

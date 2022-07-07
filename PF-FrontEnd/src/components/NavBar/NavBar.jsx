@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { getSearchProducts, clearSearchProducts, showCart, logout, openPageLoader } from "../../redux/actions";
+import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
@@ -150,8 +150,7 @@ export default function NavBar() {
     e.preventDefault()
     handleMenuClose()
     dispatch(logout())
-    dispatch(openPageLoader());
-    history.push('/')
+    //history.push('/')
   }
 
   const handleMobileMenuOpen = (event) => {
@@ -162,6 +161,8 @@ export default function NavBar() {
     e.preventDefault();
     dispatch(showCart())
   };
+
+  
 
   const menuId = 'primary-search-account-menu';
   
@@ -317,13 +318,13 @@ export default function NavBar() {
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
             <IconButton 
-                font-size="1rem"
+                fontSize="1rem"
                 size="small" 
                 aria-label="create_product" 
                 color="inherit"
                 sx={!user?.user ? { display: 'none' } : { display: 'inline-flex' }}
               >
-                  <Typography font-size="1rem" component="div" sx={{ flexGrow: 1 }}>
+                  <Typography fontSize="1rem" component="div" sx={{ flexGrow: 1 }}>
                       Welcome {user?.user?.name}
                   </Typography>
             </IconButton>

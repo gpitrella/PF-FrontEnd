@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -24,6 +23,10 @@ import {
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
   BASE_URL,
+  SUCCESS_BUY,
+  LOGIN_WITH_GOOGLE,
+  NOT_LOGIN_WITH_GOOGLE,
+  CLOSE_LANDING
 } from './actiontype';
 
 
@@ -157,8 +160,10 @@ export const closePageLoader = function() {
 };
 
 export const logout = function() {
-    return {
-    type: LOGOUT
+  return function(dispatch){
+    return axios.get(`${BASE_URL}/auth/logout/`, { withCredentials: true })
+                .then(product => dispatch({ type: LOGOUT }))
+                .catch(error => dispatch({ type: LOGOUT }))
   }
 };
 
@@ -185,4 +190,34 @@ export function removeFavourite({ idUser, idProduct }){
       .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
       .catch(error => console.log(error))
   };
+};
+
+
+// Success Buy - Remove Product from Cart
+export function successBuyAction(){
+  return {
+      type: SUCCESS_BUY
+  }
+};
+
+export function loginWithGoogle() {
+  return function(dispatch){
+    return axios.get(`${BASE_URL}/auth/login/success`, { withCredentials: true })
+    .then(data => {
+      dispatch({ type: LOGIN_WITH_GOOGLE, payload: data.data.user }) })
+    .catch(error => dispatch({ type: LOGIN_WITH_GOOGLE, payload: {} }))
+  };
+}
+
+export function notLoginWithGoogle() {
+  return {
+    type: NOT_LOGIN_WITH_GOOGLE
+  }
+}
+
+// Close Landing:
+export function closeLanding(){
+  return {
+    type: CLOSE_LANDING,
+  }
 };
