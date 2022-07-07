@@ -22,11 +22,9 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import Stack from '@mui/material/Stack';
 import { visuallyHidden } from '@mui/utils';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import Rating from '@mui/material/Rating';
+import { useSelector } from "react-redux";
 import './MyCommets.css'
 
 function descendingComparator(a, b, orderBy) {
@@ -194,7 +192,8 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function MyReviews({commentByUser}) {
+export default function MyReviews() {
+  const { commentByUser } = useSelector((state) => state.userReducer)
   const rows = commentByUser
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -240,7 +239,9 @@ export default function MyReviews({commentByUser}) {
   return (
     <div className='main_box_myreviews'>
     <h3 className='title_myreviews'> My Questions </h3>
-    <Box sx={{ width: '100%' }} id='box_table_myreviews'>
+    {rows.length === 0 
+        ? <h3 className='title_mycomment_profile'> Don't have comment yet.</h3>
+        : <Box sx={{ width: '100%' }} id='box_table_myreviews'>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
@@ -316,7 +317,7 @@ export default function MyReviews({commentByUser}) {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
-    </Box>
+    </Box>}
     <Link to={`/myprofile`}>
         <Button id='btn_myreview' variant="contained"> My Profile </Button>
     </Link>

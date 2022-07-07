@@ -6,7 +6,7 @@ import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
 import { showCart } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { finishOrder } from "../../redux/actions"
+import { finishOrder, postNewOrder, getUserDetail } from "../../redux/actions"
 import paymentMetod from './img/paymentMetod.webp';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
@@ -35,6 +35,7 @@ const CheckOut = () => {
   const productsCart = useSelector((state) => state.general.productsCart)
   const stateFinishOrder = useSelector((state) => state.general.finishOrder)
   const { user } = useSelector((state) => state.general)
+  const { oneuser } = useSelector((state) => state.userReducer)
   const dispatch = useDispatch();
   const [input, setInput] = React.useState({
     name: "",
@@ -93,15 +94,28 @@ const CheckOut = () => {
 totalValue();
 
   React.useEffect(()=>{
-        if(stateFinishOrder?.data){
+    if(user?.user) {
+      dispatch(getUserDetail(user?.user.id))
+    }  
+    if(stateFinishOrder?.data){
           window.location.href = stateFinishOrder?.data;          
-        }
+    }
   },[stateFinishOrder])
   
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if(productsCart.length > 0 && !user?.user?.admin){
+      dispatch(postNewOrder(
+        resultTotalValue, // total
+        "pending", // status 
+        user.user.id, // idUser
+        oneuser.useraddresses?.id, // idAddress, 
+        1, // idProduct, 
+        1,// branchOfficeId, 
+        "primera orden", // description, 
+        "2334444",// idMP, 
+        items))
       dispatch(finishOrder(input.email, items))    
     } 
     if(productsCart.length > 0 && user?.user?.admin){

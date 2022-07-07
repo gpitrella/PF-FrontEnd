@@ -22,7 +22,8 @@ import {
   SUCCESS_BUY,
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
-  CLOSE_LANDING
+  CLOSE_LANDING,
+  POST_NEW_ORDER
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
