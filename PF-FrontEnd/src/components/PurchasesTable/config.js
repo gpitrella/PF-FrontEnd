@@ -1,15 +1,18 @@
 export const headerData = [
   {
     name: 'id',
-    className: 'widthSmall'
+    className: 'widthSmall',
+    enableSort: false,
   },
   {
     name: 'user',
-    className: 'widthLarge'
+    className: 'widthLarge',
+    enableSort: true,
   },
   {
     name: 'total',
-    className: 'widthMedium'
+    className: 'widthMedium',
+    enableSort: true,
   },
   {
     name: 'user direction',
@@ -18,14 +21,17 @@ export const headerData = [
   {
     name: 'sucursal',
     className: 'widthMedium',
+    enableSort: true,
   },
   {
     name: 'date',
     className: 'widthLarge',
+    enableSort: true,
   },
   {
     name: 'status',
-    className: 'widthLarge'
+    className: 'widthLarge',
+    enableSort: true,
   },
   {
     name: 'action',
@@ -88,7 +94,7 @@ export const rowData = [
     name: 'sucursal',
     isComplex: true,
     getValue: (purchase) => {
-      return purchase.branchOffice.name
+      return purchase.sucursal.name
     },
   },
   {

@@ -1,29 +1,29 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { updateFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../../redux/actions';
+import { updateFilterPurchases, setShowLoadingPurchases, getPurchasesWithFiltersAndPaginate } from '../../../redux/actions';
 import { headerData } from '../config';
 // import { buildFilter } from '../../../util';
 
 import s from './PurchasesTableHeader.module.css';
 
-export default function PurchasesTableHeader({ loading, orderBy, order }) {
+export default function PurchasesTableHeader({ loading }) {
 
-  //const dispatch = useDispatch();
-  //const { filter } = useSelector(state => state.storepage);
+  const dispatch = useDispatch();
+  const { filter } = useSelector(state => state.purchases);
 
-  // let handleChangeOrder = function(newOrderBy) {
-  //   if (loading) return;
+  let handleChangeOrder = function(newOrderBy) {
+    if (loading) return;
 
-  //   let newFilter = {
-  //     ...filter,
-  //     orderBy: newOrderBy,
-  //     order: order === 'asc' ? 'desc' : 'asc'
-  //   };
+    let newFilter = {
+      ...filter,
+      orderBy: newOrderBy,
+      order: filter.order === 'asc' ? 'desc' : 'asc'
+    };
 
-  //   dispatch(updateFilter(newFilter));
-  //   dispatch(setShowLoading());
-  //   dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
-  // }
+    dispatch(updateFilterPurchases(newFilter));
+    dispatch(setShowLoadingPurchases());
+    dispatch(getPurchasesWithFiltersAndPaginate(newFilter));
+  }
 
   return (
     <>
@@ -35,8 +35,8 @@ export default function PurchasesTableHeader({ loading, orderBy, order }) {
             <div className = {s.containerParam}>
               {param.name}
               {
-                param.enableSort && <span className = {s.btnOrder} onClick = { () => console.log('ok')}>
-                { orderBy !== param.name ? '🔹' : (  order === 'asc' ?  '🔺' : '🔻' )}
+                param.enableSort && <span className = {s.btnOrder} onClick = {() => handleChangeOrder(param.name)}>
+                { filter.orderBy !== param.name ? '🔹' : (  filter.order === 'asc' ?  '🔺' : '🔻' )}
                 </span>
               }
             </div>
