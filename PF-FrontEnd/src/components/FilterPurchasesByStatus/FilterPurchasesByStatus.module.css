@@ -1,3 +1,10 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .btn {
   color: white;
   padding: 5px 0px 5px 0px;
@@ -9,7 +16,7 @@
   text-transform: uppercase;
   width: 10rem;
 
-  opacity: 0.5;
+  opacity: 0.2;
   cursor: pointer;
 
   transition: opacity 0.5s;

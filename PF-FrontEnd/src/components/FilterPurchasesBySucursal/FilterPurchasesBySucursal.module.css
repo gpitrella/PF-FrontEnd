@@ -1,0 +1,41 @@
+.container {
+  width: 1120px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 1rem;
+}
+
+.lbl {
+  font-size: 24px;
+  color: var(--fontColor);
+}
+
+.btn {
+  text-decoration: none;
+  color: green;
+  font-size: 16px;
+  font-weight: 500;
+  border: 1px solid green;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.btn[disabled] {
+  border-color: gray;
+  color: gray;
+  cursor: default;
+}
+
+.red {
+  border-color: var(--dangerColor);
+  color: var(--dangerColor);
+}
+
+.select {
+  width: 95%;
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
+}

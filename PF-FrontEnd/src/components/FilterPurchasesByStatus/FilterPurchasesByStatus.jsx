@@ -16,8 +16,6 @@ export default function FilterPurchasesByStatus() {
       page: 1
     };
 
-    console.log(newFilter);
-
     dispatch(updateFilterPurchases(newFilter));
     dispatch(setShowLoadingPurchases());
     dispatch(getPurchasesWithFiltersAndPaginate(newFilter));
@@ -50,11 +48,11 @@ const PURCHASES_STATUS_ENUM = [
   },
   {
     value: 'pending',
-    color: 'violet'
+    color: 'orange'
   },
   {
     value: 'processing',
-    color: 'orange'
+    color: 'violet'
   },
   {
     value: 'dispatched',
