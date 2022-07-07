@@ -4,12 +4,17 @@ import Email from '../SVG/Email';
 import Telephone from '../SVG/Telephone';
 import Address from '../SVG/Address';
 import Tag from '../SVG/Tag';
+import Cancel from '../SVG/Cancel';
+import Clock from '../SVG/Clock';
+import Card from '../SVG/Card';
+import Delivery from '../SVG/Delivery';
+import Handshake from '../SVG/Handshake';
 
 import { PRODUCTS } from './products';
 
 import s from './PurchaseDetails.module.css';
 
-export default function PurchaseDetails({ id }) {
+export default function PurchaseDetails({ id = 1001 }) {
 
   const [ user, setUser ] = React.useState({
     name: 'Federico',
@@ -22,6 +27,11 @@ export default function PurchaseDetails({ id }) {
     name: 'MERLO',
     telephone: '01115xxxxxxxx',
     address: 'BOYACA 3419, Merlo, Buenos Aires'
+  });
+
+  const [ order, setOrder ] = React.useState({
+    total: 11,
+    status: 'dispatched'
   })
 
   const [ products, setProducts ] = React.useState(JSON.parse(PRODUCTS)); 
@@ -29,7 +39,8 @@ export default function PurchaseDetails({ id }) {
   return (
     <div className = {s.container}>
       <div className = {s.banner}>
-        Purchase Order, ID: {id}
+        <span className = {s.bannerTitle}>Purchase Order</span>
+        <span className = {s.bannerTitle}>ID: {id}</span>
       </div>
       <div className = {s.mainZone}>
 
@@ -118,6 +129,79 @@ export default function PurchaseDetails({ id }) {
             </div>
           )
         }
+        </div>
+
+        <div className = {s.title}>D- Total</div>
+        <div className = {s.titlePrice}>${order.total}</div>
+
+        <div className = {s.title}>E- STATUS</div>
+        <div className = {s.statusInfo}>
+          <div className = {order.status === 'cancelled' ? s.selected : ''}>
+            <div className = {s.itemContainerProgress}>
+              <div className = {s.line}>
+              </div>
+              <div className = {s.item}>
+                <Cancel />
+              </div>
+              <span className = {s.spanStatus}>CANCELLED</span>
+            </div>
+          </div>
+
+          <div className = {order.status === 'pending' ? s.selected : ''}>
+            <div className = {s.itemContainerProgress}>
+              <div className = {s.line}>
+              </div>
+              <div className = {s.item}>
+                <Clock />
+              </div>
+              <span className = {s.spanStatus}>PENDING</span>
+            </div>
+          </div>
+
+          <div className = {order.status === 'processing' ? s.selected : ''}>
+            <div className = {s.itemContainerProgress}>
+              <div className = {s.line}>
+              </div>
+              <div className = {s.item}>
+                <Card />
+              </div>
+              <span className = {s.spanStatus}>PROCESSING</span>
+            </div>
+          </div>
+
+          <div className = {order.status === 'dispatched' ? s.selected : ''}>
+            <div className = {s.itemContainerProgress}>
+              <div className = {s.line}>
+              </div>
+              <div className = {s.item}>
+                <Delivery />
+              </div>
+              <span className = {s.spanStatus}>DISPATCHED</span>
+            </div>
+          </div>
+
+          <div className = {order.status === 'filled' ? s.selected : ''}>
+            <div className = {s.itemContainerProgress}>
+              <div className = {s.line}>
+              </div>
+              <div className = {s.item}>
+                <Handshake />
+              </div>
+              <span className = {s.spanStatus}>FILLED</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div className = {s.containerDates}>
+          <div className = {s.groupDate}>
+            <span className = {s.subtitleDateName}>Creation Date:</span>
+            <span className = {s.subtitleDateInfo}>20:31, Fri Jun 05 2020</span>
+          </div>
+          <div className = {s.groupDate}>
+            <span className = {s.subtitleDateName}>Last Modification:</span>
+            <span className = {s.subtitleDateInfo}>20:31, Fri Jun 05 2020</span>
+          </div>
         </div>
       </div>
     </div>

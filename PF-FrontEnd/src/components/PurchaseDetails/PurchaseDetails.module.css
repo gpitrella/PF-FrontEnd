@@ -9,8 +9,10 @@
   overflow: hidden;
 
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 100px 1fr;
   grid-template-columns: 1fr;
+
+  grid-gap: 1rem;
 
   margin: 100px;
 }
@@ -19,9 +21,17 @@
   width: 100%;
   color: var(--fontColor);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: GREEN;
+  background-color: var(--secondaryColor);
+  padding: 0 1rem 0 1rem;
+}
+
+.bannerTitle {
+  color: white;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-transform: uppercase;
 }
 
 .mainZone {
@@ -29,7 +39,8 @@
 }
 
 .userInfo,
-.sucursalInfo {
+.sucursalInfo,
+.statusInfo {
   width: 100%;
   padding: 1rem;
   display: grid;
@@ -42,7 +53,8 @@
   border-radius: 5px;
 }
 
-.title {
+.title,
+.titlePrice {
   letter-spacing: 1px;
   font-weight: 700;
   font-size: var(--fontMedium);
@@ -178,4 +190,118 @@
   align-items: flex-start;
   flex-direction: column;
   grid-gap: 5px;
+}
+
+.titlePrice {
+  color: var(--secondaryColor);
+  letter-spacing: 5px;
+  font-size: 2rem;
+}
+
+.statusInfo {
+  grid-template-columns: auto auto auto auto auto;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 0;
+}
+
+.itemContainerProgress {
+  display: grid;
+  grid-template-columns: 40px 50px 40px;
+  grid-template-rows: 50px auto;
+
+  grid-row-gap: 1REM;
+
+  align-items: center;
+}
+
+.line {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  z-index: 5;
+  height: 5px;
+  background-color: darkgray;
+}
+
+.item {
+  height: 50px;
+  width: 50px;
+  grid-column: 2 / 3;
+  grid-row: 1 /  2;
+  z-index: 10;
+  background-color: var(--primaryColor);
+  border: 5px solid darkgray;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.item > svg {
+  fill: darkgray;
+}
+
+.spanStatus {
+  grid-row: 2 / 3;
+  grid-column: 1 / 4;
+
+  text-align: center;
+
+  font-weight: 700;
+  color: darkgray;
+
+  font-size: var(--fontSmall);
+  letter-spacing: 2px;
+}
+
+.selected {
+
+}
+
+.selected > .itemContainerProgress > .line {
+  background-color: var(--secondaryColor);
+}
+
+.selected > .itemContainerProgress > .item {
+  border-color: var(--secondaryColor);
+}
+
+.selected > .itemContainerProgress > .item > svg {
+  fill: var(--secondaryColor);
+}
+
+.selected > .itemContainerProgress > .spanStatus{
+  color: var(--secondaryColor);
+}
+
+.containerDates {
+  margin: 2rem 0 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.groupDate {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.subtitleDateName {
+  width: 100%;
+  font-weight: 700;
+  color: var(--secondaryColor);
+  margin-bottom: 0.5rem;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.subtitleDateInfo {
+  width: 100%;
+  font-weight: 500;
+  color: var(--fontColor);
+  letter-spacing: 1px;
+  font-size: var(--fontSmall);
+  text-align: center;
 }
