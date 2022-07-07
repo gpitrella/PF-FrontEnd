@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PurchasesTableHeader from './PurchasesTableHeader/PurchasesTableHeader';
 import PurchasesTableRows from './PurchasesTableRows/PurchasesTableRows';
 import Loading from '../SVG/Loading';
-import { setOriginalPurchases } from '../../redux/actions';
+import { setOriginalPurchases, resetPurchases } from '../../redux/actions';
 import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import Pagination from '../Pagination/Pagination';
 
@@ -16,6 +16,8 @@ export default function PurchasesTable({}) {
 
   React.useEffect(() => {
     dispatch(setOriginalPurchases());
+
+    return () => dispatch(resetPurchases());
   }, []);
 
   if (!showPurchases) return (

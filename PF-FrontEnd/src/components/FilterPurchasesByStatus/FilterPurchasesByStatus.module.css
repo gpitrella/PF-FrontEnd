@@ -1,0 +1,45 @@
+.btn {
+  color: white;
+  padding: 5px 0px 5px 0px;
+  border-radius: 5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border: 1px solid transparent;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  width: 10rem;
+
+  opacity: 0.5;
+  cursor: pointer;
+
+  transition: opacity 0.5s;
+}
+
+.btn[disabled] {
+  opacity: 1;
+  cursor: default;
+}
+
+.color_white {
+  background-color: gray;
+}
+
+.color_violet {
+  background-color: darkviolet;
+}
+
+.color_orange {
+  background-color: rgba(255, 166, 0, 1);
+}
+
+.color_blue {
+  background-color: rgba(0, 0, 255, 1);
+}
+
+.color_green {
+  background-color: green;
+}
+
+.color_red {
+  background-color: rgba(220, 20, 60, 1);
+}

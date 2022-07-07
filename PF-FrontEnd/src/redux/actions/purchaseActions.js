@@ -1,9 +1,16 @@
 import {
+  RESET_PURCHASES,
   SET_ORIGINAL_PURCHASES,
   UPDATE_FILTER_PURCHASES,
   SET_SHOW_LOADING_PURCHASES,
   GET_PURCHASES_WITH_FILTER_AND_PAGINATE
 } from './actiontype';
+
+export let resetPurchases = function() {
+  return {
+    type: RESET_PURCHASES
+  }
+}
 
 export let setOriginalPurchases = function() {
   return {

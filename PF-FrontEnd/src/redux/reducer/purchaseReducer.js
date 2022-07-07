@@ -1,4 +1,5 @@
 import {
+  RESET_PURCHASES,
   SET_ORIGINAL_PURCHASES,
   UPDATE_FILTER_PURCHASES,
   SET_SHOW_LOADING_PURCHASES,
@@ -132,6 +133,10 @@ const initialState = {
 const purchaseReducer = function(state = initialState, { type, payload }) {
     switch(type) {
 
+      case RESET_PURCHASES:
+        return {
+          ...initialState
+        }
       case SET_ORIGINAL_PURCHASES:
         let [ ogPurchases, ogFilter ] = generatePurchasesWithFilter([ ...PURCHASES ], state.filter);
         return {
@@ -141,7 +146,6 @@ const purchaseReducer = function(state = initialState, { type, payload }) {
           filter: { ...ogFilter },
           showPurchases: true
         }
-
       case UPDATE_FILTER_PURCHASES:
         return {
           ...state,
