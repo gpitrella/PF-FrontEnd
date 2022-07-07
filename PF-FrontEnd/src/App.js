@@ -81,6 +81,7 @@ function App() {
               <Route exact path='/successbuy' component={SuccessBuy} />
 
               <Route exact path='/address' component={ModalAddAddress} />
+              <Route exact path='/purchase' component={PurchaseDetails} />
               
               <Route exact path='*' component={notFoundPage} />
             </Switch>
