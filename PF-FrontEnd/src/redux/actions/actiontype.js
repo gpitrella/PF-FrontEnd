@@ -20,6 +20,8 @@ export const ADD_PRODUCT_TO_FAVOURITES = "ADD_PRODUCT_TO_FAVOURITES";
 export const GET_FAVOURITES_PRODUCTS = "GET_FAVOURITES_PRODUCTS";
 export const REMOVE_FAVOURITE_PRODUCT = "REMOVE_FAVOURITE_PRODUCT";
 export const SUCCESS_BUY = "SUCCESS_BUY";
+export const CLOSE_LANDING = "CLOSE_LANDING";
+export const LOG_IN_ERROR = "LOG_IN_ERROR";
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';
@@ -63,16 +65,16 @@ export const UPDATE_BRAND = 'UPDATE_BRAND';
 export const DELETE_BRAND = 'DELETE_BRAND';
 export const PRODUCTS_TO_FORMS = 'PRODUCTS_TO_FORMS';
 
-
-// STORAGE USER
+// PROFILE AND STORAGE USER
 export const GET_USERS = 'GET_USERS';
 export const USER_UPDATE = 'USER_UPDATE';
 export const USER_STATUS = 'USER_STATUS';
-export const USER_DELETE = 'USER_DELETE';
 export const GET_USER_DETAIL = 'GET_USER_DETAIL';
+export const DELETE_USER_DETAIL = 'DELETE_USER_DETAIL';
 export const PUT_USER_STATUS = 'PUT_USER_STATUS';
 export const USER_STATUS_RESET = 'USER_STATUS_RESET';
-
+export const USER_REVIEWS = 'USER_REVIEWS';
+export const GET_COMMENTS_BY_USER = 'GET_COMMENTS_BY_USER';
 
 // EDIT PRODUCT
 export const WAITING_RESPONSE_PUT = 'WAITING_RESPONSE_PUT';
@@ -94,6 +96,10 @@ export const GET_LOCALIDADES = 'GET_LOCALIDADES';
 export const VALIDATING_ADDRESS = 'VALIDATING_ADDRESS';
 export const NORMALIZE_ADDRESS = 'NORMALIZE_ADDRESS';
 
+// LOGIN WITH GOOGLE
+export const LOGIN_WITH_GOOGLE = 'LOGIN_WITH_GOOGLE';
+export const NOT_LOGIN_WITH_GOOGLE = 'NOT_LOGIN_WITH_GOOGLE';
+
 // BASE URL
-export const BASE_URL = 'https://techmarketapp.herokuapp.com';
-// export const BASE_URL = 'http://localhost:3001';
+// export const BASE_URL = 'https://techmarketapp.herokuapp.com';
+export const BASE_URL = 'http://localhost:3001';

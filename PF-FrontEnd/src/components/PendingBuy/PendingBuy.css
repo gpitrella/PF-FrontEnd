@@ -1,4 +1,4 @@
-.success_buy_page{
+.pending_buy_page{
     padding-top: 3rem;
     padding-bottom: 2rem;
     size: 20rem;
@@ -8,20 +8,20 @@
     align-items: center;
 }
 
-.img_success_buy_page{
-    width: 35rem;
+.img_pending_buy_page{
+    width: 25rem;
     padding: 100px;
 }
 
 @media screen and (max-width: 800px){
-    .success_buy_page{
+    .pending_buy_page{
         flex-direction: column;
     }
-    .success_page_text{
+    .pending_page_text{
         text-align: center;
     }
-    .img_success_buy_page{
-        width: rem;
+    .img_pending_buy_page{
+        width: 15rem;
         padding: 50px;
     }
 }

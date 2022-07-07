@@ -10,32 +10,40 @@ import './Footer.css'
 export default function Footer() {
 
     return (
-        <div className='cntfooter'>
-            <div className='cnttext'>
-                <h3>Information</h3>
-                <Link to='/contactus' className='footerlink'>Contact us</Link>
-                <Link to='/branches' className='footerlink'>Adresses</Link>
-                <Link to='/faqs' className='footerlink'>FAQs</Link>
-            </div>
-            <div className='cnttext'>
-                <h3>Make Money with Us</h3>
-                <Link to='' className='footerlink'>Sell products on Amazon</Link>
-                <Link to='' className='footerlink'>Become an Affiliate</Link>
-                <Link to='' className='footerlink'>Advertise Your Products</Link>
-            </div>
-            <div className='cnttext'>
-                <h3>Let Us Help You</h3>
-                <Link to='' className='footerlink'>Your Account</Link>
-                <Link to='' className='footerlink'>Your Orders</Link>
-                <Link to='' className='footerlink'>Shipping Rates & Policies</Link>
-                <Link to='' className='footerlink'>Returns & Replacements</Link>
-            </div>
-            <div className='cntsocial'>
-                <img className='imgLogo' src={logo} alt="" />
-                <h3>Follow Us in our Socials!</h3>
-                <a href='https://www.facebook.com/' target="_blank"><img className='imgFooter' src={facebook}/></a>
-                <a href='https://www.instagram.com/' target="_blank"><img className='imgFooter' src={instagram}/></a>
-                <a href='https://twitter.com/' target="_blank"><img className='imgFooter' src={twitter}/></a>
+        <div className='footer'>
+            <div className='container'>
+                <div className='row'>
+                    <div className="footer__column">
+                        <h4>Info</h4>
+                            <li className='footer__li'><Link to='/contactus' className='footer__link'>Contact us</Link></li>
+                            <li className='footer__li'><Link to='/branches' className='footer__link'>Adresses</Link></li>
+                            <li className='footer__li'><Link to='/faqs' className='footer__link'>FAQs</Link></li>
+                    </div>
+
+                    <div className="footer__column">
+                        <h4>Make money with us</h4>
+                            <li className='footer__li'><Link to='' className='footer__link'>Sell Products on TechMarket</Link></li>
+                            <li className='footer__li'><Link to='' className='footer__link'>Advertise Your Products</Link></li>
+                    </div>
+
+                    <div className="footer__column">
+                        <h4>Let Us Help You</h4>
+                            <li className='footer__li'><Link to='' className='footer__link'>Your Account</Link></li>
+                            <li className='footer__li'><Link to='' className='footer__link'>Your Orders</Link></li>
+                            <li className='footer__li'><Link to='' className='footer__link'>Shipping Rates & Policies</Link></li>
+                            <li className='footer__li'><Link to='' className='footer__link'>Returns & Replacements</Link></li>
+                    </div>
+
+                    <div className="footer__column">
+                        <Link to='/'><img src={logo} alt="" className='logo__img'/></Link>
+                        <h4>Follow Us!</h4>
+                        <div className='footer_socials'>
+                            <li className='footer__li'><a href='https://www.facebook.com/' target="_blank"><img className='footer__img' src={facebook}/></a></li>
+                            <li className='footer__li'><a href='https://www.instagram.com/' target="_blank"><img className='footer__img' src={instagram}/></a></li>
+                            <li className='footer__li'><a href='https://twitter.com/' target="_blank"><img className='footer__img' src={twitter}/></a></li>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
