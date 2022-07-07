@@ -21,7 +21,7 @@
   margin: 0;
 }
 
-h1 {
+.titleLandingPage {
   font-size: 2rem;
   color: #fff;
   position: absolute;
@@ -174,7 +174,7 @@ position: absolute;
   position: relative;
   display: inline-block;
   padding: 10px 50px;
-  color: #037bf4;
+  color: #037bf46c;
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
