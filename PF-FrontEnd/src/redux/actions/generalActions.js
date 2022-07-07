@@ -163,26 +163,26 @@ export const logout = function() {
 };
 
 //FAVOURITES PRODUCTS
-export function addProdToFavourites(idUser, idProduct){
+export function addProdToFavourites({ idUser, idProduct }){
   return function(dispatch){
-      return axios.post(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
-                  .then(product => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: product.data[0]}))
+      return axios.post(`${BASE_URL}/api/favorite`, { idUser, idProduct } )
+                  .then(response => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: response.data }))
                   .catch(error => console.log(error))
   }
 };
 
 export function getFavouritesProducts(idUser){
   return function(dispatch){
-    return axios.post(`${BASE_URL}/api/favorite/${idUser}`)
+    return axios.get(`${BASE_URL}/api/ProfileUser/favorites/${idUser}`) 
     .then(response => dispatch({ type: GET_FAVOURITES_PRODUCTS, payload: response.data }))
     .catch(error => console.log(error))
   };
 };
 
-export function removeFavourite(idProduct, idUser){
+export function removeFavourite({ idUser, idProduct }){
   return function(dispatch){
-    return axios.delete(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
-    .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
-    .catch(error => console.log(error))
+      return axios.delete(`${BASE_URL}/api/favorite`, { idUser, idProduct })
+      .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
+      .catch(error => console.log(error))
   };
 };

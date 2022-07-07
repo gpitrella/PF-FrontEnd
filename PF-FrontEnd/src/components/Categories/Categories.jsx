@@ -49,7 +49,7 @@ export default function Categories () {
                     showDots={true}
                     dotColorActive={'#1976d2'}
                     dotColorInactive={'#dddddd'}
-                    autoplay={1000}
+                    autoplay={3000}
                     >
                         {
                         allCategories?.map((category) =>

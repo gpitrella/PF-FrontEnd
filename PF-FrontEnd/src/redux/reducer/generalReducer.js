@@ -201,24 +201,11 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case ADD_PRODUCT_TO_FAVOURITES:{
-      LocalStorage.saveItem('favouritesProducst', state.favouritesProducts.concat({
-        id: payload.id,
-        name: payload.name,
-        price: payload.price,
-        image: payload.image,
-        discount: payload.discount,
-        stock: payload.stock,
-        categories: payload.categories,
-        description: payload.description,
-        user: payload.userId,
-      }));
-    return {
-      ...state,
-      favouritesProducts: state.favouritesProducts.concat({
-        id: payload.id,
-        user: payload.userId,
-      })
-    }}
+      return {
+        ...state,
+        payload,
+      }
+    }
     case GET_FAVOURITES_PRODUCTS: {
       return {
         ...state,
@@ -226,10 +213,9 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case REMOVE_FAVOURITE_PRODUCT: {
-      LocalStorage.saveItem('productsCart', state.favouritesProducts.filter(product => product.id !== payload));
       return {
       ...state,
-      favouritesProducts: state.favouritesProducts.filter(product => product.id !== payload)
+      payload
       }
     }
     default:

@@ -60,7 +60,7 @@ export default function ProductCard({ id, name, image, category, price, discount
 
           <div className = {s.containerButtonsSVG}>
             <div className = {`${s.containerSVG} ${s.redHeart}`}>
-              <Heart />
+              <Heart id={id}/>
             </div>
 
             <div className = {`${s.containerSVG} ${isAlreadyOnCart ? s.alreadyOnCart : ''}`}>
