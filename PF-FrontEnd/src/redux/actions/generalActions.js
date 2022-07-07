@@ -24,6 +24,7 @@ import {
   REMOVE_FAVOURITE_PRODUCT,
   BASE_URL,
   SUCCESS_BUY,
+  LOG_IN_ERROR,
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING
@@ -83,18 +84,17 @@ export const signUp = function(name, email, password) {
   return function(dispatch){
     return axios.post(`${BASE_URL}/api/signup`, {name, email, password})
                 .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
-                .catch(error => console.log(error))
+                .catch(error => dispatch({ type: LOG_IN_ERROR, payload: error.response}))
   }
 };
 
 export const logIn = function(email, password) {
   return function(dispatch){
     return axios.post(`${BASE_URL}/api/signin`, {email, password})
-                .then(data => dispatch({ type: SIGN_UP, payload: data.data}))
-                .catch(error => console.log(error))
+                .then(data => dispatch({ type: LOG_IN, payload: data.data}))
+                .catch(error => dispatch({ type: LOG_IN_ERROR, payload: error.response}))
   }
 };
- 
 
 export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
   console.log(show, msg, success, error);

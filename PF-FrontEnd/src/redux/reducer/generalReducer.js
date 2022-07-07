@@ -20,6 +20,7 @@ import {
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
   SUCCESS_BUY,
+  LOG_IN_ERROR,
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING
@@ -49,7 +50,8 @@ const initialState = {
   showPageLoader: true,
   loadingUser: true,
   favouritesProducts: [],
-  viewLanding: true
+  viewLanding: true,
+  logInError: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -268,6 +270,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         viewLanding: false
+      }
+    }
+
+    case LOG_IN_ERROR: {
+      return {
+        ...state,
+        logInError: payload
       }
     }
     default:
