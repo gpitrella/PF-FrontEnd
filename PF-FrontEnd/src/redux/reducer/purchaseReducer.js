@@ -25,7 +25,25 @@ const purchase = {
   creationDate: "2022-07-05T23:31:20.169Z",
   updatedAt: "2022-07-05T23:31:20.169Z",
   status: 'in process'
-}
+};
+
+const DATES = [
+  {
+    creationDate: "2022-03-05T23:31:20.169Z",
+  },
+  {
+    creationDate: "2022-01-05T23:31:20.169Z",
+  },
+  {
+    creationDate: "2019-05-05T23:31:20.169Z",
+  },
+  {
+    creationDate: "2021-02-05T23:31:20.169Z",
+  },
+    {
+    creationDate: "2020-06-05T23:31:20.169Z",
+  },
+]
 
 const PURCHASES_STATUS_ENUM = [
   {
@@ -82,15 +100,15 @@ const USERS = [
   }
 ]
 
-const PURCHASES = [ ...Array(10).keys() ].map(i=> { 
+const PURCHASES = [ ...Array(30).keys() ].map( i => { 
     return {
       ...purchase,
       id: i + 1,
       total: i * 1000 + 500,
-      updatedAt: i % 2 === 0 ? purchase.updatedAt : null,
       status: PURCHASES_STATUS_ENUM[i % 5].value,
       sucursal: BRANCH_OFFICES[i % 3],
-      user: USERS[i % 4]
+      user: USERS[i % 4],
+      creationDate: DATES[i % 5].creationDate
     }
   });
 

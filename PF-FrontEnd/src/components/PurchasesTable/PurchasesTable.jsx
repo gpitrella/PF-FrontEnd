@@ -4,15 +4,15 @@ import PurchasesTableHeader from './PurchasesTableHeader/PurchasesTableHeader';
 import PurchasesTableRows from './PurchasesTableRows/PurchasesTableRows';
 import Loading from '../SVG/Loading';
 import { setOriginalPurchases } from '../../redux/actions';
-// import ShowResultCountPurchases from '../ShowResultCountPurchases/ShowResultCountPurchases';
-// import PaginationPurchases from '../PaginationPurchases/PaginationPurchases';
+import ShowResultCount from '../ShowResultCount/ShowResultCount';
+import Pagination from '../Pagination/Pagination';
 
 import s from './PurchasesTable.module.css';
 
 export default function PurchasesTable({}) {
 
   const dispatch = useDispatch();
-  const { purchases, showPurchases } = useSelector(state => state.purchases);
+  const { purchases, showPurchases, filter, showLoading } = useSelector(state => state.purchases);
 
   React.useEffect(() => {
     dispatch(setOriginalPurchases());
@@ -39,10 +39,16 @@ export default function PurchasesTable({}) {
           <PurchasesTableRows purchases = {purchases} />
         </tbody>
       </table>
-{/*      <div className = {s.pagination}>
-        <ShowResultCountPurchases loading = {showLoading} results = {results} page = {filter.page} pages = {filter.pages} simple = {true} />
-        <PaginationPurchases simple = {true}/>
-      </div>*/}
+      <div className = {s.pagination}>
+        <ShowResultCount 
+          loading = {showLoading}
+          results = {filter.results}
+          page = {filter.page}
+          pages = {filter.pages}
+          simple = {true}
+        />
+        <Pagination simple = {true} purchases = {true}/>
+      </div>
     </div>
   );
 }

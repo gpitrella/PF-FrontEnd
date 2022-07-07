@@ -35,15 +35,11 @@ export const generatePurchasesWithFilter = function(purchases, filter) {
 
   if (filter.sucursal !== 'none' || filter.status !== 'none' ) { 
     newPurchases = filterPurchases(newPurchases, filter);
-    newFilter = {
-      ...newFilter,
-      pages: Math.ceil(newPurchases.length / 10),
-    }
   }
   newPurchases = orderPurchases(newPurchases, filter);
   return [
     newPurchases.slice( (filter.page - 1) * 10, filter.page * 10 ),
-    { ...newFilter }
+    { ...newFilter, results: newPurchases.length, pages: Math.ceil(newPurchases.length / 10) }
   ]
 }
 
@@ -65,10 +61,8 @@ const orderPurchases = function(purchases, filter) {
       if (prev['sucursal'].name > next['sucursal'].name) return filter.order === 'asc' ? 1 : -1;
       if (prev['sucursal'].name < next['sucursal'].name) return filter.order === 'asc' ? -1 : 1;
     }
-    else if (filter.orderBy === 'date') {
-      if (prev['creationDate'] > next['creationDate']) return filter.order === 'asc' ? 1 : -1;
-      if (prev['creationDate'] < next['creationDate']) return filter.order === 'asc' ? -1 : 1;
-    }
+    else if (filter.orderBy === 'date') 
+      return (new Date(next['creationDate']) - new Date(prev['creationDate'])) * (filter.order === 'asc' ? -1 : 1);
     else {
       if (prev[filter.orderBy] > next[filter.orderBy]) return filter.order === 'asc' ? 1 : -1;
       if (prev[filter.orderBy] < next[filter.orderBy]) return filter.order === 'asc' ? -1 : 1;

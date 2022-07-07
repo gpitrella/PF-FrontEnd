@@ -103,7 +103,7 @@ export const rowData = [
     getValue: (purchase) => {
 
       let dateOfPurchase = new Date(purchase.creationDate);
-      let dateOfFullfilled = purchase.updatedAt ? new Date(purchase.updatedAt) : null;
+      let dateOfFullfilled = purchase.status === 'filled' && purchase.updatedAt ? new Date(purchase.updatedAt) : null;
 
       let dateOfPurchaseWithFormat = `${dateOfPurchase.getHours()}:${dateOfPurchase.getMinutes()}, ${dateOfPurchase.toDateString()}`;
       let dateOfFullfilledWithFormat = !dateOfFullfilled ? '...' :
