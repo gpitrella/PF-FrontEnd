@@ -1,6 +1,11 @@
 import React from 'react';
+<<<<<<< Updated upstream
 import { Link, useHistory } from 'react-router-dom';
 import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
+=======
+import { Link } from 'react-router-dom';
+import { getSearchProducts, clearSearchProducts, showCart } from "../../redux/actions";
+>>>>>>> Stashed changes
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
 
@@ -33,8 +38,14 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
+<<<<<<< Updated upstream
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import Avatar from '@mui/material/Avatar';
+=======
+
+
+
+>>>>>>> Stashed changes
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -109,10 +120,15 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 export default function NavBar() {
+<<<<<<< Updated upstream
   const history = useHistory()
   const { theme } = useSelector(state => state.general);  
   const [ name, setName ] = React.useState('');
   const { user } = useSelector((state) => state.general)
+=======
+  const { theme } = useSelector(state => state.general);  
+  const [ name, setName ] = React.useState('');
+>>>>>>> Stashed changes
   const productsCart = useSelector((state) => state.general.productsCart);
 
   const dispatch = useDispatch();
@@ -162,8 +178,11 @@ export default function NavBar() {
     dispatch(showCart())
   };
 
+<<<<<<< Updated upstream
   
 
+=======
+>>>>>>> Stashed changes
   const menuId = 'primary-search-account-menu';
   
   const renderMenu = (
@@ -263,6 +282,7 @@ export default function NavBar() {
       dispatch(changeTheme('LIGHT'));
     }
   };
+<<<<<<< Updated upstream
   
   React.useEffect(() => {
     if(user?.user){
@@ -272,6 +292,8 @@ export default function NavBar() {
       }
     }
   },[user]);
+=======
+>>>>>>> Stashed changes
 
     return (
       /// Nueva NAVABar
@@ -316,6 +338,14 @@ export default function NavBar() {
           
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            
+            {/* <Link to={'/addtocart'} > */}
+              <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+                <Badge badgeContent={productsCart?.length} color="error">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            {/* </Link> */}
 
             <IconButton 
                 fontSize="1rem"
@@ -357,8 +387,14 @@ export default function NavBar() {
             </IconButton>
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+<<<<<<< Updated upstream
               <Badge badgeContent={0} color="error">
                 <MailIcon className="links_general"/>
+=======
+              <Badge badgeContent={4} color="error">
+                <MailIcon />
+
+>>>>>>> Stashed changes
               </Badge>
             </IconButton>
 

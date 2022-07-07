@@ -11,7 +11,11 @@ import exampleBrand from './exampleBrand.png';
 import star from './star.svg';
 import { useSelector } from 'react-redux';
 
+<<<<<<< Updated upstream
 export default function ProductCard({ id, name, image, category, price, discount, stock, rating, brand }) {
+=======
+export default function ProductCard({ id, name, image, category, price, discount, rating, brand }) {
+>>>>>>> Stashed changes
   let discountPrice = Math.round(price - price * (discount / 100));
 
   const cart = useSelector(state => state.general.productsCart);
@@ -63,7 +67,11 @@ export default function ProductCard({ id, name, image, category, price, discount
               <Heart id={id}/>
             </div>
 
+<<<<<<< Updated upstream
             <div className = {`${s.containerSVG} ${isAlreadyOnCart ? s.alreadyOnCart : ''}`}>
+=======
+            <div className = {s.containerSVG}>
+>>>>>>> Stashed changes
               <Cart id={id}/>
             </div>
           </div>

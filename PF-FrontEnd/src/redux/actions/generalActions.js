@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+<<<<<<< Updated upstream
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
+=======
+
+import {
+  CHANGE_THEME,
+>>>>>>> Stashed changes
   ADD_PRODUCT_TO_CART,
   REMOVE_PRODUCT_CART,
   INCREASE_QUANTITY_PRODUCT,
@@ -10,6 +16,7 @@ import {
   POST_COMMENT_PRODUCT,
   SHOW_CART,
   CLOSE_CART,
+<<<<<<< Updated upstream
   FINISH_ORDER,
   SIGN_UP,
   LOG_IN,
@@ -27,6 +34,9 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING
+=======
+  FINISH_ORDER
+>>>>>>> Stashed changes
 } from './actiontype';
 
 
@@ -41,7 +51,11 @@ export const changeTheme = function(theme) {
 // Add To CART
 export function addProductToCart(id){
   return function(dispatch){
+<<<<<<< Updated upstream
       return axios.get(`${BASE_URL}/api/product/${id}`)
+=======
+      return axios.get(`http://localhost:3001/api/product/${id}`)
+>>>>>>> Stashed changes
                   .then(product => dispatch({ type: ADD_PRODUCT_TO_CART, payload: product.data[0]}))
                   .catch(error => console.log(error))
   }
@@ -69,7 +83,11 @@ export function reduceQuantityToProductCart(id){
       dispatch({ type: REDUCE_QUANTITY_PRODUCT, payload: id})
   }
 };
+<<<<<<< Updated upstream
  
+=======
+
+>>>>>>> Stashed changes
 // Create comments product
 export const postCommentProduct = function(comment, idProduct, idUser) {
   return function(dispatch){
@@ -79,6 +97,7 @@ export const postCommentProduct = function(comment, idProduct, idUser) {
   }
 };
 
+<<<<<<< Updated upstream
 export const signUp = function(name, email, password) {
   return function(dispatch){
     return axios.post(`${BASE_URL}/api/signup`, {name, email, password})
@@ -109,6 +128,8 @@ export const showMiniModal = function(show = true, msg = '', success = false, er
   }
 }
 
+=======
+>>>>>>> Stashed changes
 // Show Cart:
 export function showCart(){
   return {
@@ -124,6 +145,7 @@ export function closeCart(){
 };
 
 // Finish Order:
+<<<<<<< Updated upstream
 export const finishOrder = function(email, items) {
   return function(dispatch){
     return axios.post(`${BASE_URL}/api/payment`, {email, items})
@@ -221,3 +243,12 @@ export function closeLanding(){
     type: CLOSE_LANDING,
   }
 };
+=======
+export const finishOrder = function(order) {
+  return function(dispatch){
+    return axios.post(`http://localhost:3001/api/payment`, {order})
+                .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
+                .catch(error => console.log(error))
+  }
+};
+>>>>>>> Stashed changes
