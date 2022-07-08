@@ -196,7 +196,7 @@ export default function PurchaseDetails({ id = 1001 }) {
         <div className = {s.containerDates}>
           <div className = {s.groupDate}>
             <span className = {s.subtitleDateName}>Creation Date:</span>
-            <span className = {s.subtitleDateInfo}>20:31, Fri Jun 05 2020</span>
+            <span className = {s.subtitleDateInfo}>14:53, Thu Jun 04 2020</span>
           </div>
           <div className = {s.groupDate}>
             <span className = {s.subtitleDateName}>Last Modification:</span>
