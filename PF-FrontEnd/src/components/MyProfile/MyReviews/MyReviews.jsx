@@ -282,7 +282,7 @@ export default function MyReviews() {
                             src={row.products[0].image}
                             sx={{ width: 56, height: 56 }}                           
                             />                        
-                        </Stack>
+                      </Stack>
                       </TableCell>
                       <TableCell
                         component="th"

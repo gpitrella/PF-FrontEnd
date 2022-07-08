@@ -210,8 +210,8 @@ React.useEffect(() => {
                  </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                      <Button className='button_add_to_cart' onClick={handleCloseAddtoCart}>View More</Button>
-                      <Button className='button_add_to_cart' onClick={handleCloseCartToCheckOut}>Check Out</Button>
+                      <Button className='button_add_to_cart' variant="contained" size="small" onClick={handleCloseAddtoCart}>View More</Button>
+                      <Button className='button_add_to_cart' variant="contained" size="small" onClick={handleCloseCartToCheckOut}>Check Out</Button>
                     </DialogActions>
                   </Dialog>
                   <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>

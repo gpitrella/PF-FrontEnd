@@ -54,9 +54,7 @@ h5 {
 
 .img_addtocart {
   height: 5rem;
-  /* max-width: 80px; */
   object-fit: cover;
-  /* margin-left: 40px; */
 }
 
 .quantity_price {

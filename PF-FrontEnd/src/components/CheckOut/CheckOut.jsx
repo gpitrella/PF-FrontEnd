@@ -2,7 +2,8 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
+import { TextField, CardContent, Card, Grid } from "@mui/material";
+import Button from '@mui/material/Button';
 import { showCart } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -11,12 +12,12 @@ import paymentMetod from './img/paymentMetod.webp';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import secure from './img/secure.gif'
 import './CheckOut.css';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
 
 const style = {
   position: "absolute",
@@ -142,7 +143,10 @@ totalValue();
   return (
     <div className="main_checkout_cartdetail">
       <div className="box_top_checkout">
-        <h2>CHECK OUT</h2>
+        <div className="main_title_checkout_page">
+          <img className="img_checkout_secure" src={secure} alt='secure' />
+          <h2>CHECK OUT</h2>
+        </div>
         <Divider width={"100%"}></Divider>
         <h3>Purchase's Detail</h3>
         <div className="addtocart_mainblock_checkout">
@@ -151,8 +155,9 @@ totalValue();
                         : productsCart?.map((e) => {
                           return (
                             <div className="box_top_checkout_resumecart">
+                              <img className="img_checkout_page" src={e?.image} alt={e?.name} />
                               <div className="addtocart_name_checkout">
-                                 <h5>{e?.name.slice(0,60)}</h5>
+                                 <h5 id="checkout_title_product">{e?.name.slice(0,60)}</h5>
                                  <h5><strong>Price: </strong> ${e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price} {`x ${e?.quantity} unid.`}</h5>
                               </div>
                               <div className="quantity_price_checkout">
@@ -168,7 +173,7 @@ totalValue();
               {productsCart?.length === 0 
                     ? <span></span>
                     : (<div className="information_addtocart_checkout">
-                            <Button onClick={handleCart}>Edit Order</Button>
+                            <Button id="btn_checkou_editorder" variant="outlined" size="medium" onClick={handleCart}>Edit Order</Button>
                             <p className="total_value_checkout">Total: ${resultTotalValue}</p>
                         </div>
               )}
