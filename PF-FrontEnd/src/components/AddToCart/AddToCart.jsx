@@ -19,6 +19,7 @@ import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
+import cart from './img/cart.gif'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -165,12 +166,15 @@ React.useEffect(() => {
         onClose={handleCloseAddtoCart}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"Products Cart:"}</DialogTitle>
-        <DialogContent>
+        <div className="title_addtocart_popup">
+          <img className="img_checkout_secure" src={cart} alt='cart' />
+          <strong >
+            <h3 id="title_productincart_popup"> Products Cart: </h3>
+          </strong>
+        </div>
+        <DialogContent id="main_box_addtocart">
         <hr/>
           <DialogContentText id="alert-dialog-slide-description">
-            
-            
           <div className="container_secundary">
          {productsCart?.length === 0 
                  ? <p>No products added to cart.</p>
@@ -193,7 +197,7 @@ React.useEffect(() => {
                             </div>
                          </div>
                          <div>
-                            <DeleteForeverIcon onClick={() => handleRemoveFromCart(e?.id)}/>
+                            <DeleteForeverIcon className='remove_items_addtocart' onClick={() => handleRemoveFromCart(e?.id)}/>
                          </div>
                      </div>
                  )})}
@@ -202,7 +206,7 @@ React.useEffect(() => {
                  {productsCart?.length === 0 
                         ? <span></span>
                         : (<div className="information_addtocart">
-                                <p className="total_value_cart">Total: ${resultTotalValue}</p>
+                                <strong><p className="total_value_cart">Total: ${resultTotalValue}</p></strong>
                             </div>
                  )}
                  </div>
@@ -210,8 +214,8 @@ React.useEffect(() => {
                  </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                      <Button className='button_add_to_cart' variant="contained" size="small" onClick={handleCloseAddtoCart}>View More</Button>
-                      <Button className='button_add_to_cart' variant="contained" size="small" onClick={handleCloseCartToCheckOut}>Check Out</Button>
+                      <Button variant="contained" size="small" onClick={handleCloseAddtoCart}>View More</Button>
+                      <Button variant="contained" size="small" onClick={handleCloseCartToCheckOut}>Check Out</Button>
                     </DialogActions>
                   </Dialog>
                   <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
