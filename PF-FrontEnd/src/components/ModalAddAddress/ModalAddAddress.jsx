@@ -60,6 +60,11 @@ export default function ModalAddAddress() {
       [name]: value
     }
 
+    setInputAddress({
+      name: '',
+      valid: false
+    });
+
     if (name === 'provincia' && selection.provincia !== value) {
       dispatch(showLoadingParam('municipios'));
       console.log('Disparo solicitud de municipios.');
