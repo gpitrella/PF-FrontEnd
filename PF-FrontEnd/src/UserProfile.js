@@ -7,6 +7,7 @@ import PersonalInformation from "./components/MyProfile/PersonalInformation/Pers
 import MyReviews from "./components/MyProfile/MyReviews/MyReviews";
 import MyComments from "./components/MyProfile/MyComments/MyComments";
 import MyAddress from "./components/MyProfile/MyAddress/MyAddress";
+import MyPurchases from "./components/MyProfile/MyPurchases/MyPurchases"
 import { getUserDetail, deleteUserDetail, getUserReviews, getAllCommentByUserID } from '../src/redux/actions';
 
 import notFoundPage from './components/404/NotFoundPage404';
@@ -18,9 +19,6 @@ const UserProfile = () => {
   const { url } = useRouteMatch()
   const { theme } = useSelector(state => state.general);
   const { user } = useSelector((state) => state.general);
-  // const { oneuser } = useSelector((state) => state.userReducer)
-  // const { userReviews } = useSelector((state) => state.userReducer)
-  // const { commentByUser } = useSelector((state) => state.userReducer)
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -44,6 +42,7 @@ const UserProfile = () => {
           <Route exact path = {`${url}/myreviews`} > { user ? <MyReviews /> : <LogIn/>}</Route>
           <Route exact path = {`${url}/mycomments`} > { user ? <MyComments /> : <LogIn/>}</Route>
           <Route exact path = {`${url}/myaddress`} > { user ? <MyAddress /> : <LogIn/>}</Route>
+          <Route exact path = {`${url}/mypurchases`} > { user ? <MyPurchases /> : <LogIn/>}</Route>
           <Route path = '*' component = {notFoundPage} />
         </Switch>    
       </div>

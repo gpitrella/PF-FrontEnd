@@ -53,8 +53,8 @@ export default function Categories () {
                     >
                         {
                         allCategories?.map((category) =>
-                            <Carousel.Item>
-                                <CategCard key={category.id} name={category.name} image={category.image} />
+                            <Carousel.Item key={category.id}>
+                                <CategCard name={category.name} image={category.image} />
                             </Carousel.Item>
                         )}
                     </Carousel>

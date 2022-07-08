@@ -241,7 +241,7 @@ export default function MyReviews() {
   return (
     <div className='main_box_myreviews'>
     <h3 className='title_myreviews'> My Reviews </h3>
-    {rows.length === 0 
+    {rows?.length === 0 
         ? <h3 className='title_myreviews_profile'> Don't have reviews yet.</h3>
         :<Box sx={{ width: '100%' }} id='box_table_myreviews'>
       <Paper sx={{ width: '100%', mb: 2 }}>

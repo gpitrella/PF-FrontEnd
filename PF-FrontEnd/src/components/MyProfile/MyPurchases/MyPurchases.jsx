@@ -14,7 +14,6 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -22,10 +21,12 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
 import { visuallyHidden } from '@mui/utils';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useSelector } from "react-redux";
-import './MyCommets.css'
+import Rating from '@mui/material/Rating';
+import './MyPurchases.css'
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -65,28 +66,28 @@ const headCells = [
     label: 'Product Name', // antes Dessert (100g serving)
   },
   {
-    id: 'question', // antes calories
+    id: 'score', // antes calories
     numeric: true,
     disablePadding: false,
-    label: 'Your Question', // antes Calories
+    label: 'Your Rating', // antes Calories
   },
   {
-    id: 'dateQuestion', // antes fat
+    id: 'review', // antes fat
     numeric: true,
     disablePadding: false,
-    label: 'Date Question', // antes Fat (g)
+    label: 'Your Review', // antes Fat (g)
   },
   {
-    id: 'answer', // antes carbs
+    id: 'date', // antes carbs
     numeric: true,
     disablePadding: false,
-    label: 'Answer', // antes Carbs (g)
+    label: 'Date created', // antes Carbs (g)
   },
   {
-    id: 'dateAnswer',
+    id: 'viewProduct',
     numeric: true,
     disablePadding: false,
-    label: 'Date Answer',
+    label: 'view',
   },
 ];
 
@@ -167,7 +168,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Your Questions Detail 
+          Your Purchases Detail 
         </Typography>
       )}
 
@@ -193,8 +194,8 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function MyReviews() {
-  const { commentByUser } = useSelector((state) => state.userReducer)
-  const rows = commentByUser
+  const { userReviews } = useSelector((state) => state.userReducer)
+  const rows = userReviews
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -238,10 +239,10 @@ export default function MyReviews() {
 
   return (
     <div className='main_box_myreviews'>
-    <h3 className='title_myreviews'> My Questions </h3>
+    <h3 className='title_myreviews'> My Purchases </h3>
     {rows?.length === 0 
-        ? <h3 className='title_mycomment_profile'> Don't have comment yet.</h3>
-        : <Box sx={{ width: '100%' }} id='box_table_myreviews'>
+        ? <h3 className='title_myreviews_profile'> Don't have purchases yet.</h3>
+        :<Box sx={{ width: '100%' }} id='box_table_myreviews'>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
@@ -274,7 +275,13 @@ export default function MyReviews() {
                       key={row.id}
                     >
                       <TableCell padding="checkbox">
-                        <HelpOutlineIcon id="avatar_product_review"/>
+                      <Stack direction="row" spacing={2}>
+                        <Avatar id="avatar_product_review"
+                            alt="Remy Sharp"
+                            src={row.products[0].image}
+                            sx={{ width: 56, height: 56 }}                           
+                            />                        
+                      </Stack>
                       </TableCell>
                       <TableCell
                         component="th"
@@ -284,10 +291,11 @@ export default function MyReviews() {
                       >
                         {row.products[0].name}
                       </TableCell>
+                      <TableCell align="right"> ({row.score})
+                        <Rating name="read-only" value={row.score}/> </TableCell>
                       <TableCell align="right">{row.comment}</TableCell>
                       <TableCell align="right">{row.createdAt.slice(0,10)}</TableCell>
-                      <TableCell align="right">{row.answer ? row.answer : 'With answer yet'}</TableCell>
-                      <TableCell align="right">{(row.updatedAt !== row.createdAt) ? row.updatedAt.slice(0,10) : '--'}</TableCell>
+                      <TableCell align="right"><Link to={`/productdetails/${row.products[0].id}`}> View Prod. </Link></TableCell>
                     </TableRow>
                   );
                 })}
