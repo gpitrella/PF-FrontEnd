@@ -27,7 +27,8 @@ import {
   LOG_IN_ERROR,
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
-  CLOSE_LANDING
+  CLOSE_LANDING,
+  POST_NEW_ORDER
 } from './actiontype';
 
 
@@ -220,4 +221,13 @@ export function closeLanding(){
   return {
     type: CLOSE_LANDING,
   }
+};
+
+// Post New Order
+export function postNewOrder(total, status, idUser, idAddress, idProduct, branchOfficeId, description, idMP, items){
+  return function(dispatch){
+    return axios.post(`${BASE_URL}/api/orders`, { total, status, idUser, idAddress, idProduct, branchOfficeId, description, idMP, items })
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+  };
 };

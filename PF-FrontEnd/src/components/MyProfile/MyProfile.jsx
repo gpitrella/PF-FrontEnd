@@ -40,18 +40,22 @@ export default function MyProfile() {
 
       <Card sx={{ width: 200, height: 200 }}>
         <CardActionArea>
-          <CardMedia
-            component="img"
-            height='130'
-            width="50"
-            image={my_orders}
-            alt="my orders"
-          />
+          <Link to='/myprofile/mypurchases'>
+            <CardMedia
+              component="img"
+              height='130'
+              width="50"
+              image={my_orders}
+              alt="my orders"
+            />
+          </Link>
         </CardActionArea>
         <CardActions className='button_myprofile'>
-          <Button size="small" color="primary">
-            My Orders
-          </Button>
+          <Link to='/myprofile/mypurchases'>
+            <Button size="small" color="primary">
+              My Purchases
+            </Button>
+          </Link>
         </CardActions>
       </Card>
   
@@ -73,18 +77,22 @@ export default function MyProfile() {
       </Card>
       <Card sx={{ width: 200, height: 200 }}>
         <CardActionArea>
-          <CardMedia className='personal_informacion'
-            component="img"
-            height='130'
-            width="50"
-            image={my_address}
-            alt="my address"
-          />
+          <Link to='/myprofile/myaddress'>
+            <CardMedia className='personal_informacion'
+              component="img"
+              height='130'
+              width="50"
+              image={my_address}
+              alt="my address"
+            />
+          </Link>
         </CardActionArea>
         <CardActions className='button_myprofile'>
-          <Button size="small" color="primary">
-            My Address
-          </Button>
+          <Link to='/myprofile/myaddress'>
+            <Button size="small" color="primary">
+              My Address
+            </Button>
+          </Link>
         </CardActions>
       </Card>
       <Card sx={{ width: 200, height: 200 }}>
