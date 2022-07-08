@@ -1,62 +1,97 @@
-.imgFooter{
-    width: 50px;
-    height: 50px;
+.footer__img{
+    width: 35px;
+    height: 35px;
     margin-right: 20px;
     /* margin-right: 5px; */
 }
 
-.imgLogo{
+.logo__img{
     width: 100px;
     height: 100px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
 }
 
-.cntfooter{
+.footer_socials{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.container{
+    max-width: 1170px;
+    margin: auto;
+}
+
+.footer{
     display: flex;
     background-color: #2A2A2A;
-/*    width: 100vw;*/
+    padding: 40px 0;
+    margin-top: 50px;
 }
 
-.cntsocial h3 {
-    margin-top: 0px;
+.footer__li{
+    list-style: none;
 }
 
-.cnttext{
+.row{
     display: flex;
-    flex-direction: column;
-    margin-left: 100px;
-    margin-right: 20px;
-    color: white;
+    flex-wrap: wrap;
 }
 
-.cntsocial{
-    margin-left: 200px;
-    margin-right: 20px;
-    color: white;
-    justify-content: center;
-    align-items: center;
+.footer__column{
+    width: 25%;
+    padding: 0 40px;
 }
 
-.footerlink{
-    text-decoration: none;
-    color: white;
+.footer__column h4{
+    font-size: 15px;
+    color: lightgray;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    font-weight: 700;
+    position: relative;
+}
+
+.footer__column h4::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color:  rgb(0, 117, 255);
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+.footer__li{
     margin-bottom: 10px;
-    cursor: pointer;    
+}
+.footer__link {
+    font-size: 14px;
+    text-transform: capitalize;
+    color: lightgray;
+    text-decoration: none;
+    font-weight: 300;
+    color: #bbbbbb;
+    display: block;
+    transition: all .03s ease;
 }
 
-.footerlink::after{
-    content: '';
-    height: 1px;
-    width: 0%;
-    background-color: white;
-    display: block;
-    transition: .15s ease-in-out;    
+.footer__link:hover{
+    color: #ffffff;
+    /* padding-left: 10px; */
 }
 
-.footerlink:hover::after{
-    content: '';
-    height: 1px;
-    width: 100%;
-    background-color: white;
-    display: block;
+@media(max-width: 767px){
+    .footer__column{
+        width: 20%;
+        margin-bottom: 30px;
+
+    }
+}
+
+@media(max-width: 574px){
+    .footer__column{
+        width: 100%;
+        margin-bottom: 30px;
+        
+    }
 }
