@@ -328,6 +328,7 @@
   .statusInfo {
     grid-template-columns: 1fr;
     grid-auto-rows: max-content;
+    grid-row-gap: 1rem;
   }
 }
 
