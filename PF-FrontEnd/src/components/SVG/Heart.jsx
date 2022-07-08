@@ -9,18 +9,17 @@ export default function Heart(id) {
 
   useEffect(()=>{
     dispatch(getFavouritesProducts(user.user.id));
-  }, [])
+  }, [dispatch])
 
   const { favouritesProducts } = useSelector((state) => state.general);
 
   const idUser = user.user.id;
-  const idProduct = id.id;
 
-  const addToFavourites = (e) => {
-    e.preventDefault(e);  
+  const addToFavourites = (idProduct) => {
     const alreadyFavourite = favouritesProducts?.find(product => product.id === idProduct);
-    console.log(alreadyFavourite)
-    alreadyFavourite ? dispatch(removeFavourite({ idUser, idProduct }))
+    const id = alreadyFavourite ? (alreadyFavourite?.favorites.filter((el) => el.idUser === idUser))[0].id : '';
+    console.log(id)
+    alreadyFavourite ? dispatch(removeFavourite({ id }))
     : dispatch(addProdToFavourites({ idUser, idProduct }));
   };
   

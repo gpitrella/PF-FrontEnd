@@ -1,0 +1,55 @@
+.containerFavs {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    font-family: Arial, Helvetica, sans-serif;
+    border-bottom: 1px solid lightblue;
+    padding-top: 100px;
+    padding-bottom: 20px;
+  
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 0.3rem;
+    outline: 0;
+  }
+  
+  .favsMainblock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .favsName {
+    margin: 10px 0px;
+  }
+  
+  .favsName h5 {
+    margin: 5px;
+  }
+  
+  .secondaryContainer {
+    flex: 1;
+  }
+  
+  /* .information_addtocart{
+    margin-bottom: -10px;
+  } */
+  
+  .viewMore {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: solid;
+  }
+  
+    .favsImg {
+    height: 5rem;
+    /* max-width: 80px; */
+    object-fit: cover;
+    /* margin-left: 40px; */
+  }

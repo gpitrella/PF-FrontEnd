@@ -21,6 +21,8 @@ import {
   ADD_PRODUCT_TO_FAVOURITES,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SHOW_FAVOURITES,
+  CLOSE_FAVOURITES,
   SUCCESS_BUY,
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
@@ -51,6 +53,7 @@ const initialState = {
   showPageLoader: true,
   loadingUser: true,
   favouritesProducts: [],
+  showFavs: false,
   viewLanding: true
 };
 
@@ -225,6 +228,20 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
       ...state,
       payload
+      }
+    }
+
+    case SHOW_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: true        
+      }
+    }
+
+    case CLOSE_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: false
       }
     }
 

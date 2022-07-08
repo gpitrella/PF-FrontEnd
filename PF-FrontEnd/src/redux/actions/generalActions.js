@@ -19,9 +19,10 @@ import {
   OPEN_PAGE_LOADER,
   CLOSE_PAGE_LOADER,
   ADD_PRODUCT_TO_FAVOURITES,
-  GET_CATEGORIES_TO_STORE,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SHOW_FAVOURITES,
+  CLOSE_FAVOURITES,
   BASE_URL,
   SUCCESS_BUY,
   LOGIN_WITH_GOOGLE,
@@ -184,14 +185,26 @@ export function getFavouritesProducts(idUser){
   };
 };
 
-export function removeFavourite({ idUser, idProduct }){
+export function removeFavourite( id ){
+  console.log(id);
   return function(dispatch){
-      return axios.delete(`${BASE_URL}/api/favorite`, { idUser, idProduct })
+      return axios.delete(`${BASE_URL}/api/favorite/${id.id}`)
       .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
       .catch(error => console.log(error))
   };
 };
 
+export function showFavs(){
+  return {
+    type: SHOW_FAVOURITES,
+  }
+};
+
+export function closeFavs(){
+  return {
+    type: CLOSE_FAVOURITES,
+  }
+};
 
 // Success Buy - Remove Product from Cart
 export function successBuyAction(){

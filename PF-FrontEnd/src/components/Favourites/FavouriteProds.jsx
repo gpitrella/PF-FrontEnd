@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { removeFavourite, getFavouritesProducts } from "../../redux/actions";
-import './FavouriteProds.module.css';
+import { removeFavourite, getFavouritesProducts, closeFavs } from "../../redux/actions";
+import s from './FavouriteProds.module.css';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -68,10 +68,16 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-export default function FavouriteProducts({showCart}){
+export default function FavouriteProducts({showFavs}){
   const dispatch = useDispatch();
   const history = useHistory();
-  const { oneuser } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.general);
+
+  useEffect(()=>{
+    dispatch(getFavouritesProducts(user.user.id));
+  }, [dispatch])
+
+  const { favouritesProducts } = useSelector((state) => state.general);
 
   const [openComment, setOpenComment] = useState(false);
 
@@ -92,42 +98,52 @@ const handleOpenPageLogin = () => {
     history.push('/login');
 ;}
 
-const { favouritesProducts } = useSelector((state) => state.general)
 
 const handleCloseFavourites = (e) => {
   e.preventDefault();
   dispatch(closeFavs())
 };
 
-const handleRemoveFromFavs = (id) => {
-  dispatch(removeFavourite(id, oneuser.id));
+const handleRemoveFromFavs = (e) => {
+  e.preventDefault();
+  let idUser = user.user.id;
+  const id = favouritesProducts ? (favouritesProducts?.favorites.filter((el) => el.idUser === idUser))[0].id : '';
+  dispatch(removeFavourite(id));
+};
+
+const handleCloseSuccessComment = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+  setOpenComment(false);
+  setOpenLogin(false);
 };
 
 
   return (
     <div>
-      <div>
+      <div className={s.containerFavs}>
       <Dialog
-        open={showCart}
+        open={showFavs}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleCloseFavourites}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"MY WISHLIST"}</DialogTitle>
+        <DialogTitle>{"MY FAVOURITES"}</DialogTitle>
         <DialogContent>
         <hr/>
           <DialogContentText id="alert-dialog-slide-description">
             
             
-          <div className="container_secundary">
+          <div className={s.secondaryContainer}>
          {favouritesProducts?.length === 0 
                  ? <p>You have no favourite products</p>
                  : favouritesProducts?.map((e) => {
                      return (
-                     <div className="favourites_mainblock">
-                        <img className="img_favourites" src={e?.image} alt={e?.name} />
-                        <div className="favourites_name">
+                     <div className={s.favsMainblock}>
+                        <img className={s.favsImage} src={e?.image} alt={e?.name} />
+                        <div className={s.favsName}>
                             <h5>{e?.name}</h5>
                             <h5><strong>Price: </strong> ${e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price} {`${e?.discount ? `- ${e?.discount}% incl.` : ''}`}</h5>
                          </div>
@@ -138,39 +154,17 @@ const handleRemoveFromFavs = (id) => {
                  )})}
 
                 </div>
-                 </DialogContentText>
-                    </DialogContent>
-                  </Dialog>
-                  <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
-                      <Alert onClose={handleCloseSuccessComment} severity="warning" sx={{ width: '100%' }}>
-                          No products in Cart!
-                      </Alert>
-                  </Snackbar>
+            </DialogContentText>
+         </DialogContent>
+         <DialogActions>
+                      <Button className={s.viewMore} onClick={handleCloseFavourites}>View More</Button>
+          </DialogActions>
+       </Dialog>
                  
-                </div>
                 <div>
-                <BootstrapDialog
-                    onClose={handleCloseLogin}
-                    aria-labelledby="customized-dialog-title"
-                    open={openLogin}
-                >
-                    <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLogin}>
-                        You must be Login:
-                    </BootstrapDialogTitle>
-                    <DialogContent dividers>
-                        <Typography gutterBottom>
-                            Register or Log in to be able to make an order and discover 
-                            all the functionalities of the website, 
-                            such as exclusive discounts or additional promotions.
-                        </Typography>
-                    </DialogContent>
-                        <DialogActions>
-                            <Button autoFocus onClick={handleOpenPageLogin}>
-                                Login
-                            </Button>
-                        </DialogActions>
-                </BootstrapDialog>
+                
             </div>
+        </div>
     </div>
   );
 };
