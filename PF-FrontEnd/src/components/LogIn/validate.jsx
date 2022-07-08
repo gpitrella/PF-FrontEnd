@@ -1,5 +1,6 @@
 import validator from 'validator';
 
+
 export function validateEmail(input) {
     const errorsEmail = {}
 
