@@ -286,13 +286,20 @@ export default function NavBar() {
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
           </IconButton>
           <Stack direction="row" spacing={1} alignItems="center">
             <Typography><LightModeIcon /></Typography>
               <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} onClick={handleCheck}/>
             <Typography><Brightness3Icon /></Typography>
           </Stack>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            sx={{ mr: 2 }}
+          >
+          </IconButton> 
           <Link to="/">
             <Box
               alignSelf="center"

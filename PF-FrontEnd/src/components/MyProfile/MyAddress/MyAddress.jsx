@@ -52,7 +52,12 @@ export default function MyAddress() {
     <h3 className='title_personalinformation'> My Address </h3>
     <div className='variation_myaddress'>
       {oneuser.useraddresses.length === 0 
-        ? <h3 className='title_myaddress_profile'> Don't have address register yet.</h3>
+        ? (<div>
+              <Stack spacing={2} direction="row" display={"flex"} justifyContent={"center"}>
+                <Button variant="outlined" size="small"> Add New Address </Button>
+              </Stack> 
+              <h3 className='title_myaddress_profile'> Don't have address register yet.</h3>
+          </div>)
         : oneuser.useraddresses.map((address) => {
         return (
         <div className='individual_myaddress' key={address.id}>

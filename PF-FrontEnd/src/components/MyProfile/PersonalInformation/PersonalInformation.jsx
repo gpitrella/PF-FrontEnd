@@ -50,7 +50,7 @@ export default function PersonalInformation() {
             <HomeIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Address: Av. SiempreViva 300" />
+        <ListItemText primary={`Main Address: ${oneuser?.useraddresses.length === 0 ? 'WithOut Address' : `${oneuser?.useraddresses[0].street}, ${oneuser?.useraddresses[0].street_height} - ${oneuser?.useraddresses[0].city}`}`}/> 
       </ListItem>
     </List>
     <Link to={`/myprofile`}>
