@@ -8,7 +8,7 @@
 }
 
 .title {
-  color: var(--fontColor);
+  color: var(--fontColor) !important;
   text-align: center;
   margin: 0.5rem;
 
