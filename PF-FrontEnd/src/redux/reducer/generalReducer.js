@@ -24,7 +24,8 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
-  POST_NEW_ORDER
+  POST_NEW_ORDER,
+  GET_BRANCHS_OFFICES_WITH_DISTANCE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -52,7 +53,11 @@ const initialState = {
   loadingUser: true,
   favouritesProducts: [],
   viewLanding: true,
-  logInError: {}
+  logInError: {},
+
+  // Traer Sucursales con Distancia para el Checkout
+  errorBranchOffices: false,
+  branchOffices: []
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -280,6 +285,20 @@ const generalReducer = function(state = initialState, { type, payload }) {
         logInError: payload
       }
     }
+
+    // Traer sucursales con distancia
+    case GET_BRANCHS_OFFICES_WITH_DISTANCE:
+
+      if (payload.error) return { ...state, errorBranchOffices: true };
+
+      payload.sort((prev, next) => prev.distance - next.distance);
+      
+      return {
+        ...state,
+        branchOffices: payload,
+        errorBranchOffices: false
+      };
+
     default:
       return state;
   }

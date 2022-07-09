@@ -7,10 +7,29 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import { makeStyles } from "@material-ui/core/styles";
 import ModalAddAddress from '../ModalAddAddress/ModalAddAddress';
-import { getUserDetail, showModalAddAddress } from '../../redux/actions';
+import { getUserDetail, showModalAddAddress, getBranchsOfficesWithDistance } from '../../redux/actions';
 
 import s from './CheckOutAddress.module.css';
+
+const useStyles = makeStyles({
+  root: {
+    // component default is "inline-flex", using "flex" makes the
+    // label + control group use the entire width of the parent element
+    display: "flex",
+    // component default is "flex-start", using "space-between" pushes
+    // both flexed content to the right and left edges of the flexbox
+    // Note: the content is aligned to the right by default because
+    // the 'labelPlacement="start"' component prop changes the flexbox
+    // direction to "row-reverse"
+    justifyContent: "space-between",
+  },
+});
 
 export default function CheckOutAddress() {
 
@@ -18,12 +37,21 @@ export default function CheckOutAddress() {
   const { id } = useSelector(state => state.general.user.user);
   const { oneuser } = useSelector(state => state.userReducer);
   const { show } = useSelector(state => state.modalAddAddress);
+  const { branchOffices, errorBranchOffices } = useSelector(state => state.general);
 
-  const [ selectDirection, setSelectDirection ] = React.useState(null);
+  const [ selectDirection, setSelectDirection ] = React.useState('');
+  const [ radioBranchOffice, setradioBranchOffice ] = React.useState('');
+
+  const classes = useStyles();
 
   React.useEffect(() => {
     dispatch(getUserDetail(id));
   }, []);
+
+  React.useEffect(() => {
+    if (branchOffices.length > 0) setradioBranchOffice(branchOffices[0].branchOffice.id);
+    else setradioBranchOffice('');
+  }, [branchOffices])
 
   if (Object.keys(oneuser).length === 0) return <></>;
 
@@ -31,10 +59,22 @@ export default function CheckOutAddress() {
     dispatch(showModalAddAddress());
   }
 
-  let handleChange = function(e) {
+  let handleSelectChange = function(e) {
     let { value } = e.target;
+    let addressSelected = oneuser.useraddresses.find(address => address.id === value);
 
     setSelectDirection(value);
+    dispatch(getBranchsOfficesWithDistance(addressSelected.latitude, addressSelected.longitude));
+  }
+
+  let handleReload = function() {
+    let addressSelected = oneuser.useraddresses.find(address => address.id === selectDirection);
+    dispatch(getBranchsOfficesWithDistance(addressSelected.latitude, addressSelected.longitude));
+  }
+
+  let handleRadioChange = function(e) {
+    let { value } = e.target;
+    setradioBranchOffice(value);
   }
 
   return (
@@ -55,27 +95,89 @@ export default function CheckOutAddress() {
         </Grid>
       }
       {
-        oneuser && Object.keys(oneuser).length > 0 && oneuser.useraddresses.length > 0 && 
-        <Grid item xs = {12}>
-          <FormControl required fullWidth>
-            <InputLabel id="demo-simple-select-required-label">Address</InputLabel>
-            <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
-              value={selectDirection}
-              label="Address *"
-              onChange={handleChange}
+        oneuser && Object.keys(oneuser).length > 0 && oneuser.useraddresses.length > 0 &&
+        <>
+          <Grid item xs = {12} sm = {9}>
+            <FormControl required fullWidth>
+              <InputLabel id="demo-simple-select-required-label">Address</InputLabel>
+              <Select
+                labelId="demo-simple-select-required-label"
+                id="demo-simple-select-required"
+                value={selectDirection}
+                label="Address *"
+                onChange={handleSelectChange}
+                fullWidth
+              >
+              {
+                oneuser && oneuser.useraddresses.map((address, index) => 
+
+                  <MenuItem value={address.id} key = {`address-select-${address.id}-${index}`}>{address.direction}</MenuItem>
+
+                )
+              }
+              </Select>
+              <FormHelperText>Required</FormHelperText>
+            </FormControl>
+          </Grid>
+          <Grid item xs = {12} sm = {3}>
+            <Button 
+              id="btn_checkou_editorder"
               fullWidth
+              variant="outlined"
+              size = "medium"
+              onClick={handleAddAddress}
+            >
+              Add New Address
+            </Button>
+          </Grid>
+        </>
+      }
+      {
+        errorBranchOffices &&
+        <Grid item xs = {12}>
+          <Button 
+            id="btn_checkou_editorder"
+            fullWidth
+            variant="outlined"
+            size = "medium"
+            onClick={handleReload}
+            sx={{ height: '100%%' }}
+          >
+            Error Loading Sucursals. Click To Reload
+          </Button>
+        </Grid>
+      }
+      {
+        branchOffices && branchOffices.length > 0 && 
+        <Grid item xs = {12}>
+          <FormControl fullWidth>
+            <FormLabel 
+              id = "demo-radio-buttons-group-label"
+              fullWidth
+              labelPlacement = "start"
+              classes = {classes}
+            >
+              Choose a Sucursal:
+            </FormLabel>
+            <RadioGroup
+              aria-labelledby = "demo-radio-buttons-group-label"
+              value = {radioBranchOffice}
+              name = "radio-buttons-group"
+              fullWidth
+              onChange = {handleRadioChange}
             >
             {
-              oneuser && oneuser.useraddresses.map((address, index) => 
-
-                <MenuItem value={address.id}>{address.direction}</MenuItem>
-
+              branchOffices.map((office, index) => 
+                
+                <FormControlLabel
+                  value = { office.branchOffice.id }
+                  control = { <Radio /> }
+                  label = {`${office.branchOffice.name} - ${office.branchOffice.direction} - ${Math.round(office.distance)}KM - ${index === 0 ? ' Recommended *' : ''}`}
+                  key = {`radio-branchoffice-${office.branchOffice}`}
+                />
               )
             }
-            </Select>
-            <FormHelperText>Required</FormHelperText>
+            </RadioGroup>
           </FormControl>
         </Grid>
       }

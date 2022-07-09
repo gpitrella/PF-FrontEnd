@@ -28,7 +28,8 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
-  POST_NEW_ORDER
+  POST_NEW_ORDER,
+  GET_BRANCHS_OFFICES_WITH_DISTANCE
 } from './actiontype';
 
 
@@ -231,3 +232,13 @@ export function postNewOrder(total, status, idUser, idAddress, idProduct, branch
         .catch(error => console.log(error))
   };
 };
+
+// Traer sucursales con distancia
+
+export function getBranchsOfficesWithDistance(lat, long) {
+  return function(dispatch) {
+    return axios.get(`${BASE_URL}/api/branchOffice?lat=${lat}&long=${long}`)
+      .then(response => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: response.data }))
+      .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
+  }
+}
