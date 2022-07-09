@@ -1,9 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TextField, CardContent, Card, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Grid } from "@mui/material";
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import ModalAddAddress from '../ModalAddAddress/ModalAddAddress';
 import { getUserDetail, showModalAddAddress } from '../../redux/actions';
 
@@ -16,6 +19,8 @@ export default function CheckOutAddress() {
   const { oneuser } = useSelector(state => state.userReducer);
   const { show } = useSelector(state => state.modalAddAddress);
 
+  const [ selectDirection, setSelectDirection ] = React.useState(null);
+
   React.useEffect(() => {
     dispatch(getUserDetail(id));
   }, []);
@@ -24,6 +29,12 @@ export default function CheckOutAddress() {
 
   let handleAddAddress = function() {
     dispatch(showModalAddAddress());
+  }
+
+  let handleChange = function(e) {
+    let { value } = e.target;
+
+    setSelectDirection(value);
   }
 
   return (
@@ -41,6 +52,31 @@ export default function CheckOutAddress() {
           >
             No Address Registred: Add Address
           </Button>
+        </Grid>
+      }
+      {
+        oneuser && Object.keys(oneuser).length > 0 && oneuser.useraddresses.length > 0 && 
+        <Grid item xs = {12}>
+          <FormControl required fullWidth>
+            <InputLabel id="demo-simple-select-required-label">Address</InputLabel>
+            <Select
+              labelId="demo-simple-select-required-label"
+              id="demo-simple-select-required"
+              value={selectDirection}
+              label="Address *"
+              onChange={handleChange}
+              fullWidth
+            >
+            {
+              oneuser && oneuser.useraddresses.map((address, index) => 
+
+                <MenuItem value={address.id}>{address.direction}</MenuItem>
+
+              )
+            }
+            </Select>
+            <FormHelperText>Required</FormHelperText>
+          </FormControl>
         </Grid>
       }
       {

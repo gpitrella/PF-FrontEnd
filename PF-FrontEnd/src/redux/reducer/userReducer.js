@@ -30,7 +30,17 @@ const userReducer = function(state = initialState, { type, payload }) {
         }
       case GET_USER_DETAIL:
         return {
-          oneuser: payload
+          oneuser: {
+            ...payload,
+            useraddresses: [
+              {
+                direction:"BOYACA 3419, Merlo, Buenos Aires",
+                latitude:-34.698054729991725,
+                longitude:-58.76923954578144,
+                id:0
+              }
+            ]
+          }
         }  
 
       case USER_UPDATE:

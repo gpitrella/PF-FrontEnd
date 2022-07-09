@@ -116,6 +116,7 @@ export default function ModalAddAddress() {
       direction: address[0].nomenclatura,
       latitude: address[0].ubicacion.lat,
       longitude: address[0].ubicacion.lon,
+      id: oneuser.useraddresses.length
     }
     let newOneuser = {
       ...oneuser,
