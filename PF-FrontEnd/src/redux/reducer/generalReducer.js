@@ -329,6 +329,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
 
     case UPLOAD_IMAGE:
+      console.log(payload);
       return {
         ...state,
         modalAddImage: {

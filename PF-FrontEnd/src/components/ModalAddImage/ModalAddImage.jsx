@@ -48,6 +48,12 @@ export default function ModalAddImage({ image, handleImage }) {
 
   let handleConfirm = function() {
     setUploading(true);
+
+    let formData = new FormData();
+    formData.append('file', file.data);
+    formData.append('upload_preset', 'tech_market_henry');
+
+    dispatch(uploadImage(formData));
   }
 
   let handleCancel = function() {
@@ -56,7 +62,7 @@ export default function ModalAddImage({ image, handleImage }) {
 
   let content = (
     <div className = {s.uploadZone}>
-      <div className = {`${s.containerImage} center`}>
+      <div className = {s.containerImage}>
       {
         preview && 
         <ImageLoader image = {preview} alt = {file.fileName} />
@@ -81,6 +87,7 @@ export default function ModalAddImage({ image, handleImage }) {
       title = {'Import Image'}
       content = {content}
       disableAll = {uploading}
+      disableConfirm = {!file || !file.data}
     />
   );
 }
