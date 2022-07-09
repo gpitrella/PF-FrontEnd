@@ -15,6 +15,10 @@ import MuiAlert from '@mui/material/Alert';
 import secure from './img/secure.gif'
 import './CheckOut.css';
 
+// Agregado por R. Federico
+import CheckOutAddress from '../CheckOutAddress/CheckOutAddress';
+// Fin de Agregado.
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -42,7 +46,7 @@ const CheckOut = () => {
     name: "",
     lastName: "",
     email: "",
-    address: "",
+    // address: "",
     phone: "",
     info: "",
   });
@@ -239,7 +243,8 @@ totalValue();
                       onChange={handleInputEmail}
                     />
                   </Grid>
-                  <Grid item xs={12} >
+
+                  {/*<Grid item xs={12} >
                     <TextField
                       name="address"
                       value={input.subject}
@@ -250,7 +255,8 @@ totalValue();
                       required
                       onChange={handleInput}
                     />
-                  </Grid>
+                  </Grid>*/}
+
                   <Grid item xs={12}>
                     <TextField
                       name="phone"
@@ -276,6 +282,9 @@ totalValue();
                       onChange={handleInput}
                     />
                   </Grid>
+
+                  <CheckOutAddress />
+                  
                   <Grid item xs={12}>
                     <a href={stateFinishOrder?.data ? stateFinishOrder.data : null}>
                       <Button

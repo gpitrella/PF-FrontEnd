@@ -88,3 +88,11 @@ export function deleteUserAddress(id) {
                 .catch(error => console.log(error))
   }
 };
+
+// Agregar Direccion
+export const userUpdate = function(direction) {
+  return {
+    type: USER_UPDATE,
+    payload: direction
+  }
+}
