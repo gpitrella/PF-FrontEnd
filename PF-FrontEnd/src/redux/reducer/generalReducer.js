@@ -25,7 +25,10 @@ import {
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
   POST_NEW_ORDER,
-  GET_BRANCHS_OFFICES_WITH_DISTANCE
+  GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  SHOW_MODAL_ADD_IMAGE,
+  CLOSE_MODAL_ADD_IMAGE,
+  UPLOAD_IMAGE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -57,7 +60,12 @@ const initialState = {
 
   // Traer Sucursales con Distancia para el Checkout
   errorBranchOffices: false,
-  branchOffices: []
+  branchOffices: [],
+
+  modalAddImage: {
+    show: false,
+    uploadedImage: '',
+  }
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -298,6 +306,36 @@ const generalReducer = function(state = initialState, { type, payload }) {
         branchOffices: payload,
         errorBranchOffices: false
       };
+
+    // Modal para subir imagenes
+
+    case SHOW_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: true,
+          uploadedImage: '',
+        }
+      }
+
+    case CLOSE_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: false,
+        }
+      }
+
+    case UPLOAD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          uploadedImage: payload.secure_url
+        }
+      }
 
     default:
       return state;

@@ -115,6 +115,12 @@ export const UPDATE_FILTER_PURCHASES = 'UPDATE_FILTER_PURCHASES';
 export const SET_SHOW_LOADING_PURCHASES = 'SET_SHOW_LOADING_PURCHASES';
 export const GET_PURCHASES_WITH_FILTER_AND_PAGINATE = 'GET_PURCHASES_WITH_FILTER_AND_PAGINATE';
 
+// MODAL ADD IMAGE
+export const SHOW_MODAL_ADD_IMAGE = 'SHOW_MODAL_ADD_IMAGE';
+export const CLOSE_MODAL_ADD_IMAGE = 'CLOSE_MODAL_ADD_IMAGE';
+export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
+
 // BASE URL
 // export const BASE_URL = 'https://techmarketapp.herokuapp.com';
 export const BASE_URL = 'http://localhost:3001';
+export const CLOUDINARY = 'https://api.cloudinary.com/v1_1/techmarket/image/upload';

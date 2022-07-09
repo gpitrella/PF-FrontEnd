@@ -29,7 +29,11 @@ import {
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
   POST_NEW_ORDER,
-  GET_BRANCHS_OFFICES_WITH_DISTANCE
+  GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  SHOW_MODAL_ADD_IMAGE,
+  CLOSE_MODAL_ADD_IMAGE,
+  UPLOAD_IMAGE,
+  CLOUDINARY
 } from './actiontype';
 
 
@@ -234,11 +238,32 @@ export function postNewOrder(total, status, idUser, idAddress, idProduct, branch
 };
 
 // Traer sucursales con distancia
-
 export function getBranchsOfficesWithDistance(lat, long) {
   return function(dispatch) {
     return axios.get(`${BASE_URL}/api/branchOffice?lat=${lat}&long=${long}`)
       .then(response => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: response.data }))
       .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
+  }
+}
+
+// Modal para subir imagen:
+export function showModalAddImage() {
+  return {
+    type: SHOW_MODAL_ADD_IMAGE
+  }
+}
+
+export function closeModalAddImage() {
+  return {
+    type: CLOSE_MODAL_ADD_IMAGE
+  }
+}
+
+export function uploadImage(formData) {
+  return function(dispatch) {
+    return fetch(`${CLOUDINARY}`, { method: 'POST', body: formData })
+      .then(response => response.json())
+      .then(data => dispatch({ type: UPLOAD_IMAGE, payload: data }))
+      .catch(error => console.LOG(error));
   }
 }

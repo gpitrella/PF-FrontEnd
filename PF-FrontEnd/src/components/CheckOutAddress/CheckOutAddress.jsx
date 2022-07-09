@@ -19,14 +19,7 @@ import s from './CheckOutAddress.module.css';
 
 const useStyles = makeStyles({
   root: {
-    // component default is "inline-flex", using "flex" makes the
-    // label + control group use the entire width of the parent element
     display: "flex",
-    // component default is "flex-start", using "space-between" pushes
-    // both flexed content to the right and left edges of the flexbox
-    // Note: the content is aligned to the right by default because
-    // the 'labelPlacement="start"' component prop changes the flexbox
-    // direction to "row-reverse"
     justifyContent: "space-between",
   },
 });
