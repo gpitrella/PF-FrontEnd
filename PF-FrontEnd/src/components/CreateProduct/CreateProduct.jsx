@@ -99,6 +99,17 @@ export default function CreateProduct() {
     dispatch(showModalAddImage());
   }
 
+  let handleImage = function(newImage) {
+    setInput({
+      ...input,
+      image: newImage
+    });
+    setErrors(validate({
+      ...input,
+      image: newImage
+    }));
+  }
+
   return (
     <div className={`main ${s.container}`}>
         <Link to = {'/admin/products/list'}>
@@ -254,7 +265,7 @@ export default function CreateProduct() {
         </div>
         </form>
         {
-          modalAddImage && modalAddImage.show && <ModalAddImage />
+          modalAddImage && modalAddImage.show && <ModalAddImage handleImage = {handleImage}/>
         }
         </div>
   )

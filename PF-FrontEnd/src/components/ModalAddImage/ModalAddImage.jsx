@@ -1,15 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { showModalAddImage, closeModalAddImage, uploadImage } from '../../redux/actions';
+import { closeModalAddImage, uploadImage } from '../../redux/actions';
 import GeneralModal from '../GeneralModal/GeneralModal';
 import ImageLoader from '../ImageLoader/ImageLoader';
 import { validateImageToUpload } from '../../util';
 
 import s from './ModalAddImage.module.css';
 
-export default function ModalAddImage({ image, handleImage }) {
+export default function ModalAddImage({ handleImage }) {
 
   const dispatch = useDispatch();
+  const { uploadedImage } = useSelector(state => state.general.modalAddImage);
 
   const [ uploading, setUploading ] = React.useState(false);
   const [ validation , setValidation ] = React.useState('');
@@ -31,6 +32,13 @@ export default function ModalAddImage({ image, handleImage }) {
 
     return () => URL.revokeObjectURL(objUrl);
   }, [file]);
+
+  React.useEffect(() => {
+    if (uploading && uploadedImage !== '') {
+      handleImage(uploadedImage);
+      dispatch(closeModalAddImage());
+    }
+  }, [uploading, uploadedImage])
 
   let handleOnChange = function(e) {
     let [ fileToUpload ] = e.target.files;
