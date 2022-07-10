@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import PurchasesTableCell from '../PurchasesTableCell/PurchasesTableCell';
 import PurchasesTableEdit from '../PurchasesTableEdit/PurchasesTableEdit';
 import GeneralModal from '../../GeneralModal/GeneralModal';
-import LoadingSkeleton from '../LoadingSkeleton/LoadingSkeleton'; 
+import LoadingSkeleton from '../LoadingSkeleton/LoadingSkeleton';
+import ArrowDown from '../../SVG/ArrowDown';
 import { rowData } from '../config';
 
 import s from './PurchasesTableRow.module.css';
@@ -75,45 +76,48 @@ export default function PurchasesTableRow({ purchase }) {
           handleConfirm: () => {
             console.log('Modifico la orden de compra.');
           },
-          title: 'Confirm Change',
+          title: 'Confirm Change of Status',
           content: setModalViewEdit(purchase, newPurchaseDetails)
         })
         return;
     }
   }
 
-  let setModalViewEdit = function(product, newProduct) {
+  let setModalViewEdit = function(purchase, newPurchaseDetails) {
     return (
       <div className = {s.containerComparation}>
-{/*        <div className = {s.listContainer}>
+
+        <div className = {s.listContainer}>
           <ul className = {s.list}>
-          {
-            product && Object.keys(product).map((param, index) => 
-
-              <li className={`${s.item} ${ product[param] !== newProduct[param] ? s.pastValue : ''}`}>
-                <i className = {s.paramName}>{param}:</i> {product[param]}
-              </li>
-
-            )
-          }
+            <li className = {s.item}>
+              <i className = {s.paramName}>id:</i> {purchase.id}
+            </li>
+            <li className = {s.item}>
+              <i className = {s.paramName}>user:</i> {purchase.user.email}
+            </li>
+            <li className = {s.item}>
+              <i className = {s.paramName}>total:</i> $ {purchase.total}
+            </li>
+            <li className = {s.item}>
+              <i className = {s.paramName}>User Address:</i> {purchase.userDirection.name}
+            </li>
+            <li className = {s.item}>
+              <i className = {s.paramName}>Sucursal:</i> {purchase.sucursal.name}
+            </li>
+            <li className = {s.item}>
+              <i className = {s.paramName}>Creation:</i> {new Date(purchase.creationDate).toDateString()}
+            </li>
           </ul>
         </div>
+
+        <span className = {`${s.param} ${s.pastValue}`}>{purchase.status}</span>
+
         <div className = {s.arrowContainer}>
           <ArrowDown />
         </div>
-        <div className = {s.listContainer}>
-          <ul className = {s.list}>
-          {
-            newProduct && Object.keys(newProduct).map((param, index) => 
 
-              <li className={`${s.item} ${ newProduct[param] !== product[param] ? s.newValue : ''}`}>
-                <i className = {s.paramName}>{param}:</i> {newProduct[param]}
-              </li>
+        <span className = {`${s.param} ${s.newValue}`}>{newPurchaseDetails.status}</span>
 
-            )
-          }
-          </ul>
-        </div>*/}
       </div>
     )
   }

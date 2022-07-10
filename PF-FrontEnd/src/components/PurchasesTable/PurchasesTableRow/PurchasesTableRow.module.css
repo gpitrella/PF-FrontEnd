@@ -32,13 +32,13 @@
 
 .containerComparation {
   display: grid;
-  grid-template-rows: 8rem 2rem 8rem;
-  grid-template-columns: 1fr;
+  grid-template-rows: 8rem 4rem;
+  grid-template-columns: 1fr 1fr 1fr;
   align-content: center;
   justify-content: center;
   align-items: center;
   justify-items: center;
-  height: 21rem;
+  height: 12rem;
   width: 35rem;
   grid-gap: 0.5rem;
 }
@@ -48,6 +48,9 @@
   overflow-y: scroll;
   background-color: var(--primaryColorSub);
   border-radius: 16px;
+
+  grid-row: 1 / 2;
+  grid-column: 1 / 4;
 }
 
 .list {
@@ -62,25 +65,35 @@
   padding: 3px;
 }
 
-.pastValue {
-  color: var(--dangerColor);
-  font-weight: 700;
-}
-
 .arrowContainer {
   height: 2rem;
   width: 2rem;
 
   padding: 0.2rem;
+
+  transform: rotate(-90deg);
 }
 
 .arrowContainer > svg {
   fill: var(--secondaryColor);
 }
 
-.newValue {
-  color: var(--successColor);
+.newValue,
+.pastValue {
+  color: white;
   font-weight: 700;
+  padding: 5px 10px 5px 10px;
+  border-radius: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.pastValue {
+  background-color: var(--dangerColor);
+}
+
+.newValue {
+  background-color: var(--successColor);
 }
 
 .paramName {
