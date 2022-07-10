@@ -62,7 +62,12 @@ const NewBrandModal = ({ open, onClose, addNewBrand }) => {
     };
 
     useEffect(() => {
-        if (open) setValues(defaultInputValues);
+        if (open) {
+            setValues(defaultInputValues);
+            setImage('');
+            setUploadingImage(false);
+            setUploadedImage('');
+        }
     }, [open])
 
     const getContent = () => (
