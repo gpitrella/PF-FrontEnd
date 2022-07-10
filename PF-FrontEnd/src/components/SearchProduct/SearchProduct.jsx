@@ -18,7 +18,7 @@ export default function SearchProduct() {
   }
 
   let handleSearch = function() {
-    dispatch(updateFilter({ ...filter, name: inputName }));
+    dispatch(updateFilter({ ...filter, name: inputName, page: 1 }));
     dispatch(setShowLoading());
     dispatch(getProductsWithFiltersAndPaginate(buildFilter({
       ...filter,
@@ -29,7 +29,7 @@ export default function SearchProduct() {
 
   let handleReset = function() {
     setInputName('');
-    dispatch(updateFilter({ ...filter, name: '' }));
+    dispatch(updateFilter({ ...filter, name: '', page: 1 }));
     dispatch(setShowLoading());
     dispatch(getProductsWithFiltersAndPaginate(buildFilter({
       ...filter,
