@@ -127,8 +127,8 @@ export const BrandsTable = () => {
         getRowId={(row) => row.id}
         processRowUpdate={processRowUpdate}
       />
-      <EditBrandModal brand={selectedBrand} open={openModalEdit} onClose={() => setOpenModalEdit=false} saveEditedBrand={saveEditedBrand} />
-      <DeleteBrandModal id={selectedBrand.id} open={openModalDelete} onClose={() => setOpenModalDelete=false} confirmDeletedBrand={confirmDeletedBrand} />
+      <EditBrandModal brand={selectedBrand} open={openModalEdit} onClose={() => setOpenModalEdit(false)} saveEditedBrand={saveEditedBrand} />
+      <DeleteBrandModal id={selectedBrand.id} open={openModalDelete} onClose={() => setOpenModalDelete(false)} confirmDeletedBrand={confirmDeletedBrand} />
     </div>
   );
 };
