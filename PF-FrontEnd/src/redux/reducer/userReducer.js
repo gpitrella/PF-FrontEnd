@@ -7,7 +7,8 @@ import {
   USER_STATUS_RESET, 
   USER_UPDATE,
   USER_REVIEWS,
-  GET_COMMENTS_BY_USER
+  GET_COMMENTS_BY_USER,
+  USER_ADD_ADDRESS
 } from "../actions/actiontype";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
     userisactive: null,
     usereditstatusok: false,
     userReviews: [],
-    commentByUser: []
+    commentByUser: [],
+    reloadUserDetails: false,
 }
 
 const userReducer = function(state = initialState, { type, payload }) {
@@ -30,16 +32,10 @@ const userReducer = function(state = initialState, { type, payload }) {
         }
       case GET_USER_DETAIL:
         return {
+          ...state,
+          reloadUserDetails: false,
           oneuser: {
             ...payload,
-            useraddresses: [
-              {
-                direction:"BOYACA 3419, Merlo, Buenos Aires",
-                latitude:-34.698054729991725,
-                longitude:-58.76923954578144,
-                id:0
-              }
-            ]
           }
         }  
 
@@ -83,6 +79,13 @@ const userReducer = function(state = initialState, { type, payload }) {
         return {
           ...state,
           commentByUser: payload
+        }
+
+      // Agregar direccion a traves del modal.
+      case USER_ADD_ADDRESS:
+        return {
+          ...state,
+          reloadUserDetails: true
         }
   
       default:

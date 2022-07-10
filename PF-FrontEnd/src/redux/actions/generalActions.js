@@ -30,6 +30,7 @@ import {
   CLOSE_LANDING,
   POST_NEW_ORDER,
   GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  RESET_CHECKOUT_ADDRESS,
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
   UPLOAD_IMAGE,
@@ -243,6 +244,12 @@ export function getBranchsOfficesWithDistance(lat, long) {
     return axios.get(`${BASE_URL}/api/branchOffice?lat=${lat}&long=${long}`)
       .then(response => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: response.data }))
       .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
+  }
+}
+
+export function resetCheckoutAddress() {
+  return {
+    type: RESET_CHECKOUT_ADDRESS
   }
 }
 

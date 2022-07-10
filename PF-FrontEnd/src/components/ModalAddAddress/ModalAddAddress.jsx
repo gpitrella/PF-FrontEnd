@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { 
   showLoadingParam, getProvincias, getMunicipios, getLocalidades,
   validatingAddress, normalizeAddress, closeModalAddAddress, 
-  userUpdate, resetModalAddAddress
+  resetModalAddAddress, userAddAddress
 } from '../../redux/actions';
 import Loading from '../SVG/Loading';
 import Help from '../SVG/Help';
@@ -116,14 +116,9 @@ export default function ModalAddAddress() {
       direction: address[0].nomenclatura,
       latitude: address[0].ubicacion.lat,
       longitude: address[0].ubicacion.lon,
-      id: oneuser.useraddresses.length
-    }
-    let newOneuser = {
-      ...oneuser,
-      useraddresses: oneuser.useraddresses.concat([ newAddress ])
     }
 
-    dispatch(userUpdate(newOneuser));
+    dispatch(userAddAddress(oneuser.id, newAddress));
     dispatch(closeModalAddAddress());
   }
 

@@ -55,6 +55,11 @@ const CheckOut = () => {
   const [openWithOutStock, setOpenWithOutStock] = React.useState(false);
   const [openYouAreAdmin, setOpenYouAreAdmin] = React.useState(false);
 
+  // Agregado para el tema de las direcciones:
+  const [ selectDirection, setSelectDirection ] = React.useState(''); // El id de la direccion del usuario.
+  const [ radioBranchOffice, setradioBranchOffice ] = React.useState(''); // El id de la sucursal elegida.
+  // Fin.
+
   const preOrder = () => {
     const formMercadoPAgo = productsCart?.map((product) => ({
       title: product.name,
@@ -283,7 +288,12 @@ totalValue();
                     />
                   </Grid>
 
-                  <CheckOutAddress />
+                  <CheckOutAddress
+                    selectDirection = {selectDirection}
+                    setSelectDirection = {setSelectDirection}
+                    radioBranchOffice = {radioBranchOffice}
+                    setradioBranchOffice = {setradioBranchOffice}
+                  />
                   
                   <Grid item xs={12}>
                     <a href={stateFinishOrder?.data ? stateFinishOrder.data : null}>
@@ -292,6 +302,10 @@ totalValue();
                         variant="contained"
                         color="primary"
                         fullWidth
+                        /*
+                          Para deshabilitar el boton de finalizar si no se agrego una direccion. 
+                        */
+                        disabled = { selectDirection === '' || radioBranchOffice === '' }
                       >
                         Finish Order
                       </Button>

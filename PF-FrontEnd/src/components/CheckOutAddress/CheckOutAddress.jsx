@@ -13,7 +13,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import { makeStyles } from "@material-ui/core/styles";
 import ModalAddAddress from '../ModalAddAddress/ModalAddAddress';
-import { getUserDetail, showModalAddAddress, getBranchsOfficesWithDistance } from '../../redux/actions';
+import { getUserDetail, showModalAddAddress, getBranchsOfficesWithDistance, resetCheckoutAddress } from '../../redux/actions';
 
 import s from './CheckOutAddress.module.css';
 
@@ -24,22 +24,30 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CheckOutAddress() {
+export default function CheckOutAddress({ selectDirection, setSelectDirection, radioBranchOffice, setradioBranchOffice }) {
 
   const dispatch = useDispatch();
   const { id } = useSelector(state => state.general.user.user);
-  const { oneuser } = useSelector(state => state.userReducer);
+  const { oneuser, reloadUserDetails } = useSelector(state => state.userReducer);
   const { show } = useSelector(state => state.modalAddAddress);
   const { branchOffices, errorBranchOffices } = useSelector(state => state.general);
 
-  const [ selectDirection, setSelectDirection ] = React.useState('');
-  const [ radioBranchOffice, setradioBranchOffice ] = React.useState('');
+  // const [ selectDirection, setSelectDirection ] = React.useState('');
+  // const [ radioBranchOffice, setradioBranchOffice ] = React.useState('');
 
   const classes = useStyles();
 
   React.useEffect(() => {
     dispatch(getUserDetail(id));
+
+    return () => {
+      dispatch(resetCheckoutAddress());
+    }
   }, []);
+
+  React.useEffect(() => {
+    if (reloadUserDetails) dispatch(getUserDetail(id));
+  }, [reloadUserDetails]);
 
   React.useEffect(() => {
     if (branchOffices.length > 0) setradioBranchOffice(branchOffices[0].branchOffice.id);

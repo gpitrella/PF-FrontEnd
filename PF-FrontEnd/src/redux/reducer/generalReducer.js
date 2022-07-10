@@ -26,6 +26,7 @@ import {
   CLOSE_LANDING,
   POST_NEW_ORDER,
   GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  RESET_CHECKOUT_ADDRESS,
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
   UPLOAD_IMAGE
@@ -306,6 +307,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
         branchOffices: payload,
         errorBranchOffices: false
       };
+
+    case RESET_CHECKOUT_ADDRESS:
+      return {
+        ...state,
+        errorBranchOffices: false,
+        branchOffices: [],
+      }
 
     // Modal para subir imagenes
 

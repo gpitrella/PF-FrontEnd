@@ -10,7 +10,8 @@ import {
   BASE_URL,
   USER_REVIEWS,
   GET_COMMENTS_BY_USER,
-  DELETE_USER_ADDRESS
+  DELETE_USER_ADDRESS,
+  USER_ADD_ADDRESS
 } from './actiontype';
 
 const urluser = `${BASE_URL}/api/user`;
@@ -90,9 +91,18 @@ export function deleteUserAddress(id) {
 };
 
 // Agregar Direccion
-export const userUpdate = function(direction) {
+export const userUpdate = function(newUserInfo) {
   return {
     type: USER_UPDATE,
-    payload: direction
+    payload: newUserInfo
+  }
+}
+
+// Agregar Direccion
+export const userAddAddress = function(userId, { direction, latitude, longitude }) {
+  return function(dispatch) {
+    return axios.post(`${BASE_URL}/api/address/${userId}`, { direction, latitude, longitude })
+                .then(data => dispatch({ type: USER_ADD_ADDRESS }))
+                .catch(error => console.log(error));
   }
 }
