@@ -37,8 +37,8 @@ export let setShowLoadingPurchases = function() {
 
 // Cambiar a traer del servidor.
 export let getPurchasesWithFiltersAndPaginate = function(filter) {
-  return {
-    type: GET_PURCHASES_WITH_FILTER_AND_PAGINATE,
-    payload: filter
+  return function (dispatch) {
+    return new Promise((resolve) => setTimeout(resolve, 1500))
+              .then(response => dispatch({ type: GET_PURCHASES_WITH_FILTER_AND_PAGINATE, payload: filter }));
   }
 }

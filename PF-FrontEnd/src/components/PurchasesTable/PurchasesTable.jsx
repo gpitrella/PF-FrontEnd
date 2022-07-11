@@ -25,7 +25,7 @@ export default function PurchasesTable({}) {
     <div className = {s.container}>
       <table className = {s.table}>
         <thead>
-          <PurchasesTableHeader loading = {false} order = {{}} orderBy = {{}}/>
+          <PurchasesTableHeader loading = {showLoading} />
         </thead>
         <tbody>
           <PurchasesTableRows purchases = {purchases} />

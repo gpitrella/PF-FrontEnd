@@ -144,7 +144,8 @@ const purchaseReducer = function(state = initialState, { type, payload }) {
           originalPurchases: [ ...ogPurchases ],
           purchases: [ ...ogPurchases ],
           filter: { ...ogFilter },
-          showPurchases: true
+          showPurchases: true,
+          showLoading: false
         }
       case UPDATE_FILTER_PURCHASES:
         return {
@@ -154,7 +155,8 @@ const purchaseReducer = function(state = initialState, { type, payload }) {
       case SET_SHOW_LOADING_PURCHASES:
         return {
           ...state,
-          showLoading: true
+          showLoading: true,
+          purchases: []
         }
       case GET_PURCHASES_WITH_FILTER_AND_PAGINATE:
         let [ updatedPurchases, updatedFilter ] = generatePurchasesWithFilter(state.originalPurchases, payload);

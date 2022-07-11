@@ -16,7 +16,7 @@ export default function PurchasesTableRow({ purchase }) {
   const [ enableEdit, setEnableEdit ] = React.useState(false);
   const [ newPurchaseDetails, setNewPurchaseDetails ] = React.useState({});
 
-  const { showLoading } = useSelector(state => state.storepage);
+  const { showLoading } = useSelector(state => state.purchases);
 
   const [ modal, setModal ] = React.useState({
     show: false
