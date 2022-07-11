@@ -205,6 +205,12 @@ input:checked + .slider:before {
     color: white;
 } 
 
+.links_general_movile_nabvar {
+    text-decoration: none;
+    display: inline-block;
+    color: black
+}
+
 .links_general:hover {
     color: rgb(142, 142, 142);
 }

@@ -8,7 +8,7 @@ import MyReviews from "./components/MyProfile/MyReviews/MyReviews";
 import MyComments from "./components/MyProfile/MyComments/MyComments";
 import MyAddress from "./components/MyProfile/MyAddress/MyAddress";
 import MyPurchases from "./components/MyProfile/MyPurchases/MyPurchases"
-import { getUserDetail, deleteUserDetail, getUserReviews, getAllCommentByUserID } from '../src/redux/actions';
+import { getUserDetail, deleteUserDetail, getUserReviews, getAllCommentByUserID, getOrderByUser } from '../src/redux/actions';
 
 import notFoundPage from './components/404/NotFoundPage404';
 
@@ -26,6 +26,7 @@ const UserProfile = () => {
           dispatch(getUserDetail(user?.user.id))
           dispatch(getUserReviews(user?.user.id))
           dispatch(getAllCommentByUserID(user?.user.id))
+          dispatch(getOrderByUser(user?.user.id))
       }
       return () => {
         dispatch(deleteUserDetail())

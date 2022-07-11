@@ -24,7 +24,8 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import Button from '@mui/material/Button';
 import { visuallyHidden } from '@mui/utils';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllCommentByUserID } from '../../../redux/actions'
 import './MyCommets.css'
 
 function descendingComparator(a, b, orderBy) {
@@ -192,9 +193,11 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function MyReviews() {
-  const { commentByUser } = useSelector((state) => state.userReducer)
+export default function MyComments() {
+  const { commentByUser } = useSelector((state) => state.userReducer);
   const rows = commentByUser
+  const { user } = useSelector((state) => state.general);
+  const dispatch = useDispatch();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -235,6 +238,10 @@ export default function MyReviews() {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  React.useEffect(() => {
+        dispatch(getAllCommentByUserID(user?.user.id))
+  }, []);
 
   return (
     <div className='main_box_myreviews'>
@@ -282,11 +289,11 @@ export default function MyReviews() {
                         scope="row"
                         padding="none"
                       >
-                        {row.products[0].name}
+                        <Link to={`/productdetails/${row.products[0].id}`}>{row.products[0].name}</Link>
                       </TableCell>
                       <TableCell align="right">{row.comment}</TableCell>
                       <TableCell align="right">{row.createdAt.slice(0,10)}</TableCell>
-                      <TableCell align="right">{row.answer ? row.answer : 'With answer yet'}</TableCell>
+                      <TableCell align="right">{row.answer ? row.answer : 'WithOut answer yet'}</TableCell>
                       <TableCell align="right">{(row.updatedAt !== row.createdAt) ? row.updatedAt.slice(0,10) : '--'}</TableCell>
                     </TableRow>
                   );

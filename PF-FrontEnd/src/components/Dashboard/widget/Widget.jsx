@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from "react-redux";
 import "./widget.scss";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
@@ -5,8 +7,15 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 
+
 const Widget = ({ type }) => {
   let data;
+  
+  const { allusers } = useSelector((state) => state.userReducer);
+  const { countOrders, totalSales } = useSelector((state) => state.dashboard);
+
+  let totalusers = allusers.length
+  let totalSale = Math.round(totalSales*0.20)
 
   //temporary
   const amount = 100;
@@ -49,7 +58,7 @@ const Widget = ({ type }) => {
       data = {
         title: "EARNINGS",
         isMoney: true,
-        link: "View net earnings",
+        link: "",
         icon: (
           <MonetizationOnOutlinedIcon
             className="icon"
@@ -60,9 +69,9 @@ const Widget = ({ type }) => {
       break;
     case "balance":
       data = {
-        title: "BALANCE",
+        title: "TOTAL SALES",
         isMoney: true,
-        link: "See details",
+        link: "",
         icon: (
           <AccountBalanceWalletOutlinedIcon
             className="icon"
@@ -83,15 +92,18 @@ const Widget = ({ type }) => {
       <div className="left">
         <span className="title">{data.title}</span>
         <span className="counter">
-          {data.isMoney && "$"} {amount}
+          {data.title === 'TOTAL SALES' && `$ ${Math.round(totalSales)}`}
+          {data.title === "USERS" && `${totalusers}`}
+          {data.title === "ORDERS" && `${countOrders}`}
+          {data.title === 'EARNINGS' && `$ ${totalSale}`}
         </span>
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
-        <div className="percentage positive">
+        {data.title === 'EARNINGS' && <div className="percentage positive">
           <KeyboardArrowUpIcon />
           {diff} %
-        </div>
+        </div>}
         {data.icon}
       </div>
     </div>

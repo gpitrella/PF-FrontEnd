@@ -1,16 +1,7 @@
 import React from "react";
 import gitfLogo from './img/logo_TechMarket.gif';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-// import ListItemText from '@mui/material/ListItemText';
-// import ListItem from '@mui/material/ListItem';
-// import List from '@mui/material/List';
-// import Divider from '@mui/material/Divider';
-// import AppBar from '@mui/material/AppBar';
-// import Toolbar from '@mui/material/Toolbar';
-// import IconButton from '@mui/material/IconButton';
-// import Typography from '@mui/material/Typography';
-// import CloseIcon from '@mui/icons-material/Close';
+import { getUserDetail, getUserReviews, getAllCommentByUserID, getOrderByUser} from '../../redux/actions'
 import Slide from '@mui/material/Slide';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeLanding } from '../../redux/actions'
@@ -21,18 +12,21 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   });
 
 export default function Landing() {
-
-    // const [open, setOpen] = React.useState(false);
-    const viewLanding = useSelector((state) => state.general.viewLanding);
+    const { user } = useSelector((state) => state.general);
     const dispatch = useDispatch();
-  
-    // const handleClickOpen = () => {
-    //   setOpen(true);
-    // };
+    React.useEffect(() => {
+        if(user?.user) {
+            dispatch(getUserDetail(user?.user.id))
+            dispatch(getUserReviews(user?.user.id))
+            dispatch(getAllCommentByUserID(user?.user.id))
+            dispatch(getOrderByUser(user?.user.id))
+        }    
+      }, []);
+
+    const viewLanding = useSelector((state) => state.general.viewLanding);
   
     const handleClose = () => {
       dispatch(closeLanding())
-    //   setOpen(false);
     };
     
     const left = document.getElementsByClassName('left')
@@ -65,6 +59,7 @@ export default function Landing() {
         open={viewLanding}
         // onClose={handleClose}
         TransitionComponent={Transition}
+        className='box_big_landing_page'
       >
         <div className="main_landing_page">
             <div className={container}>

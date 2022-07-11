@@ -25,7 +25,8 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { visuallyHidden } from '@mui/utils';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserReviews } from '../../../redux/actions';
 import Rating from '@mui/material/Rating';
 import './MyReviews.css'
 
@@ -197,6 +198,8 @@ EnhancedTableToolbar.propTypes = {
 export default function MyReviews() {
   const { userReviews } = useSelector((state) => state.userReducer)
   const rows = userReviews
+  const { user } = useSelector((state) => state.general);
+  const dispatch = useDispatch();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -237,6 +240,10 @@ export default function MyReviews() {
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  React.useEffect(() => {
+      dispatch(getUserReviews(user?.user.id))
+  }, []);
 
   return (
     <div className='main_box_myreviews'>

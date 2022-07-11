@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { showCart } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { finishOrder, postNewOrder, getUserDetail } from "../../redux/actions"
+import { finishOrder, getUserDetail } from "../../redux/actions"
 import paymentMetod from './img/paymentMetod.webp';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
@@ -62,6 +62,7 @@ const CheckOut = () => {
 
   const preOrder = () => {
     const formMercadoPAgo = productsCart?.map((product) => ({
+      id: product.id,
       title: product.name,
       description: product.description ? product.description : 'Product of Tech, seller TechTegnology',
       picture_url: product.image,
@@ -112,21 +113,11 @@ totalValue();
     }
   },[stateFinishOrder])
   
-
+  // {email,items, idUser, totalpurchase, idAddress, branchOfficeId}
   const handleSubmit = (e) => {
     e.preventDefault();
     if(productsCart.length > 0 && !user?.user?.admin){
-      dispatch(postNewOrder(
-        resultTotalValue, // total
-        "pending", // status 
-        user.user.id, // idUser
-        oneuser.useraddresses?.id, // idAddress, 
-        1, // idProduct, 
-        1,// branchOfficeId, 
-        "primera orden", // description, 
-        "2334444",// idMP, 
-        items))
-      dispatch(finishOrder(input.email, items))    
+      dispatch(finishOrder(input.email, items, user.user.id, resultTotalValue, selectDirection,  radioBranchOffice))    
     } 
     if(productsCart.length > 0 && user?.user?.admin){
       setOpenYouAreAdmin(true);
@@ -163,7 +154,7 @@ totalValue();
                         ? <p>You don't have product in cart.</p>
                         : productsCart?.map((e) => {
                           return (
-                            <div className="box_top_checkout_resumecart">
+                            <div className="box_top_checkout_resumecart" key={e?.id}>
                               <img className="img_checkout_page" src={e?.image} alt={e?.name} />
                               <div className="addtocart_name_checkout">
                                  <h5 id="checkout_title_product">{e?.name.slice(0,60)}</h5>
