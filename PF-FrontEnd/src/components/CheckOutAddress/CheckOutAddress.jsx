@@ -50,7 +50,7 @@ export default function CheckOutAddress({ selectDirection, setSelectDirection, r
   }, [reloadUserDetails]);
 
   React.useEffect(() => {
-    if (branchOffices.length > 0) setradioBranchOffice(branchOffices[0].branchOffice.id);
+    if (branchOffices.length > 0) setradioBranchOffice(branchOffices[0].id);
     else setradioBranchOffice('');
   }, [branchOffices])
 
@@ -127,6 +127,7 @@ export default function CheckOutAddress({ selectDirection, setSelectDirection, r
               variant="outlined"
               size = "medium"
               onClick={handleAddAddress}
+              disabled = {oneuser.useraddresses.length >= 3}
             >
               Add New Address
             </Button>
@@ -171,10 +172,10 @@ export default function CheckOutAddress({ selectDirection, setSelectDirection, r
               branchOffices.map((office, index) => 
                 
                 <FormControlLabel
-                  value = { office.branchOffice.id }
+                  value = { office.id }
                   control = { <Radio /> }
-                  label = {`${office.branchOffice.name} - ${office.branchOffice.direction} - ${Math.round(office.distance)}KM - ${index === 0 ? ' Recommended *' : ''}`}
-                  key = {`radio-branchoffice-${office.branchOffice}`}
+                  label = {`${office.name} - ${office.direction} - ${Math.round(office.distance)}KM - ${index === 0 ? ' Recommended *' : ''}`}
+                  key = {`radio-branchoffice-${office.name}`}
                 />
               )
             }
