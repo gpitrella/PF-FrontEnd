@@ -34,7 +34,8 @@ import {
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
   UPLOAD_IMAGE,
-  CLOUDINARY
+  CLOUDINARY,
+  GET_BRANCH_OFFICES
 } from './actiontype';
 
 
@@ -272,5 +273,14 @@ export function uploadImage(formData) {
       .then(response => response.json())
       .then(data => dispatch({ type: UPLOAD_IMAGE, payload: data }))
       .catch(error => console.LOG(error));
+  }
+}
+
+export function getBranchOffices() {
+  return function(dispatch) {
+    return fetch(`${BASE_URL}/api/branchOffice`)
+           .then(response => response.json())
+           .then(data => dispatch({ type: GET_BRANCH_OFFICES, payload: data }))
+           .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
   }
 }

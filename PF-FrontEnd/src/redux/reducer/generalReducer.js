@@ -29,7 +29,8 @@ import {
   RESET_CHECKOUT_ADDRESS,
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
-  UPLOAD_IMAGE
+  UPLOAD_IMAGE,
+  GET_BRANCH_OFFICES
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -62,6 +63,7 @@ const initialState = {
   // Traer Sucursales con Distancia para el Checkout
   errorBranchOffices: false,
   branchOffices: [],
+  // La reutilizo en branchs.
 
   modalAddImage: {
     show: false,
@@ -344,6 +346,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
           ...state.modalAddImage,
           uploadedImage: payload.secure_url
         }
+      }
+
+    case GET_BRANCH_OFFICES:
+      return {
+        ...state,
+        branchOffices: payload,
+        errorBranchOffices: false
       }
 
     default:

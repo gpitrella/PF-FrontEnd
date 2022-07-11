@@ -16,24 +16,24 @@ const bull = (
   </Box>
 );
 
-export default function BasicCard({data}) {
+export default function BasicCard({branchOffice}) {
   return ( 
     
     <Card  variant="outlined" sx={{ minWidth: 275 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {data.city}
+          {branchOffice.direction}
         </Typography>
         <Typography variant="h5" component="div">
-          {data.adrss}
+          {branchOffice.name}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {data.phone}
-        </Typography>
+{/*        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          {branchOffice.phone}
+        </Typography>*/}
         <Typography variant="body2">
           Horario de atencion
           <br />
-          {data.hours}
+          9hs a 17hs
         </Typography>
       </CardContent>
       <CardActions>

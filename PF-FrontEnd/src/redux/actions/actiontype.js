@@ -122,6 +122,9 @@ export const SHOW_MODAL_ADD_IMAGE = 'SHOW_MODAL_ADD_IMAGE';
 export const CLOSE_MODAL_ADD_IMAGE = 'CLOSE_MODAL_ADD_IMAGE';
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 
+// GET BRANCHS
+export const GET_BRANCH_OFFICES = 'GET_BRANCH_OFFICES';
+
 // BASE URL
 // export const BASE_URL = 'https://techmarketapp.herokuapp.com';
 export const BASE_URL = 'http://localhost:3001';
