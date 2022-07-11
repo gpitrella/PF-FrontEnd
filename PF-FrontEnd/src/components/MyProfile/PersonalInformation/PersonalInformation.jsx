@@ -20,7 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import { putDataUser, getUserDetail } from '../../../redux/actions'
+import { putDataUser, getUserDetail, putUpdatePassword } from '../../../redux/actions'
 import { Link } from 'react-router-dom';
 import './PersonalInformation.css'
 
@@ -48,6 +48,7 @@ export default function PersonalInformation() {
   const [ open, setOpen ] = React.useState(false);
   const [ openImg, setOpenImg ] = React.useState(false);
   const [ openPhone, setOpenPhone] = React.useState(false);
+  const [ openPassword, setOpenPassword] = React.useState(false);
   const [ dataChange, setDataChange ] = React.useState({});
 
   const handleClickOpen = () => {
@@ -62,10 +63,15 @@ export default function PersonalInformation() {
     setOpenPhone(true)
   };
 
+  const handleOpenPassword = () => {
+    setOpenPassword(true)
+  };
+
   const handleClose = () => {
     setOpen(false);
     setOpenImg(false);
     setOpenPhone(false);
+    setOpenPassword(false);
   };
 
   const handleDataChange = (e) => {
@@ -79,6 +85,15 @@ export default function PersonalInformation() {
   const handleSendDataChange = () => {
     dispatch(putDataUser(user.user.id, dataChange))
     handleClose()
+  }
+
+  const handleUpdatePassword = () => {
+    setDataChange({
+      ...dataChange,
+      token: user.token
+    })
+    dispatch(putUpdatePassword(dataChange));
+    setOpenPassword(false);
   }
 
   // Controlador de cierre de mensaje de nombre editado:
@@ -153,6 +168,7 @@ export default function PersonalInformation() {
           </Avatar>
         </ListItemAvatar>
         <ListItemText primary="Password: ******" />
+        <EditIcon cursor='pointer' onClick={handleOpenPassword}/>
       </ListItem>
       <ListItem>
         <ListItemAvatar>
@@ -228,6 +244,31 @@ export default function PersonalInformation() {
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSendDataChange}>Edit</Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+    <div>
+      <Dialog open={openPassword} onClose={handleClose}>
+        <DialogTitle>Edit Password:</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Type your new Password.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="password"
+            name="password"
+            label="New Password"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={handleDataChange}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleUpdatePassword}>Edit</Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -12,7 +12,8 @@ import {
   GET_COMMENTS_BY_USER,
   DELETE_USER_ADDRESS,
   EDIT_DATA_USER,
-  USER_ADD_ADDRESS
+  USER_ADD_ADDRESS,
+  PUT_PASSWORD
 } from './actiontype';
 
 const urluser = `${BASE_URL}/api/user`;
@@ -109,6 +110,15 @@ export const userAddAddress = function(userId, { direction, latitude, longitude 
   return function(dispatch) {
     return axios.post(`${BASE_URL}/api/address/${userId}`, { direction, latitude, longitude })
                 .then(data => dispatch({ type: USER_ADD_ADDRESS }))
+                .catch(error => console.log(error));
+  }
+}
+
+// PUT Password USer
+export const putUpdatePassword = function(data) {
+  return function(dispatch) {
+    return axios.put(`${BASE_URL}api/password`, data)
+                .then(data => console.log('update password'))
                 .catch(error => console.log(error));
   }
 }
