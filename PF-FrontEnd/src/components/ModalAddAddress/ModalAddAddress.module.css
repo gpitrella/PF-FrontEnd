@@ -11,6 +11,8 @@
   left: 0;
 
   z-index: 100;
+
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .container {
@@ -108,6 +110,7 @@
 
 .lbl {
   align-self: center;
+  justify-self: flex-start;
 }
 
 .imageContainer {

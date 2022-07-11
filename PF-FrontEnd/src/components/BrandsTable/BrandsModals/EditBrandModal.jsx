@@ -6,6 +6,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup'
 
+// Importar imagen
+import s from './styles.module.css';
+import { CLOUDINARY } from '../../../redux/actions/actiontype';
+
 const defaultInputValues = {
     name: '',
     image: '',
@@ -14,6 +18,11 @@ const defaultInputValues = {
 const EditBrandModal = ({ brand, open, onClose, saveEditedBrand }) => {
     
     const [values, setValues] = useState(defaultInputValues);
+
+    // Importar imagen
+    const [ image, setImage ] = useState('');
+    const [ uploadedImage, setUploadedImage ] = useState('');
+    const [ uploadingImage, setUploadingImage ] = useState(false);
 
     const modalStyles = {
         inputFields: {
@@ -57,7 +66,12 @@ const EditBrandModal = ({ brand, open, onClose, saveEditedBrand }) => {
     };
 
     useEffect(() => {
-        if (open) setValues({ id: brand.id, name: brand.name, image: brand.image });
+        if (open) { 
+            setValues({ id: brand.id, name: brand.name, image: brand.image });
+            setImage('');
+            setUploadingImage(false);
+            setUploadedImage('');
+        }
     }, [open])
 
     const getContent = () => (
@@ -84,8 +98,40 @@ const EditBrandModal = ({ brand, open, onClose, saveEditedBrand }) => {
                 value={values.image}
                 onChange={(event) => handleChange({ ...values, image: event.target.value })}
             />
+            <div className = {s.containerUpload}>
+              <input type = 'file' name = 'file' onChange = { e => setImage(e.target.files) } className = {s.btnSelectImage} />
+              <button onClick = {uploadImage} disabled = {image === ''} className = {s.btnUploadImage}>Upload Image</button>
+              {
+                uploadingImage && <label className = {s.lbl}>Uploading Image...</label>
+              }
+              {
+                uploadedImage !== '' && <img src = {uploadedImage} alt = '' className = {s.imageUploaded}/>
+              }
+            </div>
         </Box>
     );
+
+    // Importar Imagen
+    let uploadImage = function() {
+      setUploadingImage(true);
+      let files = image;
+      let formData = new FormData();
+      formData.append('file', files[0]);
+      formData.append('upload_preset', 'tech_market_henry');
+
+      fetch(CLOUDINARY, { method: 'POST', body: formData })
+      .then(response => response.json())
+      .then(data => {
+        setImage('');
+        setUploadingImage(false);
+        setUploadedImage(data.secure_url);
+        setValues({
+          ...values,
+          image: data.secure_url
+        })
+      })
+      .catch(error => console.log(error));
+    }
     
     return (
         <BasicModal

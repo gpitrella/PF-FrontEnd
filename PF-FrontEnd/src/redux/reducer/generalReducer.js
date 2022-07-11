@@ -24,7 +24,12 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
-  POST_NEW_ORDER
+  POST_NEW_ORDER,
+  GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  RESET_CHECKOUT_ADDRESS,
+  SHOW_MODAL_ADD_IMAGE,
+  CLOSE_MODAL_ADD_IMAGE,
+  UPLOAD_IMAGE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -52,7 +57,16 @@ const initialState = {
   loadingUser: true,
   favouritesProducts: [],
   viewLanding: true,
-  logInError: {}
+  logInError: {},
+
+  // Traer Sucursales con Distancia para el Checkout
+  errorBranchOffices: false,
+  branchOffices: [],
+
+  modalAddImage: {
+    show: false,
+    uploadedImage: '',
+  }
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -280,6 +294,58 @@ const generalReducer = function(state = initialState, { type, payload }) {
         logInError: payload
       }
     }
+
+    // Traer sucursales con distancia
+    case GET_BRANCHS_OFFICES_WITH_DISTANCE:
+
+      if (payload.error) return { ...state, errorBranchOffices: true };
+
+      payload.sort((prev, next) => prev.distance - next.distance);
+      
+      return {
+        ...state,
+        branchOffices: payload,
+        errorBranchOffices: false
+      };
+
+    case RESET_CHECKOUT_ADDRESS:
+      return {
+        ...state,
+        errorBranchOffices: false,
+        branchOffices: [],
+      }
+
+    // Modal para subir imagenes
+
+    case SHOW_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: true,
+          uploadedImage: '',
+        }
+      }
+
+    case CLOSE_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: false,
+          uploadedImage: ''
+        }
+      }
+
+    case UPLOAD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          uploadedImage: payload.secure_url
+        }
+      }
+
     default:
       return state;
   }

@@ -1,13 +1,17 @@
 import {
+  SHOW_MODAL_ADD_ADDRESS,
+  CLOSE_MODAL_ADD_ADDRESS,
   SHOW_LOADING_PARAM,
   GET_PROVINCIAS,
   GET_MUNICIPIOS,
   GET_LOCALIDADES,
   VALIDATING_ADDRESS,
-  NORMALIZE_ADDRESS
+  NORMALIZE_ADDRESS,
+  RESET_MODAL_ADD_ADRESS
 } from '../actions/actiontype';
 
 const initialState = {
+  show: false,
   provincias: [],
   municipios: [],
   localidades: [],
@@ -20,6 +24,16 @@ const initialState = {
 
 const generalReducer = function(state = initialState, { type, payload }) {
   switch(type) {
+    case SHOW_MODAL_ADD_ADDRESS:
+      return {
+        ...state,
+        show: true
+      }
+    case CLOSE_MODAL_ADD_ADDRESS:
+      return {
+        ...state,
+        show: false
+      }
     case SHOW_LOADING_PARAM:
       return {
         ...state,
@@ -53,6 +67,10 @@ const generalReducer = function(state = initialState, { type, payload }) {
         ...state,
         validating: false,
         address: payload
+      }
+    case RESET_MODAL_ADD_ADRESS:
+      return {
+        ...initialState
       }
     default:
       return state;
