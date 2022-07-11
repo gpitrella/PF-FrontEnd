@@ -65,7 +65,7 @@ const BrandsPage = () => {
           message="Data couldn't be fetched"
           onClose={handleClose}
         />
-        <NewBrandModal open={openModal} onClose={() => setOpenModal=false} addNewBrand={addNewBrand} />
+        <NewBrandModal open={openModal} onClose={() => setOpenModal(false)} addNewBrand={addNewBrand} />
       </div>
     </div>
   )

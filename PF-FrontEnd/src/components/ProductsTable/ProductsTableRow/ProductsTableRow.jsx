@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ProductsTableCell from '../ProductsTableCell/ProductsTableCell';
 import ProductsTableEdit from '../ProductsTableEdit/ProductsTableEdit';
 import GeneralModal from '../../GeneralModal/GeneralModal';
+import LoadingSkeleton from '../LoadingSkeleton/LoadingSkeleton'; 
 import { deleteProduct, putProduct, waitingResponseDelete, waitingResponsePut } from '../../../redux/actions';
 import ArrowDown from '../../SVG/ArrowDown';
 import { rowData } from '../config';
@@ -194,11 +195,17 @@ export default function ProductsTableRow({ product }) {
 
   if (product.isDummy) return (
     <tr className = {s.row}>
-      <td>
-        <div className = {s.rowParam}>
-          {showLoading ? 'LOADING' : ''}
-        </div>
-      </td>
+        {
+          !showLoading && <td><div className = {s.rowParam}></div></td>
+        }
+        {
+          showLoading && 
+            <td colspan = '11'>
+              <div className = {s.rowParam}>
+                <LoadingSkeleton />
+              </div>
+            </td>
+        }
     </tr>
   );
 

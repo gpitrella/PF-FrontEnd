@@ -125,8 +125,8 @@ const CategoryTable = ({ onError }) => {
         getRowId={(row) => row.id}
         processRowUpdate={processRowUpdate}      
       />
-      <EditCategoryModal category={selectedCategory} open={openModalEdit} onClose={() => setOpenModalEdit=false} savedEditedCategory={savedEditedCategory} />
-      <DeleteCategoryModal id={selectedCategory.id} open={openModalDelete} onClose={() => setOpenModalDelete=false} confirmDeletedCategory={confirmDeletedCategory} />
+      <EditCategoryModal category={selectedCategory} open={openModalEdit} onClose={() => setOpenModalEdit(false)} savedEditedCategory={savedEditedCategory} />
+      <DeleteCategoryModal id={selectedCategory.id} open={openModalDelete} onClose={() => setOpenModalDelete(false)} confirmDeletedCategory={confirmDeletedCategory} />
     </div>
   );
 };
