@@ -74,7 +74,6 @@ export default function ProductDetails (){
     const [open, setOpen] = React.useState(false); // Box de comentarios
     const [openReview, setOpenReview] = React.useState(false); // Box de review
     const [value, setValue] = React.useState(0); // Rating
-    console.log(value)
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.homepage.productDetails)
