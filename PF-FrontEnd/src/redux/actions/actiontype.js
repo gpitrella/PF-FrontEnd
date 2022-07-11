@@ -23,6 +23,7 @@ export const SUCCESS_BUY = "SUCCESS_BUY";
 export const CLOSE_LANDING = "CLOSE_LANDING";
 export const POST_NEW_ORDER = "POST_NEW_ORDER";
 export const LOG_IN_ERROR = "LOG_IN_ERROR";
+export const MAP_TOKEN = "MAP_TOKEN";
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';

@@ -24,7 +24,8 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
-  POST_NEW_ORDER
+  POST_NEW_ORDER,
+  MAP_TOKEN
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -52,7 +53,8 @@ const initialState = {
   loadingUser: true,
   favouritesProducts: [],
   viewLanding: true,
-  logInError: {}
+  logInError: {},
+  token:''
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -280,6 +282,14 @@ const generalReducer = function(state = initialState, { type, payload }) {
         logInError: payload
       }
     }
+
+    case MAP_TOKEN: {
+      return {
+        ...state,
+        token: payload
+      }
+    }
+
     default:
       return state;
   }

@@ -28,7 +28,8 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
-  POST_NEW_ORDER
+  POST_NEW_ORDER,
+  MAP_TOKEN,
 } from './actiontype';
 
 
@@ -231,3 +232,11 @@ export function postNewOrder(total, status, idUser, idAddress, idProduct, branch
         .catch(error => console.log(error))
   };
 };
+
+// export const mapToken = function() {
+//   return function(){
+//     return  axios.get(`${BASE_URL}/api/apitoken`)
+//                 .then(data => {return data.data})
+//                 .catch(error => console.log(error))
+//   }
+// };
