@@ -113,6 +113,7 @@ export default function NavBar() {
   const { theme } = useSelector(state => state.general);  
   const [ name, setName ] = React.useState('');
   const { user } = useSelector((state) => state.general)
+  const { oneuser } = useSelector((state) => state.userReducer);
   const productsCart = useSelector((state) => state.general.productsCart);
 
   const dispatch = useDispatch();
@@ -166,6 +167,7 @@ export default function NavBar() {
 
   const menuId = 'primary-search-account-menu';
   
+  // Menu del Avatar:
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -201,6 +203,7 @@ export default function NavBar() {
     </Menu>
   );
 
+  // Menu Versión Movile
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -218,6 +221,46 @@ export default function NavBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <MenuItem sx={!user?.user ? { display: 'none' } : { display: 'inline-flex', flexGrow: 1, alignItems: 'center' }} fontSize="1rem" component="div">
+        <Typography >
+            Welcome {user?.user?.name}
+        </Typography>
+      </MenuItem>
+
+      <MenuItem>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+          <Badge badgeContent={productsCart?.length} color="error">
+            <ShoppingCartIcon/>
+          </Badge>
+        </IconButton>
+        <p>Your Cart</p>
+      </MenuItem>
+
+      <MenuItem>
+        <IconButton size="large" aria-label="store" color="inherit">
+          <Badge badgeContent={0} color="error">
+            <Link to={'/store'} className="links_general_movile_nabvar">
+              <StorefrontIcon className="links_general_movile_nabvar"/>
+            </Link>
+          </Badge>
+        </IconButton>
+        <p>Store</p>
+      </MenuItem>
+
+      <MenuItem sx={!displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+        <IconButton 
+          size="large" 
+          aria-label="create_product" 
+          color="inherit"
+        >
+          <Badge badgeContent={0} color="error">
+            <Link to={'/admin/dashboard'} className="links_general_movile_nabvar">
+              <DisplaySettingsIcon className="links_general_movile_nabvar"/>
+            </Link>
+          </Badge>
+        </IconButton>
+        <p>Dashboard</p>
+      </MenuItem>
 
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -240,6 +283,7 @@ export default function NavBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
+
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
@@ -248,10 +292,25 @@ export default function NavBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
-          <Avatar alt="Avatar Imagen" src={userAvatar} />
+          <Avatar 
+            alt="PhotoMyProfile"
+            src={user.user 
+              ? oneuser?.image 
+                    ? oneuser?.image
+                    : userAvatar
+              : null}
+            sx={{ width: 24, height: 24, bgcolor: 'black', color: 'white'}}
+          />
         </IconButton>
-        <p>Profile</p>
+        <p>My Profile</p>
+      </MenuItem>
+
+      <MenuItem sx={{justifyContent: "center"}}>
+        <Stack direction="row" spacing={1} alignItems="center" >
+          <Typography><LightModeIcon /></Typography>
+            <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} onClick={handleCheck}/>
+          <Typography><Brightness3Icon /></Typography>
+        </Stack>
       </MenuItem>
     </Menu>
   );
@@ -273,33 +332,22 @@ export default function NavBar() {
     }
   },[user]);
 
+  
     return (
       /// Nueva NAVABar
       <nav className='navbar_main_block'>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            {/* <MenuIcon /> */}
-          </IconButton>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography><LightModeIcon /></Typography>
-              <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} onClick={handleCheck}/>
-            <Typography><Brightness3Icon /></Typography>
-          </Stack>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            sx={{ mr: 2 }}
-          >
-          </IconButton> 
+          <Toolbar>
+
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography><LightModeIcon /></Typography>
+                <AntSwitch defaultChecked inputProps={{ 'aria-label': 'ant design' }} onClick={handleCheck}/>
+              <Typography><Brightness3Icon /></Typography>
+            </Stack>
+          </Box>
+
           <Link to="/">
             <Box
               alignSelf="center"
@@ -321,26 +369,18 @@ export default function NavBar() {
             />
           </Search>
           
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
-            <IconButton 
-                fontSize="1rem"
-                size="small" 
-                aria-label="create_product" 
-                color="inherit"
-                sx={!user?.user ? { display: 'none' } : { display: 'inline-flex' }}
-              >
-                  <Typography fontSize="1rem" component="div" sx={{ flexGrow: 1 }}>
-                      Welcome {user?.user?.name}
-                  </Typography>
+            <Typography sx={!user?.user ? { display: 'none' } : { display: 'inline-flex', flexGrow: 1, alignItems: 'center' }} fontSize="1rem" component="div">
+                Welcome {user?.user?.name}
+            </Typography>
+          
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+              <Badge badgeContent={productsCart?.length} color="error">
+                <ShoppingCartIcon className="links_general"/>
+              </Badge>
             </IconButton>
-            
-              <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
-                <Badge badgeContent={productsCart?.length} color="error">
-                  <ShoppingCartIcon className="links_general"/>
-                </Badge>
-              </IconButton>
 
             <IconButton size="large" aria-label="store" color="inherit">
               <Badge badgeContent={0} color="error">
@@ -369,8 +409,6 @@ export default function NavBar() {
               </Badge>
             </IconButton>
 
-
-
             <IconButton
               size="large"
               aria-label="show 0 new notifications"
@@ -391,7 +429,14 @@ export default function NavBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar 
+                alt="Avatar"
+                src={user.user 
+                  ? oneuser?.image 
+                        ? oneuser?.image
+                        : userAvatar
+                  : null}
+                sx={{ width: 24, height: 24, color: '#3874CB', bgcolor: 'white' }}/>
             </IconButton>
 
             <IconButton
@@ -404,10 +449,17 @@ export default function NavBar() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar 
+                alt="Avatar"
+                src={user.user 
+                        ? oneuser?.image 
+                              ? oneuser?.image
+                              : userAvatar
+                        : null}
+                sx={{ width: 24, height: 24, color: '#3874CB', bgcolor: 'white' }}/>
             </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+        </Box>
+        <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="show more"
@@ -418,7 +470,7 @@ export default function NavBar() {
             >
               <MoreIcon className="links_general"/>
             </IconButton>
-          </Box>
+        </Box>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

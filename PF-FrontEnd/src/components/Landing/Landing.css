@@ -14,6 +14,11 @@
   box-sizing: border-box;
 }
 
+.box_big_landing_page {
+  display: flex;
+  flex-direction: column;
+}
+
 .main_landing_page {
   font-family: 'Roboto', sans-serif;
   height: 100vh;

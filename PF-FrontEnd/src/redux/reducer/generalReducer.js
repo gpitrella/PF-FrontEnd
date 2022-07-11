@@ -24,7 +24,7 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
-  POST_NEW_ORDER
+  GET_ORDER_BY_USER
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -52,7 +52,8 @@ const initialState = {
   loadingUser: true,
   favouritesProducts: [],
   viewLanding: true,
-  logInError: {}
+  logInError: {},
+  orderByUser: {}
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -278,6 +279,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
       return {
         ...state,
         logInError: payload
+      }
+    }
+
+    case GET_ORDER_BY_USER: {
+      return {
+        ...state,
+        orderByUser: payload
       }
     }
     default:

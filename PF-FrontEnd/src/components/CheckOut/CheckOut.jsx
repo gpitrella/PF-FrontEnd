@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import { showCart } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { finishOrder, postNewOrder, getUserDetail } from "../../redux/actions"
+import { finishOrder, getUserDetail } from "../../redux/actions"
 import paymentMetod from './img/paymentMetod.webp';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
@@ -53,6 +53,7 @@ const CheckOut = () => {
 
   const preOrder = () => {
     const formMercadoPAgo = productsCart?.map((product) => ({
+      id: product.id,
       title: product.name,
       description: product.description ? product.description : 'Product of Tech, seller TechTegnology',
       picture_url: product.image,
@@ -103,21 +104,11 @@ totalValue();
     }
   },[stateFinishOrder])
   
-
+  // idUser, idAddress, branchOfficeId,
   const handleSubmit = (e) => {
     e.preventDefault();
     if(productsCart.length > 0 && !user?.user?.admin){
-      dispatch(postNewOrder(
-        resultTotalValue, // total
-        "pending", // status 
-        user.user.id, // idUser
-        oneuser.useraddresses?.id, // idAddress, 
-        1, // idProduct, 
-        1,// branchOfficeId, 
-        "primera orden", // description, 
-        "2334444",// idMP, 
-        items))
-      dispatch(finishOrder(input.email, items))    
+      dispatch(finishOrder(input.email, user.user.id, null, null, items, null, null, null))    
     } 
     if(productsCart.length > 0 && user?.user?.admin){
       setOpenYouAreAdmin(true);

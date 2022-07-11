@@ -28,7 +28,8 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
-  POST_NEW_ORDER
+  GET_ORDER_BY_USER,
+  EDIT_STATUS_ORDER
 } from './actiontype';
 
 
@@ -125,9 +126,9 @@ export function closeCart(){
 };
 
 // Finish Order:
-export const finishOrder = function(email, items) {
+export const finishOrder = function(email, idUser, idAddress, branchOfficeId, items, subject,text,html) {
   return function(dispatch){
-    return axios.post(`${BASE_URL}/api/payment`, {email, items})
+    return axios.post(`${BASE_URL}/api/payment`, {email, idUser, idAddress, branchOfficeId, items,subject,text,html})
                 .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
                 .catch(error => console.log(error))
   }
@@ -223,11 +224,20 @@ export function closeLanding(){
   }
 };
 
-// Post New Order
-export function postNewOrder(total, status, idUser, idAddress, idProduct, branchOfficeId, description, idMP, items){
+// Get Order By User:
+export function getOrderByUser(idUser){
   return function(dispatch){
-    return axios.post(`${BASE_URL}/api/orders`, { total, status, idUser, idAddress, idProduct, branchOfficeId, description, idMP, items })
-        .then(response => console.log(response))
+    return axios.get(`${BASE_URL}/api/orders/users/${idUser}`)
+        .then(response => dispatch({ type: GET_ORDER_BY_USER, payload: response.data }))
+        .catch(error => console.log(error))
+  };
+};
+
+// Put Status By Order:
+export function putStatusByOrder(id, status){
+  return function(dispatch){
+    return axios.put(`${BASE_URL}/api/orders`, { id, status })
+        .then(response => console.log('Order updated'))
         .catch(error => console.log(error))
   };
 };

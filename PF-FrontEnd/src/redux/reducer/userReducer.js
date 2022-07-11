@@ -7,7 +7,8 @@ import {
   USER_STATUS_RESET, 
   USER_UPDATE,
   USER_REVIEWS,
-  GET_COMMENTS_BY_USER
+  GET_COMMENTS_BY_USER,
+  EDIT_DATA_USER
 } from "../actions/actiontype";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
     userisactive: null,
     usereditstatusok: false,
     userReviews: [],
-    commentByUser: []
+    commentByUser: [],
+    updateUser: {}
 }
 
 const userReducer = function(state = initialState, { type, payload }) {
@@ -73,6 +75,12 @@ const userReducer = function(state = initialState, { type, payload }) {
         return {
           ...state,
           commentByUser: payload
+        }
+
+      case EDIT_DATA_USER:
+        return {
+          ...state,
+          updateUser: payload
         }
   
       default:

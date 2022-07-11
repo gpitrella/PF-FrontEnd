@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
+import { useDispatch } from "react-redux";
+import { postReviewProduct } from "../../../redux/actions";
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,8 +13,16 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
@@ -23,10 +33,16 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
+import { getOrderByUser } from '../../../redux/actions';
 import { visuallyHidden } from '@mui/utils';
 import { useSelector } from "react-redux";
 import Rating from '@mui/material/Rating';
 import './MyPurchases.css'
+
+// Alerta comentario creado
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -60,34 +76,40 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
+    id: 'order',
+    numeric: false,
+    disablePadding: true,
+    label: 'N° Order', // antes Dessert (100g serving)
+  },
+  {
     id: 'name',
     numeric: false,
     disablePadding: true,
     label: 'Product Name', // antes Dessert (100g serving)
   },
   {
-    id: 'score', // antes calories
+    id: 'quantity', // antes calories
     numeric: true,
     disablePadding: false,
-    label: 'Your Rating', // antes Calories
+    label: 'Quantity', // antes Calories
   },
   {
-    id: 'review', // antes fat
+    id: 'price', // antes fat
     numeric: true,
     disablePadding: false,
-    label: 'Your Review', // antes Fat (g)
+    label: 'Price', // antes Fat (g)
   },
   {
-    id: 'date', // antes carbs
+    id: 'status', // antes carbs
     numeric: true,
     disablePadding: false,
-    label: 'Date created', // antes Carbs (g)
+    label: 'Status', // antes Carbs (g)
   },
   {
-    id: 'viewProduct',
+    id: 'review',
     numeric: true,
     disablePadding: false,
-    label: 'view',
+    label: 'Write Review',
   },
 ];
 
@@ -106,7 +128,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
+            align={headCell.numeric ? 'center' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -194,14 +216,78 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function MyReviews() {
+  const [ totalOrderByUser, setTotalOrderByUser ] = React.useState([]);
+  const [ openReview, setOpenReview ] = React.useState(false); // Box de review
+  const [ openComment, setOpenComment ] = React.useState(false);
+  const [ commentReview, setCommentReview ] = React.useState();
+  const { user } = useSelector((state) => state.general)
+  const [ writeReview, setWriteReview ] = React.useState({});
+  const { orderByUser } = useSelector((state) => state.general)
   const { userReviews } = useSelector((state) => state.userReducer)
-  const rows = userReviews
+  const [ value, setValue ] = React.useState(0); // Rating
+  const [ idToReview, setIdToReview ] = React.useState()
+  const dispatch = useDispatch();
+    
+  const totalOrder = () => {
+    let totalOrder = [];
+    if(orderByUser?.purchase_orders?.length > 0) {
+      orderByUser.purchase_orders.map((order)=>{
+        order.items.map((item)=>{
+          totalOrder.push({
+            idPurchase: order.id,
+            status: order.status, 
+            id: item.id,
+            title: item.title,
+            picture_url: item.picture_url,
+            category_id: item.category_id,
+            quantity: item.quantity,
+            unit_price: item.unit_price,
+            withReview: false
+          })          
+        })
+      })
+    }
+    setTotalOrderByUser(totalOrder);
+  };
+  let data = {status: {}}
+  
+  const countReview = (idProduct) => {
+    const numberOfReview = userReviews.filter((review) => review.products[0].id === idProduct)
+    console.log(numberOfReview)
+    const numberOfPurchase = totalOrderByUser.filter((order) => order.id === idProduct)
+    if(numberOfReview < numberOfPurchase) {
+      
+       data.status = {
+        ...data.status, 
+        [idProduct]: true
+      };
+      console.log(data)
+    }
+  }
+  
+
+  const rows = totalOrderByUser;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  React.useEffect(()=>{
+    dispatch(getOrderByUser(user?.user.id));
+  })
+
+  React.useEffect(()=>{
+    totalOrder()
+  },[orderByUser]);
+
+  React.useEffect(()=>{
+     totalOrderByUser.map((order) => {
+        countReview(order.id)       
+      })
+      setWriteReview(data)
+  },[totalOrderByUser]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -237,6 +323,44 @@ export default function MyReviews() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  // Agrega una Review
+  const handleClickOpenReview = (id) => {
+    if(user?.user){
+      setOpenReview(true);
+      setIdToReview(id)
+    } 
+  };
+
+  const handleCloseReview = () => {
+    setOpenReview(false);
+  };
+
+  const handleCommentReview = (e) => {
+    e.preventDefault();
+    setCommentReview(e.target.value);
+};
+
+const handleSendReview = () => {
+  if(user?.user){
+    dispatch(postReviewProduct(commentReview, value, idToReview, user?.user.id));
+    handleClickComment()
+    handleCloseReview();
+  } 
+};
+
+const handleClickComment = () => {
+  setOpenComment(true);
+};
+
+const handleCloseSuccessComment = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+  setOpenComment(false);
+};
+
+
+
   return (
     <div className='main_box_myreviews'>
     <h3 className='title_myreviews'> My Purchases </h3>
@@ -267,35 +391,41 @@ export default function MyReviews() {
                 ?.map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
+                  
                   return (
                     <TableRow
                       hover
                       tabIndex={-1}
                       key={row.id}
                     >
+                      
                       <TableCell padding="checkbox">
-                      <Stack direction="row" spacing={2}>
-                        <Avatar id="avatar_product_review"
-                            alt="Remy Sharp"
-                            src={row.products[0].image}
-                            sx={{ width: 56, height: 56 }}                           
-                            />                        
-                      </Stack>
+                        <Stack direction="row" spacing={2}>
+                          <Avatar id="avatar_product_review"
+                              alt="Remy Sharp"
+                              src={row.picture_url}
+                              sx={{ width: 56, height: 56 }}                           
+                              />                        
+                        </Stack>
                       </TableCell>
+                      <TableCell align="center">{row.idPurchase}</TableCell>
                       <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
                         padding="none"
                       >
-                        {row.products[0].name}
+                        <Link to={`/productdetails/${row.id}`}>{row.title} </Link>
                       </TableCell>
-                      <TableCell align="right"> ({row.score})
-                        <Rating name="read-only" value={row.score}/> </TableCell>
-                      <TableCell align="right">{row.comment}</TableCell>
-                      <TableCell align="right">{row.createdAt.slice(0,10)}</TableCell>
-                      <TableCell align="right"><Link to={`/productdetails/${row.products[0].id}`}> View Prod. </Link></TableCell>
+                      <TableCell align="center">{row.quantity}</TableCell>
+                      <TableCell align="center">{row.unit_price}</TableCell>
+                      <TableCell align="center">{row.status.charAt(0).toUpperCase() + row.status.slice(1)}</TableCell>
+                      <TableCell align="center"> {writeReview?.status[row.id] 
+                           ? <Button size='small' variant="outlined" onClick={() => handleClickOpenReview(row.id)}>
+                                Review
+                            </Button> 
+                           : 'Done' } 
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -329,6 +459,49 @@ export default function MyReviews() {
     <Link to={`/myprofile`}>
         <Button id='btn_myreview' variant="contained"> My Profile </Button>
     </Link>
+    <div id="review_block">
+            <Dialog open={openReview} onClose={handleCloseReview}>
+                <DialogTitle>Review:</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Write a review of the product you bought so you help other buyers in their decision.
+                    </DialogContentText>
+                    <Box
+                        sx={{
+                            '& > legend': { mt: 2 },
+                        }}
+                        >
+                        <Typography component="legend">Review Rating</Typography>
+                        <Rating
+                            name="simple-controlled"
+                            value={value}
+                            onChange={(event, newValue) => {
+                            setValue(newValue);
+                            }}
+                        />
+                    </Box>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="comment"
+                        label="Write here your review ..."
+                        type="text"
+                        fullWidth
+                        variant="standard"
+                        onChange={(e)=> handleCommentReview(e)}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCloseReview}>Cancel</Button>
+                    <Button onClick={handleSendReview}>Send Review</Button>
+                </DialogActions>
+            </Dialog>
+        </div>
+        <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+            <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
+                Success review created!
+            </Alert>
+        </Snackbar>
     </div>
   );
 }
