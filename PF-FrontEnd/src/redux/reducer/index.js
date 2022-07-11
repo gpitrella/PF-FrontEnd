@@ -6,7 +6,9 @@ import userReducer from './userReducer';
 
 import darkModeReducer from '../../context/darkModeReducer';
 import dashboard from './dashboardReducer';
-import modalAddAddress from './modalAddAddressReducer'; 
+import modalAddAddress from './modalAddAddressReducer';
+
+import purchases from './purchaseReducer';
 
 export default combineReducers({
   general,
@@ -16,4 +18,5 @@ export default combineReducers({
   dashboard,
   userReducer,
   modalAddAddress,
+  purchases
 })

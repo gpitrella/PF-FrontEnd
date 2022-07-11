@@ -24,8 +24,13 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
+  GET_ORDER_BY_USER,
   POST_NEW_ORDER,
-  MAP_TOKEN
+  GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  RESET_CHECKOUT_ADDRESS,
+  SHOW_MODAL_ADD_IMAGE,
+  CLOSE_MODAL_ADD_IMAGE,
+  UPLOAD_IMAGE
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -54,7 +59,16 @@ const initialState = {
   favouritesProducts: [],
   viewLanding: true,
   logInError: {},
-  token:''
+  orderByUser: {},
+
+  // Traer Sucursales con Distancia para el Checkout
+  errorBranchOffices: false,
+  branchOffices: [],
+
+  modalAddImage: {
+    show: false,
+    uploadedImage: '',
+  }
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -283,12 +297,62 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
 
-    case MAP_TOKEN: {
+    case GET_ORDER_BY_USER: {
       return {
         ...state,
-        token: payload
+        orderByUser: payload
       }
-    }
+    };
+    // Traer sucursales con distancia
+    case GET_BRANCHS_OFFICES_WITH_DISTANCE:
+
+      if (payload.error) return { ...state, errorBranchOffices: true };
+
+      payload.sort((prev, next) => prev.distance - next.distance);
+      
+      return {
+        ...state,
+        branchOffices: payload,
+        errorBranchOffices: false
+      };
+
+    case RESET_CHECKOUT_ADDRESS:
+      return {
+        ...state,
+        errorBranchOffices: false,
+        branchOffices: [],
+      }
+
+    // Modal para subir imagenes
+
+    case SHOW_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: true,
+          uploadedImage: '',
+        }
+      }
+
+    case CLOSE_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: false,
+          uploadedImage: ''
+        }
+      }
+
+    case UPLOAD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          uploadedImage: payload.secure_url
+        }
+      }
 
     default:
       return state;

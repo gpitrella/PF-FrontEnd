@@ -1,0 +1,104 @@
+.row {
+  border-bottom: 1px solid var(--fontColorWithLessOpacity);
+}
+
+.rowParam {
+  font-size: var(--fontSmallest);
+  color: var(--fontColor);
+
+  font-weight: 500;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  text-align: center;
+
+  min-height: 5rem;
+}
+
+.rowAdjust {
+  height: 5rem;
+}
+
+.containerView {
+  height: 10rem;
+  width: 35rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerComparation {
+  display: grid;
+  grid-template-rows: 8rem 4rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  height: 12rem;
+  width: 35rem;
+  grid-gap: 0.5rem;
+}
+
+.listContainer {
+  width: 100%;
+  overflow-y: scroll;
+  background-color: var(--primaryColorSub);
+  border-radius: 16px;
+
+  grid-row: 1 / 2;
+  grid-column: 1 / 4;
+}
+
+.list {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.item {
+  font-size: var(--fontSmallest);
+  color: var(--fontColor);
+
+  padding: 3px;
+}
+
+.arrowContainer {
+  height: 2rem;
+  width: 2rem;
+
+  padding: 0.2rem;
+
+  transform: rotate(-90deg);
+}
+
+.arrowContainer > svg {
+  fill: var(--secondaryColor);
+}
+
+.newValue,
+.pastValue {
+  color: white;
+  font-weight: 700;
+  padding: 5px 10px 5px 10px;
+  border-radius: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.pastValue {
+  background-color: var(--dangerColor);
+}
+
+.newValue {
+  background-color: var(--successColor);
+}
+
+.paramName {
+  font-weight: 700;
+  color: var(--secondaryColor);
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}

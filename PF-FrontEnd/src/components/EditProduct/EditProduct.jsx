@@ -5,8 +5,12 @@ import { useState, useEffect } from 'react'
 import Loading from '../SVG/Loading';
 import { putProduct, waitingResponsePut } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands, getProductDetails } from '../../redux/actions/homepageActions'
+import { showModalAddImage } from '../../redux/actions/generalActions';
 import './EditProduct.css'
 import validate from '../CreateProduct/validate';
+
+// Importar Imagen
+import ModalAddImage from '../ModalAddImage/ModalAddImage';
 
 import s from './EditProduct.module.css';
 
@@ -17,6 +21,9 @@ export default function EditProduct() {
   const [ errors, setErrors ] = useState({})
   const { allCategories, brandsList, productDetails } = useSelector((state) => state.homepage);
   const { id } = useParams();
+
+  // Importar imagen
+  const { modalAddImage } = useSelector(state => state.general);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -117,6 +124,23 @@ export default function EditProduct() {
     setErrors({});
   }
 
+  // Importar Imagen
+  let handleOpenModalAddImage = function(e) {
+    e.preventDefault();
+    dispatch(showModalAddImage());
+  }
+
+  let handleImage = function(newImage) {
+    setInput({
+      ...input,
+      image: newImage
+    });
+    setErrors(validate({
+      ...input,
+      image: newImage
+    }));
+  }
+
   if (loading) return (
     <div className = {s.containerLoading}>
       <div className = {s.imageContainer}>
@@ -138,7 +162,7 @@ export default function EditProduct() {
         </div>
         <h1 className={`form__title ${s.title}`}>Edit product</h1>
     <form className='form' id='form' onSubmit={(e) => handleSubmit(e)}>
-        <div className='form__group' id='name'>
+        <div className={`form__group ${s.formGroudName}`} id='name'>
           <label htmlFor="name" className='form__label'>Name</label>
           <div className='form__group-input'>
                 <input
@@ -152,6 +176,22 @@ export default function EditProduct() {
                 />
           </div> 
           <p className='form__input-error'>{errors.name}</p>
+        </div>
+
+        <div className={`form__group ${s.formGroudName}`} id='description'>
+          <label htmlFor="description" className='form__label'>Description</label>
+          <div className='form__group-input'>
+                <textarea
+                type={'text'}
+                className='form__input'
+                id='description'
+                name = {'description'}
+                placeholder='Product description'
+                value = {input.description}
+                onChange={(e) => handleChange(e)}
+                />
+          </div> 
+          <p className='form__input-error'>{errors.description}</p>
         </div>
         
         <div className='form__group' id='price'>
@@ -169,23 +209,7 @@ export default function EditProduct() {
           </div> 
           <p className='form__input-error'>{errors.price}</p>
         </div>
-        
-        <div className='form__group' id='image'>
-          <label htmlFor="image" className='form__label'>Image</label>
-          <div className='form__group-input'>
-                <input
-                type={'text'}
-                className='form__input'
-                id='image'
-                name = {'image'}
-                placeholder='Product image'
-                value = {input.image}
-                onChange={(e) => handleChange(e)}
-                />
-          </div> 
-          <p className='form__input-error'>{errors.image}</p>
-        </div>
-        
+
         <div className='form__group' id='discount'>
           <label htmlFor="discount" className='form__label'>Discount</label>
           <div className='form__group-input'>
@@ -200,22 +224,6 @@ export default function EditProduct() {
                 />
           </div> 
           <p className='form__input-error'>{errors.discount}</p>
-        </div>
-         
-        <div className='form__group' id='stock'>
-          <label htmlFor="stock" className='form__label'>Stock</label>
-          <div className='form__group-input'>
-                <input
-                type={'number'}
-                className='form__input'
-                id='stock'
-                name = {'stock'}
-                placeholder='Product stock'
-                value = {input.stock}
-                onChange={(e) => handleChange(e)}
-                />
-          </div> 
-          <p className='form__input-error'>{errors.stock}</p>
         </div>
 
         <div className='form__group' id='category'>
@@ -256,20 +264,39 @@ export default function EditProduct() {
         <p className='form__input-error'>{errors.manufacturer}</p>
         </div>
 
-        <div className='form__group' id='description'>
-          <label htmlFor="description" className='form__label'>Description</label>
+        <div className='form__group' id='stock'>
+          <label htmlFor="stock" className='form__label'>Stock</label>
           <div className='form__group-input'>
-                <textarea
-                type={'text'}
+                <input
+                type={'number'}
                 className='form__input'
-                id='description'
-                name = {'description'}
-                placeholder='Product description'
-                value = {input.description}
+                id='stock'
+                name = {'stock'}
+                placeholder='Product stock'
+                value = {input.stock}
                 onChange={(e) => handleChange(e)}
                 />
           </div> 
-          <p className='form__input-error'>{errors.description}</p>
+          <p className='form__input-error'>{errors.stock}</p>
+        </div>
+
+        <div className='form__group' id='image'>
+          <div className = {s.doubleLabel}>
+            <label htmlFor="image" className='form__label'>Image</label>
+            <button className = {s.importImage} onClick = {handleOpenModalAddImage}>Import</button>
+          </div>
+          <div className='form__group-input'>
+                <input
+                type={'text'}
+                className='form__input'
+                id='image'
+                name = {'image'}
+                placeholder='Product image'
+                value = {input.image}
+                onChange={(e) => handleChange(e)}
+                />
+          </div> 
+          <p className='form__input-error'>{errors.image}</p>
         </div>
 
         <div className = {`form__group ${s.inputStatus}`} id='description'>
@@ -301,6 +328,9 @@ export default function EditProduct() {
             </p>
         </div>
         </form>
+        {
+          modalAddImage && modalAddImage.show && <ModalAddImage handleImage = {handleImage}/>
+        }
         </div>
   )
 }

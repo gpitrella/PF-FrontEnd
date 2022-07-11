@@ -1,0 +1,49 @@
+.containerUpload {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto;
+  grid-gap: 1rem;
+
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.btnSelectImage {
+  color: transparent;
+}
+
+.btnUploadImage {
+  height: 2rem;
+  width: 100%;
+  color: white;
+  background-color: #1976d2;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border: 1px solid #1976d2;
+
+  letter-spacing: 1px;
+
+  border-radius: 16px;
+}
+
+.btnUploadImage[disabled] {
+  background-color: gray;
+  border: 1px solid gray;
+  cursor: default;
+}
+
+.imageUploaded {
+  width: 5rem;
+  aspect-ratio: 1 / 1;
+
+  object-fit: contain;
+}
+
+.lbl {
+  font-size: 0.8rem;
+  font-weight: 700;
+}

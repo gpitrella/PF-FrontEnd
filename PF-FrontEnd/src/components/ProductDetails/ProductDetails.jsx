@@ -1,12 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { getProductDetails, addProductToCart, postCommentProduct, postReviewProduct } from "../../redux/actions";
+import { getProductDetails, addProductToCart, postCommentProduct } from "../../redux/actions";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
-import ImageLoader from '../ImageLoader/ImageLoader';
-import './ProductDetails.css';
+import style from './ProductDetails.module.css';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -15,14 +14,24 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Loading from '../SVG/Loading';
+import SectionCatalogue from '../SectionCatalogue/SectionCatalogue';
+import { chooseRandom } from '../../util';
+import { 
+    showLoadingSectionOne,
+    showLoadingSectionTwo,
+    showLoadingSectionThree,
+    getProductsToSectionOne,
+    getProductsToSectionTwo,
+    getProductsToSectionThree,
+    resetSections
+  } from '../../redux/actions';
 
 // Alerta comentario creado
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -72,8 +81,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 export default function ProductDetails (){
     const [open, setOpen] = React.useState(false); // Box de comentarios
-    const [openReview, setOpenReview] = React.useState(false); // Box de review
-    const [value, setValue] = React.useState(0); // Rating
     const dispatch = useDispatch();
     const { id } = useParams();
     const productDetails = useSelector((state) => state.homepage.productDetails)
@@ -81,7 +88,12 @@ export default function ProductDetails (){
     const commentCreated = useSelector((state) => state.general.commentCreated)
     const reviewCreated = useSelector((state) => state.general.reviewCreated)
     const { user } = useSelector((state) => state.general)
-    console.log(user)
+    const { section, allCategories, brandsList } = useSelector(state => state.homepage);
+    const [ chooseSection, setChooseSection ] = React.useState({
+        two: '',
+        three: '',
+        show: false
+    });
     let discountPrice = Math.round(productDetails.price - productDetails.price * (productDetails.discount / 100));
     
     React.useEffect(() => {
@@ -111,6 +123,7 @@ export default function ProductDetails (){
     const history = useHistory();
     const [comment, setComment] = React.useState(); // Box de comentarios
     const [commentReview, setCommentReview] = React.useState();
+    const [ loadingSections, setLoadingSections ] = React.useState(false);
 
     const handleClickOpen = () => {
         if(!user?.user){
@@ -137,35 +150,6 @@ export default function ProductDetails (){
             dispatch(postCommentProduct(comment, productDetails?.id, user?.user.id));
             handleClickComment()
             handleClose();
-        }
-    };
-
-    // Agrega una Review
-    const handleClickOpenReview = () => {
-        if(!user?.user){
-            handleClickOpenLogin();
-        } else {
-            setOpenReview(true);
-        }
-    };
-
-    const handleCloseReview = () => {
-        setOpenReview(false);
-    };
-
-    const handleCommentReview = (e) => {
-        e.preventDefault();
-        setCommentReview(e.target.value);
-    };
-
-    const handleSendReview = () => {
-        if(!user?.user){
-            handleClickOpenLogin();
-        } else {
-            console.log(user)
-            dispatch(postReviewProduct(commentReview, value, productDetails?.id, user?.user.id));
-            handleClickComment()
-            handleCloseReview();
         }
     };
 
@@ -230,39 +214,75 @@ export default function ProductDetails (){
         handleCloseLogin();
         setOpenWithOutStock(false);
     };
-    
-  
 
-        return (
-        <div className="mainProduct">
-            <div className="main_product_box">
-            <div className="mainProductDetail">
+    React.useEffect(() => {
+        dispatch(showLoadingSectionOne());
+        dispatch(showLoadingSectionTwo());
+        dispatch(showLoadingSectionThree());
+    
+        return () => {
+          dispatch(resetSections());
+          setChooseSection({
+            two: '',
+            three: '',
+            show: false
+          });
+          setLoadingSections(false);
+        }
+      }, []);
+
+    React.useEffect(() => {
+    if (allCategories.length > 0 && brandsList.length > 0 && !loadingSections) { 
+        getRandomLists();
+        setLoadingSections(true);
+    }
+    }, [allCategories, brandsList]);
+
+    let getRandomLists = function() {
+    let sectionTwo = productDetails?.categories ? productDetails?.categories[0] : chooseRandom(allCategories)
+    let sectionThree = chooseRandom(brandsList);
+
+    dispatch(getProductsToSectionTwo(`page=1&category=${sectionTwo}&size=10&order=random`));
+
+    setChooseSection({
+        two: sectionTwo,
+        three: sectionThree,
+        show: true
+    });
+    }
+      
+    
+    return (
+        <div className={style.mainProduct}>
+            <h1 className={style.titles_product_detail}> Product Details </h1>
+            <div className={style.main_product_box}>
+            <div className={style.mainProductDetail}>
                     {
                         productDetails.discount !== 0 &&
-                        <div className = 'containerDiscount'>
+                        <div className={style.containerDiscount}>
                             {productDetails.discount}% OFF
                         </div>
                     }
-                <div>
-                    <img className="product_image" src={productDetails?.image} alt="Image Product Detail" />
+                <div className={style.contain_image_productDetail}>
+                    <img className={style.product_image} src={productDetails?.image} alt="Image Product Detail" />
                 </div>
-                <div className="box_detail_product_without_image">
-                    <p id="product_category"><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
-                    <h3 id="title_product">{productDetails?.name}</h3>
+                <div className={style.box_detail_product_without_image}>
+                    <p id={style.product_category}><strong>Category: </strong>{productDetails?.categories ? productDetails.categories[0] : 'WithOut Categories'}</p>
+                    <h3 id={style.title_product}>{productDetails?.name}</h3>
                     <hr/>
-                    <div className="price_rating">
+                    <div className={style.price_rating}>
                         <div>
-                            <span id="product_price_discount" > ${productDetails.discount !== 0 ? discountPrice : productDetails.price} </span>
-                            <span id="product_price"> ${productDetails?.price} </span>
-                            <div className = "brand_product_detail">
-                                <p id="product_seller">Brand: </p>
+                            <span id={style.product_price_discount}> ${productDetails.discount !== 0 ? discountPrice : productDetails.price} </span>
+                            <span id={style.product_price}> ${productDetails?.price} </span>
+                            <div className={style.brand_product_detail}>
+                                <p id={style.product_seller}>Brand: </p>
                                 <div >
-                                    <img className="image_brand_product_detail" src = {productDetails?.manufacturers ? productDetails.manufacturers[0]?.image : ""} alt = "brand product detail"/>
+                                    <img className={style.image_brand_product_detail} src = {productDetails?.manufacturers ? productDetails.manufacturers[0]?.image : ""} alt = "brand product detail"/>
                                 </div>
                             </div>
                         </div>
-                        <div id="review_block">
-                            <p id="review_detail">Rating: <strong>{score.toFixed(1)}</strong> </p>
+                        <div id={style.review_block}>
+                            <p id={style.review_detail}>Rating: <strong>{score === 0 ? 'WithOut rating yet' : score.toFixed(1)}</strong> </p>
                             <Box
                                 sx={{
                                     '& > legend': { mt: 2 },
@@ -278,35 +298,37 @@ export default function ProductDetails (){
                     
                     <hr/>
 
-                    <h4 className="mt-2">Description:</h4>
+                    <h4 className='mt-2'>Description:</h4>
                     <p>{productDetails?.description}</p>
                     <hr/>
 
-                    <Stack spacing={2} direction="row">
-                        <span>Stock: <span id="stock_status">{productDetails?.stock} unid.</span></span>
-                        <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCart}>Add to Cart</Button>
-                        <Button className='btn_Product_Detail' size="small" variant="contained" onClick={addtoCartandCheckOut}>Buy</Button>
+                    <Stack spacing={2} direction="row" id={style.box_btn_productdetail}>
+                        <span className={style.stock_product_detail}>Stock: <span id={style.stock_status}>{productDetails?.stock} unid.</span></span>
+                        <div id={style.box_btn_productdetail}>
+                            <Button id={style.btn_Product_Detail} size="small" variant="contained" onClick={addtoCart}>Add to Cart</Button>
+                            <Button id={style.btn_Product_Detail} size="small" variant="contained" onClick={addtoCartandCheckOut}>Buy</Button>
+                        </div>
                     </Stack>                    
                     <hr/>
 
-                    <div className="rating-outer">
-                        <div className="rating-inner"></div>
-                    </div>
+                    {/* <div className={style.rating-outer}>
+                        <div className={style.rating-inner}></div>
+                    </div> */}
                     
                 </div>
             </div>
-            <div className="mainProductDetail">
-                <span id="no_of_reviews"><strong>TAGS:</strong> - Intel - Nootbook - Procesador AMD </span>
+            <div className={style.mainProductDetail}>
+                <span id={style.no_of_reviews}><strong>TAGS:</strong> - Intel - Nootbook - Procesador AMD </span>
                 <hr/>
             </div>
-            <div className="comment_main">
-                <div className="comment_add">
+            <div className={style.comment_main}>
+                <div className={style.comment_add}>
                     <div>
                         <span><strong> QUESTIONS TO SELLER: </strong></span>
                     </div>
-                    <div id="review_comment">
+                    <div id={style.review_comment}>
                         <div>
-                            <div id="review_block">
+                            <div id={style.review_block}>
                                 <Button variant="outlined" onClick={handleClickOpen}>
                                     Write a Question
                                 </Button>
@@ -340,7 +362,11 @@ export default function ProductDetails (){
                     {(productDetails.comments?.length === 0)
                         ? <p>This product has no comments.</p>
                         : productDetails.comments?.map((element) => {
-                            return(<div key={parseInt(Math.random() * 10000 / Math.random())}><p> - {element.comment.charAt(0) + element.comment.slice(1, element.comment.length).toLowerCase()}</p></div>)
+                            return(
+                            <div key={parseInt(Math.random() * 10000 / Math.random())}>
+                                <p> {element.comment.charAt(0) + element.comment.slice(1, element.comment.length).toLowerCase()} - ({element.createdAt.slice(0,10)})</p>
+                                {element?.answer ? <p><strong>--- TechMarket Answer:</strong> {element.answer}- ({element.updatedAt.slice(0,10)})</p>: null}
+                            </div>)
                         })}
                 </div>
                 <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
@@ -365,7 +391,7 @@ export default function ProductDetails (){
                     aria-labelledby="customized-dialog-title"
                     open={openLogin}
                 >
-                    <BootstrapDialogTitle id="customized-dialog-title" onClose={handleCloseLogin}>
+                    <BootstrapDialogTitle id='style.customized-dialog-title' onClose={handleCloseLogin}>
                         You must be Login:
                     </BootstrapDialogTitle>
                     <DialogContent dividers>
@@ -382,53 +408,14 @@ export default function ProductDetails (){
                         </DialogActions>
                 </BootstrapDialog>
             </div>
-            <div className="comment_main">
-                <div className="comment_add">
+            <div className={style.comment_main}>
+                <div className={style.comment_add}>
                     <div>
                         <span><strong> PRODUCT REVIEW: </strong></span>
                     </div>
-                    <div id="review_comment">
+                    <div id={style.review_comment}>
                         <div>
-                            <div id="review_block">
-                                <Button variant="outlined" onClick={handleClickOpenReview}>
-                                    Write a Review
-                                </Button>
-                                <Dialog open={openReview} onClose={handleCloseReview}>
-                                    <DialogTitle>Review:</DialogTitle>
-                                    <DialogContent>
-                                        <DialogContentText>
-                                            Write a review of the product you bought so you help other buyers in their decision.
-                                        </DialogContentText>
-                                        <Box
-                                            sx={{
-                                                '& > legend': { mt: 2 },
-                                            }}
-                                            >
-                                            <Typography component="legend">Review Rating</Typography>
-                                            <Rating
-                                                name="simple-controlled"
-                                                value={value}
-                                                onChange={(event, newValue) => {
-                                                setValue(newValue);
-                                                }}
-                                            />
-                                        </Box>
-                                        <TextField
-                                            autoFocus
-                                            margin="dense"
-                                            id="comment"
-                                            label="Write here your review ..."
-                                            type="text"
-                                            fullWidth
-                                            variant="standard"
-                                            onChange={(e)=> handleCommentReview(e)}
-                                        />
-                                    </DialogContent>
-                                    <DialogActions>
-                                        <Button onClick={handleCloseReview}>Cancel</Button>
-                                        <Button onClick={handleSendReview}>Send Review</Button>
-                                    </DialogActions>
-                                </Dialog>
+                            <div id={style.review_block}>
                             </div>
                         </div>
                     </div>
@@ -454,16 +441,35 @@ export default function ProductDetails (){
                             </div>)
                         })}
                 </div>
-                <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
-                    <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
-                        Success review created!
-                    </Alert>
-                </Snackbar>
                 <Snackbar open={openWithOutStock} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
                     <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
                         Sorry Product WithOut Stock!
                     </Alert>
                 </Snackbar>
+            </div>
+            <h2 className={style.titles_product_detail}> Related Products </h2>
+            <div className={style.catalogue}>
+                {
+                !chooseSection.show &&
+                <div className = {style.noProductsContainer}>
+                    <div className = {style.imageContainer}>
+                        <Loading />
+                    </div>
+                    <span className = {style.span}>Loading Sections...</span>
+                </div>
+                }
+                {
+                chooseSection.show && 
+                <>
+                    <SectionCatalogue 
+                    sectionPath = { `/store/category/${chooseSection.two}` }
+                    sectionName = { chooseSection.two }
+                    products = { section.two }
+                    loading = { section.showLoadingTwo }
+                    error = { section.errorTwo }
+                    />
+                </>
+                }
             </div>
         </div>
         </div>
