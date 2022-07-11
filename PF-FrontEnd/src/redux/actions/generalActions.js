@@ -29,7 +29,14 @@ import {
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
   GET_ORDER_BY_USER,
-  EDIT_STATUS_ORDER
+  EDIT_STATUS_ORDER,
+  POST_NEW_ORDER,
+  GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  RESET_CHECKOUT_ADDRESS,
+  SHOW_MODAL_ADD_IMAGE,
+  CLOSE_MODAL_ADD_IMAGE,
+  UPLOAD_IMAGE,
+  CLOUDINARY
 } from './actiontype';
 
 
@@ -126,9 +133,9 @@ export function closeCart(){
 };
 
 // Finish Order:
-export const finishOrder = function(email, idUser, idAddress, branchOfficeId, items, subject,text,html) {
+export const finishOrder = function( email,items, idUser, totalpurchase, idAddress, branchOfficeId ) {
   return function(dispatch){
-    return axios.post(`${BASE_URL}/api/payment`, {email, idUser, idAddress, branchOfficeId, items,subject,text,html})
+    return axios.post(`${BASE_URL}/api/payment`, {email,items, idUser, totalpurchase, idAddress, branchOfficeId})
                 .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
                 .catch(error => console.log(error))
   }
@@ -241,3 +248,40 @@ export function putStatusByOrder(id, status){
         .catch(error => console.log(error))
   };
 };
+
+// Traer sucursales con distancia
+export function getBranchsOfficesWithDistance(lat, long) {
+  return function(dispatch) {
+    return axios.get(`${BASE_URL}/api/branchOffice?lat=${lat}&long=${long}`)
+      .then(response => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: response.data }))
+      .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
+  }
+}
+
+export function resetCheckoutAddress() {
+  return {
+    type: RESET_CHECKOUT_ADDRESS
+  }
+}
+
+// Modal para subir imagen:
+export function showModalAddImage() {
+  return {
+    type: SHOW_MODAL_ADD_IMAGE
+  }
+}
+
+export function closeModalAddImage() {
+  return {
+    type: CLOSE_MODAL_ADD_IMAGE
+  }
+}
+
+export function uploadImage(formData) {
+  return function(dispatch) {
+    return fetch(`${CLOUDINARY}`, { method: 'POST', body: formData })
+      .then(response => response.json())
+      .then(data => dispatch({ type: UPLOAD_IMAGE, payload: data }))
+      .catch(error => console.LOG(error));
+  }
+}

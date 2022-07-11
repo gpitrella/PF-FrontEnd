@@ -1,30 +1,54 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateFilter, getProductsWithFiltersAndPaginate, setShowLoading } from '../../redux/actions';
+import { 
+  updateFilter, getProductsWithFiltersAndPaginate, setShowLoading,
+  updateFilterPurchases, getPurchasesWithFiltersAndPaginate, setShowLoadingPurchases
+} from '../../redux/actions';
 
 import s from './Pagination.module.css';
 
 import { buildFilter } from '../../util';
 
-export default function Pagination({ simple = false }) {
+export default function Pagination({ simple = false, purchases = false }) {
 
   const dispatch = useDispatch();
   const { filter } = useSelector(state => state.storepage);
+  const filterPurchases = useSelector(state => state.purchases.filter);
   const [ displayPages, setDisplayPages ] = React.useState(null);
 
   React.useEffect(() => {
-    if (!simple) setDisplayPages([ ...getPages(filter.page, filter.pages) ]);
-    else setDisplayPages([ ...getPages(filter.page, filter.pages, true) ]);
-  }, [filter]);
+    if (!purchases) {
+      if (!simple) setDisplayPages([ ...getPages(filter.page, filter.pages) ]);
+      else setDisplayPages([ ...getPages(filter.page, filter.pages, true) ]);
+    }
+    else {
+      if (!simple) setDisplayPages([ ...getPages(filterPurchases.page, filterPurchases.pages) ]);
+      else setDisplayPages([ ...getPages(filterPurchases.page, filterPurchases.pages, true) ]);
+    }
+  }, [filter, filterPurchases]);
 
   let handleUpdateFilter = function(pageToChange) {
-    let newFilter = {
-      ...filter,
-      page: pageToChange
-    };
-    dispatch(updateFilter(newFilter));
-    dispatch(setShowLoading());
-    dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+
+    let newFilter;
+
+    if (!purchases) {
+      newFilter = {
+        ...filter,
+        page: pageToChange
+      };
+      dispatch(updateFilter(newFilter));
+      dispatch(setShowLoading());
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter(newFilter)));
+    }
+    else {
+      newFilter = {
+        ...filterPurchases,
+        page: pageToChange
+      };
+      dispatch(updateFilterPurchases(newFilter));
+      dispatch(setShowLoadingPurchases());
+      dispatch(getPurchasesWithFiltersAndPaginate(newFilter));
+    }
   }
 
   return (

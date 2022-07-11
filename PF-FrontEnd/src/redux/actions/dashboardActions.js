@@ -96,10 +96,10 @@ export const createCategory = ({ name }) => {
     }
   };
 
-  export const updateBrand = ({ id, name }) => {
+  export const updateBrand = ({ id, name, image }) => {
     return async (dispatch) => {
       try{
-        const brandEdited = await axios.put(`${PATH_GET_BRANDS}/${id}`, { name });
+        const brandEdited = await axios.put(`${PATH_GET_BRANDS}/${id}`, { name, image });
         dispatch({
           type: UPDATE_BRAND,
           payload: brandEdited.data

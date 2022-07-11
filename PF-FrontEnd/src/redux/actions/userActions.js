@@ -11,7 +11,8 @@ import {
   USER_REVIEWS,
   GET_COMMENTS_BY_USER,
   DELETE_USER_ADDRESS,
-  EDIT_DATA_USER
+  EDIT_DATA_USER,
+  USER_ADD_ADDRESS
 } from './actiontype';
 
 const urluser = `${BASE_URL}/api/user`;
@@ -95,3 +96,19 @@ export function putDataUser(id, data){
            .catch(err => console.log(err.response.data))
   })
 };
+// Agregar Direccion
+export const userUpdate = function(newUserInfo) {
+  return {
+    type: USER_UPDATE,
+    payload: newUserInfo
+  }
+}
+
+// Agregar Direccion
+export const userAddAddress = function(userId, { direction, latitude, longitude }) {
+  return function(dispatch) {
+    return axios.post(`${BASE_URL}/api/address/${userId}`, { direction, latitude, longitude })
+                .then(data => dispatch({ type: USER_ADD_ADDRESS }))
+                .catch(error => console.log(error));
+  }
+}
