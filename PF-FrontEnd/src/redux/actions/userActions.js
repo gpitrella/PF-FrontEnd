@@ -11,7 +11,9 @@ import {
   USER_REVIEWS,
   GET_COMMENTS_BY_USER,
   DELETE_USER_ADDRESS,
-  USER_ADD_ADDRESS
+  EDIT_DATA_USER,
+  USER_ADD_ADDRESS,
+  PUT_PASSWORD
 } from './actiontype';
 
 const urluser = `${BASE_URL}/api/user`;
@@ -30,7 +32,6 @@ export function getAllUsers() {
 };
 
 export function getUserDetail(id) {
-  console.log(id,'actions')
    return async (dispatch) => {
      return await axios
        .get(`${BASE_URL}/api/user/${id}`)
@@ -73,9 +74,8 @@ export function getUserReviews(id){
 // Get comments or question By User
 export const getAllCommentByUserID = function(idUser) {
   return function(dispatch){
-    console.log(idUser)
     return axios.get(`${BASE_URL}/api/comments`)
-                .then(comment => dispatch({ type: GET_COMMENTS_BY_USER, payload: comment.data.filter(data => data.users[0].id === idUser )}))
+                .then(comment => dispatch({ type: GET_COMMENTS_BY_USER, payload: comment?.data?.filter(data => data?.users[0]?.id === idUser )}))
                 .catch(error => console.log(error))
   }
 };
@@ -83,13 +83,20 @@ export const getAllCommentByUserID = function(idUser) {
 // Delete User Address
 export function deleteUserAddress(id) {
   return function(dispatch){
-    console.log(id)
     return axios.delete(`${BASE_URL}/api/address/${id}`)
                 .then(data => console.log(data))
                 .catch(error => console.log(error))
   }
 };
 
+// Edit data User
+export function putDataUser(id, data){
+  return (dispatch => {
+    return axios.put(`${BASE_URL}/api/user/${id}`, data)
+           .then(res => dispatch({ type: EDIT_DATA_USER, payload: res.data})) 
+           .catch(err => console.log(err.response.data))
+  })
+};
 // Agregar Direccion
 export const userUpdate = function(newUserInfo) {
   return {
@@ -103,6 +110,15 @@ export const userAddAddress = function(userId, { direction, latitude, longitude 
   return function(dispatch) {
     return axios.post(`${BASE_URL}/api/address/${userId}`, { direction, latitude, longitude })
                 .then(data => dispatch({ type: USER_ADD_ADDRESS }))
+                .catch(error => console.log(error));
+  }
+}
+
+// PUT Password USer
+export const putUpdatePassword = function(data) {
+  return function(dispatch) {
+    return axios.put(`${BASE_URL}api/password`, data)
+                .then(data => console.log('update password'))
                 .catch(error => console.log(error));
   }
 }

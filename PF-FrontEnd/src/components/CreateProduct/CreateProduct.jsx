@@ -1,15 +1,15 @@
-import React from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
-import { postProduct, waitingResponsePost } from '../../redux/actions/storepageActions'
-import { getCategories, getBrands } from '../../redux/actions/homepageActions'
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { postProduct, waitingResponsePost } from '../../redux/actions/storepageActions';
+import { getCategories, getBrands } from '../../redux/actions/homepageActions';
+import { showModalAddImage } from '../../redux/actions/generalActions';
 import './CreateProduct.css'
 import validate from './validate'
 
 // Importar Imagen
 import ModalAddImage from '../ModalAddImage/ModalAddImage';
-import { showModalAddImage } from '../../redux/actions';
 
 import s from './CreateProduct.module.css';
 

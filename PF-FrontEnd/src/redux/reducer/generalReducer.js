@@ -24,6 +24,7 @@ import {
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
   CLOSE_LANDING,
+  GET_ORDER_BY_USER,
   POST_NEW_ORDER,
   GET_BRANCHS_OFFICES_WITH_DISTANCE,
   RESET_CHECKOUT_ADDRESS,
@@ -58,6 +59,7 @@ const initialState = {
   favouritesProducts: [],
   viewLanding: true,
   logInError: {},
+  orderByUser: {},
 
   // Traer Sucursales con Distancia para el Checkout
   errorBranchOffices: false,
@@ -295,6 +297,12 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
 
+    case GET_ORDER_BY_USER: {
+      return {
+        ...state,
+        orderByUser: payload
+      }
+    };
     // Traer sucursales con distancia
     case GET_BRANCHS_OFFICES_WITH_DISTANCE:
 

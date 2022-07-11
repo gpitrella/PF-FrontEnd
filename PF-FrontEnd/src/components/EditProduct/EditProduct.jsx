@@ -5,12 +5,12 @@ import { useState, useEffect } from 'react'
 import Loading from '../SVG/Loading';
 import { putProduct, waitingResponsePut } from '../../redux/actions/storepageActions'
 import { getCategories, getBrands, getProductDetails } from '../../redux/actions/homepageActions'
+import { showModalAddImage } from '../../redux/actions/generalActions';
 import './EditProduct.css'
 import validate from '../CreateProduct/validate';
 
 // Importar Imagen
 import ModalAddImage from '../ModalAddImage/ModalAddImage';
-import { showModalAddImage } from '../../redux/actions';
 
 import s from './EditProduct.module.css';
 

@@ -8,6 +8,7 @@ import {
   USER_UPDATE,
   USER_REVIEWS,
   GET_COMMENTS_BY_USER,
+  EDIT_DATA_USER,
   USER_ADD_ADDRESS
 } from "../actions/actiontype";
 
@@ -19,6 +20,7 @@ const initialState = {
     usereditstatusok: false,
     userReviews: [],
     commentByUser: [],
+    updateUser: {},
     reloadUserDetails: false,
 }
 
@@ -81,6 +83,12 @@ const userReducer = function(state = initialState, { type, payload }) {
           commentByUser: payload
         }
 
+      case EDIT_DATA_USER:
+        return {
+          ...state,
+          updateUser: payload
+        }
+        
       // Agregar direccion a traves del modal.
       case USER_ADD_ADDRESS:
         return {

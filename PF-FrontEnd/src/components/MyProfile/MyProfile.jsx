@@ -17,7 +17,7 @@ export default function MyProfile() {
   return (
     <div>
     <div className='main_box_pyProfile'>
-      <Card sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
         <CardActionArea >
           <Link to='/myprofile/personalinformation'>
             <CardMedia className='personal_informacion'
@@ -38,7 +38,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
 
-      <Card sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
         <CardActionArea>
           <Link to='/myprofile/mypurchases'>
             <CardMedia
@@ -59,7 +59,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
   
-      <Card sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
         <CardActionArea>
           <CardMedia className='personal_informacion'
             component="img"
@@ -75,7 +75,7 @@ export default function MyProfile() {
           </Button>
         </CardActions>
       </Card>
-      <Card sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
         <CardActionArea>
           <Link to='/myprofile/myaddress'>
             <CardMedia className='personal_informacion'
@@ -95,7 +95,7 @@ export default function MyProfile() {
           </Link>
         </CardActions>
       </Card>
-      <Card sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
         <CardActionArea>
           <Link to='/myprofile/myreviews'>
             <CardMedia className='personal_myreview'
@@ -117,7 +117,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
 
-      <Card sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
         <CardActionArea>
           <Link to='/myprofile/mycomments'>
             <CardMedia className='personal_informacion'
