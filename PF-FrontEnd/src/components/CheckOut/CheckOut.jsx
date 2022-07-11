@@ -154,7 +154,7 @@ totalValue();
                         ? <p>You don't have product in cart.</p>
                         : productsCart?.map((e) => {
                           return (
-                            <div className="box_top_checkout_resumecart">
+                            <div className="box_top_checkout_resumecart" key={e?.id}>
                               <img className="img_checkout_page" src={e?.image} alt={e?.name} />
                               <div className="addtocart_name_checkout">
                                  <h5 id="checkout_title_product">{e?.name.slice(0,60)}</h5>

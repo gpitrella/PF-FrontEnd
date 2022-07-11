@@ -44,3 +44,11 @@
 .title_myaddress_profile {
     padding: 70px 0px;
 }
+
+#title_box_particular_address{
+    font-weight: bold;
+    font-size: 1.3rem;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}

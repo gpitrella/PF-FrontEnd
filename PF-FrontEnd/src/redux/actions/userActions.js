@@ -74,7 +74,7 @@ export function getUserReviews(id){
 export const getAllCommentByUserID = function(idUser) {
   return function(dispatch){
     return axios.get(`${BASE_URL}/api/comments`)
-                .then(comment => dispatch({ type: GET_COMMENTS_BY_USER, payload: comment.data.filter(data => data?.users[0]?.id === idUser )}))
+                .then(comment => dispatch({ type: GET_COMMENTS_BY_USER, payload: comment?.data?.filter(data => data?.users[0]?.id === idUser )}))
                 .catch(error => console.log(error))
   }
 };

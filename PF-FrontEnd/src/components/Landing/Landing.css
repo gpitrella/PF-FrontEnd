@@ -34,6 +34,15 @@
   top: 45%;
   transform: translateX(-50%);
   white-space: nowrap;
+  width: 100%;
+}
+
+#text_landing_page {
+  width: 100%;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .btn {
@@ -55,7 +64,7 @@
 }
 
 .btn_image_logo {
-position: absolute;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,12 +158,6 @@ position: absolute;
   width: var(--other-width);
 }
 
-
-
-
-
-
-
 .login-box {
   position: absolute;
   top: 50%;
@@ -170,9 +173,9 @@ position: absolute;
 
 .form-start-landing {
   align-items: center;
-    align-self: center;
-    display: flex;
-    justify-content: center;
+  align-self: center;
+  display: flex;
+  justify-content: center;
 }
 
 .login-box form a {
@@ -284,8 +287,41 @@ position: absolute;
     top: 30%;
   }
 
+  .btn_image_logo {
+    width: 14rem;
+    padding-bottom: 0px;
+    top: 25%;
+  }
+
+  .titleLandingPage {
+    font-size: 1.6rem;
+    white-space: initial;
+  }
+
+  #text_landing_page {
+    padding-top: 0px;
+    width: 100%;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
   .btn {
     padding: 1.2rem;
     width: 12rem;
+  }
+
+  .login-box {
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    padding: 15px;
+  }
+
+  .login-box form a {
+    padding: 6px 30px;
+    font-size: 13px;
+    letter-spacing: 3px
   }
 }

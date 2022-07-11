@@ -276,7 +276,7 @@ export default function MyReviews() {
 
   React.useEffect(()=>{
     dispatch(getOrderByUser(user?.user.id));
-  })
+  },[])
 
   React.useEffect(()=>{
     totalOrder()
