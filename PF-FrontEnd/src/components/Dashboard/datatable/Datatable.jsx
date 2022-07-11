@@ -2,9 +2,8 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns } from "../../../datatablesource";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers } from '../../../redux/actions/userActions';
+
 
 
 const Datatable = () => {
@@ -12,18 +11,8 @@ const Datatable = () => {
 
   const { allusers } = useSelector((state) => state.userReducer);
   
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  
   let users = [];
   users = allusers;
-
-// console.log(users[0].useraddress[0])
-
-  // const handleDelete = (id) => {
-  //   users = users.filter((item) => item.id !== id);
-  // };
 
   const actionColumn = [
     {

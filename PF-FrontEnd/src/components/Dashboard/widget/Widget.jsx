@@ -10,16 +10,12 @@ import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlin
 
 const Widget = ({ type }) => {
   let data;
-  // const dispatch = useDispatch();
+  
   const { allusers } = useSelector((state) => state.userReducer);
   const { countOrders, totalSales } = useSelector((state) => state.dashboard);
 
   let totalusers = allusers.length
   let totalSale = Math.round(totalSales*0.20)
-
-  // console.log(totalusers, 'total users')
-  // console.log(countOrders, 'count orders')
-  // console.log(totalSale, 'total sales')
 
   //temporary
   const amount = 100;
@@ -104,10 +100,10 @@ const Widget = ({ type }) => {
         <span className="link">{data.link}</span>
       </div>
       <div className="right">
-        {/* <div className="percentage positive">
+        {data.title === 'EARNINGS' && <div className="percentage positive">
           <KeyboardArrowUpIcon />
           {diff} %
-        </div> */}
+        </div>}
         {data.icon}
       </div>
     </div>

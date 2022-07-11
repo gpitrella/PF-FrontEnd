@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
@@ -28,9 +28,6 @@ const Home = () => {
     dispatch(sumLastThreeMonth());
     dispatch(getOrdersToday())
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  
-  //console.log(countOrders, totalSales, totalSalesToday, 'cant. ordenes / total ventas / total ventas hoy')
 
   return (
     <div className="home">
