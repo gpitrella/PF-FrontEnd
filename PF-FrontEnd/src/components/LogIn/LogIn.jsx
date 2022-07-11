@@ -20,6 +20,7 @@ const LogIn = () => {
   const [errorsPassword, setErrorsPassword] = useState({})
   const [openPassword, setOpenPassword] = useState(false);
   const [openEmail, setOpenEmail] = useState(false);
+  const [openBanned, setOpenBanned] = useState(false);
   
 
   const google = () => {
@@ -38,6 +39,13 @@ const LogIn = () => {
       return;
     }
     setOpenEmail(false);
+  };
+
+  const handleCloseBanned = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenBanned(false);
   };
 
   const [ input, setInput ] = useState({
@@ -67,17 +75,24 @@ const LogIn = () => {
     // console.log(logInError)
     if(logInError.status === 401){
       setOpenPassword(true)
+      errorsPassword.password = "Wrong password"
       document.getElementById('password').classList.add('login__group-incorrecto')
       document.getElementById('password').classList.remove('login__group-correcto')
       document.querySelector('#password .login__input-error').classList.add('login__input-error-activo')
-      errorsPassword.password = "Wrong password"
-    } 
-    else if(logInError.status === 404){
+    } else if(logInError.status === 404){
       setOpenEmail(true)
       errorsEmail.email = "Unregistered Email"
       document.getElementById('email').classList.add('login__group-incorrecto')
       document.getElementById('email').classList.remove('login__group-correcto')
       document.querySelector('#email .login__input-error').classList.add('login__input-error-activo')
+    } else if(logInError.status === 405){
+      setOpenBanned(true)
+      document.getElementById('email').classList.add('login__group-incorrecto')
+      document.getElementById('email').classList.remove('login__group-correcto')
+      document.querySelector('#email .login__input-error').classList.add('login__input-error-activo')
+      document.getElementById('password').classList.add('login__group-incorrecto')
+      document.getElementById('password').classList.remove('login__group-correcto')
+      document.querySelector('#password .login__input-error').classList.add('login__input-error-activo')
     }
   },[logInError]); 
 
@@ -150,6 +165,12 @@ const LogIn = () => {
           <Snackbar autoHideDuration={4000} open={openEmail} onClose={handleCloseEmail}>
           <Alert onClose={handleCloseEmail} severity="error" sx={{ width: '100%' }}>
               Unregistered Email
+          </Alert>
+          </Snackbar>
+
+          <Snackbar autoHideDuration={4000} open={openBanned} onClose={handleCloseBanned}>
+          <Alert onClose={handleCloseEmail} severity="error" sx={{ width: '100%' }}>
+              YOU ARE BANNED!!!
           </Alert>
           </Snackbar>
 
