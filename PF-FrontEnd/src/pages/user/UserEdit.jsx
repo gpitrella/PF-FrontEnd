@@ -11,32 +11,21 @@ const Edit = ({match}) => {
    const history = useHistory();
 
     const matchId=match.params.id;
-    console.log(matchId, 'matchId')
-      
+          
     const { allusers, usereditstatusok } = useSelector((state) => state.userReducer);
-    
-    console.log(allusers, 'allusers')
-    
+       
     const user = allusers.filter(function(u){
       return u.id == matchId;
     })
 
-    console.log(user, 'user')
-
-    const useraddress = user[0].useraddresses[0]
-
-    console.log(useraddress, 'useraddress')  
+    const useraddress = user[0].useraddresses[0] 
     
-    
-  
       const { id, name, email, isactive,  } = user[0]
     
       const [ newstatus, setNewstatus ] = useState(isactive ? "true" : "false");
-             
-      console.log(newstatus)
   
       function handleSelect(e){
-         console.log(e.target.value)
+         
          if(e.target.value === 'true'){
             setNewstatus("true")
          }else {
