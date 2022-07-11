@@ -15,7 +15,8 @@ import {
    SUM_LAST_WEEK,
    SUM_LAST_MONTH,
    SUM_BEFORELAST_MONTH,
-   SUM_LASTTHREE_MONTH
+   SUM_LASTTHREE_MONTH,
+   GET_ORDERS_TODAY
 } from './actiontype';
 
 const PATH_GET_BRANDS = `${BASE_URL}/api/manufacturer`;
@@ -28,6 +29,15 @@ const PATH_SUM_LAST_WEEK = `${BASE_URL}/api/orders/sumlastweek`;
 const PATH_SUM_LAST_MONTH = `${BASE_URL}/api/orders/sumlastmonth`;
 const PATH_SUM_BEFORELAST_MONTH = `${BASE_URL}/api/orders/sumbeforelastmonth`;
 const PATH_SUM_LASTTHREE_MONTH = `${BASE_URL}/api/orders/sumlastthreemonth`;
+const PATH_GET_ORDERS_TODAY = `${BASE_URL}/api/orders/today`;
+
+export const getOrdersToday = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_GET_ORDERS_TODAY)
+      .then((res) => dispatch({ type: GET_ORDERS_TODAY, payload: res.data }));
+  };
+};
 
 export const countAllOrders = function(){
   return async (dispatch) => {

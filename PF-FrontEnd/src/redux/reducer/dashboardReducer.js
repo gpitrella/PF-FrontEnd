@@ -13,7 +13,8 @@ import {
     SUM_LAST_WEEK,
     SUM_LAST_MONTH,
     SUM_BEFORELAST_MONTH,
-    SUM_LASTTHREE_MONTH
+    SUM_LASTTHREE_MONTH,
+    GET_ORDERS_TODAY
 } from '../actions/actiontype';
 
 const initialState = {
@@ -25,7 +26,8 @@ const initialState = {
     lastSalesWeek: 0,
     lastSalesMonth: 0,
     beforeLastMonth: 0,
-    lastThreeMonth: 0
+    lastThreeMonth: 0,
+    allOrdersToday: []
 };
 
 const dashboardReducer = function(state = initialState, { type, payload }) {
@@ -70,6 +72,12 @@ const dashboardReducer = function(state = initialState, { type, payload }) {
                 ...state,
                 lastThreeMonth: payload
                 }    
+        
+        case GET_ORDERS_TODAY:
+            return {
+                ...state,
+                allOrdersToday: payload
+                }
         
         case PRODUCTS_TO_FORMS:
             return {

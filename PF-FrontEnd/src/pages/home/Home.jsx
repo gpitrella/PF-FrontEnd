@@ -7,7 +7,7 @@ import Widget from "../../components/Dashboard/widget/Widget";
 import Featured from "../../components/Dashboard/featured/Featured";
 import Chart from "../../components/Dashboard/chart/Chart";
 import Table from "../../components/Dashboard/table/Table";
-import { countAllOrders, getAllUsers, sumAllOrders, sumAllToday, sumBeforeLastMonth, sumLastMonth, sumLastThreeMonth, sumLastWeek } from '../../redux/actions';
+import { countAllOrders, getAllUsers, getOrdersToday, sumAllOrders, sumAllToday, sumBeforeLastMonth, sumLastMonth, sumLastThreeMonth, sumLastWeek } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { allusers } = useSelector((state) => state.userReducer);
-  const { countOrders, totalSales, totalSalesToday, lastSalesWeek, lastSalesMonth, beforeLastMonth, lastThreeMonth } = useSelector((state) => state.dashboard);
+  const { countOrders, totalSales, totalSalesToday, lastSalesWeek, lastSalesMonth, beforeLastMonth, lastThreeMonth, allOrdersToday } = useSelector((state) => state.dashboard);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -25,7 +25,8 @@ const Home = () => {
     dispatch(sumLastWeek());
     dispatch(sumLastMonth());
     dispatch(sumBeforeLastMonth());
-    dispatch(sumLastThreeMonth())
+    dispatch(sumLastThreeMonth());
+    dispatch(getOrdersToday())
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   
