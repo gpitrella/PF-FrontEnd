@@ -70,7 +70,7 @@ export const rowData = [
     getValue: (purchase) => {
       return purchase.user.email.length > MAX_LENGTH ? purchase.user.email.slice(0, MAX_LENGTH) + '...' : purchase.user.email;
     },
-    addViewMore: true
+    addViewMore: false
   },
   {
     name: 'total',

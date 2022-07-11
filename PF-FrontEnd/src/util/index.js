@@ -98,3 +98,47 @@ export const UPLOAD_IMAGE_PARAMS = {
     INVALID_TYPE: 'El tipo de archivo ingresado no es valido.'
   }
 }
+
+export let formatPurchases = function(purchases) {
+  return purchases.map((purchase) => {
+    return {
+      id: purchase.id,
+      user: {
+        id: purchase.users[0].id,
+        email: purchase.users[0].email
+      },
+      total: purchase.totalpurchase,
+      userDirection: {
+        name: purchase.useraddresses[0].direction,
+        lat: purchase.useraddresses[0].latitude.toString(),
+        lon: purchase.useraddresses[0].longitude.toString(),
+      },
+      sucursal: {
+        name: purchase.branch_office.name
+      },
+      creationDate: purchase.createdAt,
+      updatedAt: purchase.updatedAt,
+      status: purchase.status
+    }
+  });
+}
+
+// const purchase = {
+//   id: 1,
+//   user: {
+//     id: 10,
+//     email: "romerof14@gmail.com"
+//   },
+//   total: 10000,
+//   userDirection: { 
+//     name: "BOYACA 3419, Merlo, Buenos Aires",
+//     lat: "-34.698054729991725",
+//     lon: "-58.76923954578144"
+//   },
+//   sucursal: {
+//     name: 'SUCURSAL MERLO',
+//   },
+//   creationDate: "2022-07-05T23:31:20.169Z",
+//   updatedAt: "2022-07-05T23:31:20.169Z",
+//   status: 'in process'
+// };

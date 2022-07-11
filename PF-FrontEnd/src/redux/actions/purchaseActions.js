@@ -1,4 +1,5 @@
 import {
+  BASE_URL,
   RESET_PURCHASES,
   SET_ORIGINAL_PURCHASES,
   UPDATE_FILTER_PURCHASES,
@@ -13,8 +14,11 @@ export let resetPurchases = function() {
 }
 
 export let setOriginalPurchases = function() {
-  return {
-    type: SET_ORIGINAL_PURCHASES
+  return function (dispatch) {
+    return fetch(`${BASE_URL}/api/orders`)
+           .then(response => response.json())
+           .then(data => dispatch({ type: SET_ORIGINAL_PURCHASES, payload: data }))
+           .catch(error => console.log(error));
   }
 }
 

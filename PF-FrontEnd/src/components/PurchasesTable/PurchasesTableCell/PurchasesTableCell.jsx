@@ -37,10 +37,10 @@ export default function PurchasesTableCell({ purchase, param, viewMore, handleVi
   return (
     <>
     { param.isComplex ? 
-      ( param.addViewMore && viewMore ? purchase[param.name] : param.getValue(purchase)) 
+      ( param.addViewMore && viewMore ? purchase[param.name].name : param.getValue(purchase)) 
       : purchase[param.name] }
     {
-      param.addViewMore && purchase[param.name].length > param.limit && !viewMore && 
+      param.addViewMore && purchase[param.name].name.length > param.limit && !viewMore && 
       <span className = {s.viewMore} onClick = {handleViewMore}>View more</span>
     }
     {

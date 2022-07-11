@@ -6,45 +6,45 @@ import {
   GET_PURCHASES_WITH_FILTER_AND_PAGINATE
 } from "../actions/actiontype";
 
-import { generatePurchasesWithFilter } from '../../util';
+import { generatePurchasesWithFilter, formatPurchases } from '../../util';
 
-const purchase = {
-  id: 1,
-  user: {
-    id: 10,
-    email: "romerof14@gmail.com"
-  },
-  total: 10000,
-  userDirection: { 
-    name: "BOYACA 3419, Merlo, Buenos Aires",
-    lat: "-34.698054729991725",
-    lon: "-58.76923954578144"
-  },
-  sucursal: {
-    name: 'SUCURSAL MERLO',
-  },
-  creationDate: "2022-07-05T23:31:20.169Z",
-  updatedAt: "2022-07-05T23:31:20.169Z",
-  status: 'in process'
-};
+// const purchase = {
+//   id: 1,
+//   user: {
+//     id: 10,
+//     email: "romerof14@gmail.com"
+//   },
+//   total: 10000,
+//   userDirection: { 
+//     name: "BOYACA 3419, Merlo, Buenos Aires",
+//     lat: "-34.698054729991725",
+//     lon: "-58.76923954578144"
+//   },
+//   sucursal: {
+//     name: 'SUCURSAL MERLO',
+//   },
+//   creationDate: "2022-07-05T23:31:20.169Z",
+//   updatedAt: "2022-07-05T23:31:20.169Z",
+//   status: 'in process'
+// };
 
-const DATES = [
-  {
-    creationDate: "2022-03-05T23:31:20.169Z",
-  },
-  {
-    creationDate: "2022-01-05T23:31:20.169Z",
-  },
-  {
-    creationDate: "2019-05-05T23:31:20.169Z",
-  },
-  {
-    creationDate: "2021-02-05T23:31:20.169Z",
-  },
-    {
-    creationDate: "2020-06-05T23:31:20.169Z",
-  },
-]
+// const DATES = [
+//   {
+//     creationDate: "2022-03-05T23:31:20.169Z",
+//   },
+//   {
+//     creationDate: "2022-01-05T23:31:20.169Z",
+//   },
+//   {
+//     creationDate: "2019-05-05T23:31:20.169Z",
+//   },
+//   {
+//     creationDate: "2021-02-05T23:31:20.169Z",
+//   },
+//     {
+//     creationDate: "2020-06-05T23:31:20.169Z",
+//   },
+// ]
 
 const PURCHASES_STATUS_ENUM = [
   {
@@ -56,7 +56,7 @@ const PURCHASES_STATUS_ENUM = [
     color: 'orange'
   },
   {
-    value: 'dispatched',
+    value: 'sending',
     color: 'blue'
   },
   {
@@ -69,54 +69,54 @@ const PURCHASES_STATUS_ENUM = [
   },
 ];
 
-const BRANCH_OFFICES = [
-  {
-    name: 'MERLO'
-  },
-  {
-    name: 'ADROGUE'
-  },
-  {
-    name: 'CABA'
-  }
-];
+// const BRANCH_OFFICES = [
+//   {
+//     name: 'MERLO'
+//   },
+//   {
+//     name: 'ADROGUE'
+//   },
+//   {
+//     name: 'CABA'
+//   }
+// ];
 
-const USERS = [
+// const USERS = [
   
-  {
-    id: 8,
-    email: "ahabitu@gmail.com",
-  },
-  {
-    id: 7,
-    email: "gabrielpitrella@gmail.com"
-  },
-  {
-    id: 10,
-    email: "romerof14@gmail.com"
-  },
-  {
-    id: 11,
-    email: "prueba@gmail.com"
-  }
-]
+//   {
+//     id: 8,
+//     email: "ahabitu@gmail.com",
+//   },
+//   {
+//     id: 7,
+//     email: "gabrielpitrella@gmail.com"
+//   },
+//   {
+//     id: 10,
+//     email: "romerof14@gmail.com"
+//   },
+//   {
+//     id: 11,
+//     email: "prueba@gmail.com"
+//   }
+// ]
 
-const PURCHASES = [ ...Array(30).keys() ].map( i => { 
-    return {
-      ...purchase,
-      id: i + 1,
-      total: i * 1000 + 500,
-      status: PURCHASES_STATUS_ENUM[i % 5].value,
-      sucursal: BRANCH_OFFICES[i % 3],
-      user: USERS[i % 4],
-      creationDate: DATES[i % 5].creationDate
-    }
-  });
+// const PURCHASES = [ ...Array(30).keys() ].map( i => { 
+//     return {
+//       ...purchase,
+//       id: i + 1,
+//       total: i * 1000 + 500,
+//       status: PURCHASES_STATUS_ENUM[i % 5].value,
+//       sucursal: BRANCH_OFFICES[i % 3],
+//       user: USERS[i % 4],
+//       creationDate: DATES[i % 5].creationDate
+//     }
+//   });
 
 const initialState = {
   showPurchases: false,
-  originalPurchases: [ ...PURCHASES],
-  purchases: [ ...PURCHASES ],
+  originalPurchases: [],
+  purchases: [],
   showLoading: false,
   purchaseStatusEnum: [ ...PURCHASES_STATUS_ENUM ],
   filter: {
@@ -138,10 +138,10 @@ const purchaseReducer = function(state = initialState, { type, payload }) {
           ...initialState
         }
       case SET_ORIGINAL_PURCHASES:
-        let [ ogPurchases, ogFilter ] = generatePurchasesWithFilter([ ...PURCHASES ], state.filter);
+        let [ ogPurchases, ogFilter ] = generatePurchasesWithFilter(formatPurchases(payload), state.filter);
         return {
           ...state,
-          originalPurchases: [ ...PURCHASES ],
+          originalPurchases: [ ...ogPurchases ],
           purchases: [ ...ogPurchases ],
           filter: { ...ogFilter },
           showPurchases: true
