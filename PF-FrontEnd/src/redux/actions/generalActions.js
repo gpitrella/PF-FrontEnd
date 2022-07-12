@@ -37,7 +37,9 @@ import {
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
   UPLOAD_IMAGE,
-  CLOUDINARY
+  CLOUDINARY,
+  FAVOURITES_CHARGED,
+  REMOVE_FAVOURITES_CHARGED
 } from './actiontype';
 
 
@@ -194,6 +196,18 @@ export function getFavouritesProducts(idUser){
     .catch(error => console.log(error))
   };
 };
+
+export function favoritesCharged(){
+  return {
+    type: FAVOURITES_CHARGED
+  }
+}
+
+export function removeFavoritesCharged(){
+  return {
+    type: REMOVE_FAVOURITES_CHARGED
+  }
+}
 
 export function removeFavourite( id ){
   console.log(id);

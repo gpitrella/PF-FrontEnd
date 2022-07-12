@@ -10,10 +10,18 @@ import my_favourites from './img/favorite_heart.gif';
 import my_address from './img/home.gif';
 import review_animation from './img/review_animation.gif';
 import question from './img/question.gif';
+import { showFavs } from '../../redux/actions'
+import FavouriteProducts from '../Favourites/FavouriteProds';
 import './MyProfile.css'
 import { Link } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 
 export default function MyProfile() {
+  const dispatch = useDispatch(); 
+  const openFavorite = () => {
+      dispatch(showFavs())
+  }
+
   return (
     <div>
     <div className='main_box_pyProfile'>
@@ -59,7 +67,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
   
-      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }} onClick={openFavorite}>
         <CardActionArea>
           <CardMedia className='personal_informacion'
             component="img"
@@ -70,7 +78,7 @@ export default function MyProfile() {
           />
         </CardActionArea>
         <CardActions className='button_myprofile'>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={openFavorite}>
              My Favourites
           </Button>
         </CardActions>

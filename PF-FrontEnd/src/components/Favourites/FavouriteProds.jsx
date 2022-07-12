@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { removeFavourite, getFavouritesProducts, closeFavs } from "../../redux/actions";
+import { removeFavourite, getFavouritesProducts, closeFavs, favoritesCharged, removeFavoritesCharged } from "../../redux/actions";
 import s from './FavouriteProds.module.css';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -32,35 +32,41 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function FavouriteProducts({showFavs}){
   const dispatch = useDispatch();
   const history = useHistory();
-  const { user } = useSelector((state) => state.general);
+  const { user, favoritiesCharged } = useSelector((state) => state.general);
   const [favouritesUpdated, setFavouritesUpdated] = useState(false);
+  const { favouritesProducts, newFavoriteProduct } = useSelector((state) => state.general);
 
   useEffect(()=>{
-    dispatch(getFavouritesProducts(user.user.id));
-  }, [dispatch]);
+    if(user?.user && !favoritiesCharged) {
+      dispatch(getFavouritesProducts(user?.user?.id));
+      dispatch(favoritesCharged());
+      // setFavouritesUpdated(false);
+    }
+  }, [newFavoriteProduct]);
 
-  const { favouritesProducts } = useSelector((state) => state.general);
   //LIST:
 
 const handleCloseFavourites = (e) => {
-  e.preventDefault();
+  // e.preventDefault();
   dispatch(closeFavs());
 };
 
 const handleRemoveFromFavs = (e) => {
+  dispatch(removeFavoritesCharged())
   let idProduct = e;
   let idUser = user.user.id;
   const alreadyFavourite = favouritesProducts?.find(product => product.id === idProduct);
   const id = alreadyFavourite ? (alreadyFavourite?.favorites.filter((el) => el.idUser === idUser))[0].id : '';
-  console.log(id)
   dispatch(removeFavourite({ id }))
   setFavouritesUpdated(true);
 };
 
-useEffect(()=>{
-  dispatch(getFavouritesProducts(user.user.id));
-  setFavouritesUpdated(false);
-}, [favouritesUpdated]);
+// useEffect(()=>{
+//   if(user?.user){
+//     dispatch(getFavouritesProducts(user.user.id));
+//     setFavouritesUpdated(false);
+//   }
+// }, []);
 
 const handleClick = (id) => {
   history.push(`/productdetails/${id}`);

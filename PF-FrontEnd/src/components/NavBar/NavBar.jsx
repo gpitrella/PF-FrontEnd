@@ -310,11 +310,11 @@ export default function NavBar() {
           aria-label="show 17 new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+          <Badge badgeContent={favouritesProducts?.length} color="error">
+            <FavoriteIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Favorites</p>
       </MenuItem>
 
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -453,7 +453,7 @@ export default function NavBar() {
               </Badge>
             </IconButton>
 
-            <IconButton size="large" aria-label="favourites" color="inherit" onClick={showFavsNavBar}>
+              <IconButton size="large" aria-label="favourites" color="inherit" onClick={showFavsNavBar}>
                 <Badge badgeContent={favouritesProducts?.length} color="error">
                     <FavoriteIcon />
                 </Badge>
