@@ -16,7 +16,18 @@ const bull = (
   </Box>
 );
 
-export default function BasicCard({branchOffice}) {
+export default function BasicCard({branchOffice, setMap, map}) {
+
+  let handleSetMap = function() {
+    setMap({
+      ...branchOffice
+    });
+  }
+
+  let handleRemoveMap = function() {
+    setMap(false);
+  }
+
   return ( 
     
     <Card  variant="outlined" sx={{ minWidth: 275 }}>
@@ -27,9 +38,6 @@ export default function BasicCard({branchOffice}) {
         <Typography variant="h5" component="div">
           {branchOffice.name}
         </Typography>
-{/*        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {branchOffice.phone}
-        </Typography>*/}
         <Typography variant="body2">
           Horario de atencion
           <br />
@@ -37,7 +45,14 @@ export default function BasicCard({branchOffice}) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">View on Maps</Button>
+      {
+        (!map || map.id !== branchOffice.id) &&
+        <Button size="small" onClick = {handleSetMap}>View on Maps</Button>
+      }
+      {
+        map && map.id === branchOffice.id &&
+        <Button size="small" onClick = {handleRemoveMap}>Remove map</Button>
+      }
       </CardActions>
     </Card>
   );

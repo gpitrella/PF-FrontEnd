@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getBranchOffices, resetCheckoutAddress } from '../../redux/actions';
 import Loading from '../SVG/Loading';
 import ServerError from '../SVG/ServerError';
+import MapStore from '../MapStore/MapStore';
 
 import s from './Address.module.css';
 
@@ -76,6 +77,7 @@ const Adresses = () => {
 
   const dispatch = useDispatch();
   const { branchOffices, errorBranchOffices } = useSelector(state => state.general);
+  const [ map, setMap ] = React.useState(false);
 
   React.useEffect(() => {
     dispatch(getBranchOffices());
@@ -116,8 +118,6 @@ const Adresses = () => {
 
   return (
     <div className = {s.container}>
-      <br />
-      <br />
       <Typography
         align="center"
         sx={{ fontSize: 30 }}
@@ -127,23 +127,14 @@ const Adresses = () => {
       >
         Our Branches
       </Typography>
-      <br />
-      <br />
       <Box sx={{ width: "100%" }}>
         <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} className = {s.grid}>
- {/*         {data.map((e) => (
-            <Grid item xs={12} sm={3}>
-              <Item>
-                <BasicCard data={e} />
-              </Item>
-            </Grid>
-          ))}*/}
           {
             branchOffices && branchOffices.length > 0 && branchOffices.map((branchOffice, index) => 
 
                <Grid item xs={12} sm={3} key = {`branch-office-card-${branchOffice.id}-${index}`}>
                 <Item>
-                  <BasicCard branchOffice = {branchOffice} />
+                  <BasicCard branchOffice = {branchOffice} setMap = {setMap} map = {map}/>
                 </Item>
               </Grid>
 
@@ -151,6 +142,17 @@ const Adresses = () => {
           }
         </Grid>
       </Box>
+      {
+        map &&
+        <MapStore
+          lat = {map.latitude}
+          long = {map.longitude}
+          adress = {map.direction}
+          name = {map.name}
+          style = {s.map}
+          zoom = {10}
+        />
+      }
     </div>
   );
 };
