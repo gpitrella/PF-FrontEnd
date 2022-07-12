@@ -105,9 +105,9 @@ export const rowData = [
       let dateOfPurchase = new Date(purchase.creationDate);
       let dateOfFullfilled = purchase.status === 'filled' && purchase.updatedAt ? new Date(purchase.updatedAt) : null;
 
-      let dateOfPurchaseWithFormat = `${dateOfPurchase.getHours()}:${dateOfPurchase.getMinutes()}, ${dateOfPurchase.toDateString()}`;
+      let dateOfPurchaseWithFormat = `${dateOfPurchase.getHours()}:${dateOfPurchase.getMinutes() < 10 ? '0' : ''}${dateOfPurchase.getMinutes()}, ${dateOfPurchase.toDateString()}`;
       let dateOfFullfilledWithFormat = !dateOfFullfilled ? '...' :
-      `${dateOfFullfilled.getHours()}:${dateOfFullfilled.getMinutes()}, ${dateOfFullfilled.toDateString()}`;
+      `${dateOfFullfilled.getHours()}:${dateOfFullfilled.getMinutes() < 10 ? '0' : ''}${dateOfFullfilled.getMinutes()}, ${dateOfFullfilled.toDateString()}`;
 
       return [
         dateOfPurchaseWithFormat,

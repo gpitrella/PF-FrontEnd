@@ -25,6 +25,9 @@ export default function PurchaseDetails() {
   const { details, loading, error } = useSelector(state => state.purchases.onePurchase);
   const { id } = useParams();
 
+  let dateOfCreation = new Date(details.createdAt);
+  let dateOfModification = new Date(details.updatedAt);
+
   React.useEffect(() => {
     dispatch(getOnePurchaseDetails(id));
     return () => resetOnePurchaseDetails();
@@ -211,11 +214,15 @@ export default function PurchaseDetails() {
         <div className = {s.containerDates}>
           <div className = {s.groupDate}>
             <span className = {s.subtitleDateName}>Creation Date:</span>
-            <span className = {s.subtitleDateInfo}>{details.createdAt}</span>
+            <span className = {s.subtitleDateInfo}>
+              {`${dateOfCreation.getHours()}:${dateOfCreation.getMinutes() < 10 ? '0' : ''}${dateOfCreation.getMinutes()} ${dateOfCreation.toDateString()}`}
+            </span>
           </div>
           <div className = {s.groupDate}>
             <span className = {s.subtitleDateName}>Last Modification:</span>
-            <span className = {s.subtitleDateInfo}>{details.updatedAt}</span>
+            <span className = {s.subtitleDateInfo}>
+              {`${dateOfModification.getHours()}:${dateOfModification.getMinutes() < 10 ? '0' : ''}${dateOfModification.getMinutes()} ${dateOfModification.toDateString()}`}
+            </span>
           </div>
         </div>
       </div>

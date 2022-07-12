@@ -9,8 +9,7 @@ export default function PurchasesTableCell({ purchase, param, viewMore, handleVi
 
   if (param.isOption) return (
     <div className = {s.options}>
-      {/*<Link to = {`/admin/purchases/${purchase.id}`}>*/}
-      <Link to = {'/purchase'}>
+      <Link to = {`/admin/purchases/details/${purchase.id}`}>
         <button className = {`${s.svgButton} ${s.blue}`}>
           <div className = {`${s.tag} ${s.blue}`}>View More</div>
           <View />
