@@ -48,7 +48,7 @@ const PURCHASES_COLORS = {
   processing: {
     color: 'color_violet'
   },
-  dispatched: {
+  sending: {
     color: 'color_blue'
   },
   filled: {
@@ -70,7 +70,7 @@ export const rowData = [
     getValue: (purchase) => {
       return purchase.user.email.length > MAX_LENGTH ? purchase.user.email.slice(0, MAX_LENGTH) + '...' : purchase.user.email;
     },
-    addViewMore: true
+    addViewMore: false
   },
   {
     name: 'total',
@@ -105,9 +105,9 @@ export const rowData = [
       let dateOfPurchase = new Date(purchase.creationDate);
       let dateOfFullfilled = purchase.status === 'filled' && purchase.updatedAt ? new Date(purchase.updatedAt) : null;
 
-      let dateOfPurchaseWithFormat = `${dateOfPurchase.getHours()}:${dateOfPurchase.getMinutes()}, ${dateOfPurchase.toDateString()}`;
+      let dateOfPurchaseWithFormat = `${dateOfPurchase.getHours()}:${dateOfPurchase.getMinutes() < 10 ? '0' : ''}${dateOfPurchase.getMinutes()}, ${dateOfPurchase.toDateString()}`;
       let dateOfFullfilledWithFormat = !dateOfFullfilled ? '...' :
-      `${dateOfFullfilled.getHours()}:${dateOfFullfilled.getMinutes()}, ${dateOfFullfilled.toDateString()}`;
+      `${dateOfFullfilled.getHours()}:${dateOfFullfilled.getMinutes() < 10 ? '0' : ''}${dateOfFullfilled.getMinutes()}, ${dateOfFullfilled.toDateString()}`;
 
       return [
         dateOfPurchaseWithFormat,

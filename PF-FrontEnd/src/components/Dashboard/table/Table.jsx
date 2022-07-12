@@ -36,7 +36,7 @@ const List = () => {
             <TableRow key={row.id}>
               <TableCell className="tableCell">{row.id}</TableCell>
               <TableCell className="tableCell">
-                <Link to="/admin/products/list" style={{ textDecoration: "none" }}>
+                <Link to={`/admin/purchases/details/${row.id}`} style={{ textDecoration: "none" }}>
                 <div className="cellWrapper">
                     view products
                 </div>
