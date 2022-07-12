@@ -13,6 +13,7 @@ import Delivery from '../SVG/Delivery';
 import Handshake from '../SVG/Handshake';
 import Loading from '../SVG/Loading';
 import ServerError from '../SVG/ServerError';
+import MapStore from '../MapStore/MapStore';
 import { getOnePurchaseDetails, resetOnePurchaseDetails } from '../../redux/actions';
 
 import { PRODUCTS } from './products';
@@ -122,6 +123,18 @@ export default function PurchaseDetails() {
             </div>
             <span className = {s.subtitle}>Address</span>
             <span className = {s.info}>{details.branch_office.direction}</span>
+          </div>
+
+          <div className = {s.map}>
+            <MapStore
+              lat = {details.branch_office.latitude}
+              long = {details.branch_office.longitude}
+              adress = {details.branch_office.direction}
+              name = {details.branch_office.name}
+              style = {s.mapStyle}
+              zoom = {10}
+              userDirection = {details.useraddresses[0]}
+            />
           </div>
         </div>
 
