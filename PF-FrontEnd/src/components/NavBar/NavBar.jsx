@@ -22,7 +22,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -35,6 +34,9 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import Avatar from '@mui/material/Avatar';
+// Dependencias para Notification
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -114,6 +116,9 @@ export default function NavBar() {
   const [ name, setName ] = React.useState('');
   const { user } = useSelector((state) => state.general)
   const { oneuser } = useSelector((state) => state.userReducer);
+  const [ notification, setNotification ] = React.useState(0);
+  const [ openNotification, setOpenNotification ] = React.useState(false);
+  const { commentByUser } = useSelector((state) => state.userReducer);
   const productsCart = useSelector((state) => state.general.productsCart);
 
   const dispatch = useDispatch();
@@ -123,6 +128,22 @@ export default function NavBar() {
     dispatch(clearSearchProducts())
     setName(e.target.value);
     dispatch(getSearchProducts(name));
+  }
+
+  // Notification:
+  const handleCloseSuccessComment = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenNotification(false);
+  };
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleNotification = () => {
+    setOpenNotification(true);
   }
 
 // Nueva NAVBAR
@@ -162,8 +183,6 @@ export default function NavBar() {
     e.preventDefault();
     dispatch(showCart())
   };
-
-  
 
   const menuId = 'primary-search-account-menu';
   
@@ -264,8 +283,8 @@ export default function NavBar() {
 
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
+          <Badge badgeContent={notification} color="error">
+            <MailIcon onClick={handleNotification}/>
           </Badge>
         </IconButton>
         <p>Messages</p>
@@ -330,12 +349,29 @@ export default function NavBar() {
         setDisplayUserAdmin(true);
       }
     }
-  },[user]);
+    // Notification
+    if(commentByUser?.length > 0){
+      let resetNotification = 0;
+      commentByUser.map((comment)=>{
+        if(comment.viewed === false && comment.answer){
+          resetNotification += 1
+        }
+      })
+    setNotification(resetNotification);
+    }
+  },[user, commentByUser]);
 
   
     return (
       /// Nueva NAVABar
       <nav className='navbar_main_block'>
+         <Snackbar open={openNotification} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+              <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
+                  {notification === 0 
+                        ? 'WithOut new Messages'
+                        : `You have ${notification} new answer to see. Check your Profile.`}
+              </Alert>
+          </Snackbar>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
           <Toolbar>
@@ -404,8 +440,8 @@ export default function NavBar() {
             </IconButton>
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="error">
-                <MailIcon className="links_general"/>
+              <Badge badgeContent={notification} color="error">
+                <MailIcon className="links_general" onClick={handleNotification}/>
               </Badge>
             </IconButton>
 
@@ -480,7 +516,7 @@ export default function NavBar() {
     <div className = {'scrollToTop'}>
       <ScrollToTop smooth component={<ExpandLessIcon />} />
     </div>
-      </nav>
+    </nav>
     )
 };
 const THEME = {

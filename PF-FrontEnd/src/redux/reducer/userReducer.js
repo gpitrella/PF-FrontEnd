@@ -9,7 +9,11 @@ import {
   USER_REVIEWS,
   GET_COMMENTS_BY_USER,
   EDIT_DATA_USER,
-  USER_ADD_ADDRESS
+  USER_ADD_ADDRESS,
+  PUT_PASSWORD,
+  CLEAR_UPDATE_USER,
+  UPDATE_COMMENT_VIEWED,
+  CLEAR_COMMENT_VIEWED
 } from "../actions/actiontype";
 
 const initialState = {
@@ -22,6 +26,7 @@ const initialState = {
     commentByUser: [],
     updateUser: {},
     reloadUserDetails: false,
+    updateComment: ''
 }
 
 const userReducer = function(state = initialState, { type, payload }) {
@@ -94,6 +99,30 @@ const userReducer = function(state = initialState, { type, payload }) {
         return {
           ...state,
           reloadUserDetails: true
+        }
+
+      case PUT_PASSWORD:
+        return {
+          ...state,
+          updateUser: payload
+        }
+
+      case CLEAR_UPDATE_USER:
+        return {
+          ...state,
+          updateUser: {}
+        }
+
+      case UPDATE_COMMENT_VIEWED:
+        return {
+          ...state,
+          updateComment: 'Comment Update'
+        }
+      
+      case CLEAR_COMMENT_VIEWED: 
+        return {
+          ...state,
+          updateComment: ''
         }
   
       default:
