@@ -26,13 +26,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function MyAddress() {
   const [openComment, setOpenComment] = React.useState(false);
-  const { oneuser } = useSelector((state) => state.userReducer);
+  const { oneuser, reloadUserDetails } = useSelector((state) => state.userReducer);
   const { show } = useSelector(state => state.modalAddAddress);
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
-    console.log(id)
-    console.log('entre a delete address')
     dispatch(deleteUserAddress(id));
     setOpenComment(true) 
   };
@@ -46,10 +44,9 @@ export default function MyAddress() {
 
   React.useEffect(() => {
     dispatch(getUserDetail(oneuser.id))
-  }, [openComment]);
+  }, [openComment, reloadUserDetails]);
 
   const handleAddAddress = function() {
-    console.log('entre')
     dispatch(showModalAddAddress());
   }
   
@@ -69,7 +66,7 @@ export default function MyAddress() {
           acum++;
         return (
         <div className='individual_myaddress' key={address.id}>
-          <List className='box_main_myaddress' sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          <List className='box_main_myaddress' sx={{ width: '330px', height: '280px', bgcolor: 'background.paper' }}>
             <ListItem >
               <span id='title_box_particular_address'>{`Address N° ${acum}`}</span>
             </ListItem>
@@ -117,7 +114,7 @@ export default function MyAddress() {
         </Link>
         <Snackbar open={openComment} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
             <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
-                Success Address Deleted!
+                Address Deleted Successfully. 
             </Alert>
         </Snackbar>
         {
