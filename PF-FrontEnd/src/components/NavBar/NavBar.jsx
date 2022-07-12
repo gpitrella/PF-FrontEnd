@@ -260,7 +260,7 @@ export default function NavBar() {
         </Typography>
       </MenuItem>
 
-      <MenuItem>
+      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
           <Badge badgeContent={productsCart?.length} color="error">
             <ShoppingCartIcon/>
@@ -295,8 +295,8 @@ export default function NavBar() {
         <p>Dashboard</p>
       </MenuItem>
 
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+        <IconButton size="large" aria-label="show new mails" color="inherit">
           <Badge badgeContent={notification} color="error">
             <MailIcon onClick={handleNotification}/>
           </Badge>
@@ -304,10 +304,10 @@ export default function NavBar() {
         <p>Messages</p>
       </MenuItem>
 
-      <MenuItem>
+      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="show new notifications"
           color="inherit"
         >
           <Badge badgeContent={favouritesProducts?.length} color="error">
@@ -426,7 +426,12 @@ export default function NavBar() {
                 Welcome {user?.user?.name}
             </Typography>
           
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+            <IconButton 
+                  size="large" 
+                  aria-label="show 4 new mails" 
+                  color="inherit" 
+                  onClick={showCartNavBar}
+                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
               <Badge badgeContent={productsCart?.length} color="error">
                 <ShoppingCartIcon className="links_general"/>
               </Badge>
@@ -453,25 +458,24 @@ export default function NavBar() {
               </Badge>
             </IconButton>
 
-              <IconButton size="large" aria-label="favourites" color="inherit" onClick={showFavsNavBar}>
+              <IconButton 
+                  size="large" 
+                  aria-label="favourites" 
+                  color="inherit" 
+                  onClick={showFavsNavBar}
+                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
                 <Badge badgeContent={favouritesProducts?.length} color="error">
                     <FavoriteIcon />
                 </Badge>
               </IconButton>
 
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <IconButton 
+                  size="large" 
+                  aria-label="show new mails" 
+                  color="inherit"
+                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
               <Badge badgeContent={notification} color="error">
                 <MailIcon className="links_general" onClick={handleNotification}/>
-              </Badge>
-            </IconButton>
-
-            <IconButton
-              size="large"
-              aria-label="show 0 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={0} color="error">
-                <NotificationsIcon className="links_general"/>
               </Badge>
             </IconButton>
 

@@ -14,13 +14,24 @@ import { showFavs } from '../../redux/actions'
 import FavouriteProducts from '../Favourites/FavouriteProds';
 import './MyProfile.css'
 import { Link } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function MyProfile() {
+  const [displayUserAdmin, setDisplayUserAdmin] = React.useState(false);
+  const { user } = useSelector((state) => state.general)
+  
   const dispatch = useDispatch(); 
   const openFavorite = () => {
       dispatch(showFavs())
-  }
+  };
+
+  React.useEffect(() => {
+    if(user?.user){
+      if(user.user?.admin){
+        setDisplayUserAdmin(true);
+      }
+    }
+  },[user]);
 
   return (
     <div>
@@ -46,7 +57,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
 
-      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={displayUserAdmin ? { display: 'none' } : { display: 'block', width: 200, height: 200 }}>
         <CardActionArea>
           <Link to='/myprofile/mypurchases'>
             <CardMedia
@@ -67,7 +78,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
   
-      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }} onClick={openFavorite}>
+      <Card id='individual_box_myprofile' onClick={openFavorite} sx={displayUserAdmin ? { display: 'none' } : { display: 'block', width: 200, height: 200 }}>
         <CardActionArea>
           <CardMedia className='personal_informacion'
             component="img"
@@ -103,7 +114,7 @@ export default function MyProfile() {
           </Link>
         </CardActions>
       </Card>
-      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={displayUserAdmin ? { display: 'none' } : { display: 'block', width: 200, height: 200 }}>
         <CardActionArea>
           <Link to='/myprofile/myreviews'>
             <CardMedia className='personal_myreview'
@@ -125,7 +136,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
 
-      <Card id='individual_box_myprofile' sx={{ width: 200, height: 200 }}>
+      <Card id='individual_box_myprofile' sx={displayUserAdmin ? { display: 'none' } : { display: 'block', width: 200, height: 200 }}>
         <CardActionArea>
           <Link to='/myprofile/mycomments'>
             <CardMedia className='personal_informacion'
