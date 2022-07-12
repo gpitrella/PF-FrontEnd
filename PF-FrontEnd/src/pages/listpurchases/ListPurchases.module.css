@@ -23,3 +23,50 @@
   margin-top: 0 !important;
   margin-bottom: 1rem;
 }
+
+.spanLoading {
+  font-size: var(--fontTitle);
+  font-weight: 700;
+  color: var(--secondaryColor);
+}
+
+.containerLoading {
+
+  grid-row: 1 / 4;
+  grid-column: 1 / 2;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+
+.imageContainer {
+  height: 20rem;
+  width: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1px;
+  object-fit: contain;
+}
+
+.loadingContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+.loadingContainer > svg {
+  animation: rotateLoading 2s infinite;
+  animation-timing-function: linear;
+  fill: var(--secondaryColor);
+}
+
+@keyframes rotateLoading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

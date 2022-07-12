@@ -12,6 +12,7 @@ import notFoundPage from './components/404/NotFoundPage404';
 import CategPage from './components/CategTable/CategPage/CategPage';
 import BrandsPage from './components/BrandsTable/BrandsPage/BrandsPage';
 import ListPurchases from './pages/listpurchases/ListPurchases';
+import PurchaseDetailsPage from './pages/PurchaseDetailsPage/PurchaseDetailsPage';
 
 import "./style/dark.scss";
 
@@ -33,7 +34,7 @@ const Admin = () => {
           <Route path = {`${url}/products/create`} component = {CreateProductPage}/>
           <Route path = {`${url}/products/edit/:id`} component = {EditProductPage}/>
           <Route path = {`${url}/purchases/list`} component = {ListPurchases}/>
-          {/*<Route path = {`${url}/purchases/details/:id`} component = {ListPurchases}/>*/}
+          <Route path = {`${url}/purchases/details/:id`} component = {PurchaseDetailsPage}/>
           <Route path = '*' component = {notFoundPage} />
         </Switch>    
       </div>
