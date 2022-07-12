@@ -15,6 +15,7 @@ export default function ProductCard({ id, name, image, category, price, discount
   let discountPrice = Math.round(price - price * (discount / 100));
 
   const cart = useSelector(state => state.general.productsCart);
+  const { user } = useSelector(state => state.general);
   const isAlreadyOnCart = cart.some(product => product.id === id);
 
   return (
@@ -59,13 +60,18 @@ export default function ProductCard({ id, name, image, category, price, discount
           }
 
           <div className = {s.containerButtonsSVG}>
-            <div className = {`${s.containerSVG} ${s.redHeart}`}>
-              <Heart />
-            </div>
-
-            <div className = {`${s.containerSVG} ${isAlreadyOnCart ? s.alreadyOnCart : ''}`}>
-              <Cart id={id}/>
-            </div>
+            {
+              user && user.user && !user.user.admin &&
+              <div className = {`${s.containerSVG} ${s.redHeart}`}>
+                <Heart />
+              </div>
+            }
+            {
+              (!user || !user.user || (user.user && !user.user.admin)) &&
+              <div className = {`${s.containerSVG} ${isAlreadyOnCart ? s.alreadyOnCart : ''}`}>
+                <Cart id={id}/>
+              </div>
+            }
           </div>
 
         </div>
