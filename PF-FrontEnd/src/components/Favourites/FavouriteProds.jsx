@@ -95,7 +95,7 @@ const handleClick = (id) => {
                  {favouritesProducts?.map((e) => {
                      const labelId = `checkbox-list-primary-label-${e?.id}`;
                      return (
-                      <div className={`${s.containerFavs}${s.favsMainblock}`}>
+                      <div className={`${s.containerFavs}${s.favsMainblock}`} key={e.id}>
                       <ListItem
                         key={e?.id}
                         secondaryAction={
