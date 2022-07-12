@@ -6,7 +6,6 @@ import ProductDetails from './components/ProductDetails/ProductDetails';
 import './App.css';
 import Home from './components/Home/Home';
 import Store from './components/Store/Store';
-import PurchaseDetails from './components/PurchaseDetails/PurchaseDetails';
 import notFoundPage from './components/404/NotFoundPage404';
 import { getBrands, loadStorage, loginWithGoogle, notLoginWithGoogle } from './redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,7 +25,6 @@ import UserProfile from './UserProfile'
 import Landing from './components/Landing/Landing';
 
 import PageLoader from './components/PageLoader/PageLoader';
-import ModalAddAddress from './components/ModalAddAddress/ModalAddAddress';
 import { LocalStorage } from './util/localStorage';
 
 function App() {
@@ -78,10 +76,7 @@ function App() {
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
-
-              <Route exact path='/address' component={ModalAddAddress} />
-              <Route exact path='/purchase' component={PurchaseDetails} />
-              
+          
               <Route exact path='/successbuy' >{user?.user ? <SuccessBuy/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/canceledbuy' >{user?.user ? <CanceledBuy/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/pendingbuy' >{user?.user ? <PendingBuy/> : <Redirect to="/login"/>}</Route>
