@@ -3,7 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
-
+//Favs:
+import { showFavs } from '../../redux/actions';
+//
 import './NavBar.css';
 import gitfLogo from './img/logo_TechMarket.gif';
 import userAvatar from './img/user_avatar.png';
@@ -35,6 +37,8 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import Avatar from '@mui/material/Avatar';
+//Favs:
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -115,7 +119,10 @@ export default function NavBar() {
   const { user } = useSelector((state) => state.general)
   const { oneuser } = useSelector((state) => state.userReducer);
   const productsCart = useSelector((state) => state.general.productsCart);
-
+  
+  //Favs
+  const { favouritesProducts } = useSelector ((state) => state.general);
+  //
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
@@ -163,7 +170,12 @@ export default function NavBar() {
     dispatch(showCart())
   };
 
-  
+  //Favs
+   const showFavsNavBar = (e) => {
+    e.preventDefault();
+    dispatch(showFavs())
+   };
+  //
 
   const menuId = 'primary-search-account-menu';
   
@@ -402,6 +414,12 @@ export default function NavBar() {
                 </Link>
               </Badge>
             </IconButton>
+
+            <IconButton size="large" aria-label="favourites" color="inherit" onClick={showFavsNavBar}>
+                <Badge badgeContent={favouritesProducts?.length} color="error">
+                    <FavoriteIcon />
+                </Badge>
+              </IconButton>
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={0} color="error">

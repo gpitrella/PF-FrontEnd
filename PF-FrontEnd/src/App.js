@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
 import AddToCart from './components/AddToCart/AddToCart';
+import FavouriteProds from './components/Favourites/FavouriteProds';
 import Admin from './Admin';
 import ContacUsForm from './components/ContactUs/ContacUsForm';
 import CheckOut from './components/CheckOut/CheckOut';
@@ -30,6 +31,7 @@ import MapStore from './components/MapStore/MapStore';
 import PageLoader from './components/PageLoader/PageLoader';
 import ModalAddAddress from './components/ModalAddAddress/ModalAddAddress';
 import { LocalStorage } from './util/localStorage';
+import BuildPC from './components/BuildYourPC/BuildPC';
 
 function App() {
   const dispatch = useDispatch()
@@ -46,7 +48,7 @@ function App() {
     dispatch(getBrands())
   },[dispatch])
 
-  const { theme, showCart } = useSelector(state => state.general);
+  const { theme, showCart, showFavs } = useSelector(state => state.general);
 
   if (showPageLoader || loadingUser) return (
     <React.Fragment>
@@ -63,10 +65,12 @@ function App() {
         <div className= {`globalVariables mainContainer ${theme}`}>
           <Route path="/" component={NavBar} />
           <AddToCart showCart={showCart}/> 
+          <FavouriteProds showFavs={showFavs} />
             <Switch>                
               <Route exact path="/" component={Home} />
               <Route exact path="/landing" component={Landing} />
               <Route exact path="/store/" component = {Store} />
+              <Route exact path="/customizedPC" component = {BuildPC} />
               <Route exact path="/login"> { !user || !user.user ? <LogIn/> : <Redirect to="/"/>}</Route>
               <Route exact path="/signup"> { !user || !user.user ? <SignUp/> : <Redirect to="/"/>}</Route>
               <Route exact path="/store/discount/:discount" component = {Store} />

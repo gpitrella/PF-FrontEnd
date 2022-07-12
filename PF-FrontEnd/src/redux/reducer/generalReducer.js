@@ -1,3 +1,5 @@
+import { stepButtonClasses } from '@mui/material';
+import { showCart } from '../actions';
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -19,6 +21,8 @@ import {
   ADD_PRODUCT_TO_FAVOURITES,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SHOW_FAVOURITES,
+  CLOSE_FAVOURITES,
   SUCCESS_BUY,
   LOG_IN_ERROR,
   LOGIN_WITH_GOOGLE,
@@ -57,6 +61,7 @@ const initialState = {
   showPageLoader: true,
   loadingUser: true,
   favouritesProducts: [],
+  showFavs: false,
   viewLanding: true,
   logInError: {},
   orderByUser: {},
@@ -227,24 +232,11 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case ADD_PRODUCT_TO_FAVOURITES:{
-      LocalStorage.saveItem('favouritesProducst', state.favouritesProducts.concat({
-        id: payload.id,
-        name: payload.name,
-        price: payload.price,
-        image: payload.image,
-        discount: payload.discount,
-        stock: payload.stock,
-        categories: payload.categories,
-        description: payload.description,
-        user: payload.userId,
-      }));
-    return {
-      ...state,
-      favouritesProducts: state.favouritesProducts.concat({
-        id: payload.id,
-        user: payload.userId,
-      })
-    }}
+      return {
+        ...state,
+        payload,
+      }
+    }
     case GET_FAVOURITES_PRODUCTS: {
       return {
         ...state,
@@ -252,10 +244,23 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case REMOVE_FAVOURITE_PRODUCT: {
-      LocalStorage.saveItem('productsCart', state.favouritesProducts.filter(product => product.id !== payload));
       return {
       ...state,
-      favouritesProducts: state.favouritesProducts.filter(product => product.id !== payload)
+      payload
+      }
+    }
+
+    case SHOW_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: true        
+      }
+    }
+
+    case CLOSE_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: false
       }
     }
 
