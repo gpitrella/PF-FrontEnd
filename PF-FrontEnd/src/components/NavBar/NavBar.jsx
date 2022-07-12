@@ -370,7 +370,7 @@ export default function NavBar() {
 
             <IconButton size="large" aria-label="favourites" color="inherit" onClick={showFavsNavBar}>
                 <Badge badgeContent={favouritesProducts?.length} color="error">
-                  <FavoriteIcon />
+                    <FavoriteIcon />
                 </Badge>
               </IconButton>
 

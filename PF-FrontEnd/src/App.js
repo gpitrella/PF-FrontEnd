@@ -28,6 +28,7 @@ import Landing from './components/Landing/Landing';
 
 import PageLoader from './components/PageLoader/PageLoader';
 import { LocalStorage } from './util/localStorage';
+import BuildPC from './components/BuildYourPC/BuildPC';
 
 function App() {
   const dispatch = useDispatch()
@@ -66,6 +67,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/landing" component={Landing} />
               <Route exact path="/store/" component = {Store} />
+              <Route exact path="/customizedPC" component = {BuildPC} />
               <Route exact path="/login"> { !user || !user.user ? <LogIn/> : <Redirect to="/"/>}</Route>
               <Route exact path="/signup"> { !user || !user.user ? <SignUp/> : <Redirect to="/"/>}</Route>
               <Route exact path="/store/discount/:discount" component = {Store} />

@@ -12,152 +12,131 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import Divider from '@mui/material/Divider';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+//LIST
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Checkbox from '@mui/material/Checkbox';
+import { Avatar } from "@mui/material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="down" ref={ref} {...props} />;
   });
 
-// Box Desplegable para Logearse:
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
-    padding: theme.spacing(2),
-  },
-  '& .MuiDialogActions-root': {
-    padding: theme.spacing(1),
-  },
-}));
-
-const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
-
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-      {onClose ? (
-        <IconButton
-          aria-label="close"
-          onClick={onClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-      ) : null}
-    </DialogTitle>
-  );
-};
-
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};
 
 export default function FavouriteProducts({showFavs}){
   const dispatch = useDispatch();
   const history = useHistory();
   const { user } = useSelector((state) => state.general);
+  const [favouritesUpdated, setFavouritesUpdated] = useState(false);
 
   useEffect(()=>{
     dispatch(getFavouritesProducts(user.user.id));
-  }, [dispatch])
+  }, [dispatch]);
 
   const { favouritesProducts } = useSelector((state) => state.general);
-
-  const [openComment, setOpenComment] = useState(false);
-
-
-// Cartel desplegable de Login
-const [openLogin, setOpenLogin] = useState(false);
-
-const handleClickOpenLogin = () => {
-    setOpenLogin(true);
-};
-
-const handleCloseLogin = () => {
-    setOpenLogin(false);
-};
-
-const handleOpenPageLogin = () => {
-    dispatch(closeFavs())
-    history.push('/login');
-;}
-
+  //LIST:
 
 const handleCloseFavourites = (e) => {
   e.preventDefault();
-  dispatch(closeFavs())
+  dispatch(closeFavs());
 };
 
 const handleRemoveFromFavs = (e) => {
-  e.preventDefault();
+  let idProduct = e;
   let idUser = user.user.id;
-  const id = favouritesProducts ? (favouritesProducts?.favorites.filter((el) => el.idUser === idUser))[0].id : '';
-  dispatch(removeFavourite(id));
+  const alreadyFavourite = favouritesProducts?.find(product => product.id === idProduct);
+  const id = alreadyFavourite ? (alreadyFavourite?.favorites.filter((el) => el.idUser === idUser))[0].id : '';
+  console.log(id)
+  dispatch(removeFavourite({ id }))
+  setFavouritesUpdated(true);
 };
 
-const handleCloseSuccessComment = (event, reason) => {
-  if (reason === 'clickaway') {
-    return;
-  }
-  setOpenComment(false);
-  setOpenLogin(false);
+useEffect(()=>{
+  dispatch(getFavouritesProducts(user.user.id));
+  setFavouritesUpdated(false);
+}, [favouritesUpdated]);
+
+const handleClick = (id) => {
+  history.push(`/productdetails/${id}`);
+  dispatch(closeFavs());
 };
 
 
   return (
-    <div>
-      <div className={s.containerFavs}>
+    <div >
+      <div >
       <Dialog
         open={showFavs}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleCloseFavourites}
+        onClose={()=>handleCloseFavourites()}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>{"MY FAVOURITES"}</DialogTitle>
+        <DialogTitle sx={{ color: "var(--fontColor)", justifyContent: "center", }}>{"MY WISH-LIST"}</DialogTitle>
         <DialogContent>
         <hr/>
-          <DialogContentText id="alert-dialog-slide-description">
-            
-            
+          <DialogContentText id="alert-dialog-slide-description">            
           <div className={s.secondaryContainer}>
          {favouritesProducts?.length === 0 
-                 ? <p>You have no favourite products</p>
-                 : favouritesProducts?.map((e) => {
+                 ? <p>You have no favourite product...</p>
+                 : <List dense sx={{ width: '100%', maxWidth:600, bgcolor: 'var(--primaryColor)' }}>
+                 {favouritesProducts?.map((e) => {
+                     const labelId = `checkbox-list-primary-label-${e?.id}`;
                      return (
-                     <div className={s.favsMainblock}>
-                        <img className={s.favsImage} src={e?.image} alt={e?.name} />
-                        <div className={s.favsName}>
-                            <h5>{e?.name}</h5>
-                            <h5><strong>Price: </strong> ${e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price} {`${e?.discount ? `- ${e?.discount}% incl.` : ''}`}</h5>
-                         </div>
-                         <div>
-                            <DeleteForeverIcon onClick={() => handleRemoveFromFavs(e?.id)}/>
-                         </div>
-                     </div>
-                 )})}
+                      <div className={`${s.containerFavs}${s.favsMainblock}`}>
+                      <ListItem
+                        key={e?.id}
+                        secondaryAction={
+                          <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveFromFavs(e?.id)}>
+                            <DeleteForeverIcon />
+                          </IconButton>
+                        }
+                        disablePadding
+                        >
 
+                          {/* <ListItemButton role={undefined} onClick={(e)=>handleToggle(e?.id)} dense>
+                            <ListItemIcon>
+                            <Checkbox
+                              edge="start"
+                              checked={checked.indexOf(e.id) !== -1}
+                              disableRipple
+                              inputProps={{ 'aria-labelledby': labelId}}
+                            />
+                            </ListItemIcon>
+                            </ListItemButton> */}
+                            <ListItemButton onClick={()=>handleClick(e?.id)} dense >
+
+                            <ListItemAvatar className={s.favsImg} >
+                              <Avatar 
+                                src={e.image}
+                                alt={e.name}
+                                sx={{ maxWidth: 100, height: "auto", objectFit: "scale-down", overflow: "visible" }}
+                                variant="square" />
+                            </ListItemAvatar>
+                            <ListItemText 
+                            className={s.favsName}
+                            id={labelId}
+                            primary={e?.name}
+                            secondary={`Price: $ ${e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price} `} />
+                          </ListItemButton>
+                        </ListItem>
+                        <Divider variant="inset" component="li" />
+
+                        </div>
+                 )})}
+                   </List>
+                  }
                 </div>
             </DialogContentText>
          </DialogContent>
-         <DialogActions>
-                      <Button className={s.viewMore} onClick={handleCloseFavourites}>View More</Button>
+         <DialogActions sx={{ display: "flex", justifyContent: "end", alignItems: "center", mr: 8, fontWeight: 700,}}>
+                      <Button onClick={(e)=>handleCloseFavourites(e)}>View More</Button>
           </DialogActions>
        </Dialog>
                  
