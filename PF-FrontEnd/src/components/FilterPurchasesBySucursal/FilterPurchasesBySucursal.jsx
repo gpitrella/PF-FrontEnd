@@ -12,7 +12,7 @@ export default function FilterPurchasesBySucursal({ sucursals }) {
   let handleChange = function(e) {
     let { value } = e.target;
 
-    if (value === 'filter.sucursal') return;
+    if (value === filter.sucursal) return;
 
     let newFilter = { 
       ...filter,
@@ -42,12 +42,18 @@ export default function FilterPurchasesBySucursal({ sucursals }) {
     <div className = {s.container}>
       <label className = {s.lbl}>{'Filter Purchases'}</label>
       <select className = {s.select} value = {filter.sucursal} onChange = {handleChange} >
+        <option 
+          value = {'none'}
+          key = {`option-none`}
+        >
+          NONE
+        </option>
         {
           sucursals && sucursals.map((sucursal, index) =>  {
             return (
               <option 
-                value = {sucursal.value}
-                key = {`option-${sucursal.value}-${index}`}
+                value = {sucursal.name}
+                key = {`option-${sucursal.id}-${index}`}
               >
                 {sucursal.name.toUpperCase()}
               </option>

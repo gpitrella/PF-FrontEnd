@@ -7,7 +7,8 @@ import PersonalInformation from "./components/MyProfile/PersonalInformation/Pers
 import MyReviews from "./components/MyProfile/MyReviews/MyReviews";
 import MyComments from "./components/MyProfile/MyComments/MyComments";
 import MyAddress from "./components/MyProfile/MyAddress/MyAddress";
-import MyPurchases from "./components/MyProfile/MyPurchases/MyPurchases"
+import MyPurchases from "./components/MyProfile/MyPurchases/MyPurchases";
+import UserPurchaseDetails from "./components/UserPurchaseDetails/UserPurchaseDetails";
 import { getUserDetail, deleteUserDetail, getUserReviews, getAllCommentByUserID, getOrderByUser } from '../src/redux/actions';
 
 import notFoundPage from './components/404/NotFoundPage404';
@@ -44,6 +45,7 @@ const UserProfile = () => {
           <Route exact path = {`${url}/mycomments`} > { user ? <MyComments /> : <LogIn/>}</Route>
           <Route exact path = {`${url}/myaddress`} > { user ? <MyAddress /> : <LogIn/>}</Route>
           <Route exact path = {`${url}/mypurchases`} > { user ? <MyPurchases /> : <LogIn/>}</Route>
+          <Route exact path = {`${url}/mypurchases/details/:id`} component = {UserPurchaseDetails} />
           <Route path = '*' component = {notFoundPage} />
         </Switch>    
       </div>

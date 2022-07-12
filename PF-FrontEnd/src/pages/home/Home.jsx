@@ -36,9 +36,11 @@ const Home = () => {
         
         <div className="widgets">
           <Link to="/admin/users/list" style={{ textDecoration: "none" }}>
-          <Widget type="user" />
+            <Widget type="user" />
           </Link>
-          <Widget type="order" />
+          <Link to = '/admin/purchases/list'>
+            <Widget type="order" />
+          </Link>
           <Widget type="earning" />
           <Widget type="balance" />
         </div>

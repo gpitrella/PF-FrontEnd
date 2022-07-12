@@ -2,40 +2,45 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PurchasesTableHeader from './PurchasesTableHeader/PurchasesTableHeader';
 import PurchasesTableRows from './PurchasesTableRows/PurchasesTableRows';
-import Loading from '../SVG/Loading';
-import { setOriginalPurchases, resetPurchases } from '../../redux/actions';
+import { setOriginalPurchases, resetPurchases, setShowLoadingPurchases, showMiniModal, waitingResponsePutPurchase } 
+from '../../redux/actions';
 import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import Pagination from '../Pagination/Pagination';
+import MiniModal from '../MiniModal/MiniModal';
 
 import s from './PurchasesTable.module.css';
 
 export default function PurchasesTable({}) {
 
   const dispatch = useDispatch();
-  const { purchases, showPurchases, filter, showLoading } = useSelector(state => state.purchases);
+  const { purchases, showPurchases, filter, showLoading, resultPut } = useSelector(state => state.purchases);
+  const { branchOffices, miniModal } = useSelector(state => state.general);
 
   React.useEffect(() => {
+    dispatch(setShowLoadingPurchases());
     dispatch(setOriginalPurchases());
 
     return () => dispatch(resetPurchases());
   }, []);
 
-  if (!showPurchases) return (
-    <div className = {s.containerLoading}>
-      <div className = {s.imageContainer}>
-        <div className = {s.loadingContainer}>
-          <Loading />
-        </div>
-      </div>
-      <span className = {s.spanLoading}>Loading Purchases</span>
-    </div>
-  )
+  React.useEffect(() => {
+    if (resultPut.waitingResponse && resultPut.status) {
+      dispatch(showMiniModal(true, 'Success on Editing Purchase Order!!!', true, false));
+      dispatch(waitingResponsePutPurchase(false));
+      dispatch(setShowLoadingPurchases());
+      dispatch(setOriginalPurchases());
+    }
+    else if (resultPut.waitingResponse && resultPut.error) {
+      dispatch(showMiniModal(true, resultPut.errorMsg, false, true));
+      dispatch(waitingResponsePutPurchase(false));
+    }
+  }, [resultPut]);
 
   return (
     <div className = {s.container}>
       <table className = {s.table}>
         <thead>
-          <PurchasesTableHeader loading = {false} order = {{}} orderBy = {{}}/>
+          <PurchasesTableHeader loading = {showLoading} />
         </thead>
         <tbody>
           <PurchasesTableRows purchases = {purchases} />
@@ -51,6 +56,9 @@ export default function PurchasesTable({}) {
         />
         <Pagination simple = {true} purchases = {true}/>
       </div>
+      {
+        miniModal && miniModal.show && <MiniModal />
+      }
     </div>
   );
 }

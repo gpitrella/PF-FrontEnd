@@ -14,7 +14,7 @@
 
   grid-gap: 1rem;
 
-  margin: 100px;
+  /*margin: 100px;*/
 }
 
 .banner {
@@ -306,6 +306,19 @@
   text-align: center;
 }
 
+.map {
+  width: 300px;
+  height: 300px;
+
+  grid-column: 2 / 3;
+}
+
+.mapStyle {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
 @media (min-width: 450px) {
   .container {
     width: 450px;
@@ -329,6 +342,10 @@
     grid-template-columns: 1fr;
     grid-auto-rows: max-content;
     grid-row-gap: 1rem;
+  }
+
+  .map {
+    grid-column: 1 / 2;
   }
 }
 
@@ -355,4 +372,67 @@
     grid-template-columns: auto auto auto auto auto;
     grid-auto-rows: max-content;
   }
+
+  .map {
+    grid-column: 2 / 3;
+  }
+}
+
+.containerLoading {
+  min-height: 500px;
+
+  margin: 50px 0 20px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+
+.imageContainerLoading {
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+
+.errorContainer > svg {
+  fill: var(--dangerColor);
+}
+
+.loadingContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+.loadingContainer > svg {
+  animation: rotateLoading 2s infinite;
+  animation-timing-function: linear;
+  fill: var(--secondaryColor);
+}
+
+@keyframes rotateLoading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spanLoading {
+  font-size: var(--fontTitle);
+  font-weight: 700;
+  color: var(--secondaryColor);
+}
+.errorMsg {
+  font-size: var(--fontTitle);
+  color: var(--fontColor);
+  font-weight: 700;
+  letter-spacing: 2px;
 }
