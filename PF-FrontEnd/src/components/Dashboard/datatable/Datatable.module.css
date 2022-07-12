@@ -1,0 +1,29 @@
+.viewButtonRestringed {
+  color: white;
+  background-color: var(--dangerColor);
+  padding: 3px 7px 3px 7px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  font-size: var(--fontSmallest);
+
+  cursor: not-allowed;
+}
+
+.viewButton {
+  color: white;
+  background-color: var(--secondaryColor);
+  font-weight: 700;
+  letter-spacing: 2px;
+
+  cursor: pointer;
+  padding: 3px 7px 3px 7px;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+
+.cellAction {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

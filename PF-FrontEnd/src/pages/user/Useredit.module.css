@@ -132,3 +132,9 @@
 .goBack:hover {
   color: var(--dangerColor);
 }
+
+.promote {
+    background-color: var(--successColor) !important;
+    font-size: var(--fontSmall);
+    border: 1px solid var(--successColor) !important;
+}
