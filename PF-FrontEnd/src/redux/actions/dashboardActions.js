@@ -8,13 +8,92 @@ import {
    UPDATE_BRAND,
    DELETE_BRAND,
    PRODUCTS_TO_FORMS,
-   BASE_URL
+   BASE_URL,
+   COUNT_ORDERS,
+   SUM_ORDERS,
+   SUM_ORDERS_TODAY,
+   SUM_LAST_WEEK,
+   SUM_LAST_MONTH,
+   SUM_BEFORELAST_MONTH,
+   SUM_LASTTHREE_MONTH,
+   GET_ORDERS_TODAY
 } from './actiontype';
 
 const PATH_GET_BRANDS = `${BASE_URL}/api/manufacturer`;
 const PATH_GET_CATEGORIES = `${BASE_URL}/api/categories`;
 const PATH_GET_ALL_PRODUCTS = `${BASE_URL}/api/product`;
+const PATH_COUNT_ORDERS = `${BASE_URL}/api/orders/count`;
+const PATH_SUM_ORDERS = `${BASE_URL}/api/orders/sum`;
+const PATH_SUM_ORDERS_TODAY = `${BASE_URL}/api/orders/sumtoday`;
+const PATH_SUM_LAST_WEEK = `${BASE_URL}/api/orders/sumlastweek`;
+const PATH_SUM_LAST_MONTH = `${BASE_URL}/api/orders/sumlastmonth`;
+const PATH_SUM_BEFORELAST_MONTH = `${BASE_URL}/api/orders/sumbeforelastmonth`;
+const PATH_SUM_LASTTHREE_MONTH = `${BASE_URL}/api/orders/sumlastthreemonth`;
+const PATH_GET_ORDERS_TODAY = `${BASE_URL}/api/orders/today`;
 
+export const getOrdersToday = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_GET_ORDERS_TODAY)
+      .then((res) => dispatch({ type: GET_ORDERS_TODAY, payload: res.data }));
+  };
+};
+
+export const countAllOrders = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_COUNT_ORDERS)
+      .then((res) => dispatch({ type: COUNT_ORDERS, payload: res.data }));
+  };
+};
+
+export const sumAllOrders = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_SUM_ORDERS)
+      .then((res) => dispatch({ type: SUM_ORDERS, payload: res.data }));
+  };
+};
+
+export const sumAllToday = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_SUM_ORDERS_TODAY)
+      .then((res) => dispatch({ type: SUM_ORDERS_TODAY, payload: res.data }));
+  };
+};
+
+export const sumLastWeek = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_SUM_LAST_WEEK)
+      .then((res) => dispatch({ type: SUM_LAST_WEEK, payload: res.data }));
+  };
+};
+
+export const sumLastMonth = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_SUM_LAST_MONTH)
+      .then((res) => dispatch({ type: SUM_LAST_MONTH, payload: res.data }));
+  };
+};
+
+export const sumBeforeLastMonth = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_SUM_BEFORELAST_MONTH)
+      .then((res) => dispatch({ type: SUM_BEFORELAST_MONTH, payload: res.data }));
+  };
+};
+
+export const sumLastThreeMonth = function(){
+  return async (dispatch) => {
+    return await axios
+      .get(PATH_SUM_LASTTHREE_MONTH)
+      .then((res) => dispatch({ type: SUM_LASTTHREE_MONTH, payload: res.data }));
+  };
+};
 
 export const createCategory = ({ name }) => {
     return async (dispatch) => {
@@ -96,10 +175,10 @@ export const createCategory = ({ name }) => {
     }
   };
 
-  export const updateBrand = ({ id, name }) => {
+  export const updateBrand = ({ id, name, image }) => {
     return async (dispatch) => {
       try{
-        const brandEdited = await axios.put(`${PATH_GET_BRANDS}/${id}`, { name });
+        const brandEdited = await axios.put(`${PATH_GET_BRANDS}/${id}`, { name, image });
         dispatch({
           type: UPDATE_BRAND,
           payload: brandEdited.data

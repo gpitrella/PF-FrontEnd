@@ -77,6 +77,12 @@
   letter-spacing: 1px;
 }
 
+.btn[disabled] {
+  background-color: gray;
+  border: 1px solid gray;
+  cursor: default;
+}
+
 @keyframes showModal {
   from {
     transform: translateY(5rem);

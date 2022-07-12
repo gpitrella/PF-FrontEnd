@@ -2,7 +2,8 @@ import React from 'react';
 
 import s from './GeneralModal.module.css';
 
-export default function GeneralModal({ confirm = false, handleConfirm, cancel = false, handleCancel, title, content }) {
+export default function GeneralModal({ confirm = false, handleConfirm, cancel = false, handleCancel, title, content, 
+  disableConfirm = false, disableAll = false }) {
   return (
     <div className = {s.globalContainer}>
       <div className = {s.container}>
@@ -20,10 +21,13 @@ export default function GeneralModal({ confirm = false, handleConfirm, cancel = 
 
         <div className = {s.options}>
           {
-            cancel && <button className = {s.btn} onClick = {handleCancel}>Cancel</button>
+            cancel && <button className = {s.btn} onClick = {handleCancel} disabled = {disableAll}>Cancel</button>
           }
           {
-            confirm && <button className = {s.btn} onClick = {handleConfirm}>Confirm</button>
+            confirm && 
+            <button className = {s.btn} onClick = {handleConfirm} disabled = {disableAll || disableConfirm}>
+              Confirm
+            </button>
           }
         </div>
       </div>

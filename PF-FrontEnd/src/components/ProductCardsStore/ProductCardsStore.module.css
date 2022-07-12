@@ -5,3 +5,21 @@
   grid-gap: 10px;
   grid-row-gap: 30px;
 }
+
+@media (min-width: 420px) {
+  .container {
+    grid-template-columns: 420px;
+  }
+}
+
+@media (min-width: 760px) {
+  .container {
+    grid-template-columns: 420px;
+  }
+}
+
+@media (min-width: 1190px) {
+  .container {
+    grid-template-columns: 420px 420px;
+  }
+}

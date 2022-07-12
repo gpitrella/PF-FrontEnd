@@ -2,21 +2,26 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TextField, CardContent, Card, Grid, Button } from "@mui/material";
+import { TextField, CardContent, Card, Grid } from "@mui/material";
+import Button from '@mui/material/Button';
 import { showCart } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { finishOrder } from "../../redux/actions"
+import { finishOrder, getUserDetail } from "../../redux/actions"
 import paymentMetod from './img/paymentMetod.webp';
 import Divider from '@mui/material/Divider';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import secure from './img/secure.gif'
 import './CheckOut.css';
+
+// Agregado por R. Federico
+import CheckOutAddress from '../CheckOutAddress/CheckOutAddress';
+// Fin de Agregado.
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
 
 const style = {
   position: "absolute",
@@ -35,12 +40,13 @@ const CheckOut = () => {
   const productsCart = useSelector((state) => state.general.productsCart)
   const stateFinishOrder = useSelector((state) => state.general.finishOrder)
   const { user } = useSelector((state) => state.general)
+  const { oneuser } = useSelector((state) => state.userReducer)
   const dispatch = useDispatch();
   const [input, setInput] = React.useState({
     name: "",
     lastName: "",
     email: "",
-    address: "",
+    // address: "",
     phone: "",
     info: "",
   });
@@ -49,8 +55,14 @@ const CheckOut = () => {
   const [openWithOutStock, setOpenWithOutStock] = React.useState(false);
   const [openYouAreAdmin, setOpenYouAreAdmin] = React.useState(false);
 
+  // Agregado para el tema de las direcciones:
+  const [ selectDirection, setSelectDirection ] = React.useState(''); // El id de la direccion del usuario.
+  const [ radioBranchOffice, setradioBranchOffice ] = React.useState(''); // El id de la sucursal elegida.
+  // Fin.
+
   const preOrder = () => {
     const formMercadoPAgo = productsCart?.map((product) => ({
+      id: product.id,
       title: product.name,
       description: product.description ? product.description : 'Product of Tech, seller TechTegnology',
       picture_url: product.image,
@@ -93,16 +105,19 @@ const CheckOut = () => {
 totalValue();
 
   React.useEffect(()=>{
-        if(stateFinishOrder?.data){
+    if(user?.user) {
+      dispatch(getUserDetail(user?.user.id))
+    }  
+    if(stateFinishOrder?.data){
           window.location.href = stateFinishOrder?.data;          
-        }
+    }
   },[stateFinishOrder])
   
-
+  // {email,items, idUser, totalpurchase, idAddress, branchOfficeId}
   const handleSubmit = (e) => {
     e.preventDefault();
     if(productsCart.length > 0 && !user?.user?.admin){
-      dispatch(finishOrder(input.email, items))    
+      dispatch(finishOrder(input.email, items, user.user.id, resultTotalValue, selectDirection,  radioBranchOffice))    
     } 
     if(productsCart.length > 0 && user?.user?.admin){
       setOpenYouAreAdmin(true);
@@ -128,7 +143,10 @@ totalValue();
   return (
     <div className="main_checkout_cartdetail">
       <div className="box_top_checkout">
-        <h2>CHECK OUT</h2>
+        <div className="main_title_checkout_page">
+          <img className="img_checkout_secure" src={secure} alt='secure' />
+          <h2>CHECK OUT</h2>
+        </div>
         <Divider width={"100%"}></Divider>
         <h3>Purchase's Detail</h3>
         <div className="addtocart_mainblock_checkout">
@@ -136,9 +154,10 @@ totalValue();
                         ? <p>You don't have product in cart.</p>
                         : productsCart?.map((e) => {
                           return (
-                            <div className="box_top_checkout_resumecart">
+                            <div className="box_top_checkout_resumecart" key={e?.id}>
+                              <img className="img_checkout_page" src={e?.image} alt={e?.name} />
                               <div className="addtocart_name_checkout">
-                                 <h5>{e?.name.slice(0,60)}</h5>
+                                 <h5 id="checkout_title_product">{e?.name.slice(0,60)}</h5>
                                  <h5><strong>Price: </strong> ${e?.discount ? Math.round(e?.price - e?.price * (e?.discount / 100)) : e?.price} {`x ${e?.quantity} unid.`}</h5>
                               </div>
                               <div className="quantity_price_checkout">
@@ -154,7 +173,7 @@ totalValue();
               {productsCart?.length === 0 
                     ? <span></span>
                     : (<div className="information_addtocart_checkout">
-                            <Button onClick={handleCart}>Edit Order</Button>
+                            <Button id="btn_checkou_editorder" variant="outlined" size="medium" onClick={handleCart}>Edit Order</Button>
                             <p className="total_value_checkout">Total: ${resultTotalValue}</p>
                         </div>
               )}
@@ -220,7 +239,8 @@ totalValue();
                       onChange={handleInputEmail}
                     />
                   </Grid>
-                  <Grid item xs={12} >
+
+                  {/*<Grid item xs={12} >
                     <TextField
                       name="address"
                       value={input.subject}
@@ -231,7 +251,8 @@ totalValue();
                       required
                       onChange={handleInput}
                     />
-                  </Grid>
+                  </Grid>*/}
+
                   <Grid item xs={12}>
                     <TextField
                       name="phone"
@@ -257,6 +278,14 @@ totalValue();
                       onChange={handleInput}
                     />
                   </Grid>
+
+                  <CheckOutAddress
+                    selectDirection = {selectDirection}
+                    setSelectDirection = {setSelectDirection}
+                    radioBranchOffice = {radioBranchOffice}
+                    setradioBranchOffice = {setradioBranchOffice}
+                  />
+                  
                   <Grid item xs={12}>
                     <a href={stateFinishOrder?.data ? stateFinishOrder.data : null}>
                       <Button
@@ -264,6 +293,10 @@ totalValue();
                         variant="contained"
                         color="primary"
                         fullWidth
+                        /*
+                          Para deshabilitar el boton de finalizar si no se agrego una direccion. 
+                        */
+                        disabled = { selectDirection === '' || radioBranchOffice === '' }
                       >
                         Finish Order
                       </Button>

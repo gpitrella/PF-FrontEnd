@@ -7,7 +7,9 @@ import {
   USER_STATUS_RESET, 
   USER_UPDATE,
   USER_REVIEWS,
-  GET_COMMENTS_BY_USER
+  GET_COMMENTS_BY_USER,
+  EDIT_DATA_USER,
+  USER_ADD_ADDRESS
 } from "../actions/actiontype";
 
 const initialState = {
@@ -17,7 +19,9 @@ const initialState = {
     userisactive: null,
     usereditstatusok: false,
     userReviews: [],
-    commentByUser: []
+    commentByUser: [],
+    updateUser: {},
+    reloadUserDetails: false,
 }
 
 const userReducer = function(state = initialState, { type, payload }) {
@@ -30,7 +34,11 @@ const userReducer = function(state = initialState, { type, payload }) {
         }
       case GET_USER_DETAIL:
         return {
-          oneuser: payload
+          ...state,
+          reloadUserDetails: false,
+          oneuser: {
+            ...payload,
+          }
         }  
 
       case USER_UPDATE:
@@ -73,6 +81,19 @@ const userReducer = function(state = initialState, { type, payload }) {
         return {
           ...state,
           commentByUser: payload
+        }
+
+      case EDIT_DATA_USER:
+        return {
+          ...state,
+          updateUser: payload
+        }
+        
+      // Agregar direccion a traves del modal.
+      case USER_ADD_ADDRESS:
+        return {
+          ...state,
+          reloadUserDetails: true
         }
   
       default:

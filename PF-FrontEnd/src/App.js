@@ -25,8 +25,11 @@ import CanceledBuy from './components/CanceledBuy/CanceledBuy';
 import PendingBuy from './components/PendingBuy/PendingBuy';
 import UserProfile from './UserProfile'
 import Landing from './components/Landing/Landing';
+import MapStore from './components/MapStore/MapStore';
+
 
 import PageLoader from './components/PageLoader/PageLoader';
+import ModalAddAddress from './components/ModalAddAddress/ModalAddAddress';
 import { LocalStorage } from './util/localStorage';
 import BuildPC from './components/BuildYourPC/BuildPC';
 
@@ -81,9 +84,15 @@ function App() {
               <Route exact path='/contactus' component={ContacUsForm} />
               <Route exact path='/faqs' component={FAQs} />
               <Route exact path='/branches' component={Adresses} />
+
+              <Route exact path='/address' component={ModalAddAddress} />
+              <Route exact path='/purchase' component={PurchaseDetails} />
+              
               <Route exact path='/successbuy' >{user?.user ? <SuccessBuy/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/canceledbuy' >{user?.user ? <CanceledBuy/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/pendingbuy' >{user?.user ? <PendingBuy/> : <Redirect to="/login"/>}</Route>
+              <Route exact path="/mapstore" component = {MapStore} />
+
               <Route exact path='*' component={notFoundPage} />
             </Switch>
           <Route path="/" component={Footer} />

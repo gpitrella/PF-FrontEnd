@@ -1,0 +1,129 @@
+.textarea {
+  height: 95%;
+  width: 95%;
+  resize: none;
+  overflow-y: scroll;
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
+}
+
+.select {
+  width: 95%;
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
+}
+
+.input {
+  width: 95%;
+  background-color: var(--primaryColor);
+  color: var(--fontColor);
+}
+
+.activeSwitch {
+  padding: 0.3rem;
+  border-radius: 5px;
+  font-size: var(--fontSmall);
+  width: 4rem;
+  user-select: none;
+
+  cursor: pointer;
+}
+
+.active {
+  border: 1px solid green;
+  background-color: green;
+  color: white;
+}
+
+.inactive {
+  border: 1px solid crimson;
+  background-color: crimson;
+  color: white;
+}
+
+.invalid {
+  border: 2px solid crimson;
+}
+
+.valid {
+  border: 2px solid green;
+}
+
+.invalid:focus {
+  outline: none;
+}
+
+.valid:focus {
+  outline: none;
+}
+
+.options {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.svgButton {
+  height: 2rem;
+  width: 2rem;
+
+  border-radius: 5px;
+
+  border: 0 solid transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.svgButton > svg {
+  fill: white;
+}
+
+.red {
+  background-color: var(--dangerColor);
+}
+
+.orange {
+  background-color: orange;
+}
+
+.green {
+  background-color: green;
+}
+
+.svgButton[disabled] {
+  background-color: gray;
+  cursor: default;
+}
+
+.tag {
+  position: absolute;
+  font-size: var(--fontSmall);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  transform: translateY(-3rem);
+  display: none;
+  text-align: center;
+}
+
+.tag:after {
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  bottom: -5px;
+  left: 42%;
+  content: '';
+  transform: rotate(45deg);
+  margin-top: 0;
+  margin-left: 0;
+  background-color: inherit;
+}
+
+.svgButton:hover > .tag {
+  display: block;
+}

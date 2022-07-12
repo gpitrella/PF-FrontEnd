@@ -54,9 +54,7 @@ h5 {
 
 .img_addtocart {
   height: 5rem;
-  /* max-width: 80px; */
   object-fit: cover;
-  /* margin-left: 40px; */
 }
 
 .quantity_price {
@@ -72,4 +70,27 @@ h5 {
 
 .button_add_to_cart {
   border: solid;
+}
+
+.title_addtocart_popup {
+  display: flex;
+  justify-content: left;
+  flex-direction: row;
+  padding-left: 68px;
+  margin-bottom: -10px;
+  align-items: center;
+}
+
+#main_box_addtocart {
+  padding-top: 0px;
+  padding-bottom: 5px;
+}
+
+#title_productincart_popup {
+  padding-left: 0px;
+}
+
+.remove_items_addtocart:hover{
+  color: rgba(0, 0, 0, 0.483);
+  cursor: pointer;
 }

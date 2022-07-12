@@ -1,10 +1,13 @@
 import {
+  SHOW_MODAL_ADD_ADDRESS,
+  CLOSE_MODAL_ADD_ADDRESS,
   SHOW_LOADING_PARAM,
   GET_PROVINCIAS,
   GET_MUNICIPIOS,
   GET_LOCALIDADES,
   VALIDATING_ADDRESS,
-  NORMALIZE_ADDRESS
+  NORMALIZE_ADDRESS,
+  RESET_MODAL_ADD_ADRESS
 } from './actiontype';
 
 const PATH_GET_PROVINCES = 'https://apis.datos.gob.ar/georef/api/provincias?orden=nombre';
@@ -18,6 +21,18 @@ const buildPathNormalizeAddress = function (direccion, localidad, departamento, 
                                .replace('localidad=', `localidad=${localidad}`)
                                .replace('departamento=', `departamento=${departamento}`)
                                .replace('provincia=', `provincia=${provincia}`);
+}
+
+export const showModalAddAddress = function() {
+  return {
+    type: SHOW_MODAL_ADD_ADDRESS
+  }
+}
+
+export const closeModalAddAddress = function() {
+  return {
+    type: CLOSE_MODAL_ADD_ADDRESS
+  }
 }
 
 export const showLoadingParam = function(param) {
@@ -66,5 +81,11 @@ export const normalizeAddress = function(direccion, localidad, departamento, pro
            .then(result => result.json())
            .then(data => dispatch({ type: NORMALIZE_ADDRESS, payload: data.direcciones }))
            .catch(error => console.log(error));
+  }
+}
+
+export const resetModalAddAddress = function() {
+  return {
+    type: RESET_MODAL_ADD_ADRESS
   }
 }

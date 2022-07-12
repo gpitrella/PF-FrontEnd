@@ -25,6 +25,8 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { visuallyHidden } from '@mui/utils';
+import { useSelector, useDispatch } from "react-redux";
+import { getUserReviews } from '../../../redux/actions';
 import Rating from '@mui/material/Rating';
 import './MyReviews.css'
 
@@ -193,8 +195,11 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function MyReviews({userReviews}) {
+export default function MyReviews() {
+  const { userReviews } = useSelector((state) => state.userReducer)
   const rows = userReviews
+  const { user } = useSelector((state) => state.general);
+  const dispatch = useDispatch();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
@@ -236,10 +241,16 @@ export default function MyReviews({userReviews}) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  React.useEffect(() => {
+      dispatch(getUserReviews(user?.user.id))
+  }, []);
+
   return (
     <div className='main_box_myreviews'>
     <h3 className='title_myreviews'> My Reviews </h3>
-    <Box sx={{ width: '100%' }} id='box_table_myreviews'>
+    {rows?.length === 0 
+        ? <h3 className='title_myreviews_profile'> Don't have reviews yet.</h3>
+        :<Box sx={{ width: '100%' }} id='box_table_myreviews'>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
@@ -278,7 +289,7 @@ export default function MyReviews({userReviews}) {
                             src={row.products[0].image}
                             sx={{ width: 56, height: 56 }}                           
                             />                        
-                        </Stack>
+                      </Stack>
                       </TableCell>
                       <TableCell
                         component="th"
@@ -289,7 +300,7 @@ export default function MyReviews({userReviews}) {
                         {row.products[0].name}
                       </TableCell>
                       <TableCell align="right"> ({row.score})
-                        <Rating name="simple-controlled" value={row.score}/> </TableCell>
+                        <Rating name="read-only" value={row.score}/> </TableCell>
                       <TableCell align="right">{row.comment}</TableCell>
                       <TableCell align="right">{row.createdAt.slice(0,10)}</TableCell>
                       <TableCell align="right"><Link to={`/productdetails/${row.products[0].id}`}> View Prod. </Link></TableCell>
@@ -322,7 +333,7 @@ export default function MyReviews({userReviews}) {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
       />
-    </Box>
+    </Box>}
     <Link to={`/myprofile`}>
         <Button id='btn_myreview' variant="contained"> My Profile </Button>
     </Link>
