@@ -1,36 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { addProdToFavourites, getFavouritesProducts, removeFavourite } from '../../redux/actions';
+import { addProdToFavourites, getFavouritesProducts, removeFavourite, favoritesCharged, removeFavoritesCharged } from '../../redux/actions';
   
 export default function Heart(id) {
   const idProduct = id.id;
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.general);
-  const [favouritesUpdated, setFavouritesUpdated] = useState(false);
+  const { user, favoritiesCharged } = useSelector((state) => state.general);
+  // const [ favouritesUpdated, setFavouritesUpdated ] = useState(false);
 
-  useEffect(()=>{
-    dispatch(getFavouritesProducts(user.user.id));
-  }, [dispatch]);
+  // useEffect(()=>{
+  //   if(user?.user && !favoritiesCharged){
+  //     dispatch(getFavouritesProducts(user.user.id));
+  //     dispatch(favoritesCharged());
+  //   }
+  // }, [favouritesUpdated]);
 
   const { favouritesProducts } = useSelector((state) => state.general);
 
-  const idUser = user.user.id;
+  const idUser = user?.user?.id;
 
   const addToFavourites = () => {
+    dispatch(removeFavoritesCharged())
     const alreadyFavourite = favouritesProducts?.find(product => product.id === idProduct);
-    console.log(alreadyFavourite)
     const id = alreadyFavourite ? (alreadyFavourite?.favorites.filter((el) => el.idUser === idUser))[0].id : '';
-    console.log(id)
+    console.log(id !== '' ? 'se va remover favoritos' : 'se va agregar un favorito')
     alreadyFavourite ? dispatch(removeFavourite({ id }))
-    : dispatch(addProdToFavourites({ idUser, idProduct }));
-    setFavouritesUpdated(true);
+                      : dispatch(addProdToFavourites({ idUser, idProduct }));
+    // setFavouritesUpdated(true);
   };
 
-  useEffect(()=>{
-    dispatch(getFavouritesProducts(user.user.id));
-    setFavouritesUpdated(false);
-  }, [favouritesUpdated]);
+  // useEffect(()=>{
+  //   if(user?.user){
+  //     dispatch(getFavouritesProducts(user.user.id));
+  //     setFavouritesUpdated(false);
+  //   }
+  // }, [favouritesUpdated]);
   
 
   return (

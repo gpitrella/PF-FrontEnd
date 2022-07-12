@@ -13,7 +13,10 @@ import {
   DELETE_USER_ADDRESS,
   EDIT_DATA_USER,
   USER_ADD_ADDRESS,
-  PUT_PASSWORD
+  PUT_PASSWORD,
+  CLEAR_UPDATE_USER,
+  UPDATE_COMMENT_VIEWED,
+  CLEAR_COMMENT_VIEWED
 } from './actiontype';
 
 const urluser = `${BASE_URL}/api/user`;
@@ -117,8 +120,37 @@ export const userAddAddress = function(userId, { direction, latitude, longitude 
 // PUT Password USer
 export const putUpdatePassword = function(data) {
   return function(dispatch) {
-    return axios.put(`${BASE_URL}api/password`, data)
-                .then(data => console.log('update password'))
+    return axios.put(`${BASE_URL}/api/password`, data)
+                .then(res => dispatch({ type: EDIT_DATA_USER, payload: res.data}))
                 .catch(error => console.log(error));
   }
 }
+
+//Clear Update User
+export const clearUpdateUser = function() {
+  return {
+    type: CLEAR_UPDATE_USER,
+  }
+}
+
+//Put Comment viewer
+export const putCommentViewer = function(idComment, viewed) {
+  console.log(idComment)
+  console.log(viewed)
+  return function(dispatch){
+    return axios.put(`${BASE_URL}/api/comments`, {idComment, viewed})
+                .then(comment => dispatch({type: UPDATE_COMMENT_VIEWED}))
+                .catch(error => console.log(error))
+  }
+};
+
+// Clear Comment viewer
+export const clearCommentViewer = function() {
+  return {
+    type: CLEAR_COMMENT_VIEWED,
+  }
+}
+
+
+
+
