@@ -1,5 +1,4 @@
 import {
-    PRODUCTS_TO_FORMS,
     CATEGORIES_TO_DASHBOARD,
     CREATE_CATEGORY, 
     CREATE_BRAND,
@@ -18,7 +17,6 @@ import {
 } from '../actions/actiontype';
 
 const initialState = {
-    allProducts: [],
     categoriesToDashboard: [],
     countOrders: 0,
     totalSales: 0,
@@ -78,12 +76,6 @@ const dashboardReducer = function(state = initialState, { type, payload }) {
                 ...state,
                 allOrdersToday: payload
                 }
-        
-        case PRODUCTS_TO_FORMS:
-            return {
-                ...state,
-                allProducts: payload
-            }
         case CATEGORIES_TO_DASHBOARD:
             return {
                 ...state,
