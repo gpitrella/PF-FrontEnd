@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Ads from '../Ads/Ads';
 import Brands from '../Brands/Brands';
 import Categories from '../Categories/Categories';
@@ -17,10 +18,12 @@ import {
 import SectionCatalogue from '../SectionCatalogue/SectionCatalogue';
 import Loading from '../SVG/Loading';
 import { chooseRandom } from '../../util';
+import CommonButton from '../common/CommonButton/CommonButton';
 
 export default function Home () {
 
   const dispatch = useDispatch();
+  const history = useHistory();
   const { section, allCategories, brandsList } = useSelector(state => state.homepage);
   const [ chooseSection, setChooseSection ] = useState({
     two: '',
@@ -28,6 +31,11 @@ export default function Home () {
     show: false
   });
   const [ loadingSections, setLoadingSections ] = useState(false);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    history.push("/customizedPC");    
+  };
 
   React.useEffect(() => {
     dispatch(showLoadingSectionOne());
@@ -71,6 +79,19 @@ export default function Home () {
     <div>
       <div className={style.ads}>
         <Ads/>
+      </div>
+      <div>
+        <CommonButton
+          variant="contained"
+          onClick={(e) => handleClick(e)}
+          size="large"
+          sx={{
+            mt: 6,
+            ml: '43%',
+            justifyContent: "center",
+            position: "relative",
+          }}
+          >Custom PC Builder</CommonButton>
       </div>
       <div className={style.catalogue}>
         {

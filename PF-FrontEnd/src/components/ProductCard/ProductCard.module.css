@@ -243,7 +243,7 @@
   background-color: var(--dangerColor);
 }
 
-.redHeart > svg:hover {
+.alreadyFavourite > svg {
   fill: var(--dangerColor);
 }
 

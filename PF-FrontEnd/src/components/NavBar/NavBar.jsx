@@ -3,7 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
-
+//Favs:
+import { showFavs } from '../../redux/actions';
+//
 import './NavBar.css';
 import gitfLogo from './img/logo_TechMarket.gif';
 import userAvatar from './img/user_avatar.png';
@@ -37,6 +39,8 @@ import Avatar from '@mui/material/Avatar';
 // Dependencias para Notification
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+//Favs:
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -120,7 +124,10 @@ export default function NavBar() {
   const [ openNotification, setOpenNotification ] = React.useState(false);
   const { commentByUser } = useSelector((state) => state.userReducer);
   const productsCart = useSelector((state) => state.general.productsCart);
-
+  
+  //Favs
+  const { favouritesProducts } = useSelector ((state) => state.general);
+  //
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
@@ -183,6 +190,13 @@ export default function NavBar() {
     e.preventDefault();
     dispatch(showCart())
   };
+
+  //Favs
+   const showFavsNavBar = (e) => {
+    e.preventDefault();
+    dispatch(showFavs())
+   };
+  //
 
   const menuId = 'primary-search-account-menu';
   
@@ -438,6 +452,12 @@ export default function NavBar() {
                 </Link>
               </Badge>
             </IconButton>
+
+            <IconButton size="large" aria-label="favourites" color="inherit" onClick={showFavsNavBar}>
+                <Badge badgeContent={favouritesProducts?.length} color="error">
+                    <FavoriteIcon />
+                </Badge>
+              </IconButton>
 
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={notification} color="error">
