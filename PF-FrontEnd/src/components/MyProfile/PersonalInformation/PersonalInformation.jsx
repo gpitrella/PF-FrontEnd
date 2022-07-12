@@ -20,7 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import { putDataUser, getUserDetail, putUpdatePassword } from '../../../redux/actions'
+import { putDataUser, getUserDetail, putUpdatePassword, clearUpdateUser } from '../../../redux/actions'
 import { Link } from 'react-router-dom';
 import './PersonalInformation.css'
 
@@ -36,11 +36,15 @@ export default function PersonalInformation() {
   const dispatch = useDispatch();
   
   React.useEffect(() => {
-        dispatch(getUserDetail(user?.user.id))
-        if(updateUser === "user update successfully"){
-          setOpenSuccessEditName(true)
-        }
-      }, [updateUser]);
+    dispatch(getUserDetail(user?.user.id))
+    console.log(updateUser)
+    if(typeof(updateUser) === 'string'){
+      if(updateUser?.includes("successfully")){
+        setOpenSuccessEditName(true)
+        dispatch(clearUpdateUser())
+      }
+    }    
+  }, [updateUser]);
       
   // Controladores de Edit Profile
   const [ openSuccessEditName, setOpenSuccessEditName ] = React.useState(false);
@@ -65,6 +69,10 @@ export default function PersonalInformation() {
 
   const handleOpenPassword = () => {
     setOpenPassword(true)
+    setDataChange({
+      ...dataChange,
+      token: user.token
+    })
   };
 
   const handleClose = () => {
@@ -88,10 +96,6 @@ export default function PersonalInformation() {
   }
 
   const handleUpdatePassword = () => {
-    setDataChange({
-      ...dataChange,
-      token: user.token
-    })
     dispatch(putUpdatePassword(dataChange));
     setOpenPassword(false);
   }
@@ -274,7 +278,7 @@ export default function PersonalInformation() {
     </div>
     <Snackbar open={openSuccessEditName} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
         <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
-            Name Update Successful!
+            Information Update Successful!                
         </Alert>
     </Snackbar>
 

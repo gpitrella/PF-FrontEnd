@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import User from '../SVG/User';
 import Email from '../SVG/Email';
 import Telephone from '../SVG/Telephone';
@@ -9,38 +11,56 @@ import Clock from '../SVG/Clock';
 import Card from '../SVG/Card';
 import Delivery from '../SVG/Delivery';
 import Handshake from '../SVG/Handshake';
+import Loading from '../SVG/Loading';
+import ServerError from '../SVG/ServerError';
+import MapStore from '../MapStore/MapStore';
+import { getOnePurchaseDetails, resetOnePurchaseDetails } from '../../redux/actions';
 
 import { PRODUCTS } from './products';
 
 import s from './PurchaseDetails.module.css';
 
-export default function PurchaseDetails({ id = 1001 }) {
+export default function PurchaseDetails() {
 
-  const [ user, setUser ] = React.useState({
-    name: 'Federico',
-    email: 'romerof14@gmail.com',
-    telephone: '01115xxxxxxxx',
-    address: 'BOYACA 3419, Merlo, Buenos Aires'
-  });
+  const dispatch = useDispatch();
+  const { details, loading, error } = useSelector(state => state.purchases.onePurchase);
+  const { id } = useParams();
 
-  const [ sucursal, setSucursal ] = React.useState({
-    name: 'MERLO',
-    telephone: '01115xxxxxxxx',
-    address: 'BOYACA 3419, Merlo, Buenos Aires'
-  });
+  let dateOfCreation = new Date(details.createdAt);
+  let dateOfModification = new Date(details.updatedAt);
 
-  const [ order, setOrder ] = React.useState({
-    total: 11,
-    status: 'dispatched'
-  })
+  React.useEffect(() => {
+    dispatch(getOnePurchaseDetails(id));
+    return () => resetOnePurchaseDetails();
+  }, []);
 
-  const [ products, setProducts ] = React.useState(JSON.parse(PRODUCTS)); 
+  if (loading) return (
+    <div className = {s.containerLoading}>
+      <div className = {s.imageContainerLoading}>
+        <div className = {s.loadingContainer}>
+          <Loading />
+        </div>
+      </div>
+      <span className = {s.spanLoading}>Loading Purchase Details</span>
+    </div>
+  );
+
+  if (error) return (
+    <div className = {s.containerLoading}>
+      <div className = {s.imageContainerLoading}>
+        <div className = {s.errorContainer}>
+          <ServerError />
+        </div>
+      </div>
+      <span className = {s.errorMsg}>Invalid Purchase ID...</span>
+    </div>
+  );
 
   return (
     <div className = {s.container}>
       <div className = {s.banner}>
         <span className = {s.bannerTitle}>Purchase Order</span>
-        <span className = {s.bannerTitle}>ID: {id}</span>
+        <span className = {s.bannerTitle}>ID: {details.id}</span>
       </div>
       <div className = {s.mainZone}>
 
@@ -51,7 +71,7 @@ export default function PurchaseDetails({ id = 1001 }) {
               <User />
             </div>
             <span className = {s.subtitle}>Name</span>
-            <span className = {s.info}>{user.name}</span>
+            <span className = {s.info}>{details.users[0].name}</span>
           </div>
 
           <div className = {s.group}>
@@ -59,7 +79,7 @@ export default function PurchaseDetails({ id = 1001 }) {
               <Email />
             </div>
             <span className = {s.subtitle}>Email</span>
-            <span className = {s.info}>{user.email}</span>
+            <span className = {s.info}>{details.users[0].email}</span>
           </div>
 
           <div className = {s.group}>
@@ -67,7 +87,7 @@ export default function PurchaseDetails({ id = 1001 }) {
               <Telephone />
             </div>
             <span className = {s.subtitle}>Telephone</span>
-            <span className = {s.info}>{user.telephone}</span>
+            <span className = {s.info}>{details.users[0].phone_number ? details.users[0].phone_number : 'NO-DATA'}</span>
           </div>
 
           <div className = {s.group}>
@@ -75,7 +95,7 @@ export default function PurchaseDetails({ id = 1001 }) {
               <Address />
             </div>
             <span className = {s.subtitle}>Address</span>
-            <span className = {s.info}>{user.address}</span>
+            <span className = {s.info}>{details.useraddresses[0].direction}</span>
           </div>
         </div>
 
@@ -86,15 +106,15 @@ export default function PurchaseDetails({ id = 1001 }) {
               <Tag />
             </div>
             <span className = {s.subtitle}>Name</span>
-            <span className = {s.info}>{sucursal.name}</span>
+            <span className = {s.info}>{details.branch_office.name}</span>
           </div>
 
           <div className = {s.group}>
             <div className = {s.containerIco}>
               <Telephone />
             </div>
-            <span className = {s.subtitle}>Telephone</span>
-            <span className = {s.info}>{sucursal.telephone}</span>
+            <span className = {s.subtitle}>Business Hours</span>
+            <span className = {s.info}>9hs to 17hs</span>
           </div>
 
           <div className = {s.group}>
@@ -102,28 +122,39 @@ export default function PurchaseDetails({ id = 1001 }) {
               <Address />
             </div>
             <span className = {s.subtitle}>Address</span>
-            <span className = {s.info}>{sucursal.address}</span>
+            <span className = {s.info}>{details.branch_office.direction}</span>
+          </div>
+
+          <div className = {s.map}>
+            <MapStore
+              lat = {details.branch_office.latitude}
+              long = {details.branch_office.longitude}
+              adress = {details.branch_office.direction}
+              name = {details.branch_office.name}
+              style = {s.mapStyle}
+              zoom = {10}
+              userDirection = {details.useraddresses[0]}
+            />
           </div>
         </div>
 
         <div className = {s.title}>C- Items Info</div>
         <div className = {s.itemsInfo}>
         {
-          products && products.length > 0 && products.map((product, id) => 
+          details.items && details.items.length > 0 && details.items.map((product, id) => 
 
             <div className = {s.groupItem} key = {`item-${product.id}-${id}`}>
               <div className = {s.imageContainer}>
-                <img src = {product.image} alt = {product.id} className = {s.imgItem}/>
+                <img src = {product.picture_url} alt = {product.id} className = {s.imgItem}/>
               </div>
               <div className = {s.infoItem}>
-                <span className = {s.subtitleItem}>{product.name}</span>
+                <span className = {s.subtitleItem}>{product.title}</span>
                 <div className = {s.categoryInfo}>
-                  <span className = {s.subtitleItemCat}>{product.manufacturers[0].name}</span>
-                  <span className = {s.subtitleItemCat}>{product.categories[0]}</span>
+                  <span className = {s.subtitleItemCat}>{product.category_id}</span>
                 </div>
                 <div className = {s.priceInfo}>
-                  <span className = {s.subtitlePrice}>${product.price}</span>
-                  <span className = {s.subtitleCount}>x 1</span>
+                  <span className = {s.subtitlePrice}>${product.unit_price}</span>
+                  <span className = {s.subtitleCount}>x {product.quantity}</span>
                 </div>
               </div>
             </div>
@@ -132,11 +163,11 @@ export default function PurchaseDetails({ id = 1001 }) {
         </div>
 
         <div className = {s.title}>D- Total</div>
-        <div className = {s.titlePrice}>${order.total}</div>
+        <div className = {s.titlePrice}>${details.totalpurchase}</div>
 
         <div className = {s.title}>E- STATUS</div>
         <div className = {s.statusInfo}>
-          <div className = {order.status === 'cancelled' ? s.selected : ''}>
+          <div className = {details.status === 'cancelled' ? s.selected : ''}>
             <div className = {s.itemContainerProgress}>
               <div className = {s.line}>
               </div>
@@ -147,7 +178,7 @@ export default function PurchaseDetails({ id = 1001 }) {
             </div>
           </div>
 
-          <div className = {order.status === 'pending' ? s.selected : ''}>
+          <div className = {details.status === 'pending' ? s.selected : ''}>
             <div className = {s.itemContainerProgress}>
               <div className = {s.line}>
               </div>
@@ -158,7 +189,7 @@ export default function PurchaseDetails({ id = 1001 }) {
             </div>
           </div>
 
-          <div className = {order.status === 'processing' ? s.selected : ''}>
+          <div className = {details.status === 'processing' ? s.selected : ''}>
             <div className = {s.itemContainerProgress}>
               <div className = {s.line}>
               </div>
@@ -169,18 +200,18 @@ export default function PurchaseDetails({ id = 1001 }) {
             </div>
           </div>
 
-          <div className = {order.status === 'dispatched' ? s.selected : ''}>
+          <div className = {details.status === 'sending' ? s.selected : ''}>
             <div className = {s.itemContainerProgress}>
               <div className = {s.line}>
               </div>
               <div className = {s.item}>
                 <Delivery />
               </div>
-              <span className = {s.spanStatus}>DISPATCHED</span>
+              <span className = {s.spanStatus}>SENDING</span>
             </div>
           </div>
 
-          <div className = {order.status === 'filled' ? s.selected : ''}>
+          <div className = {details.status === 'filled' ? s.selected : ''}>
             <div className = {s.itemContainerProgress}>
               <div className = {s.line}>
               </div>
@@ -196,11 +227,15 @@ export default function PurchaseDetails({ id = 1001 }) {
         <div className = {s.containerDates}>
           <div className = {s.groupDate}>
             <span className = {s.subtitleDateName}>Creation Date:</span>
-            <span className = {s.subtitleDateInfo}>14:53, Thu Jun 04 2020</span>
+            <span className = {s.subtitleDateInfo}>
+              {`${dateOfCreation.getHours()}:${dateOfCreation.getMinutes() < 10 ? '0' : ''}${dateOfCreation.getMinutes()} ${dateOfCreation.toDateString()}`}
+            </span>
           </div>
           <div className = {s.groupDate}>
             <span className = {s.subtitleDateName}>Last Modification:</span>
-            <span className = {s.subtitleDateInfo}>20:31, Fri Jun 05 2020</span>
+            <span className = {s.subtitleDateInfo}>
+              {`${dateOfModification.getHours()}:${dateOfModification.getMinutes() < 10 ? '0' : ''}${dateOfModification.getMinutes()} ${dateOfModification.toDateString()}`}
+            </span>
           </div>
         </div>
       </div>

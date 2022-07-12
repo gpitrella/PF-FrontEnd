@@ -55,7 +55,7 @@ const PURCHASES_STATUS_ENUM = [
     color: 'violet'
   },
   {
-    value: 'dispatched',
+    value: 'sending',
     color: 'blue'
   },
   {

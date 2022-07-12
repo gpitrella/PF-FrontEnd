@@ -37,7 +37,10 @@ import {
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
   UPLOAD_IMAGE,
-  CLOUDINARY
+  CLOUDINARY,
+  GET_BRANCH_OFFICES,
+  FAVOURITES_CHARGED,
+  REMOVE_FAVOURITES_CHARGED
 } from './actiontype';
 
 
@@ -107,7 +110,6 @@ export const logIn = function(email, password) {
 };
 
 export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
-  console.log(show, msg, success, error);
   return {
     type: SHOW_MINI_MODAL,
     payload: {
@@ -194,6 +196,18 @@ export function getFavouritesProducts(idUser){
     .catch(error => console.log(error))
   };
 };
+
+export function favoritesCharged(){
+  return {
+    type: FAVOURITES_CHARGED
+  }
+}
+
+export function removeFavoritesCharged(){
+  return {
+    type: REMOVE_FAVOURITES_CHARGED
+  }
+}
 
 export function removeFavourite( id ){
   console.log(id);
@@ -297,5 +311,14 @@ export function uploadImage(formData) {
       .then(response => response.json())
       .then(data => dispatch({ type: UPLOAD_IMAGE, payload: data }))
       .catch(error => console.LOG(error));
+  }
+}
+
+export function getBranchOffices() {
+  return function(dispatch) {
+    return fetch(`${BASE_URL}/api/branchOffice`)
+           .then(response => response.json())
+           .then(data => dispatch({ type: GET_BRANCH_OFFICES, payload: data }))
+           .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
   }
 }

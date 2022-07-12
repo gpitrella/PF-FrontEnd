@@ -1,0 +1,93 @@
+.container {
+  min-height: 500px;
+
+  margin: 50px 0 20px 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+
+
+.title {
+  color: var(--fontColor) !important;
+}
+
+.imageContainer {
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.errorContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+
+.errorContainer > svg {
+  fill: var(--dangerColor);
+}
+
+.loadingContainer {
+  height: 50%;
+  aspect-ratio: 1/1;
+}
+.loadingContainer > svg {
+  animation: rotateLoading 2s infinite;
+  animation-timing-function: linear;
+  fill: var(--secondaryColor);
+}
+
+@keyframes rotateLoading {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spanLoading {
+  font-size: var(--fontTitle);
+  font-weight: 700;
+  color: var(--secondaryColor);
+}
+
+.grid {
+  justify-content: center;
+}
+
+.errorMsg {
+  font-size: var(--fontTitle);
+  color: var(--fontColor);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.btnRetry {
+  font-size: var(--fontMedium);
+  color: white;
+  background-color: var(--dangerColor);
+  border-radius: 16px;
+  cursor: pointer;
+  height: 2.5rem;
+  border: 1px solid var(--dangerColor);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  width: 10rem;
+  font-weight: 700;
+
+  margin: 1rem 0 1rem 0;
+}
+
+.map {
+  width: 50%;
+  height: 300px;
+  border: 3px solid var(--fontColor);
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 1rem;
+}

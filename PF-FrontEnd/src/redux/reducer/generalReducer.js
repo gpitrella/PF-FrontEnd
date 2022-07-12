@@ -34,7 +34,10 @@ import {
   RESET_CHECKOUT_ADDRESS,
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
-  UPLOAD_IMAGE
+  UPLOAD_IMAGE,
+  GET_BRANCH_OFFICES,
+  FAVOURITES_CHARGED,
+  REMOVE_FAVOURITES_CHARGED
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -65,10 +68,13 @@ const initialState = {
   viewLanding: true,
   logInError: {},
   orderByUser: {},
+  favoritiesCharged: false,
+  newFavoriteProduct: {},
 
   // Traer Sucursales con Distancia para el Checkout
   errorBranchOffices: false,
   branchOffices: [],
+  // La reutilizo en branchs.
 
   modalAddImage: {
     show: false,
@@ -234,7 +240,7 @@ const generalReducer = function(state = initialState, { type, payload }) {
     case ADD_PRODUCT_TO_FAVOURITES:{
       return {
         ...state,
-        payload,
+        newFavoriteProduct: payload        
       }
     }
     case GET_FAVOURITES_PRODUCTS: {
@@ -243,10 +249,26 @@ const generalReducer = function(state = initialState, { type, payload }) {
         favouritesProducts: payload
       }
     }
+
     case REMOVE_FAVOURITE_PRODUCT: {
       return {
       ...state,
-      payload
+      newFavoriteProduct: payload
+      }
+    }
+
+    case FAVOURITES_CHARGED: {
+      return {
+        ...state,
+        favoritiesCharged: true,
+        newFavoriteProduct: {}
+      }
+    }
+
+    case REMOVE_FAVOURITES_CHARGED: {
+      return {
+        ...state,
+        favoritiesCharged: false
       }
     }
 
@@ -357,6 +379,13 @@ const generalReducer = function(state = initialState, { type, payload }) {
           ...state.modalAddImage,
           uploadedImage: payload.secure_url
         }
+      }
+
+    case GET_BRANCH_OFFICES:
+      return {
+        ...state,
+        branchOffices: payload,
+        errorBranchOffices: false
       }
 
     default:
