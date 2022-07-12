@@ -7,7 +7,10 @@ import {
   GET_PURCHASES_WITH_FILTER_AND_PAGINATE,
   WAITING_RESPONSE_PUT_PURCHASE,
   PUT_PURCHASE,
-  ERROR_PUT_PURCHASE
+  ERROR_PUT_PURCHASE,
+  GET_ONE_PURCHASE_DETAILS,
+  ERROR_ONE_PURCHASE_DETAILS,
+  RESET_ONE_PURCHASE_DETAILS
 } from './actiontype';
 
 import axios from 'axios';
@@ -64,5 +67,23 @@ export const waitingResponsePutPurchase = function(status = false) {
   return {
     type: WAITING_RESPONSE_PUT_PURCHASE,
     payload: status
+  }
+}
+
+export const getOnePurchaseDetails = function(id) {
+  return function (dispatch) {
+    return fetch(`${PATH_PURCHASE}details/${id}`)
+             .then(response => response.json())
+             .then(data => { 
+                if (data.error) dispatch({ type: ERROR_ONE_PURCHASE_DETAILS });
+                else dispatch({ type: GET_ONE_PURCHASE_DETAILS, payload: data }); 
+              })
+             .catch(error => dispatch({ type: ERROR_ONE_PURCHASE_DETAILS }))
+  }
+}
+
+export const resetOnePurchaseDetails = function() {
+  return {
+    type: RESET_ONE_PURCHASE_DETAILS
   }
 }
