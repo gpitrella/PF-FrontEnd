@@ -39,7 +39,9 @@ export const generatePurchasesWithFilter = function(purchases, filter) {
   newPurchases = orderPurchases(newPurchases, filter);
   return [
     newPurchases.slice( (filter.page - 1) * 10, filter.page * 10 ),
-    { ...newFilter, results: newPurchases.length, pages: Math.ceil(newPurchases.length / 10) }
+    { ...newFilter, results: newPurchases.length, pages: Math.ceil(newPurchases.length / 10),
+      page: filter.page <= Math.ceil(newPurchases.length / 10) ? filter.page : 1
+    }
   ]
 }
 

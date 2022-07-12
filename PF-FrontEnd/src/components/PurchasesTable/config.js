@@ -48,7 +48,7 @@ const PURCHASES_COLORS = {
   processing: {
     color: 'color_violet'
   },
-  dispatched: {
+  sending: {
     color: 'color_blue'
   },
   filled: {

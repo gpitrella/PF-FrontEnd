@@ -8,6 +8,7 @@ import ArrowDown from '../../SVG/ArrowDown';
 import { rowData } from '../config';
 
 import s from './PurchasesTableRow.module.css';
+import { putPurchase, waitingResponsePutPurchase } from '../../../redux/actions';
 
 export default function PurchasesTableRow({ purchase }) {
 
@@ -74,7 +75,9 @@ export default function PurchasesTableRow({ purchase }) {
           cancel: true,
           handleCancel: () => setModal({ ...modal, show: false }),
           handleConfirm: () => {
-            console.log('Modifico la orden de compra.');
+            dispatch(putPurchase(purchase.id, newPurchaseDetails.status));
+            setModal({ ...modal, show: false });
+            dispatch(waitingResponsePutPurchase(true));
           },
           title: 'Confirm Change of Status',
           content: setModalViewEdit(purchase, newPurchaseDetails)

@@ -107,7 +107,6 @@ export const logIn = function(email, password) {
 };
 
 export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
-  console.log(show, msg, success, error);
   return {
     type: SHOW_MINI_MODAL,
     payload: {

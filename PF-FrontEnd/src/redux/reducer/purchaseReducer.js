@@ -3,7 +3,10 @@ import {
   SET_ORIGINAL_PURCHASES,
   UPDATE_FILTER_PURCHASES,
   SET_SHOW_LOADING_PURCHASES,
-  GET_PURCHASES_WITH_FILTER_AND_PAGINATE
+  GET_PURCHASES_WITH_FILTER_AND_PAGINATE,
+  WAITING_RESPONSE_PUT_PURCHASE,
+  PUT_PURCHASE,
+  ERROR_PUT_PURCHASE
 } from "../actions/actiontype";
 
 import { generatePurchasesWithFilter, formatPurchases } from '../../util';
@@ -127,7 +130,13 @@ const initialState = {
     page: 1,
     pages: 1,
     results: 10
-  }
+  },
+  resultPut: {
+    waitingResponse: false,
+    status: false,
+    error: false,
+    errorMsg: '',
+  },
 }
 
 const purchaseReducer = function(state = initialState, { type, payload }) {
@@ -138,10 +147,11 @@ const purchaseReducer = function(state = initialState, { type, payload }) {
           ...initialState
         }
       case SET_ORIGINAL_PURCHASES:
-        let [ ogPurchases, ogFilter ] = generatePurchasesWithFilter(formatPurchases(payload), state.filter);
+        let serverPurchases = formatPurchases(payload);
+        let [ ogPurchases, ogFilter ] = generatePurchasesWithFilter(serverPurchases, state.filter);
         return {
           ...state,
-          originalPurchases: [ ...ogPurchases ],
+          originalPurchases: serverPurchases,
           purchases: [ ...ogPurchases ],
           filter: { ...ogFilter },
           showPurchases: true,
@@ -165,6 +175,35 @@ const purchaseReducer = function(state = initialState, { type, payload }) {
           purchases: [ ...updatedPurchases ],
           filter: { ...updatedFilter },
           showLoading: false
+        }
+      case WAITING_RESPONSE_PUT_PURCHASE:
+        return {
+          ...state,
+          resultPut: {
+            ...state.resultPut,
+            waitingResponse: payload,
+            status: false,
+            error: false,
+            errorMsg: '',
+          }
+        }
+      case PUT_PURCHASE:
+        return {
+          ...state,
+          resultPut: {
+            ...state.resultPut,
+            status: true
+          }
+        }
+      case ERROR_PUT_PURCHASE:
+        return {
+          ...state,
+          resultPut: {
+            ...state.resultPut,
+            watingResponse: false,
+            error: true,
+            errorMsg: payload.response && payload.response.data ? payload.response.data : 'Server Error. Try Again...'
+          }
         }
       default:
         return state;
