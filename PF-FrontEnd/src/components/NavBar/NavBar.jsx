@@ -428,7 +428,7 @@ export default function NavBar() {
           
             <IconButton 
                   size="large" 
-                  aria-label="show 4 new mails" 
+                  aria-label="show new mails" 
                   color="inherit" 
                   onClick={showCartNavBar}
                   sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
@@ -463,7 +463,11 @@ export default function NavBar() {
                   aria-label="favourites" 
                   color="inherit" 
                   onClick={showFavsNavBar}
-                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+                  sx={!displayUser 
+                    ? { display: 'none' } 
+                    : displayUserAdmin
+                              ? { display: 'none' }
+                              : { display: 'inline-flex' }}>
                 <Badge badgeContent={favouritesProducts?.length} color="error">
                     <FavoriteIcon />
                 </Badge>
@@ -473,7 +477,11 @@ export default function NavBar() {
                   size="large" 
                   aria-label="show new mails" 
                   color="inherit"
-                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+                  sx={!displayUser 
+                            ? { display: 'none' } 
+                            : displayUserAdmin
+                                      ? { display: 'none' }
+                                      : { display: 'inline-flex' }}>
               <Badge badgeContent={notification} color="error">
                 <MailIcon className="links_general" onClick={handleNotification}/>
               </Badge>
