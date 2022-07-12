@@ -18,6 +18,10 @@ export default function ProductCard({ id, name, image, category, price, discount
   const { user } = useSelector(state => state.general);
   const isAlreadyOnCart = cart.some(product => product.id === id);
 
+  const { favouritesProducts } = useSelector((state) => state.general);
+
+  
+
   return (
     <div className = {s.container}>
 
@@ -62,7 +66,7 @@ export default function ProductCard({ id, name, image, category, price, discount
           <div className = {s.containerButtonsSVG}>
             {
               user && user.user && !user.user.admin &&
-              <div className = {`${s.containerSVG} ${s.redHeart}`}>
+              <div className = {`${s.containerSVG} ${favouritesProducts?.some(product => product.id === id) ? s.alreadyFavourite : ''}`}>
                 <Heart />
               </div>
             }

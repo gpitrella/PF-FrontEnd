@@ -14,7 +14,6 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -25,7 +24,9 @@ import Button from '@mui/material/Button';
 import { visuallyHidden } from '@mui/utils';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useSelector, useDispatch } from "react-redux";
-import { getAllCommentByUserID } from '../../../redux/actions'
+import { getAllCommentByUserID, putCommentViewer, clearCommentViewer } from '../../../redux/actions'
+import Checkbox from '@mui/material/Checkbox';
+
 import './MyCommets.css'
 
 function descendingComparator(a, b, orderBy) {
@@ -88,6 +89,12 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: 'Date Answer',
+  },
+  {
+    id: 'view',
+    numeric: true,
+    disablePadding: false,
+    label: 'Check View',
   },
 ];
 
@@ -194,7 +201,7 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function MyComments() {
-  const { commentByUser } = useSelector((state) => state.userReducer);
+  const { commentByUser, updateComment } = useSelector((state) => state.userReducer);
   const rows = commentByUser
   const { user } = useSelector((state) => state.general);
   const dispatch = useDispatch();
@@ -204,7 +211,8 @@ export default function MyComments() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  const [ viewed, setViewed ] = React.useState(true);
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -242,6 +250,20 @@ export default function MyComments() {
   React.useEffect(() => {
         dispatch(getAllCommentByUserID(user?.user.id))
   }, []);
+
+  const handleCheckViewed = (idComment) => {
+    dispatch(putCommentViewer(idComment, viewed))
+    dispatch(getAllCommentByUserID(user?.user.id))
+  }
+
+  React.useEffect(() => {
+    dispatch(getAllCommentByUserID(user?.user.id))
+    return () => {
+      dispatch(clearCommentViewer())
+    };    
+  }, [updateComment]);
+
+
 
   return (
     <div className='main_box_myreviews'>
@@ -295,6 +317,12 @@ export default function MyComments() {
                       <TableCell align="right">{row.createdAt.slice(0,10)}</TableCell>
                       <TableCell align="right">{row.answer ? row.answer : 'WithOut answer yet'}</TableCell>
                       <TableCell align="right">{(row.updatedAt !== row.createdAt) ? row.updatedAt.slice(0,10) : '--'}</TableCell>
+                      <TableCell align='right'>{row.answer 
+                                                      ? !row.viewed
+                                                            ? <Checkbox {...label} onClick={(e) => {handleCheckViewed(row.id)}}/> 
+                                                            : 'Viewed'
+                                                      : '--'}
+                      </TableCell>
                     </TableRow>
                   );
                 })}

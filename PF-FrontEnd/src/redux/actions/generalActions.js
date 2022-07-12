@@ -19,9 +19,10 @@ import {
   OPEN_PAGE_LOADER,
   CLOSE_PAGE_LOADER,
   ADD_PRODUCT_TO_FAVOURITES,
-  GET_CATEGORIES_TO_STORE,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SHOW_FAVOURITES,
+  CLOSE_FAVOURITES,
   BASE_URL,
   SUCCESS_BUY,
   LOG_IN_ERROR,
@@ -37,7 +38,9 @@ import {
   CLOSE_MODAL_ADD_IMAGE,
   UPLOAD_IMAGE,
   CLOUDINARY,
-  GET_BRANCH_OFFICES
+  GET_BRANCH_OFFICES,
+  FAVOURITES_CHARGED,
+  REMOVE_FAVOURITES_CHARGED
 } from './actiontype';
 
 
@@ -177,30 +180,55 @@ export const logout = function() {
 };
 
 //FAVOURITES PRODUCTS
-export function addProdToFavourites(idUser, idProduct){
+export function addProdToFavourites({ idUser, idProduct }){
+  console.log(idUser, idProduct)
   return function(dispatch){
-      return axios.post(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
-                  .then(product => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: product.data[0]}))
+      return axios.post(`${BASE_URL}/api/favorite`, { idUser, idProduct } )
+                  .then(response => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: response.data }))
                   .catch(error => console.log(error))
   }
 };
 
 export function getFavouritesProducts(idUser){
   return function(dispatch){
-    return axios.post(`${BASE_URL}/api/favorite/${idUser}`)
+    return axios.get(`${BASE_URL}/api/ProfileUser/favorites/${idUser}`) 
     .then(response => dispatch({ type: GET_FAVOURITES_PRODUCTS, payload: response.data }))
     .catch(error => console.log(error))
   };
 };
 
-export function removeFavourite(idProduct, idUser){
+export function favoritesCharged(){
+  return {
+    type: FAVOURITES_CHARGED
+  }
+}
+
+export function removeFavoritesCharged(){
+  return {
+    type: REMOVE_FAVOURITES_CHARGED
+  }
+}
+
+export function removeFavourite( id ){
+  console.log(id);
   return function(dispatch){
-    return axios.delete(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
-    .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
-    .catch(error => console.log(error))
+      return axios.delete(`${BASE_URL}/api/favorite`, { data: { id: id.id } })
+      .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
+      .catch(error => console.log(error))
   };
 };
 
+export function showFavs(){
+  return {
+    type: SHOW_FAVOURITES,
+  }
+};
+
+export function closeFavs(){
+  return {
+    type: CLOSE_FAVOURITES,
+  }
+};
 
 // Success Buy - Remove Product from Cart
 export function successBuyAction(){

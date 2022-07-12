@@ -6,7 +6,6 @@ import CommonButton from '../CommonButton/CommonButton';
 import { modalStyles } from './styles';
 
 const BasicModal = ({ open, onClose, title, subTitle, content, onSubmit }) => {
-    const handleModalContainerClick = (e) => e.stopPropagation();
 
     return (
         <Modal open={open} onClose={onClose} >

@@ -3,7 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { getSearchProducts, clearSearchProducts, showCart, logout } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTheme } from '../../redux/actions';
-
+//Favs:
+import { showFavs } from '../../redux/actions';
+//
 import './NavBar.css';
 import gitfLogo from './img/logo_TechMarket.gif';
 import userAvatar from './img/user_avatar.png';
@@ -22,7 +24,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
@@ -35,6 +36,11 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import Brightness3Icon from '@mui/icons-material/Brightness3';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 import Avatar from '@mui/material/Avatar';
+// Dependencias para Notification
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+//Favs:
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -114,8 +120,14 @@ export default function NavBar() {
   const [ name, setName ] = React.useState('');
   const { user } = useSelector((state) => state.general)
   const { oneuser } = useSelector((state) => state.userReducer);
+  const [ notification, setNotification ] = React.useState(0);
+  const [ openNotification, setOpenNotification ] = React.useState(false);
+  const { commentByUser } = useSelector((state) => state.userReducer);
   const productsCart = useSelector((state) => state.general.productsCart);
-
+  
+  //Favs
+  const { favouritesProducts } = useSelector ((state) => state.general);
+  //
   const dispatch = useDispatch();
 
   const handleSearch = (e) => {
@@ -123,6 +135,22 @@ export default function NavBar() {
     dispatch(clearSearchProducts())
     setName(e.target.value);
     dispatch(getSearchProducts(name));
+  }
+
+  // Notification:
+  const handleCloseSuccessComment = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenNotification(false);
+  };
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleNotification = () => {
+    setOpenNotification(true);
   }
 
 // Nueva NAVBAR
@@ -163,7 +191,12 @@ export default function NavBar() {
     dispatch(showCart())
   };
 
-  
+  //Favs
+   const showFavsNavBar = (e) => {
+    e.preventDefault();
+    dispatch(showFavs())
+   };
+  //
 
   const menuId = 'primary-search-account-menu';
   
@@ -227,7 +260,7 @@ export default function NavBar() {
         </Typography>
       </MenuItem>
 
-      <MenuItem>
+      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
           <Badge badgeContent={productsCart?.length} color="error">
             <ShoppingCartIcon/>
@@ -262,26 +295,26 @@ export default function NavBar() {
         <p>Dashboard</p>
       </MenuItem>
 
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
+      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+        <IconButton size="large" aria-label="show new mails" color="inherit">
+          <Badge badgeContent={notification} color="error">
+            <MailIcon onClick={handleNotification}/>
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
 
-      <MenuItem>
+      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="show new notifications"
           color="inherit"
         >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
+          <Badge badgeContent={favouritesProducts?.length} color="error">
+            <FavoriteIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Favorites</p>
       </MenuItem>
 
       <MenuItem onClick={handleProfileMenuOpen}>
@@ -330,12 +363,29 @@ export default function NavBar() {
         setDisplayUserAdmin(true);
       }
     }
-  },[user]);
+    // Notification
+    if(commentByUser?.length > 0){
+      let resetNotification = 0;
+      commentByUser.map((comment)=>{
+        if(comment.viewed === false && comment.answer){
+          resetNotification += 1
+        }
+      })
+    setNotification(resetNotification);
+    }
+  },[user, commentByUser]);
 
   
     return (
       /// Nueva NAVABar
       <nav className='navbar_main_block'>
+         <Snackbar open={openNotification} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
+              <Alert onClose={handleCloseSuccessComment} severity="info" sx={{ width: '100%' }}>
+                  {notification === 0 
+                        ? 'WithOut new Messages'
+                        : `You have ${notification} new answer to see. Check your Profile.`}
+              </Alert>
+          </Snackbar>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
           <Toolbar>
@@ -376,7 +426,12 @@ export default function NavBar() {
                 Welcome {user?.user?.name}
             </Typography>
           
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+            <IconButton 
+                  size="large" 
+                  aria-label="show 4 new mails" 
+                  color="inherit" 
+                  onClick={showCartNavBar}
+                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
               <Badge badgeContent={productsCart?.length} color="error">
                 <ShoppingCartIcon className="links_general"/>
               </Badge>
@@ -403,19 +458,24 @@ export default function NavBar() {
               </Badge>
             </IconButton>
 
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={0} color="error">
-                <MailIcon className="links_general"/>
-              </Badge>
-            </IconButton>
+              <IconButton 
+                  size="large" 
+                  aria-label="favourites" 
+                  color="inherit" 
+                  onClick={showFavsNavBar}
+                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+                <Badge badgeContent={favouritesProducts?.length} color="error">
+                    <FavoriteIcon />
+                </Badge>
+              </IconButton>
 
-            <IconButton
-              size="large"
-              aria-label="show 0 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={0} color="error">
-                <NotificationsIcon className="links_general"/>
+            <IconButton 
+                  size="large" 
+                  aria-label="show new mails" 
+                  color="inherit"
+                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+              <Badge badgeContent={notification} color="error">
+                <MailIcon className="links_general" onClick={handleNotification}/>
               </Badge>
             </IconButton>
 
@@ -480,7 +540,7 @@ export default function NavBar() {
     <div className = {'scrollToTop'}>
       <ScrollToTop smooth component={<ExpandLessIcon />} />
     </div>
-      </nav>
+    </nav>
     )
 };
 const THEME = {

@@ -1,3 +1,5 @@
+import { stepButtonClasses } from '@mui/material';
+import { showCart } from '../actions';
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -19,6 +21,8 @@ import {
   ADD_PRODUCT_TO_FAVOURITES,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SHOW_FAVOURITES,
+  CLOSE_FAVOURITES,
   SUCCESS_BUY,
   LOG_IN_ERROR,
   LOGIN_WITH_GOOGLE,
@@ -31,7 +35,9 @@ import {
   SHOW_MODAL_ADD_IMAGE,
   CLOSE_MODAL_ADD_IMAGE,
   UPLOAD_IMAGE,
-  GET_BRANCH_OFFICES
+  GET_BRANCH_OFFICES,
+  FAVOURITES_CHARGED,
+  REMOVE_FAVOURITES_CHARGED
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -58,9 +64,12 @@ const initialState = {
   showPageLoader: true,
   loadingUser: true,
   favouritesProducts: [],
+  showFavs: false,
   viewLanding: true,
   logInError: {},
   orderByUser: {},
+  favoritiesCharged: false,
+  newFavoriteProduct: {},
 
   // Traer Sucursales con Distancia para el Checkout
   errorBranchOffices: false,
@@ -229,35 +238,51 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case ADD_PRODUCT_TO_FAVOURITES:{
-      LocalStorage.saveItem('favouritesProducst', state.favouritesProducts.concat({
-        id: payload.id,
-        name: payload.name,
-        price: payload.price,
-        image: payload.image,
-        discount: payload.discount,
-        stock: payload.stock,
-        categories: payload.categories,
-        description: payload.description,
-        user: payload.userId,
-      }));
-    return {
-      ...state,
-      favouritesProducts: state.favouritesProducts.concat({
-        id: payload.id,
-        user: payload.userId,
-      })
-    }}
+      return {
+        ...state,
+        newFavoriteProduct: payload        
+      }
+    }
     case GET_FAVOURITES_PRODUCTS: {
       return {
         ...state,
         favouritesProducts: payload
       }
     }
+
     case REMOVE_FAVOURITE_PRODUCT: {
-      LocalStorage.saveItem('productsCart', state.favouritesProducts.filter(product => product.id !== payload));
       return {
       ...state,
-      favouritesProducts: state.favouritesProducts.filter(product => product.id !== payload)
+      newFavoriteProduct: payload
+      }
+    }
+
+    case FAVOURITES_CHARGED: {
+      return {
+        ...state,
+        favoritiesCharged: true,
+        newFavoriteProduct: {}
+      }
+    }
+
+    case REMOVE_FAVOURITES_CHARGED: {
+      return {
+        ...state,
+        favoritiesCharged: false
+      }
+    }
+
+    case SHOW_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: true        
+      }
+    }
+
+    case CLOSE_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: false
       }
     }
 
