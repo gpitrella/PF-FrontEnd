@@ -28,6 +28,8 @@ export const GET_ORDER_BY_USER = "GET_ORDER_BY_USER";
 export const EDIT_STATUS_ORDER = "EDIT_STATUS_ORDER";
 export const FAVOURITES_CHARGED = "FAVOURITES_CHARGED";
 export const REMOVE_FAVOURITES_CHARGED = "REMOVE_FAVOURITES_CHARGED";
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+export const SEND_EMAIL = 'SEND_EMAIL'
 
 // HOMEPAGE ACTIONS
 export const TEST_HOMEPAGE = 'TEST_HOMEPAGE';
@@ -150,6 +152,7 @@ export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 
 // GET BRANCHS
 export const GET_BRANCH_OFFICES = 'GET_BRANCH_OFFICES';
+export const GET_BRANCHES = 'GET_BRANCHES';
 
 // BASE URL
 // export const BASE_URL = 'https://techmarketapp.herokuapp.com';

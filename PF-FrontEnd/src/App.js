@@ -25,7 +25,9 @@ import PendingBuy from './components/PendingBuy/PendingBuy';
 import UserProfile from './UserProfile'
 import Landing from './components/Landing/Landing';
 import MapStore from './components/MapStore/MapStore';
-
+import UpdatePassword from './components/UpdatePassword/UpdatePassword';
+import SendEmail from './components/UpdatePassword/SendEmail/SendEmail';
+import MapBranches from './components/MapStore/MapBranches';
 
 import PageLoader from './components/PageLoader/PageLoader';
 import { LocalStorage } from './util/localStorage';
@@ -87,6 +89,11 @@ function App() {
               <Route exact path='/canceledbuy' >{user?.user ? <CanceledBuy/> : <Redirect to="/login"/>}</Route>
               <Route exact path='/pendingbuy' >{user?.user ? <PendingBuy/> : <Redirect to="/login"/>}</Route>
               <Route exact path="/mapstore" component = {MapStore} />
+              <Route exact path="/updatepassword" component = {UpdatePassword} />
+              <Route exact path="/sendemail" component = {SendEmail} />
+              <Route exact path="/mapbranches" component = {MapBranches} />
+
+
 
               <Route exact path='*' component={notFoundPage} />
             </Switch>

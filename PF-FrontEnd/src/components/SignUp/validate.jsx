@@ -13,8 +13,8 @@ export function validateUsername(input) {
             document.getElementById('username').classList.add('signup__group-incorrecto')
             document.getElementById('username').classList.remove('signup__group-correcto')
             document.querySelector('#username .signup__input-error').classList.add('signup__input-error-activo')
-    } else if (!validator.matches(input.username, "^[a-z0-9_\.\-]*$")){
-            errors.username = "Only a-z, _, ., and 0-9"
+    } else if (!validator.isAlpha(input.username)){
+            errors.username = "Only letters"
             document.getElementById('username').classList.add('signup__group-incorrecto')
             document.getElementById('username').classList.remove('signup__group-correcto')
             document.querySelector('#username .signup__input-error').classList.add('signup__input-error-activo')
