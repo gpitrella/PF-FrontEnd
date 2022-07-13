@@ -24,8 +24,6 @@ export default function SuccessBuy(){
         if(orderByUser){
             const findOrder = orderByUser.purchase_orders?.find((order) => order.idMP == idMP);
             if(findOrder?.id && status === 'approved') {
-                console.log(findOrder)
-                console.log(findOrder.id)
                 dispatch(putStatusByOrder(findOrder.id, 'processing'))
             }
         }
@@ -45,7 +43,7 @@ export default function SuccessBuy(){
                     We invite you to search for more <br></br>
                     products that you are needing. 
                 </p>
-                <Link to="/">
+                <Link to="https://techmarketfront.vercel.app">
                     <Button id="button_less" variant="outlined" size="medium"> HOME </Button>
                 </Link>
             </div>

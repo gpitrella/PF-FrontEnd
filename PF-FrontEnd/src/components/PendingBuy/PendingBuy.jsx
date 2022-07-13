@@ -45,7 +45,7 @@ export default function PendingBuy(){
                     Contact your bank to ask about your pending purchase, <br></br>
                     or contact Us and we check any problem about your order. 
                 </p>
-                <Link to="/">
+                <Link to="https://techmarketfront.vercel.app">
                     <Button id="button_less" variant="outlined" size="medium"> HOME </Button>
                 </Link>
             </div>
