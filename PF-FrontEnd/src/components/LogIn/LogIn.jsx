@@ -107,7 +107,7 @@ const LogIn = () => {
       <div className = {`login__wrapper ${s.loginContainer}`}>
 
         <div className='login__group'>
-          <h1 className="login__title">Log In</h1>
+          <h1 className="login__title">Sign In</h1>
         </div>
 
         <div className='login__group' id='email'>
@@ -137,7 +137,8 @@ const LogIn = () => {
         </div>
         <div className='login__group' >
           <button type='submit' className="login__btn" onClick={(e) => handleSubmit(e)} >Log In</button>
-          </div>
+        </div>
+        <p className="login__text"><Link to='/sendemail' className="link">Forgot password?</Link></p>
           {/* {checkMailPassword.value ? (<p className='danger'>Something was wrong. Please check email or password.</p>) : null} */}
           
           {redirect?.value ? <Redirect push to={'/'} underline="none" /> : null}

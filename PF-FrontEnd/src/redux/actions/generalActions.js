@@ -40,7 +40,8 @@ import {
   CLOUDINARY,
   GET_BRANCH_OFFICES,
   FAVOURITES_CHARGED,
-  REMOVE_FAVOURITES_CHARGED
+  REMOVE_FAVOURITES_CHARGED,
+  GET_BRANCHES,
 } from './actiontype';
 
 
@@ -322,3 +323,29 @@ export function getBranchOffices() {
            .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
   }
 }
+
+export function getBranches() {
+  return function(dispatch) {
+    return fetch(`${BASE_URL}/api/branchOffice`)
+           .then(response => response.json())
+           .then(data => dispatch({ type: GET_BRANCHES, payload: data }))
+           .catch(error => console.log(error))
+  }
+}
+
+export function sendEmail(email) {
+  return function(dispatch) {
+    return axios.post(`${BASE_URL}/api/password`, {email})
+    .then(data => dispatch({ type: LOG_IN_ERROR, payload: data.data}))
+    .catch(error => console.log(error));
+  }
+}
+
+export function updatePassword(password, token) {
+  return function(dispatch) {
+    return axios.put(`${BASE_URL}/api/password`, {password, token})
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+  }
+}
+
