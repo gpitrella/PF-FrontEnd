@@ -44,7 +44,7 @@ export default function CanceledBuy(){
                     Contact your bank to ask about your purchase canceled. <br></br>
                     Any questions do not hesitate to contact us. 
                 </p>
-                <Link to="/">
+                <Link to="https://techmarketfront.vercel.app">
                     <Button id="button_less" variant="outlined" size="medium"> HOME </Button>
                 </Link>
             </div>
