@@ -135,8 +135,6 @@ export const clearUpdateUser = function() {
 
 //Put Comment viewer
 export const putCommentViewer = function(idComment, viewed) {
-  console.log(idComment)
-  console.log(viewed)
   return function(dispatch){
     return axios.put(`${BASE_URL}/api/comments`, {idComment, viewed})
                 .then(comment => dispatch({type: UPDATE_COMMENT_VIEWED}))

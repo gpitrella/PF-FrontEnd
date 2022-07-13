@@ -210,7 +210,6 @@ export function removeFavoritesCharged(){
 }
 
 export function removeFavourite( id ){
-  console.log(id);
   return function(dispatch){
       return axios.delete(`${BASE_URL}/api/favorite`, { data: { id: id.id } })
       .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
