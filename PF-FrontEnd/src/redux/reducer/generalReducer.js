@@ -1,3 +1,5 @@
+import { stepButtonClasses } from '@mui/material';
+import { showCart } from '../actions';
 import {
   CHANGE_THEME,
   SHOW_MINI_MODAL,
@@ -19,11 +21,24 @@ import {
   ADD_PRODUCT_TO_FAVOURITES,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SHOW_FAVOURITES,
+  CLOSE_FAVOURITES,
   SUCCESS_BUY,
   LOG_IN_ERROR,
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
-  CLOSE_LANDING
+  CLOSE_LANDING,
+  GET_ORDER_BY_USER,
+  POST_NEW_ORDER,
+  GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  RESET_CHECKOUT_ADDRESS,
+  SHOW_MODAL_ADD_IMAGE,
+  CLOSE_MODAL_ADD_IMAGE,
+  UPLOAD_IMAGE,
+  GET_BRANCH_OFFICES,
+  FAVOURITES_CHARGED,
+  REMOVE_FAVOURITES_CHARGED,
+  GET_BRANCHES
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -50,8 +65,23 @@ const initialState = {
   showPageLoader: true,
   loadingUser: true,
   favouritesProducts: [],
+  showFavs: false,
   viewLanding: true,
-  logInError: {}
+  logInError: {},
+  orderByUser: {},
+  favoritiesCharged: false,
+  newFavoriteProduct: {},
+
+  // Traer Sucursales con Distancia para el Checkout
+  errorBranchOffices: false,
+  branchOffices: [],
+  branches:[],
+  // La reutilizo en branchs.
+
+  modalAddImage: {
+    show: false,
+    uploadedImage: '',
+  }
 };
 
 const generalReducer = function(state = initialState, { type, payload }) {
@@ -210,35 +240,51 @@ const generalReducer = function(state = initialState, { type, payload }) {
       }
     }
     case ADD_PRODUCT_TO_FAVOURITES:{
-      LocalStorage.saveItem('favouritesProducst', state.favouritesProducts.concat({
-        id: payload.id,
-        name: payload.name,
-        price: payload.price,
-        image: payload.image,
-        discount: payload.discount,
-        stock: payload.stock,
-        categories: payload.categories,
-        description: payload.description,
-        user: payload.userId,
-      }));
-    return {
-      ...state,
-      favouritesProducts: state.favouritesProducts.concat({
-        id: payload.id,
-        user: payload.userId,
-      })
-    }}
+      return {
+        ...state,
+        newFavoriteProduct: payload        
+      }
+    }
     case GET_FAVOURITES_PRODUCTS: {
       return {
         ...state,
         favouritesProducts: payload
       }
     }
+
     case REMOVE_FAVOURITE_PRODUCT: {
-      LocalStorage.saveItem('productsCart', state.favouritesProducts.filter(product => product.id !== payload));
       return {
       ...state,
-      favouritesProducts: state.favouritesProducts.filter(product => product.id !== payload)
+      newFavoriteProduct: payload
+      }
+    }
+
+    case FAVOURITES_CHARGED: {
+      return {
+        ...state,
+        favoritiesCharged: true,
+        newFavoriteProduct: {}
+      }
+    }
+
+    case REMOVE_FAVOURITES_CHARGED: {
+      return {
+        ...state,
+        favoritiesCharged: false
+      }
+    }
+
+    case SHOW_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: true        
+      }
+    }
+
+    case CLOSE_FAVOURITES: {
+      return {
+        ...state,
+        showFavs: false
       }
     }
 
@@ -279,6 +325,77 @@ const generalReducer = function(state = initialState, { type, payload }) {
         logInError: payload
       }
     }
+
+    case GET_ORDER_BY_USER: {
+      return {
+        ...state,
+        orderByUser: payload
+      }
+    };
+    // Traer sucursales con distancia
+    case GET_BRANCHS_OFFICES_WITH_DISTANCE:
+
+      if (payload.error) return { ...state, errorBranchOffices: true };
+
+      payload.sort((prev, next) => prev.distance - next.distance);
+      
+      return {
+        ...state,
+        branchOffices: payload,
+        errorBranchOffices: false
+      };
+
+    case RESET_CHECKOUT_ADDRESS:
+      return {
+        ...state,
+        errorBranchOffices: false,
+        branchOffices: [],
+      }
+
+    // Modal para subir imagenes
+
+    case SHOW_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: true,
+          uploadedImage: '',
+        }
+      }
+
+    case CLOSE_MODAL_ADD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          show: false,
+          uploadedImage: ''
+        }
+      }
+
+    case UPLOAD_IMAGE:
+      return {
+        ...state,
+        modalAddImage: {
+          ...state.modalAddImage,
+          uploadedImage: payload.secure_url
+        }
+      }
+
+    case GET_BRANCH_OFFICES:
+      return {
+        ...state,
+        branchOffices: payload,
+        errorBranchOffices: false
+      }
+
+    case GET_BRANCHES:
+      return {
+        ...state,
+        branches: payload,
+    }
+
     default:
       return state;
   }

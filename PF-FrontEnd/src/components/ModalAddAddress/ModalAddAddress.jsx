@@ -2,7 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { 
   showLoadingParam, getProvincias, getMunicipios, getLocalidades,
-  validatingAddress, normalizeAddress
+  validatingAddress, normalizeAddress, closeModalAddAddress, 
+  resetModalAddAddress, userAddAddress
 } from '../../redux/actions';
 import Loading from '../SVG/Loading';
 import Help from '../SVG/Help';
@@ -15,6 +16,8 @@ export default function ModalAddAddress() {
   const { 
     provincias, municipios, localidades, loadingprovincias, loadingmunicipios, loadinglocalidades, validating, address 
   } = useSelector(state => state.modalAddAddress);
+
+  const { oneuser } = useSelector(state => state.userReducer);
 
   React.useEffect(() => {
     if (!validating && address.length !== 0) { 
@@ -49,7 +52,8 @@ export default function ModalAddAddress() {
   React.useEffect(() => {
     dispatch(showLoadingParam('provincias'));
     dispatch(getProvincias());
-    console.log('Disparo solicitud de provincias.');
+
+    return () => dispatch(resetModalAddAddress());
   }, []);
 
   let handleChange = function(e) {
@@ -60,16 +64,19 @@ export default function ModalAddAddress() {
       [name]: value
     }
 
+    setInputAddress({
+      name: '',
+      valid: false
+    });
+
     if (name === 'provincia' && selection.provincia !== value) {
       dispatch(showLoadingParam('municipios'));
-      console.log('Disparo solicitud de municipios.');
       dispatch(getMunicipios(provincias[value].id));
       newSelection.municipio = '';
       newSelection.localidad = '';
     }
     if (name === 'municipio' && selection.municipio !== value) {
       dispatch(showLoadingParam('localidades'));
-      console.log('Disparo solicitud de localidades');
       dispatch(getLocalidades(municipios[value].id));
       newSelection.localidad = '';
     }
@@ -100,13 +107,28 @@ export default function ModalAddAddress() {
     ));
   }
 
+  let handleCancel = function() {
+    dispatch(closeModalAddAddress());
+  }
+
+  let handleAddAddres = function() {
+    let newAddress = {
+      direction: address[0].nomenclatura,
+      latitude: address[0].ubicacion.lat,
+      longitude: address[0].ubicacion.lon,
+    }
+
+    dispatch(userAddAddress(oneuser.id, newAddress));
+    dispatch(closeModalAddAddress());
+  }
+
   return (
     <div className = {s.globalContainer}>
       <div className = {s.container}>
 
         <div className = {s.banner}>
           <label className = {s.title}>Add Address</label>
-          <label className = {s.btnClose}>X</label>
+          <label className = {s.btnClose} onClick = {handleCancel}>X</label>
         </div>
 
         <div className = {s.mainZone}>
@@ -229,7 +251,7 @@ export default function ModalAddAddress() {
 
           <div className = {s.options}>
             <label className = {s.lblResult}>{resultValidation}</label>
-            <button className = {s.btnOption}>Cancel</button>
+            <button className = {s.btnOption} onClick = {handleCancel}>Cancel</button>
             <button
               className = {s.btnOption}
               disabled = {inputAddress.name.length === 0 || validating}
@@ -237,7 +259,7 @@ export default function ModalAddAddress() {
             >
               Validate
             </button>
-            <button className = {s.btnOption} disabled = {!inputAddress.valid}>Add</button>
+            <button className = {s.btnOption} disabled = {!inputAddress.valid} onClick = {handleAddAddres}>Add</button>
           </div>
 
         </div>

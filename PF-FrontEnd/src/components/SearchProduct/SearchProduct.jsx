@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProductsWithFiltersAndPaginate, updateFilter } from '../../redux/actions';
+import { getProductsWithFiltersAndPaginate, updateFilter, setShowLoading } from '../../redux/actions';
 import { buildFilter } from '../../util';
 import s from './SearchProduct.module.css';
 
@@ -18,7 +18,8 @@ export default function SearchProduct() {
   }
 
   let handleSearch = function() {
-    dispatch(updateFilter({ ...filter, name: inputName }));
+    dispatch(updateFilter({ ...filter, name: inputName, page: 1 }));
+    dispatch(setShowLoading());
     dispatch(getProductsWithFiltersAndPaginate(buildFilter({
       ...filter,
       name: inputName,
@@ -28,7 +29,8 @@ export default function SearchProduct() {
 
   let handleReset = function() {
     setInputName('');
-    dispatch(updateFilter({ ...filter, name: '' }));
+    dispatch(updateFilter({ ...filter, name: '', page: 1 }));
+    dispatch(setShowLoading());
     dispatch(getProductsWithFiltersAndPaginate(buildFilter({
       ...filter,
       name: '',

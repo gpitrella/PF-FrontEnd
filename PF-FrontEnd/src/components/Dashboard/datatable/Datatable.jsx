@@ -1,29 +1,24 @@
 import "./datatable.scss";
+import React from 'react';
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns } from "../../../datatablesource";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers } from '../../../redux/actions/userActions';
+import { getAllUsers } from '../../../redux/actions';
 
+import s from './Datatable.module.css';
 
 const Datatable = () => {
   const dispatch = useDispatch();
 
   const { allusers } = useSelector((state) => state.userReducer);
-  
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  React.useEffect(() => {
+    dispatch(getAllUsers())
+  }, []);
   
   let users = [];
   users = allusers;
-
-// console.log(users[0].useraddress[0])
-
-  // const handleDelete = (id) => {
-  //   users = users.filter((item) => item.id !== id);
-  // };
 
   const actionColumn = [
     {
@@ -32,10 +27,17 @@ const Datatable = () => {
       width: 200,
       renderCell: (params) => {
         return (
-          <div className="cellAction">
+          <div className = {s.cellAction}>
+          {
+            !params.row.admin &&
             <Link to={`/admin/user/edit/${params.row.id}`} style={{ textDecoration: "none" }}>
-              <div className="viewButton">Edit</div>
+              <div className = {s.viewButton}>Edit</div>
             </Link>
+          }
+          {
+              params.row.admin &&
+              <div className = {s.viewButtonRestringed}>-NO ACTION AVALAIBLE-</div>
+          }
 
             {/* <div className="deleteButton"
               onClick={() => handleDelete(params.row.id)}>

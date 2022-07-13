@@ -11,6 +11,9 @@ import ListProducts from './pages/listproduct/Listproduct';
 import notFoundPage from './components/404/NotFoundPage404';
 import CategPage from './components/CategTable/CategPage/CategPage';
 import BrandsPage from './components/BrandsTable/BrandsPage/BrandsPage';
+import ListPurchases from './pages/listpurchases/ListPurchases';
+import PurchaseDetailsPage from './pages/PurchaseDetailsPage/PurchaseDetailsPage';
+import Notifications from './components/Notifications/NotificationPage/NotifiPage';
 
 import "./style/dark.scss";
 
@@ -18,6 +21,7 @@ const Admin = () => {
 
   const { url } = useRouteMatch()
   const { theme } = useSelector(state => state.general);
+  
 
   return (
     <>
@@ -31,6 +35,9 @@ const Admin = () => {
           <Route path = {`${url}/products/list`} component = {ListProducts}/>
           <Route path = {`${url}/products/create`} component = {CreateProductPage}/>
           <Route path = {`${url}/products/edit/:id`} component = {EditProductPage}/>
+          <Route path = {`${url}/purchases/list`} component = {ListPurchases}/>
+          <Route path = {`${url}/purchases/details/:id`} component = {PurchaseDetailsPage}/>
+          <Route path = {`${url}/notifications`} component = {Notifications}/>
           <Route path = '*' component = {notFoundPage} />
         </Switch>    
       </div>

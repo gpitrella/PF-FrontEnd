@@ -49,12 +49,12 @@ export default function Categories () {
                     showDots={true}
                     dotColorActive={'#1976d2'}
                     dotColorInactive={'#dddddd'}
-                    autoplay={1000}
+                    autoplay={3000}
                     >
                         {
                         allCategories?.map((category) =>
-                            <Carousel.Item>
-                                <CategCard key={category.id} name={category.name} image={category.image} />
+                            <Carousel.Item key={category.id}>
+                                <CategCard name={category.name} image={category.image} />
                             </Carousel.Item>
                         )}
                     </Carousel>

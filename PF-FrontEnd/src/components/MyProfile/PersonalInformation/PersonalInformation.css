@@ -30,3 +30,18 @@
 #btn_personalinformation {
     margin-top: 30px;
 }
+
+#avatar_personal_information {
+    justify-content: center;
+    
+}
+
+.myaddress_personalinformation{
+    margin: 0;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    display: block;
+}

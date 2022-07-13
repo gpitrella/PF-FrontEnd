@@ -69,7 +69,7 @@ const CategPage = () => {
           message="Data couldn't be fetched"
           onClose={handleClose}
         />
-        <NewCategoryModal open={openModal} onClose={() => setOpenModal=false} addNewCategory={addNewCategory} />
+        <NewCategoryModal open={openModal} onClose={()=>setOpenModal(false)} addNewCategory={addNewCategory} />
       </div>
     </div>
   )

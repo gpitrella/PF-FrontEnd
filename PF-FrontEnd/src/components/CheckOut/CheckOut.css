@@ -86,3 +86,31 @@
     border-radius: 5px;
     margin-top: 55px;
 }
+
+.img_checkout_page {
+    height: 4rem;
+    object-fit: cover;
+    padding-left: 20px;
+}
+
+#checkout_title_product {
+    width: 25rem;
+}
+
+.img_checkout_secure {
+    width: 5rem;
+    margin-left: -50px;
+}
+
+.main_title_checkout_page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#btn_checkou_editorder {
+    height: 35px;
+    margin-top: 15px;
+}

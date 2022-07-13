@@ -20,7 +20,6 @@
 .img {
   width: 100%;
   height: 100%;
-
   object-fit: contain;
   object-position: top;
 }
@@ -150,6 +149,10 @@
   color: var(--fontColor);
 }
 
+.containerImage {
+  padding: 20px;
+}
+
 .containerButtonsSVG {
   width: 100%;
   display: grid;
@@ -243,7 +246,7 @@
   background-color: var(--dangerColor);
 }
 
-.redHeart > svg:hover {
+.alreadyFavourite > svg {
   fill: var(--dangerColor);
 }
 

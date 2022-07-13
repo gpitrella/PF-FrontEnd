@@ -1,0 +1,14 @@
+.map__container {
+    height: 400px;
+    width: 100vw;
+    margin-top: 50px;
+}
+     
+
+.map__img{
+    width: 45px;
+    
+    height: 45px;
+    cursor: pointer;
+}
+

@@ -19,15 +19,29 @@ import {
   OPEN_PAGE_LOADER,
   CLOSE_PAGE_LOADER,
   ADD_PRODUCT_TO_FAVOURITES,
-  GET_CATEGORIES_TO_STORE,
   GET_FAVOURITES_PRODUCTS,
   REMOVE_FAVOURITE_PRODUCT,
+  SHOW_FAVOURITES,
+  CLOSE_FAVOURITES,
   BASE_URL,
   SUCCESS_BUY,
   LOG_IN_ERROR,
   LOGIN_WITH_GOOGLE,
   NOT_LOGIN_WITH_GOOGLE,
-  CLOSE_LANDING
+  CLOSE_LANDING,
+  GET_ORDER_BY_USER,
+  EDIT_STATUS_ORDER,
+  POST_NEW_ORDER,
+  GET_BRANCHS_OFFICES_WITH_DISTANCE,
+  RESET_CHECKOUT_ADDRESS,
+  SHOW_MODAL_ADD_IMAGE,
+  CLOSE_MODAL_ADD_IMAGE,
+  UPLOAD_IMAGE,
+  CLOUDINARY,
+  GET_BRANCH_OFFICES,
+  FAVOURITES_CHARGED,
+  REMOVE_FAVOURITES_CHARGED,
+  GET_BRANCHES,
 } from './actiontype';
 
 
@@ -58,8 +72,6 @@ export function removeProductFromCart(id){
 // Add Quantity To Product CART:
 export function increaseQuantityToProductCart(id){
   return function(dispatch){
-    console.log('entre a general action')
-
       dispatch({ type: INCREASE_QUANTITY_PRODUCT, payload: id})
   }
 };
@@ -97,7 +109,6 @@ export const logIn = function(email, password) {
 };
 
 export const showMiniModal = function(show = true, msg = '', success = false, error = false) {
-  console.log(show, msg, success, error);
   return {
     type: SHOW_MINI_MODAL,
     payload: {
@@ -124,9 +135,9 @@ export function closeCart(){
 };
 
 // Finish Order:
-export const finishOrder = function(email, items) {
+export const finishOrder = function( email,items, idUser, totalpurchase, idAddress, branchOfficeId ) {
   return function(dispatch){
-    return axios.post(`${BASE_URL}/api/payment`, {email, items})
+    return axios.post(`${BASE_URL}/api/payment`, {email,items, idUser, totalpurchase, idAddress, branchOfficeId})
                 .then(payment => dispatch({ type: FINISH_ORDER, payload: payment}))
                 .catch(error => console.log(error))
   }
@@ -168,30 +179,53 @@ export const logout = function() {
 };
 
 //FAVOURITES PRODUCTS
-export function addProdToFavourites(idUser, idProduct){
+export function addProdToFavourites({ idUser, idProduct }){
   return function(dispatch){
-      return axios.post(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
-                  .then(product => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: product.data[0]}))
+      return axios.post(`${BASE_URL}/api/favorite`, { idUser, idProduct } )
+                  .then(response => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: response.data }))
                   .catch(error => console.log(error))
   }
 };
 
 export function getFavouritesProducts(idUser){
   return function(dispatch){
-    return axios.post(`${BASE_URL}/api/favorite/${idUser}`)
+    return axios.get(`${BASE_URL}/api/ProfileUser/favorites/${idUser}`) 
     .then(response => dispatch({ type: GET_FAVOURITES_PRODUCTS, payload: response.data }))
     .catch(error => console.log(error))
   };
 };
 
-export function removeFavourite(idProduct, idUser){
+export function favoritesCharged(){
+  return {
+    type: FAVOURITES_CHARGED
+  }
+}
+
+export function removeFavoritesCharged(){
+  return {
+    type: REMOVE_FAVOURITES_CHARGED
+  }
+}
+
+export function removeFavourite( id ){
   return function(dispatch){
-    return axios.delete(`${BASE_URL}/api/favorite/`, { idUser, idProduct })
-    .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
-    .catch(error => console.log(error))
+      return axios.delete(`${BASE_URL}/api/favorite`, { data: { id: id.id } })
+      .then(response => dispatch({ type: REMOVE_FAVOURITE_PRODUCT, payload: response.data }))
+      .catch(error => console.log(error))
   };
 };
 
+export function showFavs(){
+  return {
+    type: SHOW_FAVOURITES,
+  }
+};
+
+export function closeFavs(){
+  return {
+    type: CLOSE_FAVOURITES,
+  }
+};
 
 // Success Buy - Remove Product from Cart
 export function successBuyAction(){
@@ -221,3 +255,93 @@ export function closeLanding(){
     type: CLOSE_LANDING,
   }
 };
+
+// Get Order By User:
+export function getOrderByUser(idUser){
+  return function(dispatch){
+    return axios.get(`${BASE_URL}/api/orders/users/${idUser}`)
+        .then(response => dispatch({ type: GET_ORDER_BY_USER, payload: response.data }))
+        .catch(error => console.log(error))
+  };
+};
+
+// Put Status By Order:
+export function putStatusByOrder(id, status){
+  return function(dispatch){
+    return axios.put(`${BASE_URL}/api/orders`, { id, status })
+        .then(response => console.log('Order updated'))
+        .catch(error => console.log(error))
+  };
+};
+
+// Traer sucursales con distancia
+export function getBranchsOfficesWithDistance(lat, long) {
+  return function(dispatch) {
+    return axios.get(`${BASE_URL}/api/branchOffice?lat=${lat}&long=${long}`)
+      .then(response => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: response.data }))
+      .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
+  }
+}
+
+export function resetCheckoutAddress() {
+  return {
+    type: RESET_CHECKOUT_ADDRESS
+  }
+}
+
+// Modal para subir imagen:
+export function showModalAddImage() {
+  return {
+    type: SHOW_MODAL_ADD_IMAGE
+  }
+}
+
+export function closeModalAddImage() {
+  return {
+    type: CLOSE_MODAL_ADD_IMAGE
+  }
+}
+
+export function uploadImage(formData) {
+  return function(dispatch) {
+    return fetch(`${CLOUDINARY}`, { method: 'POST', body: formData })
+      .then(response => response.json())
+      .then(data => dispatch({ type: UPLOAD_IMAGE, payload: data }))
+      .catch(error => console.LOG(error));
+  }
+}
+
+export function getBranchOffices() {
+  return function(dispatch) {
+    return fetch(`${BASE_URL}/api/branchOffice`)
+           .then(response => response.json())
+           .then(data => dispatch({ type: GET_BRANCH_OFFICES, payload: data }))
+           .catch(error => dispatch({ type: GET_BRANCHS_OFFICES_WITH_DISTANCE, payload: { error: true } }))
+  }
+}
+
+export function getBranches() {
+  return function(dispatch) {
+    return fetch(`${BASE_URL}/api/branchOffice`)
+           .then(response => response.json())
+           .then(data => dispatch({ type: GET_BRANCHES, payload: data }))
+           .catch(error => console.log(error))
+  }
+}
+
+export function sendEmail(email) {
+  return function(dispatch) {
+    return axios.post(`${BASE_URL}/api/password`, {email})
+    .then(data => dispatch({ type: LOG_IN_ERROR, payload: data.data}))
+    .catch(error => console.log(error));
+  }
+}
+
+export function updatePassword(password, token) {
+  return function(dispatch) {
+    return axios.put(`${BASE_URL}/api/password`, {password, token})
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+  }
+}
+

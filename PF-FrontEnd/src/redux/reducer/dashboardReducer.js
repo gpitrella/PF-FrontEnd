@@ -1,26 +1,85 @@
 import {
-    PRODUCTS_TO_FORMS,
     CATEGORIES_TO_DASHBOARD,
     CREATE_CATEGORY, 
     CREATE_BRAND,
     UPDATE_BRAND,
     DELETE_BRAND,
     UPDATE_CATEGORY,
-    DELETE_CATEGORY
+    DELETE_CATEGORY,
+    COUNT_ORDERS,
+    SUM_ORDERS,
+    SUM_ORDERS_TODAY,
+    SUM_LAST_WEEK,
+    SUM_LAST_MONTH,
+    SUM_BEFORELAST_MONTH,
+    SUM_LASTTHREE_MONTH,
+    GET_ORDERS_TODAY,
+    GET_ALL_COMMENTS,
+    UPDATE_COMMENT_ANSWER
 } from '../actions/actiontype';
 
 const initialState = {
-    allProducts: [],
     categoriesToDashboard: [],
+    countOrders: 0,
+    totalSales: 0,
+    totalSalesToday: 0,
+    lastSalesWeek: 0,
+    lastSalesMonth: 0,
+    beforeLastMonth: 0,
+    lastThreeMonth: 0,
+    allOrdersToday: [],
+    allComments: [],
+    commentAnswer: {}
 };
 
 const dashboardReducer = function(state = initialState, { type, payload }) {
     switch(type) {
-        case PRODUCTS_TO_FORMS:
+        case COUNT_ORDERS:
             return {
                 ...state,
-                allProducts: payload
+                countOrders: payload
             }
+        case SUM_ORDERS:
+            return {
+                ...state,
+                 totalSales: payload
+            }    
+        
+        case SUM_ORDERS_TODAY:
+            return {
+                ...state,
+                totalSalesToday: payload
+            }    
+
+        case SUM_LAST_WEEK:
+            return {
+                ...state,
+                lastSalesWeek: payload
+                }
+
+        case SUM_LAST_MONTH:
+            return {
+                ...state,
+                lastSalesMonth: payload
+               }    
+        
+        case SUM_BEFORELAST_MONTH:
+            return {
+                ...state,
+                beforeLastMonth: payload
+                }           
+
+        case SUM_LASTTHREE_MONTH:
+            return {
+                ...state,
+                lastThreeMonth: payload
+                }    
+        
+        case GET_ORDERS_TODAY:
+            return {
+                ...state,
+                allOrdersToday: payload
+                }
         case CATEGORIES_TO_DASHBOARD:
             return {
                 ...state,
@@ -55,6 +114,16 @@ const dashboardReducer = function(state = initialState, { type, payload }) {
             return {
                 ...state,
                 payload
+            }
+        case GET_ALL_COMMENTS:
+            return {
+                ...state,
+                allComments: payload
+            }
+        case UPDATE_COMMENT_ANSWER:
+            return {
+                ...state,
+                commentAnswer: payload
             }
         //DEFAULT CASE:
         default:

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 import Sidebar from "../../components/Dashboard/sidebar/Sidebar";
-import { putUserStatus, userStatus, userStatusReset } from '../../redux/actions';
+import { putUserStatus, userStatus, userStatusReset, putUserAdmin } from '../../redux/actions';
 import style from "./Useredit.module.css"
 import "./list.scss"
 
@@ -11,32 +11,21 @@ const Edit = ({match}) => {
    const history = useHistory();
 
     const matchId=match.params.id;
-    console.log(matchId, 'matchId')
-      
+          
     const { allusers, usereditstatusok } = useSelector((state) => state.userReducer);
-    
-    console.log(allusers, 'allusers')
-    
+       
     const user = allusers.filter(function(u){
       return u.id == matchId;
     })
 
-    console.log(user, 'user')
-
-    const useraddress = user[0].useraddresses[0]
-
-    console.log(useraddress, 'useraddress')  
+    const useraddress = user[0].useraddresses[0] 
     
-    
-  
-      const { id, name, email, isactive,  } = user[0]
+      const { id, name, email, isactive, admin  } = user[0]
     
       const [ newstatus, setNewstatus ] = useState(isactive ? "true" : "false");
-             
-      console.log(newstatus)
   
       function handleSelect(e){
-         console.log(e.target.value)
+         
          if(e.target.value === 'true'){
             setNewstatus("true")
          }else {
@@ -48,6 +37,10 @@ const Edit = ({match}) => {
 
       function handleConfirm(){
          dispatch(putUserStatus(id, newstatus))
+      }
+
+      function handleConfirmPromote(){
+         dispatch(putUserAdmin(id));
       }
 
       useEffect(()=>{
@@ -114,6 +107,17 @@ const Edit = ({match}) => {
                 <option value={"false"}>BANED</option>
               </select>
               </div>
+              {
+               user && !admin && isactive &&
+               <div className={style.inputDiv}>
+                  <input 
+                     className={`${style.input} ${style.promote}`}
+                     type="button"
+                     value="Promote to Admin"
+                     onClick={handleConfirmPromote}
+                  />
+              </div>
+              }
               <div className={style.inputDiv}>
                 <input className={style.input} type="button" value="Confirm" onClick={handleConfirm}/>
               </div>
