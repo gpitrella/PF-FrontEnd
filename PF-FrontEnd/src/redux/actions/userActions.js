@@ -149,5 +149,11 @@ export const clearCommentViewer = function() {
   }
 }
 
-
-
+// Convertir usuario a ADMIN
+export const putUserAdmin = function(idUser) {
+  return function(dispatch) {
+    return axios.put(`${BASE_URL}/api/user/role/${idUser}`, { admin: 'true' })
+                .then(res => dispatch({ type: PUT_USER_STATUS })) 
+                .catch(err => console.log(err.response.data))
+  }
+}
