@@ -36,7 +36,7 @@
 }
 
 
-@media (min-width: 420px) {
+@media (max-width: 759px) {
   .container {
     width: 420px;
     height: 420px;

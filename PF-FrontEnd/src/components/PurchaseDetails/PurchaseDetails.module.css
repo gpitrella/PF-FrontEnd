@@ -319,7 +319,7 @@
   margin: 0;
 }
 
-@media (min-width: 450px) {
+@media (max-width: 799px) {
   .container {
     width: 450px;
   }

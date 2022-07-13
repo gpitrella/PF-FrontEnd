@@ -15,7 +15,7 @@ export default function UserPurchaseDetails() {
     history.push('/myprofile/mypurchases/');
   }
 
-  if (!user || !user.user || user.user.admin || user.user.id !== id) history.replace('/');
+  if (!user || !user.user || user.user.admin) history.replace('/');
 
   return (
     <div className = {s.container}>

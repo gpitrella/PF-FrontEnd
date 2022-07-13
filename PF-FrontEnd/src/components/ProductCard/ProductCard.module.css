@@ -20,7 +20,6 @@
 .img {
   width: 100%;
   height: 100%;
-
   object-fit: contain;
   object-position: top;
 }
@@ -148,6 +147,10 @@
 
 .btn:hover {
   color: var(--fontColor);
+}
+
+.containerImage {
+  padding: 20px;
 }
 
 .containerButtonsSVG {

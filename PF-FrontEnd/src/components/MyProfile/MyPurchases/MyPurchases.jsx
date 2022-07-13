@@ -33,7 +33,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
-import { getOrderByUser } from '../../../redux/actions';
+import { getOrderByUser, getUserReviews } from '../../../redux/actions';
 import { visuallyHidden } from '@mui/utils';
 import { useSelector } from "react-redux";
 import Rating from '@mui/material/Rating';
@@ -259,15 +259,13 @@ export default function MyReviews() {
   
   const countReview = (idProduct) => {
     const numberOfReview = userReviews.filter((review) => review.products[0].id === idProduct)
-    console.log(numberOfReview)
-    const numberOfPurchase = totalOrderByUser.filter((order) => order.id === idProduct)
+    const numberOfPurchaseByProduct = totalOrderByUser.filter((order) => order.id === idProduct)
+    const numberOfPurchase = numberOfPurchaseByProduct.filter((order) => order.status === "filled")
     if(numberOfReview < numberOfPurchase) {
-      
        data.status = {
         ...data.status, 
         [idProduct]: true
       };
-      console.log(data)
     }
   }
   
@@ -282,7 +280,7 @@ export default function MyReviews() {
 
   React.useEffect(()=>{
     dispatch(getOrderByUser(user?.user.id));
-  },[])
+  },[userReviews])
 
   React.useEffect(()=>{
     totalOrder()
@@ -290,7 +288,7 @@ export default function MyReviews() {
 
   React.useEffect(()=>{
      totalOrderByUser.map((order) => {
-        countReview(order.id)       
+        countReview(order.id)   
       })
       setWriteReview(data)
   },[totalOrderByUser]);
@@ -349,6 +347,7 @@ export default function MyReviews() {
 const handleSendReview = () => {
   if(user?.user){
     dispatch(postReviewProduct(commentReview, value, idToReview, user?.user.id));
+    // dispatch(getUserReviews(user?.user.id))
     handleClickComment()
     handleCloseReview();
   } 
@@ -428,11 +427,13 @@ const handleCloseSuccessComment = (event, reason) => {
                       <TableCell align="center">{row.status.charAt(0).toUpperCase() + row.status.slice(1)}</TableCell>
                       <TableCell align="center"> {writeReview?.status[row.id] 
                            ? <Button size='small' variant="outlined" onClick={() => handleClickOpenReview(row.id)}>
-                                Review
-                            </Button> 
-                           : 'Done' } 
+                                Review {console.log(writeReview)}
+                              </Button> 
+                           : row.status !== 'filled'
+                                  ? '---'
+                                  : 'Done' } 
                       </TableCell>
-                      <TableCell align="center"><Link to={`/purchases/details/${row.id}`}>See Detail</Link></TableCell>
+                      <TableCell align="center"><Link to={`/myprofile/mypurchases/details/${row.idPurchase}`}>See Detail</Link></TableCell>
                     </TableRow>
                   );
                 })}
