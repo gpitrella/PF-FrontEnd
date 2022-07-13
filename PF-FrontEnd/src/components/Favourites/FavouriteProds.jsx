@@ -46,7 +46,7 @@ export default function FavouriteProducts({showFavs}){
 
   //LIST:
 
-const handleCloseFavourites = (e) => {
+const handleCloseFavourites = () => {
   // e.preventDefault();
   dispatch(closeFavs());
 };
