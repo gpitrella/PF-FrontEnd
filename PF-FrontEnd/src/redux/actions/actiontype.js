@@ -155,6 +155,6 @@ export const GET_BRANCH_OFFICES = 'GET_BRANCH_OFFICES';
 export const GET_BRANCHES = 'GET_BRANCHES';
 
 // BASE URL
-export const BASE_URL = 'https://techmarketapp.herokuapp.com';
-// export const BASE_URL = 'http://localhost:3001';
+// export const BASE_URL = 'https://techmarketapp.herokuapp.com';
+export const BASE_URL = 'http://localhost:3001';
 export const CLOUDINARY = 'https://api.cloudinary.com/v1_1/techmarket/image/upload';
