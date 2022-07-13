@@ -37,7 +37,8 @@ import {
   UPLOAD_IMAGE,
   GET_BRANCH_OFFICES,
   FAVOURITES_CHARGED,
-  REMOVE_FAVOURITES_CHARGED
+  REMOVE_FAVOURITES_CHARGED,
+  GET_BRANCHES
 } from '../actions/actiontype';
 
 import { LocalStorage } from '../../util/localStorage';
@@ -74,6 +75,7 @@ const initialState = {
   // Traer Sucursales con Distancia para el Checkout
   errorBranchOffices: false,
   branchOffices: [],
+  branches:[],
   // La reutilizo en branchs.
 
   modalAddImage: {
@@ -387,6 +389,12 @@ const generalReducer = function(state = initialState, { type, payload }) {
         branchOffices: payload,
         errorBranchOffices: false
       }
+
+    case GET_BRANCHES:
+      return {
+        ...state,
+        branches: payload,
+    }
 
     default:
       return state;

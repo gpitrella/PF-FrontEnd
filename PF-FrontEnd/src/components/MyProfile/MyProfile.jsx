@@ -115,7 +115,7 @@ export default function MyProfile() {
         </CardActions>
       </Card>
       <Card id='individual_box_myprofile' sx={displayUserAdmin ? { display: 'none' } : { display: 'block', width: 200, height: 200 }}>
-        <CardActionArea>
+        <CardActionArea >
           <Link to='/myprofile/myreviews'>
             <CardMedia className='personal_myreview'
               component="img"

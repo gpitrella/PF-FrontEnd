@@ -22,10 +22,8 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ScrollToTop from "react-scroll-to-top";
@@ -260,8 +258,8 @@ export default function NavBar() {
         </Typography>
       </MenuItem>
 
-      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={showCartNavBar}>
+      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'flex' }}>
+        <IconButton size="large" aria-label="show new mails" color="inherit" onClick={showCartNavBar}>
           <Badge badgeContent={productsCart?.length} color="error">
             <ShoppingCartIcon/>
           </Badge>
@@ -295,7 +293,11 @@ export default function NavBar() {
         <p>Dashboard</p>
       </MenuItem>
 
-      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+      <MenuItem sx={!displayUser 
+                    ? { display: 'none' } 
+                    : displayUserAdmin
+                              ? { display: 'none' }
+                              : { display: 'flex' }}>
         <IconButton size="large" aria-label="show new mails" color="inherit">
           <Badge badgeContent={notification} color="error">
             <MailIcon onClick={handleNotification}/>
@@ -304,7 +306,11 @@ export default function NavBar() {
         <p>Messages</p>
       </MenuItem>
 
-      <MenuItem sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+      <MenuItem sx={!displayUser 
+                    ? { display: 'none' } 
+                    : displayUserAdmin
+                              ? { display: 'none' }
+                              : { display: 'flex' }}>
         <IconButton
           size="large"
           aria-label="show new notifications"
@@ -428,7 +434,7 @@ export default function NavBar() {
           
             <IconButton 
                   size="large" 
-                  aria-label="show 4 new mails" 
+                  aria-label="show new mails" 
                   color="inherit" 
                   onClick={showCartNavBar}
                   sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
@@ -463,7 +469,11 @@ export default function NavBar() {
                   aria-label="favourites" 
                   color="inherit" 
                   onClick={showFavsNavBar}
-                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+                  sx={!displayUser 
+                    ? { display: 'none' } 
+                    : displayUserAdmin
+                              ? { display: 'none' }
+                              : { display: 'inline-flex' }}>
                 <Badge badgeContent={favouritesProducts?.length} color="error">
                     <FavoriteIcon />
                 </Badge>
@@ -473,7 +483,11 @@ export default function NavBar() {
                   size="large" 
                   aria-label="show new mails" 
                   color="inherit"
-                  sx={displayUserAdmin ? { display: 'none' } : { display: 'inline-flex' }}>
+                  sx={!displayUser 
+                            ? { display: 'none' } 
+                            : displayUserAdmin
+                                      ? { display: 'none' }
+                                      : { display: 'inline-flex' }}>
               <Badge badgeContent={notification} color="error">
                 <MailIcon className="links_general" onClick={handleNotification}/>
               </Badge>
