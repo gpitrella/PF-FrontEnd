@@ -67,7 +67,7 @@ export default function ProductCard({ id, name, image, category, price, discount
             {
               user && user.user && !user.user.admin &&
               <div className = {`${s.containerSVG} ${favouritesProducts?.some(product => product.id === id) ? s.alreadyFavourite : ''}`}>
-                <Heart />
+                <Heart id={id}/>
               </div>
             }
             {

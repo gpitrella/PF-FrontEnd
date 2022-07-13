@@ -72,8 +72,6 @@ export function removeProductFromCart(id){
 // Add Quantity To Product CART:
 export function increaseQuantityToProductCart(id){
   return function(dispatch){
-    console.log('entre a general action')
-
       dispatch({ type: INCREASE_QUANTITY_PRODUCT, payload: id})
   }
 };
@@ -182,7 +180,6 @@ export const logout = function() {
 
 //FAVOURITES PRODUCTS
 export function addProdToFavourites({ idUser, idProduct }){
-  console.log(idUser, idProduct)
   return function(dispatch){
       return axios.post(`${BASE_URL}/api/favorite`, { idUser, idProduct } )
                   .then(response => dispatch({ type: ADD_PRODUCT_TO_FAVOURITES, payload: response.data }))
