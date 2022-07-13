@@ -16,7 +16,9 @@ import {
    SUM_LAST_MONTH,
    SUM_BEFORELAST_MONTH,
    SUM_LASTTHREE_MONTH,
-   GET_ORDERS_TODAY
+   GET_ORDERS_TODAY,
+   GET_ALL_COMMENTS,
+   UPDATE_COMMENT_ANSWER
 } from './actiontype';
 
 const PATH_GET_BRANDS = `${BASE_URL}/api/manufacturer`;
@@ -204,3 +206,22 @@ export const createCategory = ({ name }) => {
         }
     }
   };
+
+  
+  export function getAllComments( ){
+    return function(dispatch){
+        return axios.get(`${BASE_URL}/api/comments`)
+        .then(response => dispatch({ type: GET_ALL_COMMENTS, payload: response.data }))
+        .catch(error => console.log(error))
+    };
+  };
+
+  //Put Comment Answer
+export const putCommentAnswer = function(data) {
+  return function(dispatch){
+    return axios.put(`${BASE_URL}/api/comments`, {idComment: data.id, answer: data.answer})
+                .then(comment => dispatch({type: UPDATE_COMMENT_ANSWER}))
+                .catch(error => console.log(error))
+  }
+};
+
