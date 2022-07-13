@@ -13,7 +13,9 @@ import {
     SUM_LAST_MONTH,
     SUM_BEFORELAST_MONTH,
     SUM_LASTTHREE_MONTH,
-    GET_ORDERS_TODAY
+    GET_ORDERS_TODAY,
+    GET_ALL_COMMENTS,
+    UPDATE_COMMENT_ANSWER
 } from '../actions/actiontype';
 
 const initialState = {
@@ -25,7 +27,9 @@ const initialState = {
     lastSalesMonth: 0,
     beforeLastMonth: 0,
     lastThreeMonth: 0,
-    allOrdersToday: []
+    allOrdersToday: [],
+    allComments: [],
+    commentAnswer: {}
 };
 
 const dashboardReducer = function(state = initialState, { type, payload }) {
@@ -110,6 +114,16 @@ const dashboardReducer = function(state = initialState, { type, payload }) {
             return {
                 ...state,
                 payload
+            }
+        case GET_ALL_COMMENTS:
+            return {
+                ...state,
+                allComments: payload
+            }
+        case UPDATE_COMMENT_ANSWER:
+            return {
+                ...state,
+                commentAnswer: payload
             }
         //DEFAULT CASE:
         default:

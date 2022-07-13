@@ -7,7 +7,7 @@ import Widget from "../../components/Dashboard/widget/Widget";
 import Featured from "../../components/Dashboard/featured/Featured";
 import Chart from "../../components/Dashboard/chart/Chart";
 import Table from "../../components/Dashboard/table/Table";
-import { countAllOrders, getAllUsers, getOrdersToday, sumAllOrders, sumAllToday, sumBeforeLastMonth, sumLastMonth, sumLastThreeMonth, sumLastWeek } from '../../redux/actions';
+import { countAllOrders, getAllUsers, getOrdersToday, sumAllOrders, sumAllToday, sumBeforeLastMonth, sumLastMonth, sumLastThreeMonth, sumLastWeek, getAllComments } from '../../redux/actions';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
@@ -26,7 +26,8 @@ const Home = () => {
     dispatch(sumLastMonth());
     dispatch(sumBeforeLastMonth());
     dispatch(sumLastThreeMonth());
-    dispatch(getOrdersToday())
+    dispatch(getOrdersToday());
+    dispatch(getAllComments());
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
