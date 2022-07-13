@@ -5,15 +5,14 @@ import ShowResultCount from '../ShowResultCount/ShowResultCount';
 import ProductCard from '../ProductCard/ProductCard';
 import LoadingStore from '../LoadingStore/LoadingStore';
 import { addProductToCart, closeStore, getProductsWithFiltersAndPaginate,
-          setShowLoading, updateFilter } from '../../redux/actions';
+          showCart, successBuyAction, updateFilter } from '../../redux/actions';
 import { buildFilter } from '../../util';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { Button } from '@mui/material';
+import CommonButton from '../common/CommonButton/CommonButton';
 
 import s from './BuildPC.module.css';
-import Loading from '../SVG/Loading';
-import CustomizedSteppers from './Stepper';
 
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
@@ -22,10 +21,18 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Check from '@mui/icons-material/Check';
-import SettingsIcon from '@mui/icons-material/Settings';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import VideoLabelIcon from '@mui/icons-material/VideoLabel';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import FinishedModal from './FinishedModal';
+import motherBoard from './assets/motherboard.png';
+import cpuProcessor from './assets/cpu.png';
+import memory from './assets/memory.png';
+import graphicCard from './assets/graphic-card.png';
+import diskDrive from './assets/hard-drive.png';
+import cpuCase from './assets/case.png';
+import monitor from './assets/monitor.png';
+import keyboard from './assets/keyboard.png';
+import mouse from './assets/mouse.png';
+
 
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -119,15 +126,15 @@ const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
     height: 3,
     border: 0,
     backgroundColor:
-      theme.palette.mode === 'var(secondaryColor)',
+      theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
     borderRadius: 1,
   },
 }));
 
 const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-  backgroundColor: 'var(--primaryColor)',
+  backgroundColor: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#ccc',
   zIndex: 1,
-  color: 'var(--fontColor)',
+  color: '#fff',
   width: 50,
   height: 50,
   display: 'flex',
@@ -149,9 +156,16 @@ function ColorlibStepIcon(props) {
   const { active, completed, className } = props;
 
   const icons = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    1: <img className={s.icons} src={motherBoard} alt="motherboard" />,
+    2: <img className={s.icons} src={cpuProcessor} alt="cpuProcessor" />,
+    3: <img className={s.icons} src={memory} alt="memoryRam" />,
+    4: <img className={s.icons} src={graphicCard} alt="graphicCard" />,
+    5: <img className={s.icons} src={diskDrive} alt="diskDrive" />,
+    6: <img className={s.icons} src={cpuCase} alt="cpuCase" />,
+    7: <img className={s.icons} src={monitor} alt="monitor" />,
+    8: <img className={s.icons} src={keyboard} alt="keyboard" />,
+    9: <img className={s.icons} src={mouse} alt="mouse" />,
+    
   };
 
   return (
@@ -179,7 +193,7 @@ ColorlibStepIcon.propTypes = {
   icon: PropTypes.node,
 };
 
-const steps = ['Select a DISK DRIVE', 'Select a GRAPHIC CARD', 'Select a CPU PROCESSORS', 'Select your MONITOR', 'Select your KEYBOARD', 'Select a MOUSE', 'Select a MODEM ROUTER', ' Select your PC COMPONENTS'];
+const steps = ['Select a MOTHERBOARD', 'Select a CPU PROCESSOR', 'Select a MEMORY RAM', 'Select a GRAPHIC CARD', 'Select a DISK DRIVE', 'Select a CPU CASE', 'Select a MONITOR', 'Select a KEYBOARD', 'Select a MOUSE'];
 
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -190,29 +204,36 @@ export default function BuildPC() {
 
   const dispatch = useDispatch();
   const { showLoading, showError, showStore, products, noProducts, filter, results } = useSelector(state => state.storepage);
-  const categoryOrder = ["DISK DRIVES", "GRAPHIC CARDS", "CPU PROCESSORS", "MONITORS", "KEYBOARDS", "MOUSE", "MODEM ROUTER", "PC COMPONENTS"];
+  const categoryOrder = ["MOTHERBOARD", "CPU PROCESSORS", "MEMORY RAM", "GRAPHICS CARDS", "DISK DRIVES", "COMPUTER CASES", "MONITORS", "KEYBOARDS", "MOUSE"]; 
   const [ next, setNext ] = useState(false);
-  const [ prev, setPrev ] = useState(true);
+  const [ prev, setPrev ] = useState(false);
+  const [ init, setInit ] = useState(true);
   const [ finished, setFinished ] = useState(false);
   const [ disabledBtn, setDisabledBtn ] = useState(false); 
   const [ filterUpdated, setFilterUpdated ] = useState(false);
   const [openSuccessAddToCart, setOpenSuccessAddToCart] = useState(false);
+  const [ index, setIndex ] = useState(0);
+  const [openModal, setOpenModal] = useState(false);
 
-  let index = 0;
 
   useEffect(() => {
 
     let idTimeOut = setTimeout(() => {
   
-      if (next && index < categoryOrder.length) {
-        index++
+      if (next && (index < categoryOrder.length)) {
+        setNext(false);
         handleUpdateFilter('category', categoryOrder[index]);
-      } else if (index >= categoryOrder.length) return setFinished(true);
+      }
+      if (next && index >= categoryOrder.length) {
+        setFinished(true);
+        setOpenModal(true);
+      }
        
-      if (prev && index > 0) {
-        index--
+      if (prev && (index > 0)) {
+        setPrev(false);
         handleUpdateFilter('category', categoryOrder[index]);
-      } else if (index <= 0) return setDisabledBtn(true)
+      }
+      if (prev && index <= 0) return setDisabledBtn(true)
 
     }, Math.random() * 400 + 1000);
 
@@ -220,18 +241,30 @@ export default function BuildPC() {
       dispatch(closeStore());
       clearTimeout(idTimeOut);
     }
-  }, [dispatch, next, prev])
+  }, [next, prev])
 
 
   useEffect(() => {
-
+    if(init){
+      dispatch(successBuyAction());
+      setInit(false);
       dispatch(getProductsWithFiltersAndPaginate(buildFilter({
         ...filter,
+        name: '',
         category:  !finished ? categoryOrder[index] : 'None',
         page: 1,
-        name: ''
       })));
-  }, [filterUpdated]);
+    } 
+    if(filterUpdated){
+      setFilterUpdated(false);
+      dispatch(getProductsWithFiltersAndPaginate(buildFilter({
+        ...filter,
+        name: '',
+        category:  !finished ? categoryOrder[index] : 'None',
+        page: 1,
+      })));
+    }      
+  }, [init, filterUpdated]);
 
   let handleUpdateFilter = function(property, value) {
     let newFilter = { 
@@ -244,10 +277,23 @@ export default function BuildPC() {
     dispatch(updateFilter(newFilter));
   };
 
-
-  const handleAddToCart = (id) => {
+  const handleNext = () => {
+    setIndex(index+1);
+    if(index === categoryOrder.length) return setFinished(true);
     setNext(true);
+  }
 
+  const handlePrev = () => {
+    if(index>0){
+      setIndex(index-1);
+      setPrev(true); 
+      if(index <= 0) return setDisabledBtn(true)
+    }
+  }
+  const handleAddToCart = (id) => {
+    setIndex(index+1);
+    if(index === categoryOrder.length) return setFinished(true);
+    setNext(true);
     dispatch(addProductToCart(id));
     setOpenSuccessAddToCart(true);
   };
@@ -260,23 +306,22 @@ export default function BuildPC() {
   };
 
   
+  const openCart = () => {
+    dispatch(showCart());
+    setOpenModal(false);
+};
+
+  
   return (
     <div className = {s.container}>
       <div className = {s.title}>
-        BUILD YOUR OWN PC!
+        CUSTOMIZE YOUR PC!
         </div>
       <div className = {s.containerGrid}>
         
         <div className = {s.stepper}>
-        <Stack sx={{ width: '100%' }} spacing={4}>
-          <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
-              </Step>
-              ))}
-          </Stepper>
-          <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
+        <Stack sx={{ width: '100%', mt: 0, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }} spacing={4}>
+          <Stepper alternativeLabel activeStep={index} connector={<ColorlibConnector />}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
@@ -285,16 +330,31 @@ export default function BuildPC() {
           </Stepper>
         </Stack>
         </div>
-        
+
+        <div className={s.btnContainer}>
+          <CommonButton variant="contained" disabled={disabledBtn} onClick={() => handlePrev()}>
+            Prev
+          </CommonButton>
+          <CommonButton variant="contained" disabled={finished} onClick={() => handleNext()}>
+            Next
+          </CommonButton>
+        </div>
+
+        {
+          !finished &&
+
         <div className = {s.subHeaderZone}>
 
           <ShowResultCount loading = {showLoading} results = {results} page = {filter.page} pages = {filter.pages} />
         </div>
-        <div className = {s.pagination}>
-          <Pagination />
-        </div>
+        }
         {
-          !showLoading && !showError && products && products.length > 0 &&
+          !finished && !showLoading && !showError && products && products.length > 0 &&
+          <>
+          <div className = {s.pagination}>
+            <Pagination />
+          </div>
+
           <div className = {s.producCardsStore}>
             <div className = {s.cardsContainer}>
             {
@@ -314,18 +374,20 @@ export default function BuildPC() {
                 />
               </Button>
               )}
-            </div>  
+            </div> 
             <Snackbar open={openSuccessAddToCart} autoHideDuration={6000} onClose={handleCloseSuccessComment}>
               <Alert onClose={handleCloseSuccessComment} severity="success" sx={{ width: '100%' }}>
                 Product Added to Cart!
               </Alert>
             </Snackbar>          
           </div>
-        }
         <LoadingStore loading = {showLoading} error = {showError} noResults = {noProducts}/>
-        <div className = {s.paginationBottom}>
-          <Pagination />
-        </div>
+        </>
+        }
+
+        { finished &&
+          <FinishedModal open={openModal} onClose={() => setOpenModal(false)} openCart={openCart} />
+        }
       </div>
     </div>
   );

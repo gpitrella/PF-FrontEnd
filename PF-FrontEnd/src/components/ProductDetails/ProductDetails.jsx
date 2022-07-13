@@ -98,7 +98,7 @@ export default function ProductDetails (){
     
     React.useEffect(() => {
         dispatch(getProductDetails(id));
-    }, [commentCreated, reviewCreated]);
+    }, [commentCreated, reviewCreated, id]);
 
     // Cartel desplegable de Login
     const [openLogin, setOpenLogin] = React.useState(false);
@@ -216,10 +216,15 @@ export default function ProductDetails (){
     };
 
     React.useEffect(() => {
-        dispatch(showLoadingSectionOne());
+        // dispatch(showLoadingSectionOne());
         dispatch(showLoadingSectionTwo());
-        dispatch(showLoadingSectionThree());
-    
+        // dispatch(showLoadingSectionThree());
+        if (allCategories.length > 0 && brandsList.length > 0 && !loadingSections) { 
+            setLoadingSections(true);
+        }
+        getRandomLists();
+        setLoadingSections(false);
+        
         return () => {
           dispatch(resetSections());
           setChooseSection({
@@ -229,24 +234,25 @@ export default function ProductDetails (){
           });
           setLoadingSections(false);
         }
-      }, []);
+      }, [id]);
 
     React.useEffect(() => {
-    if (allCategories.length > 0 && brandsList.length > 0 && !loadingSections) { 
-        getRandomLists();
-        setLoadingSections(true);
-    }
-    }, [allCategories, brandsList]);
+        if (allCategories.length > 0 && brandsList.length > 0 && !loadingSections) { 
+            getRandomLists();
+            setLoadingSections(true);
+        }
+    }, [allCategories, brandsList, id]);
 
     let getRandomLists = function() {
     let sectionTwo = productDetails?.categories ? productDetails?.categories[0] : chooseRandom(allCategories)
-    let sectionThree = chooseRandom(brandsList);
+    // let sectionThree = chooseRandom(brandsList);
 
     dispatch(getProductsToSectionTwo(`page=1&category=${sectionTwo}&size=10&order=random`));
+    console.log('trayendo productos relacionados')
 
     setChooseSection({
         two: sectionTwo,
-        three: sectionThree,
+        // three: sectionThree,
         show: true
     });
     }

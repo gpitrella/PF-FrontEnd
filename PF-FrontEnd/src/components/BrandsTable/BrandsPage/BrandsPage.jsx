@@ -51,7 +51,7 @@ const BrandsPage = () => {
             position: "absolute",
             mt: 2,
             ml: 120,
-            justifyContent: "end",
+            justifyContent: "flex-end",
           }}
         >
           New Brand
