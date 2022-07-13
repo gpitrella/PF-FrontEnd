@@ -111,6 +111,12 @@ const headCells = [
     disablePadding: false,
     label: 'Write Review',
   },
+  {
+    id: 'detail',
+    numeric: true,
+    disablePadding: false,
+    label: 'See Purchase Detail',
+  }
 ];
 
 function EnhancedTableHead(props) {
@@ -426,6 +432,7 @@ const handleCloseSuccessComment = (event, reason) => {
                             </Button> 
                            : 'Done' } 
                       </TableCell>
+                      <TableCell align="center"><Link to={`/purchases/details/${row.id}`}>See Detail</Link></TableCell>
                     </TableRow>
                   );
                 })}
