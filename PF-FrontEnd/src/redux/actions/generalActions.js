@@ -239,6 +239,7 @@ export function loginWithGoogle() {
     // return axios.get(`${BASE_URL}/auth/login/success`, { withCredentials: true })
     fetch(`${BASE_URL}/auth/login/success`, {
         method: "GET",
+        withCredentials: true,
         credentials: "include",
         headers: {
           Accept: "application/json",
