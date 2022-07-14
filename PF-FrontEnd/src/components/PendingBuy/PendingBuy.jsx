@@ -34,7 +34,8 @@ export default function PendingBuy(){
     }, [orderByUser]);
 
     const handleOpenPage = () => {
-        history.push('/https://techmarketfront.vercel.app');
+        history.push('/');
+        window.location.reload(false)
     }
     
 

@@ -22,7 +22,8 @@ export default function SuccessBuy(){
     }, []); 
 
     const handleOpenPage = () => {
-        history.push('/https://techmarketfront.vercel.app');
+        history.push('/');
+        window.location.reload(false)
     }
 
     React.useEffect(() => {
