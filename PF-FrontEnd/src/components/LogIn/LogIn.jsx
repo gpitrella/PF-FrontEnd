@@ -150,10 +150,10 @@ const LogIn = () => {
           </div>
 
           <div className='login__google' >
-          <div className="login__btn-google " onClick={google}>
+          {/*<div className="login__btn-google " onClick={google}>
           <img src={Google} alt="" className="icon" />
           Google
-          </div>
+          </div>*/}
           </div>
           <p className="login__text">No account yet? <Link to='/signup' className="link">Sign up here!</Link></p>
 
