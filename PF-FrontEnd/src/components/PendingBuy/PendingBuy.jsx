@@ -1,7 +1,7 @@
 import React from "react";
 import buypending from './img/buypending.gif';
 import Button from '@mui/material/Button';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory} from 'react-router-dom';
 import { successBuyAction, getOrderByUser, putStatusByOrder, closeLanding } from "../../redux/actions";
 import { useDispatch, useSelector } from 'react-redux';
 import './PendingBuy.css';
@@ -9,6 +9,7 @@ import './PendingBuy.css';
 export default function PendingBuy(){
     const { user } = useSelector((state) => state.general);
     const { orderByUser } = useSelector((state) => state.general)
+    const history = useHistory();
     const search = useLocation().search;
     const idMP = new URLSearchParams(search).get('preference_id');
     const status = new URLSearchParams(search).get('collection_status');
@@ -30,7 +31,11 @@ export default function PendingBuy(){
             }
         }
         
-    }, [orderByUser]);  
+    }, [orderByUser]);
+
+    const handleOpenPage = () => {
+        history.push('/https://techmarketfront.vercel.app');
+    }
     
 
     return (
@@ -45,9 +50,7 @@ export default function PendingBuy(){
                     Contact your bank to ask about your pending purchase, <br></br>
                     or contact Us and we check any problem about your order. 
                 </p>
-                <Link to="https://techmarketfront.vercel.app">
-                    <Button id="button_less" variant="outlined" size="medium"> HOME </Button>
-                </Link>
+                    <Button id="button_less" variant="outlined" size="medium" onClick={handleOpenPage}> HOME </Button>
             </div>
         </div>
     )

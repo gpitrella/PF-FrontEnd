@@ -2,13 +2,14 @@ import React from "react";
 import compraok from './img/buyok.gif';
 import Button from '@mui/material/Button';
 import { successBuyAction, getOrderByUser, putStatusByOrder, closeLanding } from "../../redux/actions";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './SuccessBuy.css';
 
 export default function SuccessBuy(){
     const { user } = useSelector((state) => state.general);
     const { orderByUser } = useSelector((state) => state.general)
+    const history = useHistory();
     const search = useLocation().search;
     const idMP = new URLSearchParams(search).get('preference_id');
     const status = new URLSearchParams(search).get('collection_status');
@@ -19,6 +20,10 @@ export default function SuccessBuy(){
         dispatch(successBuyAction());
         dispatch(closeLanding());
     }, []); 
+
+    const handleOpenPage = () => {
+        history.push('/https://techmarketfront.vercel.app');
+    }
 
     React.useEffect(() => {
         if(orderByUser){
@@ -43,9 +48,7 @@ export default function SuccessBuy(){
                     We invite you to search for more <br></br>
                     products that you are needing. 
                 </p>
-                <Link to="https://techmarketfront.vercel.app">
-                    <Button id="button_less" variant="outlined" size="medium"> HOME </Button>
-                </Link>
+                <Button id="button_less" variant="outlined" size="medium" onClick={handleOpenPage}> HOME </Button>
             </div>
         </div>
     )
