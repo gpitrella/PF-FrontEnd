@@ -236,9 +236,20 @@ export function successBuyAction(){
 
 export function loginWithGoogle() {
   return function(dispatch){
-    return axios.get(`${BASE_URL}/auth/login/success`, { withCredentials: true })
+    // return axios.get(`${BASE_URL}/auth/login/success`, { withCredentials: true })
+    fetch(`${BASE_URL}/auth/login/success`, {
+        method: "GET",
+        withCredentials: true,
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+    .then(response => response.json())
     .then(data => {
-      dispatch({ type: LOGIN_WITH_GOOGLE, payload: data.data.user }) })
+      dispatch({ type: LOGIN_WITH_GOOGLE, payload: data.user }) })
     .catch(error => dispatch({ type: LOGIN_WITH_GOOGLE, payload: {} }))
   };
 }

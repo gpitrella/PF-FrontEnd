@@ -82,10 +82,10 @@ export default function ProductCard({ id, name, image, category, price, discount
 
          <div className = {s.rating}>
 
-            <div className = {s.containerStar}>
+            {/*<div className = {s.containerStar}>
               <img src = {star} className = {s.img} alt = 'star' />
             </div>
-            <span className = {s.spanRating}>{rating}</span>
+            <span className = {s.spanRating}>{rating}</span>*/}
           </div>
 
       </div>
