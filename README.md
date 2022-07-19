@@ -104,37 +104,36 @@ https://techmarketfront.vercel.app/
     + email: bettinaigamboa@gmail.com
 
 - Federico Faraz
-www.linkedin.com/in/federicofaraz-fullstack
-https://github.com/cosm1co
-email: federicofaraz@gmail.com
+    + Linkedin: www.linkedin.com/in/federicofaraz-fullstack
+    + Github: https://github.com/cosm1co
+    + email: federicofaraz@gmail.com
 
 - Federico Romero
-https://www.linkedin.com/in/federico-romero-fullstack
-https://github.com/RomeroFederico
-email: romerof14@gmail.com
+    + Linkedin: https://www.linkedin.com/in/federico-romero-fullstack
+    + Github: https://github.com/RomeroFederico
+    + email: romerof14@gmail.com
 
 - Nicolas Burgos
-https://www.linkedin.com/in/nicolas-exequiel-burgos-fullstackdeveloper/
-https://github.com/NicoPR22
-email: nicolasexeburgos@gmail.com
+    + Linkedin: https://www.linkedin.com/in/nicolas-exequiel-burgos-fullstackdeveloper/
+    + Github: https://github.com/NicoPR22
+    + email: nicolasexeburgos@gmail.com
 
 - Enzo Sanchez
-https://www.linkedin.com/in/enzo-sanchez-733b85165/
-https://github.com/Enzos97
-email: enz997.ing.ind@gmail.com
+    + Linkedin: https://www.linkedin.com/in/enzo-sanchez-733b85165/
+    + Github: https://github.com/Enzos97
+    + email: enz997.ing.ind@gmail.com
 
 - Lucas
 
 - Horacio Aribu
-https://www.linkedin.com/in/horacioabitu/
-https://github.com/dev-back55
-email: ahabitu@gmail.com
+    + Linkedin: https://www.linkedin.com/in/horacioabitu/
+    + Github: https://github.com/dev-back55
+    + email: ahabitu@gmail.com
 
 - Gabriel Pitrella
-https://github.com/gpitrella
-email: gabrielpitrella@gmail.com
-
-
+    + Linkedin: https://www.linkedin.com/in/gabrielpitrella
+    + Github: https://github.com/gpitrella
+    + email: gabrielpitrella@gmail.com
 
 # Project Screens 
 
