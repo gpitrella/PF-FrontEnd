@@ -153,25 +153,34 @@ https://techmarketfront.vercel.app/
 ![StoreTechMarket](https://user-images.githubusercontent.com/71048358/179776365-f81b1888-ca14-4f45-8f1e-f11ab2c97903.jpg)
 
  - Products in detail
-![Products-detail](https://user-images.githubusercontent.com/66705822/99190009-f8c64400-2742-11eb-84f9-682887512d27.png)
+![ProductDetailsTechMarket](https://user-images.githubusercontent.com/71048358/179791201-eabf8df5-00b4-4872-9750-5422ccad75a8.jpg)
 
 - User Profile
 ![UserProfileTechMarket](https://user-images.githubusercontent.com/71048358/179780809-b1d61ead-5763-47cc-ac21-1152199c551a.jpg)
+    + We can add reviews to the products that we had purchase
+![MyReviews](https://user-images.githubusercontent.com/71048358/179792905-e5463929-7b0d-4ebf-a28c-c2b6380e02b4.jpg)
+    + Order Details
+![OrderDetails](https://user-images.githubusercontent.com/71048358/179792968-e2740f5f-358d-47ca-9418-ba5102998b4e.jpg)
 
- - Cart
-![cart](https://user-images.githubusercontent.com/66705822/99190035-0d0a4100-2743-11eb-8a89-d1a00ffd13ca.png)
+- Cart
+![ProductCart](https://user-images.githubusercontent.com/71048358/179792632-ca441602-61fa-4acd-9723-48816aa2a996.jpg)
+
+- Whish List
+![WishList](https://user-images.githubusercontent.com/71048358/179792750-76d6291f-6faa-4bc2-bc39-1fc474751200.jpg)
 
 - Checkout. You can pay using paypal or with a debit/credit card
-![Checkout](https://user-images.githubusercontent.com/66705822/99190228-2790ea00-2744-11eb-82d8-8663ba6dfc9b.png)
-
-- Profile
-![profile](https://user-images.githubusercontent.com/66718960/99322129-103e2380-284e-11eb-8d1d-9e1bf4365633.JPG) 
-
- - We can add reviews to the products that we had purchase
-![add-review](https://user-images.githubusercontent.com/66705822/99190564-f31e2d80-2745-11eb-80d8-e53ae7cc1ab2.png)
-
- - After add a review we can see it in products-detail
-![reviews-footer](https://user-images.githubusercontent.com/66705822/99190568-f74a4b00-2745-11eb-92db-e8ff50a8e951.png)
+![CheckOut](https://user-images.githubusercontent.com/71048358/179793148-1475c534-ef78-4513-a50c-7dab30d556ee.jpg)
 
 - There is an admin section where we have a CRUD of products, categories, orders and users.
-![Admin-panel](https://user-images.githubusercontent.com/66705822/99190252-47281280-2744-11eb-92bb-210656defceb.png)
+![AdminPanel](https://user-images.githubusercontent.com/71048358/179793341-17d492c1-8615-474c-a11b-28ad6177f291.jpg)
+    + Admin Panel view all products and admin can edit each product.
+![AdminPanel1](https://user-images.githubusercontent.com/71048358/179793395-0a7f9c60-4d09-4592-a590-7b3eb63783b5.jpg)
+    + Admin can view all orders and update each order.
+![AdminPanel2](https://user-images.githubusercontent.com/71048358/179793745-914cab7a-d4c3-48ee-a284-739e046300cb.jpg)
+    + Admin can edit each categories and brand or create and detele this.
+![AdminPanel3](https://user-images.githubusercontent.com/71048358/179793915-8ad09e6e-3b8c-42f5-9e53-c5b3261efdba.jpg)
+
+
+
+
+
