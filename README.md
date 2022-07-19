@@ -102,7 +102,7 @@ https://techmarketfront.vercel.app/
 ![LandingTechMarket](https://user-images.githubusercontent.com/71048358/179772764-d54866ec-1910-4a76-a9e3-0dfd1b4d6263.jpg)
 
 - Home Page when we go in
-![LoginUsers](https://user-images.githubusercontent.com/71048358/179774774-4640d071-7571-4753-8634-203c571c8ce5.jpg)
+![HomePageTechMarket](https://user-images.githubusercontent.com/71048358/179773853-9624e93e-224d-4953-bb38-0cc91b6b4bdb.jpg)
 
 - Register, we can do it using the ecommerce platform (by form) or authenticate with github.
 ![LoginUsers](https://user-images.githubusercontent.com/71048358/179776679-cd9fe376-0dfa-4e1d-be92-c5a2dda6c0d0.jpg)
