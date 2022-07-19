@@ -92,11 +92,13 @@ In Auth Config you must generated your own Google and SendGrid credential to use
     + `conn.sync({ force: false })`, switch it between " true " ( if you want reset database in each loaded ) or " false "( if you dont want reset database in each loaded ) 
 
 - You can use a testing admin user with login credentials, look inside Api-Users.js to find admin users and a standard user.
-- 
 
 # Deploy Project 
 
-https://techmarketfront.vercel.app/
+Live Proyect TechMarket: https://techmarketfront.vercel.app/
+- You can create a standard user to see all funcionality or use this user like admin to see admin funcionality:
+    + email: juan@gmail.com
+    + password: 123456
 
 # Developers
 
