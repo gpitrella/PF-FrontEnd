@@ -113,6 +113,9 @@ https://techmarketfront.vercel.app/
  - Products in detail
 ![Products-detail](https://user-images.githubusercontent.com/66705822/99190009-f8c64400-2742-11eb-84f9-682887512d27.png)
 
+- User Profile
+![UserProfileTechMarket](https://user-images.githubusercontent.com/71048358/179780809-b1d61ead-5763-47cc-ac21-1152199c551a.jpg)
+
  - Cart
 ![cart](https://user-images.githubusercontent.com/66705822/99190035-0d0a4100-2743-11eb-8a89-d1a00ffd13ca.png)
 
