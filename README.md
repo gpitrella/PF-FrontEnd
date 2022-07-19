@@ -108,7 +108,7 @@ https://techmarketfront.vercel.app/
 # Project Screens 
 
 - Landing-Page
-![Landing-ecommerce](https://user-images.githubusercontent.com/66705822/99189972-c6b4e200-2742-11eb-89c1-399e42481fd1.png)
+![LandingTechMarket](https://user-images.githubusercontent.com/71048358/179772764-d54866ec-1910-4a76-a9e3-0dfd1b4d6263.jpg)
 
 - Register, we can do it using the ecommerce platform (by form) or authenticate with github, google or twitter.
 ![register](https://user-images.githubusercontent.com/66705822/99189999-e5b37400-2742-11eb-8dbd-dd80f80039e8.png)
