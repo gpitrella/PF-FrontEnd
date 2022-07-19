@@ -165,6 +165,9 @@ Live Proyect TechMarket: https://techmarketfront.vercel.app/
  - Store products
 ![StoreTechMarket](https://user-images.githubusercontent.com/71048358/179776365-f81b1888-ca14-4f45-8f1e-f11ab2c97903.jpg)
 
+- Custom your PC
+![CustomePc](https://user-images.githubusercontent.com/71048358/179813956-0705c737-e33f-455b-b9aa-1c2b33e35074.jpg)
+
  - Products in detail
 ![ProductDetailsTechMarket](https://user-images.githubusercontent.com/71048358/179791201-eabf8df5-00b4-4872-9750-5422ccad75a8.jpg)
 
