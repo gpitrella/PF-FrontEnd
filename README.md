@@ -108,7 +108,7 @@ https://techmarketfront.vercel.app/
 ![register](https://user-images.githubusercontent.com/66705822/99189999-e5b37400-2742-11eb-8dbd-dd80f80039e8.png)
 
  - Store products
-![Catalogue-ecommerce](https://user-images.githubusercontent.com/66705822/99189993-db917580-2742-11eb-83df-dab0391da063.png)
+![StoreTechMarket](https://user-images.githubusercontent.com/71048358/179776365-f81b1888-ca14-4f45-8f1e-f11ab2c97903.jpg)
 
  - Products in detail
 ![Products-detail](https://user-images.githubusercontent.com/66705822/99190009-f8c64400-2742-11eb-84f9-682887512d27.png)
