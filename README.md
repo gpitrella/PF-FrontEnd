@@ -123,9 +123,12 @@ https://techmarketfront.vercel.app/
     + Github: https://github.com/Enzos97
     + email: enz997.ing.ind@gmail.com
 
-- Lucas
+- Lucas Battaglia
+    + Linkedin: https://www.linkedin.com/in/battaglialucas/
+    + Github: https://github.com/battaglialucas
+    + email: lucassebastianbattaglia@gmail.com     
 
-- Horacio Aribu
+- Horacio Abitu
     + Linkedin: https://www.linkedin.com/in/horacioabitu/
     + Github: https://github.com/dev-back55
     + email: ahabitu@gmail.com
