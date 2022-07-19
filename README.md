@@ -96,6 +96,46 @@ In Auth Config you must generated your own Google and SendGrid credential to use
 
 https://techmarketfront.vercel.app/
 
+# Developers
+
+- Bettina Gamboa
+https://www.linkedin.com/in/bettinagamboa/
+https://github.com/BeGamboa
+email: bettinaigamboa@gmail.com
+
+- Federico Faraz
+www.linkedin.com/in/federicofaraz-fullstack
+https://github.com/cosm1co
+email: federicofaraz@gmail.com
+
+- Federico Romero
+https://www.linkedin.com/in/federico-romero-fullstack
+https://github.com/RomeroFederico
+email: romerof14@gmail.com
+
+- Nicolas Burgos
+https://www.linkedin.com/in/nicolas-exequiel-burgos-fullstackdeveloper/
+https://github.com/NicoPR22
+email: nicolasexeburgos@gmail.com
+
+- Enzo Sanchez
+https://www.linkedin.com/in/enzo-sanchez-733b85165/
+https://github.com/Enzos97
+email: enz997.ing.ind@gmail.com
+
+- Lucas
+
+- Horacio Aribu
+https://www.linkedin.com/in/horacioabitu/
+https://github.com/dev-back55
+email: ahabitu@gmail.com
+
+- Gabriel Pitrella
+https://github.com/gpitrella
+email: gabrielpitrella@gmail.com
+
+
+
 # Project Screens 
 
 - Landing-Page
