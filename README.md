@@ -99,9 +99,9 @@ https://techmarketfront.vercel.app/
 # Developers
 
 - Bettina Gamboa: 
-+ Linkedin: https://www.linkedin.com/in/bettinagamboa/
-+ Github: https://github.com/BeGamboa
-+ email: bettinaigamboa@gmail.com
+    + Linkedin: https://www.linkedin.com/in/bettinagamboa/
+    + Github: https://github.com/BeGamboa
+    + email: bettinaigamboa@gmail.com
 
 - Federico Faraz
 www.linkedin.com/in/federicofaraz-fullstack
